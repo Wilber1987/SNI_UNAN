@@ -1,0 +1,330 @@
+/* .WChartContainer {
+    padding-left: 30px;
+    font-size: 12px;
+    border: #d4d4d4 solid 4px;
+    padding: 20px;
+    border-radius: .4cm;
+    max-height: 500px !important;
+    min-height: 400px !important;
+    overflow: hidden;
+}
+
+.WChartContainer h3 {
+    height: 30px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+}
+
+.SectionLabels,
+.SectionLabelGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.SectionLabels label,
+.SectionLabelGroup label {
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+}
+
+.SectionLabels label span,
+.SectionLabelGroup label span {
+    min-height: 20px;
+    width: 20px;
+    content: "  ";
+    border-radius: 50%;
+    display: inline-flex;
+    margin: 5px;
+}
+
+.SectionBars {
+    display: flex;
+    align-items: flex-end;
+    overflow-y: hidden;
+    padding-left: 30px;
+    position: relative;
+    overflow-x: scroll;
+    min-height: 270px;
+}
+
+.GroupSection {
+    display: flex;
+    align-items: flex-end;
+    height: 80%;
+    border-bottom: 3px rgb(155, 155, 155) solid;
+    position: relative;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.groupBars {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    flex-grow: 1;
+    border: solid 1px #d4d4d4;
+}
+
+.groupLabels {
+    display: flex;
+    width: 100%;
+    border: solid 1px #d4d4d4;
+    align-items: stretch;
+    background-color: #fff;
+}
+
+.groupLabels label {
+    padding: 5px;
+    flex-grow: 1;
+    width: 80px;
+    text-align: center;
+    margin-bottom: 0px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ContainerBars {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.ContainerBars .Bars {
+    display: block;
+    margin: 0 auto;
+    margin-top: 0px;
+    z-index: 1;
+    width: 60px;
+    min-height: 20PX;
+    background: rgb(177, 177, 177);
+    background: linear-gradient(0deg, rgba(177, 177, 177, 1) 0%, rgba(209, 209, 209, 1) 53%);
+    
+}
+
+.Bars label {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    margin-top: 5px;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.BackGrounLineX {
+    display: flex;
+    position: absolute;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    height: 220px;
+    right: 0px;
+}
+
+.CharLineX {
+    position: relative;
+    border-top: rgb(190, 190, 190) solid 1px;
+    height: 100%;
+    display: block;
+    align-items: flex-start;
+    display: flex;
+    padding-left: 5PX;
+}
+
+.CharLineXNumber {
+    position: relative;
+    border-top: rgba(190, 190, 190, 0) solid 1px;
+    height: 100%;
+    align-items: flex-start;
+    display: flex;
+    font-size: 9px;
+}
+
+.ElementG1::before {
+    height: 25px;
+    width: 25px;
+    background-color: #70ad47;
+    content: "";
+    position: absolute;
+    left: -30px;
+    border-radius: 0.15cm;
+}
+
+.ElementG2::before {
+    height: 25px;
+    width: 25px;
+    background-color: #5b9bd5;
+    content: "";
+    position: absolute;
+    left: -30px;
+    border-radius: 0.15cm;
+}
+
+.ElementG3::before {
+    height: 25px;
+    width: 25px;
+    background-color: #ffc000;
+    content: "";
+    position: absolute;
+    left: -30px;
+    border-radius: 0.15cm;
+}
+
+.SectionBars::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.SectionBars::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.SectionBars::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.SectionBars::-webkit-scrollbar {
+    width: 8px;
+    height: 15px;
+    margin: 10px;
+}
+
+.SectionBars::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+
+.SectionBars::-webkit-scrollbar-track:hover,
+.SectionBars::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+}
+
+.Contenedor,
+.ContenedorPregs {
+    display: block;
+    overflow: initial;
+    margin: auto;
+    margin-top: 50px;
+    background-color: #fff;
+    width: 70%;
+    max-height: 800px;
+    overflow-y: initial;
+    padding: 20px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+
+
+.SectionRadialChart {
+    position: relative;
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: 300px;
+}
+
+.RadialDataBackground {
+    transform: rotate(-90deg);
+}
+
+.RadialDataBackground:first-child {
+    margin-bottom: 20px;
+}
+
+.RadialData {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 100px);
+    margin: auto;
+}
+
+.RadialData::before {
+    content: "";
+    color: #fff;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 100px);
+    margin: auto;
+    background: linear-gradient( 90deg, rgb(12, 109, 148) 50%, rgba(255, 255, 55, 0) 50%);
+}
+
+.RadialData::after {
+    content: "";
+    color: #fff;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 100px);
+    margin: auto;
+    background: linear-gradient( 180deg, rgb(12, 109, 148) 50%, rgba(255, 255, 55, 0) 50%);
+}
+
+.RadialChart {
+    height: 100%;
+}
+
+.circle {
+    transition: all 0.5s;
+    transform-origin: 50% 50%;
+    fill: none;
+    cursor: pointer;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.circleText {
+    transition: all 0.5s;
+    height: 100%;
+    width: 100%;
+    transform-origin: 50% 50%;
+}
+
+.circle:hover {
+    background-color: #999999;
+    background-blend-mode: screen;
+    z-index: 5;
+    clip-path: circle(52% at 50% 50%);
+}
+
+.progress__meter,
+.progress__value {
+    fill: none;
+}
+
+.progress__meter {
+    stroke: #e6e6e6;
+}
+
+.prueba:hover {
+    background-color: #717183;
+    background-blend-mode: screen;
+    z-index: 5;
+    clip-path: circle(52% at 50% 50%);
+} */

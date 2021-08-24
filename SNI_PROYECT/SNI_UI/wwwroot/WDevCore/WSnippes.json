@@ -1,0 +1,64 @@
+{
+	"WObject": {
+		"prefix": ["wobj", "WObject"],
+		"body": ["{ type:'div', props: { id: '', class: 'className'}, children:[]}"],
+		"description": "Objeto para WREnder."
+	},
+	"WInput": {
+		"prefix": ["winp", "winput"],
+		"body": ["{ type:'input', props: { id: '', type:'text', class: 'className'}}"],
+		"description": "Objeto para WREnder."
+	},"WHeader": {
+		"prefix": ["wh", "WHeader"],
+		"body": ["{ type:'h1', props: { innerText: 'header'}}"],
+		"description": "Objeto para WREnder."
+	},"WImg": {
+		"prefix": ["wimg", "Wimg"],
+		"body": ["{ type:'img', props: { src: 'img', class: 'className'}}"],
+		"description": "Objeto para WREnder."
+	},"WImgBtn": {
+		"prefix": ["wimgbtn", "WimgBtn"],
+		"body": ["{ type:'img', props: { src: 'img', class: 'className',onclick: async ()=>{",
+			"\t//code.....","}}}"],
+		"description": "Objeto para WREnder."
+	},
+	"WBTN": {
+		"prefix": ["wbtn", "wbtn"],
+		"body": ["{ type:'input', props: { id: '', type:'button', class: 'className', value: 'Ok', onclick: async ()=>{",
+			"\t//code.....","}}}"],
+		"description": "Objeto para WREnder."
+	},"WSelect": {
+		"prefix": ["wsel", "wselect"],
+		"body": ["{ type:'select', props: { id: '', class: 'className'}, children:[",
+			"\t{type:'option', props: {innerText:'Select Option', value: 'Select Option'}}",
+			"]}"],
+		"description": "Objeto para WREnder."
+	},"WStyle": {
+		"prefix": ["wsty", "wstyle"],
+		"body": ["{ type:'w-style', props: {id: '', ClassList: [",
+			"\tnew WCssClass(`selector`, {",
+			"\t\tcssprop: 'css value',",
+			"\t}),",
+			"]}}"],
+		"description": "Objeto para WREnder."
+	},"WStyleFull": {
+		"prefix": ["wstyfull", "wstylefull"],
+		"body": ["const style = { type: 'w-style', props: {id: '', ClassList: [",
+			"\t\tnew WCssClass( `selector`, {",
+			"\t\t\tprop: 'value',",
+			"\t\t}),",
+			"\t], MediaQuery: [ {condicion: '(max-width: 600px)',",
+			"\t\tClassList: []},",
+			"\t]}",
+			"};"],
+		"description": "Objeto para WREnder."
+	},"WStyleClass": {
+		"prefix": ["wstyclass", "wstyleClass"],
+		"body": [
+			"new WCssClass( `selector`, {",
+			"\tprop: 'value',",
+			"}),"
+			],
+		"description": "Objeto para WREnder."
+	}
+}
