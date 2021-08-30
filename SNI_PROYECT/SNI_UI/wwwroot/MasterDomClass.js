@@ -14,7 +14,8 @@ class MasterDomClass extends ComponentsManager {
             new headerClass(),
             new AsideClass(),
             new MainClass(),
-            new FooterClass(),
+            new AsideClass(),
+            //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
         ];        
@@ -25,20 +26,31 @@ class MasterDomClass extends ComponentsManager {
             ClassList: [
                 new WCssClass(".App", {
                     display: "grid",
-                    "grid-template-columns": "250px calc(100% - 250px)",
-                    "grid-template-rows": "100px calc(100vh - 150px) 50px",
-                    width: "100%"
+                    "grid-template-columns": "250px calc(100% - 500px) 250px",
+                    "grid-template-rows": "70px auto ",
+                    "grid-gap": 10,
+                    "grid-column-gap": 0,
+                    width: "100%",
+                    height: "100vh",
+                    "background-color": "#eee"   
                 }), new WCssClass(".AppHeader", {
-                    "grid-column": "1/3",
-                    "background-color": "#eee",
-                    "border-bottom": "solid #4da6ff 10px"
+                    "grid-column": "1/4",
+                    "background-color": "#fff",
+                    //"border-bottom": "solid #4da6ff 10px"
+                    "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)"
                 }), new WCssClass(".AppAside", {
-                    "border-right": "solid #999999 1px"
+                    //"border-right": "solid #999999 1px",
+                    "background-color": "#fff",
+                    height: 600,
+                    "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
+                    margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
-                    padding: "20px"
+                    //padding: "20px",
+                    //"background-color": "#fff",
+                   // "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)"
                 }), new WCssClass(".AppFooter", {
-                    "grid-column": "1/3",
+                    "grid-column": "1/4",
                     "background-color": "#eee",
                     "border-top": "solid #4da6ff 5px"
                 }), new WCssClass("body", {
@@ -49,7 +61,7 @@ class MasterDomClass extends ComponentsManager {
                     "grid-column": "1/3",
                     display: "none",
                 }),
-            ], MediaQuery: [{
+            ], MediaQuery: [/* {
                 condicion: "(max-width: 1200px)",
                 ClassList: [
                     new WCssClass(`.App`, {
@@ -60,7 +72,7 @@ class MasterDomClass extends ComponentsManager {
                         overflow: "hidden"
                     }),
                 ]
-            }, {
+            },  */{
                 condicion: "(max-width: 600px)",
                 ClassList: [
                     new WCssClass(`.App`, {
@@ -143,7 +155,9 @@ class AsideClass {
     constructor() {
         this.type = "aside";
         this.props = { className: "AppAside" }
-        this.children = [this.#WNav];
+        this.children = [
+           // this.#WNav
+        ];
     }
     #WNav = {
         type: "w-app-navigator",
@@ -168,7 +182,7 @@ class MainClass {
         this.props = { className: "AppMain", id: "AppMain" }
         this.children = [
             //new ForosView(),
-            //new HomeClass(this.ImgData)
+            new HomeClass()
         ];
     }    
 }

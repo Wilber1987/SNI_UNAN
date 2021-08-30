@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Pages\Catalogos\" />
-    <Folder Include="Pages\GestionInvestigadores\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CAPA_NEGOCIO\CAPA_NEGOCIO.csproj" />
   </ItemGroup>
 
 </Project>

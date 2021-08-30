@@ -2,52 +2,49 @@ import { ComponentsManager, WAjaxTools, WRender, WArrayF } from "../WDevCore/WMo
 import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
 import "../WDevCore/WComponents/WTableComponents.js";
 
-class HomeClass {
+
+class HomeClass extends HTMLElement {
     constructor() {
-        this.type = "div";
-        this.props = { id: "HomeClass", className: "HomeClass DivContainer" }
-        const DivImage = {
-            type: 'div', props: { id: '', class: 'ImagesContainer' },
-            children: []
-        }        
-        this.children = [
-            this.Style,
-            DivImage
-        ];
+        super();
+        this.id = "HomeClass";
+        this.className = "HomeClass DivContainer";
+        this.contain = WRender.createElement({ type: 'div', props: { id: '', class: 'CardContainer' }, children: [] });
+        this.append(WRender.createElement(this.Style));
+        this.append(this.contain);
+    }
+    connectedCallback() {
+        if (this.contain.innerHTML != "") {
+            return;
+        }
+        this.DrawComponent();
+    }
+    DrawComponent = async () => {
+        const response = await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");
+        response.forEach(element => {
+            const Card = WRender.createElement({
+                type: 'div',
+                props: { class: 'CardInves' },
+                children: [
+                ]
+            });
+            this.contain.append(Card);
+        });
     }
     Style = {
         type: "w-style",
         props: {
             ClassList: [
-                new WCssClass(".HomeClass", {
-                    //display: "flex",
-                }), new WCssClass(".ImagesContainer", {
-                    display: "grid",
-                    "grid-template-columns": "auto auto auto auto"
-                }),new WCssClass(".ImagesContainer div", {                    
-                    //height: "250px",
-                   // width: "360px",
-                    "border-radius": "10px",
-                    overflow: "hidden",
-                    margin: "10px",
-                    "box-shadow": "0 2px 5px 2px rgba(0,0,0,0.5)",
-                    position: "relative"
-                }),new WCssClass(".ImagesContainer img", {
-                    display: "block",
-                    height: "100%",
-                    width: "100%",
-                    "object-fit": "cover"
-                }),new WCssClass(".ImagesContainer .imgBtn", {
-                    position: "absolute",
-                    color: "#fff",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    width: "100%",
-                    "background-color": "rgba(0,0,0,0.7)",
-                    border: "none",
-                    padding: "10px 0px",
-                    cursor: "pointer",
+                new WCssClass(".CardContainer", {
+                    display: "flex",
+                    "flex-direction": "column"
+                }), new WCssClass(".CardInves", {
+                    overflow: "auto",
+                    padding: "20px",
+                    "margin-bottom": 10, "margin-left":5, "margin-right":5,
+                    "min-height": 100,
+                    "border-radius": "0.2cm",
+                    "background-color": "#fff",
+                    "box-shadow": "0 0px 3px 0 rgba(0,0,0,0.4)"
                 }),
             ], MediaQuery: [{
                 condicion: "(max-width: 1200px)",
@@ -69,4 +66,5 @@ class HomeClass {
         }
     };
 }
+customElements.define("app-home", HomeClass);
 export { HomeClass }
