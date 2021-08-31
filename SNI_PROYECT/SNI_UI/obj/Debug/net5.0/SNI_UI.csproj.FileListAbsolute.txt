@@ -50,3 +50,4 @@ C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\SNI_UI\bin\Debug\net5.0\CAPA_DAT
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\SNI_UI\bin\Debug\net5.0\CAPA_NEGOCIO.dll
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\SNI_UI\bin\Debug\net5.0\CAPA_NEGOCIO.pdb
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\SNI_UI\bin\Debug\net5.0\CAPA_DATOS.pdb
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\SNI_UI\bin\Debug\net5.0\Newtonsoft.Json.dll

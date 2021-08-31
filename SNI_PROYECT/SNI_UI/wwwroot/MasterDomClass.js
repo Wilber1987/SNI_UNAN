@@ -4,6 +4,8 @@ import "./WDevCore/WComponents/WAppNavigator.js";
 import { HomeClass } from "./Views/Home.js";
 import { WSecurity } from "./WDevCore/WModules/WSecurity.js";
 import "./WDevCore/WComponents/WLoginTemplate.js";
+import { WArticleStyle } from "./WDevCore/StyleModules/WStyleComponents.JS";
+
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
 class MasterDomClass extends ComponentsManager {
@@ -18,6 +20,7 @@ class MasterDomClass extends ComponentsManager {
             //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
+            WArticleStyle
         ];        
     }
     MasterStyle = {
@@ -30,14 +33,17 @@ class MasterDomClass extends ComponentsManager {
                     "grid-template-rows": "70px auto ",
                     "grid-gap": 10,
                     "grid-column-gap": 0,
-                    width: "100%",
+                    width: "80%",
                     height: "100vh",
-                    "background-color": "#eee"   
+                    "background-color": "#eee",
+                    margin: "auto"   
                 }), new WCssClass(".AppHeader", {
                     "grid-column": "1/4",
                     "background-color": "#fff",
                     //"border-bottom": "solid #4da6ff 10px"
-                    "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)"
+                    "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)",
+                    width: "calc(100vw - 80px)",
+                    "justify-self": "center",
                 }), new WCssClass(".AppAside", {
                     //"border-right": "solid #999999 1px",
                     "background-color": "#fff",
@@ -46,6 +52,9 @@ class MasterDomClass extends ComponentsManager {
                     margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
+                    "min-width": 800,
+                    "justify-self": "center",
+                    //"text-align": "center"
                     //padding: "20px",
                     //"background-color": "#fff",
                    // "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)"
@@ -61,18 +70,20 @@ class MasterDomClass extends ComponentsManager {
                     "grid-column": "1/3",
                     display: "none",
                 }),
-            ], MediaQuery: [/* {
-                condicion: "(max-width: 1200px)",
+            ], MediaQuery: [{
+                condicion: "(max-width: 1400px)",
                 ClassList: [
-                    new WCssClass(`.App`, {
-                        display: "grid",
-                        "grid-template-columns": "100px calc(100% - 100px)",
-                        "grid-template-rows": "100px calc(100vh - 150px) 50px"
+                    new WCssClass(`.App`, {                        
+                        "grid-template-columns": "250px calc(100% - 500px) 250px",
+                        "grid-template-rows": "70px auto ",
+                        width: "100%",
                     }), new WCssClass(".AppAside", {
                         overflow: "hidden"
-                    }),
+                    }),new WCssClass(".AppMain", {                       
+                        "min-width": "100%"
+                    }), 
                 ]
-            },  */{
+            }, {
                 condicion: "(max-width: 600px)",
                 ClassList: [
                     new WCssClass(`.App`, {
@@ -126,8 +137,9 @@ class headerClass {
         this.type = "header";
         this.props = { className: "AppHeader" }
         this.children = [
-            this.Style,           
-            WRender.CreateStringNode("<h1>Sistemas Nacional de Investigadores</h1>"),
+            this.Style,    
+            WRender.CreateStringNode("<div class='logDv'>SNI</div>")       
+            //WRender.CreateStringNode("<h1>Sistemas Nacional de Investigadores</h1>"),
         ];
     }
     Style = {
@@ -146,6 +158,15 @@ class headerClass {
                 }), new WCssClass(".AppHeader img", {
                     display: "block",
                     height: "100%"
+                }),new WCssClass(".AppHeader .logDv", {
+                    display: "block",
+                    //height: "100%",
+                    padding: 10,
+                    "border-radius": "0.2cm",
+                    "background-color": "#09315f",
+                    color: "#fff",
+                    "font-weight": "bold",
+                    "font-size": "30px"
                 }),
             ]
         }

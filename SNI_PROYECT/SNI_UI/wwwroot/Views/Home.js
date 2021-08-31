@@ -1,7 +1,7 @@
 import { ComponentsManager, WAjaxTools, WRender, WArrayF } from "../WDevCore/WModules/WComponentsTools.js";
 import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
 import "../WDevCore/WComponents/WTableComponents.js";
-
+import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.js";
 
 class HomeClass extends HTMLElement {
     constructor() {
@@ -20,15 +20,25 @@ class HomeClass extends HTMLElement {
     }
     DrawComponent = async () => {
         const response = await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");
-        response.forEach(element => {
-            const Card = WRender.createElement({
-                type: 'div',
-                props: { class: 'CardInves' },
-                children: [
-                ]
-            });
-            this.contain.append(Card);
-        });
+        this.append(WRender.createElement({
+            type: 'w-articles',
+            props: {
+                id: "Artcles",
+                Dataset: response, Options: {
+                    Search: true,
+                    ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
+                }
+            }
+        }))
+        // response.forEach(element => {
+        //     const Card = WRender.createElement({
+        //         type: 'div',
+        //         props: { class: 'CardInves' },
+        //         children: [
+        //         ]
+        //     });
+        //     this.contain.append(Card);
+        // });
     }
     Style = {
         type: "w-style",
@@ -40,7 +50,9 @@ class HomeClass extends HTMLElement {
                 }), new WCssClass(".CardInves", {
                     overflow: "auto",
                     padding: "20px",
-                    "margin-bottom": 10, "margin-left":5, "margin-right":5,
+                    "margin-bottom": 10,
+                    "margin-left": 5,
+                    "margin-right": 5,
                     "min-height": 100,
                     "border-radius": "0.2cm",
                     "background-color": "#fff",

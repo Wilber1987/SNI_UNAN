@@ -23,29 +23,24 @@ namespace CAPA_NEGOCIO
                 } else
                 {
                     return SqlADOConexion.SQLM.UpdateObject(TableName, Inst, "Id_Pais");
-                }
-               
+                }               
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-        public Object GetPaises(CatPaises Inst)
-        {
-            try
-            {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
-                return SqlADOConexion.SQLM.TakeList(TableName, Inst, null);
-            }
-            catch (Exception) 
-            {
-
-                throw;
-            }
-        }
-
-
+        //public Object GetPaises(CatPaises Inst)
+        //{
+        //    try
+        //    {
+        //        SqlADOConexion.IniciarConexion("sa", "zaxscd");
+        //        return SqlADOConexion.SQLM.TakeList(TableName, Inst, null);
+        //    }
+        //    catch (Exception) 
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

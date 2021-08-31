@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CAPA_NEGOCIO;
+using Newtonsoft.Json;
 
 namespace SNI_UI.Controllers
 {
@@ -13,10 +14,10 @@ namespace SNI_UI.Controllers
     public class InvestigacionesController : ControllerBase
     {
         [HttpPost]
-        public object TakeInvestigaciones()
+        public object TakeInvestigaciones(Object ObjInst)
         {
-            InvestigacionesClass Inst = new InvestigacionesClass();
+            var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString()); 
             return Inst.TakeInvestigaciones();
-        }
+        }      
     }
 }

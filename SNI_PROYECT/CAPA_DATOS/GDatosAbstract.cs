@@ -104,16 +104,41 @@ namespace CAPA_DATOS
             CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
         }
-        public Object TakeList(string TableName, Object Inst, string? Condicion)
+        public Object TakeList(string TableName, Object Inst)
         {
             try
             {
                 string CondicionString = "";
-                if (Condicion != null)
+                Type _type = Inst.GetType();
+                PropertyInfo[] lst = _type.GetProperties();
+                int index = 0;
+                foreach (PropertyInfo oProperty in lst)
                 {
-                    CondicionString = " WHERE " + Condicion;
-                }
-                string queryString = "SELECT * FROM " + TableName + CondicionString;
+                    string AtributeName = oProperty.Name;
+                    var AtributeValue = oProperty.GetValue(Inst);
+                    if (AtributeValue != null)
+                    {
+                        if (index == 0)
+                        {
+                            CondicionString = " WHERE ";
+                            index++;
+                        } else
+                        {
+                            CondicionString = CondicionString + " OR ";
+                        }
+                        if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
+                        {
+                            CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
+                        }
+                        else
+                        {
+                            CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
+                        }
+                    }
+
+                }               
+                CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R'});
+                string queryString = "SELECT TOP 10 * FROM " + TableName + CondicionString;
                 DataTable Table = TraerDatosSQL(queryString);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
@@ -147,7 +172,9 @@ namespace CAPA_DATOS
                     foreach (PropertyInfo pro in temp.GetProperties())
                     {
                         if (pro.Name == column.ColumnName)
-                            pro.SetValue(obj, Convert.ChangeType(dr[column.ColumnName], pro.PropertyType), null);
+                        {
+                            pro.SetValue(obj, GetValue(dr[column.ColumnName], pro.PropertyType));
+                        }                          
                         else
                             continue;
                     }
@@ -155,5 +182,20 @@ namespace CAPA_DATOS
             }
             return obj;
         }
-     }
+        private static Object GetValue(Object DefaultValue, Type type)
+        {
+            string Literal = DefaultValue.ToString();
+            if (Literal == null || Literal == "" || Literal == string.Empty) return DefaultValue;
+            IConvertible obj = Literal;            
+            Type u = Nullable.GetUnderlyingType(type);
+            if (u != null)
+            {
+                return (obj == null) ? DefaultValue : Convert.ChangeType(obj, u);
+            }
+            else
+            {
+                return Convert.ChangeType(obj, type);
+            }
+        }
+    }
 }

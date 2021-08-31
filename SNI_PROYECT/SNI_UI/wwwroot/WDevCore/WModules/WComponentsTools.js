@@ -68,7 +68,7 @@ class WAjaxTools {
         }
     }
     static PostRequest = async (Url, Data = {}, PostConfig = {}) => {
-        console.log(Data)
+        //console.log(Data)
         try {
             let ContentType = "application/json; charset=utf-8";
             let Accept = "*/*";
