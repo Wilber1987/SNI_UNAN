@@ -34,12 +34,33 @@ const StyleScrolls = {
 };
 //#endregion ##################################################################################################
 //#region WARTICLESTYLE #######################################################################################
-const WArticleStyle = {
+const ArticleStyle = {
+    type: 'w-style', props: {
+        id: '', ClassList: [
+            new WCssClass(`.WArticles`, {
+                padding: 10,
+            }),new WCssClass(`.WArticles article`, {
+                padding: 10,
+                "background-color": "#fff",
+                "margin-bottom": 10,
+                "border-radius": "0.2cm",
+                "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)"
+            }),
+        ], MediaQuery: [{
+            condicion: '(max-width: 600px)',
+            ClassList: []
+        },
+        ]
+    }
+};
+const WArticleStyleContainer = {
     type: 'div',
     props: { id: '', style: 'display: none' },
     children: [
-        StyleScrolls,
+        StyleScrolls, ArticleStyle
     ]
 }
+
 //#endregion  #################################################################################################
-export { WArticleStyle }
+
+export { StyleScrolls, WArticleStyleContainer }

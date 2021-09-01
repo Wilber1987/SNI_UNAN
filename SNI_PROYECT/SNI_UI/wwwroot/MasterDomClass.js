@@ -4,7 +4,7 @@ import "./WDevCore/WComponents/WAppNavigator.js";
 import { HomeClass } from "./Views/Home.js";
 import { WSecurity } from "./WDevCore/WModules/WSecurity.js";
 import "./WDevCore/WComponents/WLoginTemplate.js";
-import { WArticleStyle } from "./WDevCore/StyleModules/WStyleComponents.JS";
+import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
@@ -20,7 +20,7 @@ class MasterDomClass extends ComponentsManager {
             //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
-            WArticleStyle
+            StyleScrolls
         ];        
     }
     MasterStyle = {

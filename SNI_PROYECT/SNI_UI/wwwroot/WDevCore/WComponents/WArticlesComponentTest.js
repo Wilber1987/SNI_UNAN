@@ -12,8 +12,6 @@ class WArticlesComponent extends HTMLElement {
         this.paginate = true;
         this.attachShadow({ mode: "open" });
         this.TypeMoney = "Euro";
-        this.ArticleHeader = [];
-        this.ArticleBody = [];
     }
     connectedCallback() {
         if (this.shadowRoot.innerHTML != "") {
@@ -205,7 +203,15 @@ class WArticlesComponent extends HTMLElement {
             for (let index = 0; index < this.numPage; index++) {
                 let ArticlesContainerStyle = "display:none";
                 if (index == 0) {
-                   
+                    //ArticlesContainerStyle = "display:Articles-row-group";
+                    // if (this.StyleType != undefined && this.StyleType.includes("Cards")) {
+                    //     ArticlesContainerStyle = "display:flex";
+                    // } else if (this.StyleType != undefined && this.StyleType == "Grid") {
+                    //     ArticlesContainerStyle = "display:grid";
+                    // } else {
+                    //     //ArticlesContainerStyle = "display:Articles-row-group";
+                    //     ArticlesContainerStyle = "display:contents";
+                    // }
                 }
                 ArticlesContainer.children.push({ type: "ArticlesContainer", props: { class: "ArticlesContainerChild", style: ArticlesContainerStyle }, children: [] });
             }
@@ -217,19 +223,7 @@ class WArticlesComponent extends HTMLElement {
             if (DatasetIndex >= 50) {
                 return;
             }
-           
-            const ArticleHeader = { type:'div', props: { class: 'ArticleHeader'}, children:[]};
-            const ArticleBody = { type:'div', props: { class: 'ArticleBody'}, children:[]};
-            const ArticleC = { type: "article", props: { }, children: [ArticleHeader, ArticleBody] };
-            const ArticlePush = (prop, ArticleElement) => {
-                if (this.ArticleHeader.find(x => x == prop)) {
-                    ArticleHeader.children.push(ArticleElement);
-                } else if (this.ArticleBody.find(x => x == prop)) {
-                    ArticleBody.children.push(ArticleElement);
-                } else if (this.ArticleBody.length == 0 && this.ArticleHeader.length == 0) {
-                    ArticleC.children.push(ArticleElement);
-                }
-            }
+            let tr = { type: "article", props: { }, children: [] };
             for (const prop in element) {
                 const flag = this.checkDisplay(prop);
                 if (flag) {
@@ -239,7 +233,7 @@ class WArticlesComponent extends HTMLElement {
                             value = element[prop].toString();
                         }
                         //DEFINICION DE VALORES-------------
-                        if (prop.includes("img") || prop.includes("pict") || prop.includes("foto") ||
+                        if (prop.includes("img") || prop.includes("pict") ||
                             prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
                             prop.includes("Photo")) {
                             let cadenaB64 = "";
@@ -250,7 +244,7 @@ class WArticlesComponent extends HTMLElement {
                             } else if (this.ImageUrlPath != undefined) {
                                 cadenaB64 = this.ImageUrlPath + "/";
                             }
-                            const ArticleElement = {
+                            tr.children.push({
                                 type: "div",
                                 props: { class: "tdImage" },
                                 children: [{
@@ -262,8 +256,7 @@ class WArticlesComponent extends HTMLElement {
                                         width: 50
                                     }
                                 }]
-                            }
-                            ArticlePush(prop, ArticleElement);
+                            });
                         } else if (prop.toUpperCase().includes("TOTAL")
                             || prop.toUpperCase().includes("MONTO")
                             || prop.toUpperCase().includes("SUBTOTAL")
@@ -274,15 +267,14 @@ class WArticlesComponent extends HTMLElement {
                             || prop.toUpperCase().includes("TAXT")
                             || prop.toUpperCase().includes("P/U")
                             || prop.toUpperCase().includes("P-U")) {
-                            const ArticleElement = {
+                            tr.children.push({
                                 type: "div", props: {
                                     style: "text-align: right",
                                     innerHTML: `${Money[this.TypeMoney]} ${value}`
                                 }
-                            }
-                            ArticlePush(prop, ArticleElement);  
+                            });
                         } else {
-                            ArticlePush(prop, value);    
+                            tr.children.push({ type: "div", props: { innerHTML: value } });
                         }
                     }
                 }
@@ -333,12 +325,12 @@ class WArticlesComponent extends HTMLElement {
 
             if (this.numPage > 1 && ArticlesContainer.children[page] &&
                 (this.paginate == true && Dataset.length > this.maxElementByPage)) {
-                ArticlesContainer.children[page].children.push(ArticleC);
+                ArticlesContainer.children[page].children.push(tr);
                 if (ArticlesContainer.children[page].children.length == this.maxElementByPage) {
                     page++;
                 }
             } else {
-                ArticlesContainer.children.push(ArticleC);
+                ArticlesContainer.children.push(tr);
             }
         });
         if (ArticlesContainer.children.length == 0) {
