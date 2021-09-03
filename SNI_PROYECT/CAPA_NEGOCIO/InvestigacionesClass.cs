@@ -10,13 +10,14 @@ namespace CAPA_NEGOCIO
         public int? Id_Investigacion { get; set; }
         public string Nombres { get; set; }
         public string  Apellidos { get; set; }
-        public byte[] Foto { get; set; }
+        public string Foto { get; set; }
         public string Titulo { get; set; }
         public string Resumen { get; set; }
         public byte[] Repositorio { get; set; }
         public string Descripcion { get; set; }
         public DateTime? Fecha_ejecucion { get; set; }
-        public string url_publicacion { get; set; }         
+        public string url_publicacion { get; set; }
+        public string Photo { get; set; }
         public Object TakeInvestigaciones()
         {
             try

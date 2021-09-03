@@ -91,7 +91,7 @@ class WArticlesComponent extends HTMLElement {
         if (this.Options != undefined) {
             console.log(this.Options);
             if (this.Options.Search != undefined || this.Options.Add != undefined) {
-                const trOptions = { type: "div", props: { class: "thOptions" }, children: [] }
+                const trOptions = { type: "div", props: { class:  this.ArticlesClass }, children: [] }
                 if (this.Options.Search != undefined) {
                     const InputOptions = {
                         type: "input",
@@ -205,7 +205,7 @@ class WArticlesComponent extends HTMLElement {
             for (let index = 0; index < this.numPage; index++) {
                 let ArticlesContainerStyle = "display:none";
                 if (index == 0) {
-                   
+
                 }
                 ArticlesContainer.children.push({ type: "ArticlesContainer", props: { class: "ArticlesContainerChild", style: ArticlesContainerStyle }, children: [] });
             }
@@ -217,10 +217,9 @@ class WArticlesComponent extends HTMLElement {
             if (DatasetIndex >= 50) {
                 return;
             }
-           
-            const ArticleHeader = { type:'div', props: { class: 'ArticleHeader'}, children:[]};
-            const ArticleBody = { type:'div', props: { class: 'ArticleBody'}, children:[]};
-            const ArticleC = { type: "article", props: { }, children: [ArticleHeader, ArticleBody] };
+            const ArticleHeader = { type: 'div', props: { class: 'ArticleHeader' }, children: [] };
+            const ArticleBody = { type: 'div', props: { class: 'ArticleBody' }, children: [] };
+            const ArticleC = { type: "article", props: { }, children: [] };
             const ArticlePush = (prop, ArticleElement) => {
                 if (this.ArticleHeader.find(x => x == prop)) {
                     ArticleHeader.children.push(ArticleElement);
@@ -230,18 +229,25 @@ class WArticlesComponent extends HTMLElement {
                     ArticleC.children.push(ArticleElement);
                 }
             }
+            if (this.ArticleBody.length != 0 || this.ArticleHeader.length != 0) {
+                ArticleC.children.push(ArticleHeader);
+                ArticleC.children.push(ArticleBody);
+            }
             for (const prop in element) {
                 const flag = this.checkDisplay(prop);
                 if (flag) {
                     if (!prop.includes("_hidden")) {
                         let value = "";
-                        if (element[prop] != null) {
+                        if (element[prop] != null && element[prop] != undefined) {
                             value = element[prop].toString();
+                        } else {
+                            continue;
                         }
                         //DEFINICION DE VALORES-------------
                         if (prop.includes("img") || prop.includes("pict") || prop.includes("foto") ||
-                            prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
-                            prop.includes("Photo")) {
+                            prop.includes("Pict") || prop.includes("image") || prop.includes("Image") || 
+                            prop.includes("Photo")||
+                            prop.includes("photo")) {
                             let cadenaB64 = "";
                             //console.log(this)
                             var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
@@ -251,18 +257,12 @@ class WArticlesComponent extends HTMLElement {
                                 cadenaB64 = this.ImageUrlPath + "/";
                             }
                             const ArticleElement = {
-                                type: "div",
-                                props: { class: "tdImage" },
-                                children: [{
-                                    type: "img",
-                                    props: {
-                                        src: cadenaB64 + value,
-                                        class: "imgPhoto",
-                                        height: 50,
-                                        width: 50
-                                    }
-                                }]
-                            }
+                                type: "img",
+                                props: {
+                                    src: cadenaB64 + value,
+                                    class: "imgPhoto",
+                                }
+                            };
                             ArticlePush(prop, ArticleElement);
                         } else if (prop.toUpperCase().includes("TOTAL")
                             || prop.toUpperCase().includes("MONTO")
@@ -280,9 +280,9 @@ class WArticlesComponent extends HTMLElement {
                                     innerHTML: `${Money[this.TypeMoney]} ${value}`
                                 }
                             }
-                            ArticlePush(prop, ArticleElement);  
+                            ArticlePush(prop, ArticleElement);
                         } else {
-                            ArticlePush(prop, value);    
+                            ArticlePush(prop, value);
                         }
                     }
                 }
@@ -290,7 +290,7 @@ class WArticlesComponent extends HTMLElement {
             if (this.Options != undefined) {
                 if (this.Options.Show != undefined ||
                     this.Options.UserActions != undefined) {
-                    const Options = { type: "div", props: { class: "tdAction" }, children: [] };
+                    const Options = { type: "div", props: { class: "ArticleAction" }, children: [] };
                     if (this.Options.Show != undefined && this.Options.Show == true) {
                         Options.children.push({
                             type: "button",
@@ -317,7 +317,7 @@ class WArticlesComponent extends HTMLElement {
                             Options.children.push({
                                 type: "button",
                                 props: {
-                                    class: "BtnArticlesSR",
+                                    class: "BtnPrimary",
                                     type: "button",
                                     innerText: Action.name,
                                     onclick: async (ev) => {
@@ -327,10 +327,9 @@ class WArticlesComponent extends HTMLElement {
                             })
                         });
                     }
-                    tr.children.push(Options);
+                    ArticleC.children.push(Options);
                 }
             }
-
             if (this.numPage > 1 && ArticlesContainer.children[page] &&
                 (this.paginate == true && Dataset.length > this.maxElementByPage)) {
                 ArticlesContainer.children[page].children.push(ArticleC);

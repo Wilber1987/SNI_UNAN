@@ -1868,8 +1868,7 @@ class WTableComponent extends HTMLElement {
                         //"border-right": "#670505 5px solid"
                     }),
                     //BOTONES
-                    new WCssClass(`.BtnAlert,.BtnPrimary,
-                                    .BtnSuccess,.BtnSecundary,.Btn`, {
+                    new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
                         "font-weight": "bold",
                         "border": "none",
                         "padding": "10px",

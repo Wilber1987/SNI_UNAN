@@ -24,9 +24,17 @@ class HomeClass extends HTMLElement {
             type: 'w-articles',
             props: {
                 id: "Artcles",
+                ArticleHeader : ["foto", "nombres", "apellidos",  "fecha_ejecucion"],
+                ArticleBody  : ["titulo","photo", "resumen"],
                 Dataset: response, Options: {
                     Search: true,
+                    //Show: true,
                     ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
+                    UserActions: [{
+                        name: "Leer...", Function: async (Article)=>{
+                            console.log(Article);
+                        }
+                    }]
                 }
             }
         }))
