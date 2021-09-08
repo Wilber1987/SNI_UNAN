@@ -7,13 +7,12 @@ import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
-class MasterDomClass extends ComponentsManager {
+class MasterDomDetaills extends ComponentsManager {
     constructor(Component) {
         super();
         this.props = { className: "App" }
         this.children = [
             new headerClass(),
-            new AsideClass(),
             new MainClass(Component),
             new AsideClass("SecondAside"),
             //new FooterClass(),
@@ -51,6 +50,7 @@ class MasterDomClass extends ComponentsManager {
                     "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
                     margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
+                    "grid-column": "1/3",
                     overflow: "auto",
                     "min-width": "100%",
                     "justify-self": "center",
@@ -360,4 +360,4 @@ class FooterNavigator extends ComponentsManager {
         }
     }];
 }
-export { MasterDomClass };
+export { MasterDomDetaills };

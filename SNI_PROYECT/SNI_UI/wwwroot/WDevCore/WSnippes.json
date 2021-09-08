@@ -60,5 +60,36 @@
 			"}),"
 			],
 		"description": "Objeto para WREnder."
+	}, "WWebComponent": {
+		"prefix": ["wcomp", "wcomponent"],
+		"body": [
+			"class WComponent  extends HTMLElement {",
+			"\tconstructor() { super(); }",
+			"\tconnectedCallback() { DrawComponent(); }",
+			"\tDrawComponent = async () => {  }",
+			"}",
+			"customElements.define('w-component', WComponent);",
+			"export { WComponent }"
+			],
+		"description": "Objeto para WREnder."
+	}, "WWebComponentShadow": {
+		"prefix": ["wcompShadow", "wcomponentShadow"],
+		"body": [
+			"class WComponent  extends HTMLElement {",
+			"\tconstructor() { super(); this.attachShadow({ mode: 'open' }); }",
+			"\tconnectedCallback() { DrawComponent(); }",
+			"\tDrawComponent = async () => {  }",
+			"}",
+			"customElements.define('w-component', WComponent);",
+			"export { WComponent }"
+			],
+		"description": "Objeto para WREnder."
+	}, "WImports": {
+		"prefix": ["wimports", "WImports"],
+		"body": [
+			"import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WModules/WComponentsTools.js';",
+			"import { WCssClass } from '../WModules/WStyledRender.js';"			
+			],
+		"description": "Objeto para WREnder."
 	}
 }

@@ -33,6 +33,7 @@ class HomeClass extends HTMLElement {
                     UserActions: [{
                         name: "Leer...", Function: async (Article)=>{
                             console.log(Article);
+                            window.location = "./Views/ViewRead.html"
                         }
                     }]
                 }
