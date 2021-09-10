@@ -33,21 +33,12 @@ class HomeClass extends HTMLElement {
                     UserActions: [{
                         name: "Leer...", Function: async (Article)=>{
                             console.log(Article);
-                            window.location = "./Views/ViewRead.html"
+                            window.location = "./Views/ViewRead.html?param=" + Article.id_Investigacion
                         }
                     }]
                 }
             }
-        }))
-        // response.forEach(element => {
-        //     const Card = WRender.createElement({
-        //         type: 'div',
-        //         props: { class: 'CardInves' },
-        //         children: [
-        //         ]
-        //     });
-        //     this.contain.append(Card);
-        // });
+        }))       
     }
     Style = {
         type: "w-style",

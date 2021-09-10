@@ -31,5 +31,18 @@ namespace CAPA_NEGOCIO
                 throw;
             }
         }
+        public Object TakeInvestigacion()
+        {
+            try
+            {
+                SqlADOConexion.IniciarConexion("sa", "zaxscd");
+                return SqlADOConexion.SQLM.TakeList("Tbl_Investigaciones", this);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
