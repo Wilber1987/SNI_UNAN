@@ -238,4 +238,4 @@ const WArticleStyleContainer = {
 
 //#endregion  #################################################################################################
 
-export { StyleScrolls, WArticleStyleContainer }
+export { StyleScrolls, WArticleStyleContainer , StylesControlsV1}

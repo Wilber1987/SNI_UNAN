@@ -18,6 +18,7 @@ namespace CAPA_NEGOCIO
         public DateTime? Fecha_ejecucion { get; set; }
         public string url_publicacion { get; set; }
         public string Photo { get; set; }
+        public List<Object> Colaboradores { get; set; }
         public Object TakeInvestigaciones()
         {
             try
@@ -36,7 +37,12 @@ namespace CAPA_NEGOCIO
             try
             {
                 SqlADOConexion.IniciarConexion("sa", "zaxscd");
-                return SqlADOConexion.SQLM.TakeList("Tbl_Investigaciones", this);
+                var List = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
+                InvestigacionesClass Investigacion = (InvestigacionesClass)List[0];
+                MAPEO.Tbl_Colaboradores ModelCol = new MAPEO.Tbl_Colaboradores();
+                ModelCol.Id_Investigacion = this.Id_Investigacion;
+                Investigacion.Colaboradores = ModelCol.TakeColaboradores();
+                return Investigacion;
             }
             catch (Exception)
             {
