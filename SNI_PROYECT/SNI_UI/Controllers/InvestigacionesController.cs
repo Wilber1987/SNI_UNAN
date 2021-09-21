@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CAPA_NEGOCIO;
 using Newtonsoft.Json;
+using CAPA_NEGOCIO.MAPEO;
 
 namespace SNI_UI.Controllers
 {
@@ -24,6 +25,12 @@ namespace SNI_UI.Controllers
         {
             var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
             return Inst.TakeInvestigacion();
+        }
+        [HttpPost]
+        public object TakeInvestigadorProfile(Object ObjInst)
+        {
+            var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
+            return Inst.TakeInvestigadorProfile();
         }
     }
 }

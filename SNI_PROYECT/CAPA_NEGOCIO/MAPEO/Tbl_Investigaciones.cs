@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
@@ -10,6 +11,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Visibilidad { get; set; }
         public string Id_Tipo_Investigacion { get; set; }       
         public string Titulo { get; set; }
+        public string Abstract { get; set; }
         public string Resumen { get; set; }
         public byte[] Repositorio { get; set; }
         public string Referencias { get; set; }
@@ -17,5 +19,17 @@ namespace CAPA_NEGOCIO.MAPEO
         public DateTime? Fecha_ejecucion { get; set; }
         public int? Id_Investigador { get; set; }
         public string Photo { get; set; }
+        public string Estado { get; set; }
+        public List<Object> TakeInvestigaciones()
+        {
+            try
+            {
+                return SqlADOConexion.SQLM.TakeList("Tbl_Investigaciones", this);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

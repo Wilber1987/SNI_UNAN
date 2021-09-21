@@ -28,6 +28,7 @@ class MasterDomClass extends ComponentsManager {
             ClassList: [
                 new WCssClass( `body`, {
                     "background-color": "#eee",
+                    "font-family": "system-ui !important"
                 }),
                 new WCssClass(".App", {
                     display: "grid",
@@ -157,7 +158,7 @@ class MasterDomClass extends ComponentsManager {
                 }),new WCssClass(".AppHeader .logDv", {
                     display: "block",
                     //height: "100%",
-                    padding: 10,
+                    padding: 8,
                     "border-radius": "0.2cm",
                     "background-color": "#09315f",
                     color: "#fff",

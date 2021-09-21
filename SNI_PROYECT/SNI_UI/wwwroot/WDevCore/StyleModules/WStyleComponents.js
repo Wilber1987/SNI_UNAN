@@ -47,23 +47,24 @@ const StylesControlsV1 = {
                 "background-color": "#09f",
                 "font-size": "12px",
                 "color": "#fff",
-                "border-right": "rgb(3, 106, 175) 5px solid",
+                //"border-right": "rgb(3, 106, 175) 5px solid",
+                "border-radius": "0.2cm"
             }), new WCssClass(`.BtnPrimary`, {
                 "color": "#fff",
                 "background-color": "007bff",
-                "border-right": "rgb(3, 106, 175) 5px solid",
+                //"border-right": "rgb(3, 106, 175) 5px solid",
             }), new WCssClass(`.BtnAlert`, {
                 "color": "#fff",
                 "background-color": "#dc3545",
-                "border-right": "#7e1b25 5px solid",
+                //"border-right": "#7e1b25 5px solid",
             }), new WCssClass(`.BtnSuccess`, {
                 "color": "#fff",
                 "background-color": "#28a745",
-                "border-right": "#165c26 5px solid",
+                //"border-right": "#165c26 5px solid",
             }), new WCssClass(`.BtnSecundary`, {
                 "color": "#fff",
                 "background-color": "#17a2b8",
-                "border-right": "#0f5964 5px solid",
+                //"border-right": "#0f5964 5px solid",
             }), new WCssClass(`.Btn[type=checkbox]`, {
                 "height": "20px",
                 "min-width": "20px",

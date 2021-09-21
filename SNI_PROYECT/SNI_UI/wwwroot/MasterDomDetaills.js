@@ -8,13 +8,13 @@ import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
 class MasterDomDetaills extends ComponentsManager {
-    constructor(Component) {
+    constructor(MainComponent, AsideComponent = null) {
         super();
         this.props = { className: "App" }
         this.children = [
             new headerClass(),
-            new MainClass(Component),
-            new AsideClass("SecondAside"),
+            new MainClass(MainComponent),
+            new AsideClass("SecondAside", AsideComponent),
             //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
@@ -27,10 +27,11 @@ class MasterDomDetaills extends ComponentsManager {
             ClassList: [
                 new WCssClass( `body`, {
                     "background-color": "#eee",
+                    "font-family": "system-ui !important"
                 }),
                 new WCssClass(".App", {
                     display: "grid",
-                    "grid-template-columns": "250px 700px 250px",
+                    "grid-template-columns": "250px 650px 300px",
                     "grid-template-rows": "70px auto ",
                     "grid-gap": 10,
                     "grid-column-gap": 0,
@@ -45,15 +46,16 @@ class MasterDomDetaills extends ComponentsManager {
                     width: "calc(100vw - 80px)",
                     "justify-self": "center",
                 }), new WCssClass(".AppAside", {
-                    "background-color": "#fff",
-                    height: 600,
-                    "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
+                    //"background-color": "#fff",
+                    //height: 600,
+                    //"box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
                     margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
                     "grid-column": "1/3",
                     overflow: "auto",
-                    "min-width": "100%",
                     "justify-self": "center",
+                    padding: 10,
+                    "margin-right": 20,
                 }), new WCssClass(".AppFooter", {
                     "grid-column": "1/4",
                     "background-color": "#eee",
@@ -76,7 +78,8 @@ class MasterDomDetaills extends ComponentsManager {
                     }), new WCssClass(".AppAside", {
                         overflow: "hidden"
                     }),new WCssClass(".AppMain", {                       
-                        "min-width": "100%"
+                        //"min-width": "100%"
+                        "margin-right": 0,
                     }), 
                 ]
             }, {
@@ -148,16 +151,17 @@ class MasterDomDetaills extends ComponentsManager {
                     "grid-template-columns": "250px auto 250px",
                 }), new WCssClass(".AppHeader .HeaderH", {
                     color: "#444",
-                    //width: "100%",
-                    "text-align": "center",
-                    "font-size": 18,
+                    "font-size": 22,
+                    display: "flex",
+                    "justify-content": "center",
+                    "align-items": "center"
                 }), new WCssClass(".AppHeader img", {
                     display: "block",
                     height: "100%"
                 }),new WCssClass(".AppHeader .logDv", {
                     display: "block",
                     //height: "100%",
-                    padding: 10,
+                    padding: 8,
                     "border-radius": "0.2cm",
                     "background-color": "#09315f",
                     color: "#fff",
@@ -170,12 +174,15 @@ class MasterDomDetaills extends ComponentsManager {
     };
 }
 class AsideClass {
-    constructor(Class = "") {
+    constructor(Class = "", AsideComponent = null) {
         this.type = "aside";
-        this.props = { className: "AppAside "+Class }
-        this.children = [
+        this.props = { className: "AppAside "+Class, id: "AppAside" }
+        this.children = [ 
            // this.#WNav
-        ];
+        ];        
+        if (AsideComponent != null) {
+            this.children.push(AsideComponent);
+        }
     }
     #WNav = {
         type: "w-app-navigator",
@@ -199,7 +206,6 @@ class MainClass {
         this.type = "main";
         this.props = { className: "AppMain", id: "AppMain" }
         this.children = [
-            //new ForosView(),
             Component
         ];
     }    
