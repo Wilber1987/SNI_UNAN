@@ -56,6 +56,7 @@ class MasterDomDetaills extends ComponentsManager {
                     "justify-self": "center",
                     padding: 10,
                     "margin-right": 20,
+                    width: "calc(100% - 60px)"
                 }), new WCssClass(".AppFooter", {
                     "grid-column": "1/4",
                     "background-color": "#eee",

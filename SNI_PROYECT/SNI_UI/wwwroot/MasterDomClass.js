@@ -53,8 +53,9 @@ class MasterDomClass extends ComponentsManager {
                     margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
-                    "min-width": "100%",
+                    //"min-width": "100%",
                     "justify-self": "center",
+                    width: "calc(100% - 40px)"
                 }), new WCssClass(".AppFooter", {
                     "grid-column": "1/4",
                     "background-color": "#eee",

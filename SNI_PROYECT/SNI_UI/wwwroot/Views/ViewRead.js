@@ -96,7 +96,8 @@ class WReadInvestigacion extends HTMLElement {
                     }), new WCssClass(`.DetailsDiv`, {
                         padding: 10,
                     }), new WCssClass(`.DetailsDiv p`, {
-                        "text-align": "justify"
+                        "text-align": "justify",
+                        "font-size": 14
                     }), new WCssClass(`.TagContainer`, {
                         display: "grid",
                         "grid-template-columns": "auto auto",

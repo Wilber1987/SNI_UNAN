@@ -18,15 +18,23 @@ const OnLoad = async () => {
         tipoColaboracion: "Autor",
         nombreInstitucion: response.nombreInstitucion
     }, 2);
-    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response), Card);
+    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), []);
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WProfileInvestigador extends HTMLElement {
-    constructor(response) {
+    constructor(response, Card) {
         super();
         this.response = response;
-        this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' }, children: [] });
-        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" }, children: [] });
+        this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' }});
+        this.ProfileContainer.append(Card);
+        this.ProfileContainer.append(WRender.createElement({ type:'div', props: { id: '', class: 'DataContainer'}, children:[
+            WRender.CreateStringNode("<h3>Datos Generales</h3>"),
+            "Estado: " + response.estado,
+            "Sexo: " + response.sexo,
+            "Indice H: " + response.indice_H,
+            "Correo: " + response.correo_institucional,
+        ]}));
+        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" }});
         this.appendChild(WRender.createElement(StylesControlsV1));
         this.append(WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
     }
@@ -66,7 +74,7 @@ class WProfileInvestigador extends HTMLElement {
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
                             this.response.proyectos,
-                            ["Nombre_Proyecto", "cargo", "estado_Proyecto"]
+                            ["nombre_Proyecto", "cargo", "estado_Proyecto"]
                         ), "TabContainer");
                     }
                 }
@@ -75,13 +83,19 @@ class WProfileInvestigador extends HTMLElement {
     });
     styleComponent = {
         type: 'w-style', props: {
-            ClassList: [
-                new WCssClass(`.photoBaner`, {
+            ClassList: [ 
+                new WCssClass( `.ProfileContainer`, {
+                    display: 'grid',
+                    "grid-template-columns": "250px auto"
+                }),new WCssClass( `.DataContainer`, {
+                    display: 'flex',
+                    "flex-direction": "column",
+                    padding: "0px 20px"
+                }), new WCssClass(`.photoBaner`, {
                     width: "95%",
                     "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
                     "border-radius": "0.3cm",
                     "object-fit": "cover",
-                }), new WCssClass(`.ProfileContainer`, {
                     display: 'flex',
                     "align-items": "center",
                     "justify-content": "center",
@@ -165,9 +179,6 @@ class ProfileTab {
         this.children = [this.Style];
         if (Dataset.length != 0) {
             const Label1 = { type: 'h3', props: { innerText: 'Initial Guides', class: 'className' } };
-            const Intials = { type: 'div', props: { id: '', class: 'GuidesContainer' }, children: [] };
-            this.children.push(Label1);
-            this.children.push(Intials);
             var TableConfigG = {
                 Datasets: Dataset,
                 Colors: ["#ff6699", "#ffbb99", "#adebad"],
@@ -197,32 +208,9 @@ class ProfileTab {
         type: "w-style",
         props: {
             ClassList: [
-                new WCssClass(".GuidesContainer", {
-                    display: "grid",
-                    "grid-template-columns": "30% 30% 30%"
-                }), new WCssClass(".GuidesContainer .Guide", {
-                    display: "flex",
-                    "flex-direction": "column",
-                    margin: "5px",
-                    position: "relative",
-                    overflow: "hidden",
-                    "border-radius": "0.2cm",
-                    "box-shadow": "0 2px 5px 2px rgba(0,0,0,0.2)"
-                }), new WCssClass(".GuidesContainer h4", {
-                    position: "absolute",
-                    color: "#fff",
-                    "background-color": "rgba(0,0,0,0.5)",
-                    padding: "10px"
-                }), new WCssClass(".GuidesContainer input", {
-                    color: "#fff",
-                    "background-color": "#4da6ff",
-                    padding: "10px",
-                    border: "none",
-                    cursor: "pointer"
-                }), new WCssClass(".GuidesContainer p", {
-                    padding: "10px",
-                    margin: "0px"
-                }),
+                new WCssClass(".TabContainer", {
+                   padding: 10,
+                })
             ], MediaQuery: [{
                 condicion: '(max-width: 1200px)',
                 ClassList: [
