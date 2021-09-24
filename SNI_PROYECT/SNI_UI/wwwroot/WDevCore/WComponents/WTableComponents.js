@@ -1860,9 +1860,9 @@ class WTableComponent extends HTMLElement {
                         "background-color": "#106705",
                         //"border-right": "#0a3e03 5px solid"
                     }), new WCssClass(`.BtnTableSR`, {
-                        "background-color": "#ff8080",
+                        "background-color": "#09315f",
                         //"border-right": "#d86060 5px solid",
-                        width: "100%",
+                        width: "inherit",
                     }), new WCssClass(`.BtnTableA`, {
                         "background-color": "#af0909",
                         //"border-right": "#670505 5px solid"

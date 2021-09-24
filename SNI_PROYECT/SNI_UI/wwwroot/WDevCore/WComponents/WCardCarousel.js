@@ -26,8 +26,8 @@ class WCardCarousel extends HTMLElement {
             if (element.foto == undefined) {
                 return;
             }
-            const Card = WRender.createElement(new WCard(element));
-            Card.ActionFunction = this.ActionFunction;
+            const Card = WRender.createElement(new WCard(element, this.CardType, this.ActionFunction));
+            //Card.ActionFunction = this.ActionFunction;
             this.CarouselDiv.append(Card);
         });
     }
@@ -99,7 +99,7 @@ class WCardCarousel extends HTMLElement {
 }
 customElements.define('w-card-carousel', WCardCarousel);
 class WCard extends HTMLElement {
-    constructor(element, CardType = 1) {
+    constructor(element, CardType = 1, ActionFunction) {
         super();
         this.style.transition = "all 0.6s";
         this.className = "CardElement";
@@ -108,6 +108,7 @@ class WCard extends HTMLElement {
             type: 'img',
             props: { class: 'fotoColaborador', src: cadenaB64 + element.foto }
         });
+        this.ActionFunction = ActionFunction;
         switch (CardType) {
             case 2:
                 this.append(StyleCard2);
@@ -116,8 +117,7 @@ class WCard extends HTMLElement {
                 this.append(StyleCard);
                 break;
         }
-        const children = [];
-        this.append( WRender.createElement(Figure), WRender.createElement({
+        const cardC = WRender.createElement({
             type: 'div', props: { id: '', class: 'Details' }, children: [
                 {
                     type: 'a', props: {
@@ -126,18 +126,21 @@ class WCard extends HTMLElement {
                     }
                 },
                 { type: 'label', props: { innerText: element.tipoColaboracion } },
-                { type: 'label', props: { innerText: element.nombreInstitucion } },
-                {
-                    type: 'a',
-                    props: {
-                        id: '', type: 'button', class: 'BtnPrimary',
-                        innerText: 'Ver Perfil', onclick: async () => {
-                            this.ActionFunction(element);
-                        }
+                { type: 'label', props: { innerText: element.nombreInstitucion } }
+            ]
+        })
+        if (this.ActionFunction != undefined) {
+            cardC.append(WRender.createElement({
+                type: 'a',
+                props: {
+                    id: '', type: 'button', class: 'BtnPrimary',
+                    innerText: 'Ver Perfil', onclick: async () => {
+                        this.ActionFunction(element);
                     }
                 }
-            ]
-        }));
+            }));
+        }
+        this.append( WRender.createElement(Figure), cardC);
     }
     connectedCallback() {
         setTimeout(() => {

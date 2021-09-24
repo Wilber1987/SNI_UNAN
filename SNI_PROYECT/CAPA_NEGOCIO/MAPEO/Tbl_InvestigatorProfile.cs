@@ -27,6 +27,8 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> Grupos { get; set; }
         public List<Object> Proyectos { get; set; }
         public List<Object> Eventos { get; set; }
+        public List<Object> RedesSociales { get; set; }
+        public List<Object> Idiomas { get; set; }
         public Object TakeInvestigadorProfile()
         {
             try
@@ -46,7 +48,14 @@ namespace CAPA_NEGOCIO.MAPEO
                 Tbl_Participantes_Proyectos ModelProyectos = new Tbl_Participantes_Proyectos();
                 ModelProyectos.Id_Investigador = this.Id_Investigador;
                 Investigador.Proyectos = ModelProyectos.TakeParicipantesProyectos();
-
+                //Idiomas
+                Cat_Idiomas ModelIdiom = new Cat_Idiomas();
+                ModelIdiom.Id_Investigador = this.Id_Investigador;
+                Investigador.Idiomas = ModelIdiom.TakeIdiomasInv();
+                //RedesSociales
+                CatRedesSociales ModelRedes = new CatRedesSociales();
+                ModelRedes.Id_Investigador = this.Id_Investigador;
+                Investigador.RedesSociales = ModelRedes.TakeRedesInv();
                 return Investigador;
             }
             catch (Exception)

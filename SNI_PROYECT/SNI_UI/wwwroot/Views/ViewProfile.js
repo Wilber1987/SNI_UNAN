@@ -18,23 +18,33 @@ const OnLoad = async () => {
         tipoColaboracion: "Autor",
         nombreInstitucion: response.nombreInstitucion
     }, 2);
-    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), []);
+    const dataResume = WRender.createElement({
+        type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
+            WRender.CreateStringNode("<h3>Logros</h3>"),
+            "Investigaciones: " + response.investigaciones.length,
+            "Proyectos: " + response.proyectos.length,
+            "Colaboraciones: " + response.colaboraciones.length,
+        ]
+    });
+    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), dataResume);
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WProfileInvestigador extends HTMLElement {
     constructor(response, Card) {
         super();
         this.response = response;
-        this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' }});
+        this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' } });
         this.ProfileContainer.append(Card);
-        this.ProfileContainer.append(WRender.createElement({ type:'div', props: { id: '', class: 'DataContainer'}, children:[
-            WRender.CreateStringNode("<h3>Datos Generales</h3>"),
-            "Estado: " + response.estado,
-            "Sexo: " + response.sexo,
-            "Indice H: " + response.indice_H,
-            "Correo: " + response.correo_institucional,
-        ]}));
-        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" }});
+        this.ProfileContainer.append(WRender.createElement({
+            type: 'div', props: { id: '', class: 'DataContainer' }, children: [
+                WRender.CreateStringNode("<h3>Datos Generales</h3>"),
+                "Estado: " + response.estado,
+                "Sexo: " + response.sexo,
+                "Indice H: " + response.indice_H,
+                "Correo: " + response.correo_institucional,
+            ]
+        }));
+        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.appendChild(WRender.createElement(StylesControlsV1));
         this.append(WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
     }
@@ -45,6 +55,7 @@ class WProfileInvestigador extends HTMLElement {
         this.DrawComponent();
     }
     DrawComponent = async () => {
+        console.log("connected");
     }
     ComponentTab = WRender.createElement({
         type: "w-app-navigator",
@@ -52,13 +63,14 @@ class WProfileInvestigador extends HTMLElement {
             NavStyle: "tab",
             id: "GuidesNav",
             title: "Menu",
+            Inicialize: true,
             Elements: [
                 {
                     name: "Investigaciones", url: "#",
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
                             this.response.investigaciones,
-                            ["titulo", "fecha_ejecucion", "estado"]
+                            ["titulo", "fecha_ejecucion", "estado"], "Investigaciones"
                         ), "TabContainer");
                     }
                 }, {
@@ -66,7 +78,7 @@ class WProfileInvestigador extends HTMLElement {
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
                             this.response.colaboraciones,
-                            ["titulo", "tipoColaboracion", "fecha_ejecucion"]
+                            ["titulo", "tipoColaboracion", "fecha_ejecucion"], "Colaboraciones"
                         ), "TabContainer");
                     }
                 }, {
@@ -74,7 +86,7 @@ class WProfileInvestigador extends HTMLElement {
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
                             this.response.proyectos,
-                            ["nombre_Proyecto", "cargo", "estado_Proyecto"]
+                            ["nombre_Proyecto", "cargo", "estado_Proyecto"], "Proyectos"
                         ), "TabContainer");
                     }
                 }
@@ -83,98 +95,58 @@ class WProfileInvestigador extends HTMLElement {
     });
     styleComponent = {
         type: 'w-style', props: {
-            ClassList: [ 
-                new WCssClass( `.ProfileContainer`, {
+            ClassList: [
+                new WCssClass(`.ProfileContainer`, {
                     display: 'grid',
-                    "grid-template-columns": "250px auto"
-                }),new WCssClass( `.DataContainer`, {
+                    "grid-template-columns": "250px auto",
+                    "border-bottom": "solid 2px #bbbec1",
+                    "padding-bottom": 10,
+                    "margin-bottom": 20,
+                }), new WCssClass(`.DataContainer`, {
                     display: 'flex',
                     "flex-direction": "column",
                     padding: "0px 20px"
-                }), new WCssClass(`.photoBaner`, {
-                    width: "95%",
-                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
-                    "border-radius": "0.3cm",
-                    "object-fit": "cover",
-                    display: 'flex',
-                    "align-items": "center",
-                    "justify-content": "center",
-                    "flex-wrap": "wrap",
-                    "flex-direction": "column"
-                }), new WCssClass(`.InvestigacionCard`, {
-                    display: 'flex',
-                    width: "100%",
-                    "margin-top": "10px !important",
-                    overflow: "hidden",
-                    position: "relative",
-                    "border-radius": "0.3cm"
-                }), new WCssClass(`.InvestigacionCard .Details`, {
-                    width: '100%',
-                    "text-align": "left",
-                    display: "grid",
-                    "grid-template-columns": "33% 33% 33%",
-                    "grid-template-rows": "50px 80px",
-                    "grid-gap": 5,
-                    "text-align": "center",
-                    bottom: 0,
-                    left: 10,
-                    right: 0,
-                    color: "#444"
-                }), new WCssClass(`.InvestigacionCard .Details a`, {
-                    "grid-column": "1/4",
-                    color: "#444 !important",
-                    padding: 10,
-                    margin: 0,
-                    background: "rgb(187 187 187 / 50%)",
-                    "font-size": 16,
-                    "border-radius": "0.2cm"
-                }), new WCssClass(`.InvestigacionCard .Details div`, {
-                    padding: 10,
-                    background: "rgb(187 187 187 / 50%)",
-                    "font-size": 14,
+                }), new WCssClass(`.DataContainer label, .ResumenContainer h3`, {
+                    margin: 5
+                }), new WCssClass(`.ResumenContainer`, {
+                    "background-color": '#fff',
                     "border-radius": "0.2cm",
-                    height: "calc(100% - 20px)",
+                    padding: 20,
+                    "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
                     display: "flex",
                     "flex-direction": "column",
-                    "align-items": "center",
-                    "justify-content": "center",
-                }), new WCssClass(`.InvestigacionCard .Details div .imgIcon`, {
-                    height: "40px !important",
-                    width: "40px !important"
-                }),
-                new WCssClass(`.Animate`, {
-                    animation: "cambio 5s infinite",
-                }),
-                new WCssClass(`.InvestigacionCard img`, {
-                    float: "left",
-                    width: "400px !important",
-                    height: "300px !important",
-                }), new WCssClass(`.PropiedadDetails`, {
-                    display: 'grid',
-                    "grid-template-columns": "100%",
-                }), new WCssClass(`.DetailsDiv`, {
+                    "min-height": 600
+                }), new WCssClass(`.ResumenContainer label`, {
+                    "background-color": '#eee',
                     padding: 10,
-                }), new WCssClass(`.DetailsDiv p`, {
-                    "text-align": "justify"
-                }), new WCssClass(`.TagContainer`, {
-                    display: "grid",
-                    "grid-template-columns": "auto auto",
-                }), new WCssClass(`.TagContainer label`, {
-                    padding: 10,
-                    "border-radius": "0.2cm",
-                    background: "#0084d2",
-                    color: "#fff",
                     margin: 5,
+                    "border-radius": "0.3cm"
                 }),
             ]
         }
     };
 }
 class ProfileTab {
-    constructor(Dataset = [], DisplayData = []) {
+    constructor(Dataset = [], DisplayData = [], name) {
         this.type = "div"
         this.props = {
             className: "",
+        }
+        let urlAction;
+        let idAction;
+        switch (name) {
+            case "Investigaciones":
+                urlAction = "./ViewRead.html?param=";
+                idAction = "id_Investigacion";
+                break;
+            case "Proyectos":
+                urlAction = "./ViewProyect.html?param=";
+                idAction = "id_Proyecto";
+                break;
+            case "Colaboraciones":
+                urlAction = "./ViewRead.html?param=";
+                idAction = "id_Investigacion";
+                break;
         }
         this.children = [this.Style];
         if (Dataset.length != 0) {
@@ -186,7 +158,11 @@ class ProfileTab {
                 Options: {
                     Search: true,
                     //Show: true,
-                    //UserActions: UserActions
+                    UserActions: [{
+                        name: "Leer..", Function: (element) => {
+                            window.location = urlAction + element[idAction]
+                        }
+                    }]
                 }
             };
             const WTableReport = WRender.createElement({
@@ -209,7 +185,7 @@ class ProfileTab {
         props: {
             ClassList: [
                 new WCssClass(".TabContainer", {
-                   padding: 10,
+                    padding: 10,
                 })
             ], MediaQuery: [{
                 condicion: '(max-width: 1200px)',

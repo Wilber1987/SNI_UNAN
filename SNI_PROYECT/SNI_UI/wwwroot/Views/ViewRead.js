@@ -10,6 +10,9 @@ const OnLoad = async () => {
     );
     const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
     const modules = await import("../MasterDomDetaills.js");
+    const ActionFunction = (Object)=>{
+        window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
+    }
     const Card = new WCard({
         nombres: response.nombres,
         apellidos: response.apellidos,
@@ -17,10 +20,7 @@ const OnLoad = async () => {
         tipoColaboracion: "Autor",
         nombreInstitucion: response.nombreInstitucion,
         id_Investigador: response.id_Investigador
-    }, 2);
-    Card.ActionFunction = (Object)=>{
-        window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
-    }
+    }, 2, ActionFunction);    
     const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), Card);
     App.appendChild(WRender.createElement(BodyComponents));
 }
