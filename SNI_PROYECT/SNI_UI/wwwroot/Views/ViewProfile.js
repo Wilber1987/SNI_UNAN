@@ -18,12 +18,20 @@ const OnLoad = async () => {
         tipoColaboracion: "Autor",
         nombreInstitucion: response.nombreInstitucion
     }, 2);
+    const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
+    const cadenaB64 = "data:image/png;base64,";
+    response.redesSociales.forEach(element => {
+        divRedes.append(WRender.createElement([{ type:'img', props: { src: cadenaB64 + element.icon, class: 'RedsIcon'}}, 
+        { type:'a', props: { innerText: element.descripcion, href:element.url_red_inv, target:"_blank" }} ]));
+    });
     const dataResume = WRender.createElement({
         type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
             WRender.CreateStringNode("<h3>Logros</h3>"),
             "Investigaciones: " + response.investigaciones.length,
             "Proyectos: " + response.proyectos.length,
             "Colaboraciones: " + response.colaboraciones.length,
+            WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
+            divRedes
         ]
     });
     const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), dataResume);
@@ -35,6 +43,10 @@ class WProfileInvestigador extends HTMLElement {
         this.response = response;
         this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' } });
         this.ProfileContainer.append(Card);
+        const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
+        response.idiomas.forEach(element => {
+            divIdiomas.append(WRender.createElement(element.descripcion));
+        });
         this.ProfileContainer.append(WRender.createElement({
             type: 'div', props: { id: '', class: 'DataContainer' }, children: [
                 WRender.CreateStringNode("<h3>Datos Generales</h3>"),
@@ -42,6 +54,8 @@ class WProfileInvestigador extends HTMLElement {
                 "Sexo: " + response.sexo,
                 "Indice H: " + response.indice_H,
                 "Correo: " + response.correo_institucional,
+                WRender.CreateStringNode("<h3>Idiomas</h3>"),
+                divIdiomas
             ]
         }));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
@@ -105,9 +119,12 @@ class WProfileInvestigador extends HTMLElement {
                 }), new WCssClass(`.DataContainer`, {
                     display: 'flex',
                     "flex-direction": "column",
-                    padding: "0px 20px"
-                }), new WCssClass(`.DataContainer label, .ResumenContainer h3`, {
-                    margin: 5
+                    padding: "20px 0px"
+                }), new WCssClass(` h3`, {
+                    margin: "5px 10px",
+                    color: "#09315f"
+                }), new WCssClass(`.DataContainer label`, {
+                    margin: "5px 10px",
                 }), new WCssClass(`.ResumenContainer`, {
                     "background-color": '#fff',
                     "border-radius": "0.2cm",
@@ -121,8 +138,39 @@ class WProfileInvestigador extends HTMLElement {
                     padding: 10,
                     margin: 5,
                     "border-radius": "0.3cm"
-                }),
-            ]
+                }), new WCssClass( `.divIdiomas`, {
+                    display: 'flex',
+                    "flex-wrap": "wrap"
+                }), new WCssClass( `.divIdiomas label`, {
+                    padding: 8,
+                    "background-color": "#5964a7",
+                    color: "#fff",
+                    "font-weight": "bold",
+                    "border-radius": "0.4cm",
+                    "font-size": 12
+                }),new WCssClass( `.divRedes img`, {
+                    height: 35,
+                    width: 35,
+                    "margin-right": 10
+                }),new WCssClass( `.divRedes div`, {
+                    display: "flex",
+                    "align-items": "center",
+                    "justify-content": "left",
+                    margin: 5
+                }),new WCssClass( `.divRedes a`, {
+                    "text-decoration": "none",
+                    "font-weight": "bold",
+                    color: "#09f"
+                })
+            ], MediaQuery: [{
+                condicion: "(max-width: 800px)",
+                ClassList: [
+                    new WCssClass(`.ProfileContainer`, {
+                        display: 'grid',
+                        "grid-template-columns": "100%"
+                    })
+                ]
+            }]
         }
     };
 }

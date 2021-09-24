@@ -97,31 +97,16 @@ class MasterDomDetaills extends ComponentsManager {
                         "grid-column": "1/3",
                         display: "flex",
                     }), new WCssClass(".AppHeader", {
-                        "grid-column": "1/3",                        
+                        "grid-column": "1/3", 
+                        "grid-template-columns": "auto auto ",                       
                     }), new WCssClass(".SecondAside", {
                        display: "none"                     
                     }), new WCssClass( `.HeaderH`, {
-                        display: "none"    
+                        display: "none !important"    
+                    }), new WCssClass( `.HeaderNav`, {
+                        width: "100%",
+                        "justify-content": "flex-end"
                     }),
-                ]
-            }, {
-                condicion: "(max-width: 600px)",
-                ClassList: [
-                    new WCssClass(`.App`, {
-                        display: "grid",
-                        "grid-template-columns": "100%",
-                        "grid-template-rows": "70px auto 50px",
-                        position: "fixed",
-                        top: 0,
-                        bottom: 0
-                    }), new WCssClass(".FooterNav", {
-                        "grid-column": "1/2",
-                        display: "flex",
-                    }), new WCssClass(".AppHeader", {
-                        "grid-column": "1/2",                        
-                    }), new WCssClass(".AppAside", {
-                       display: "none"                     
-                    }), 
                 ]
             }]
         }
@@ -167,7 +152,7 @@ class MasterDomDetaills extends ComponentsManager {
                     "background-color": "#09315f",
                     color: "#fff",
                     "font-weight": "bold",
-                    "font-size": "30px",
+                    "font-size": 25,
                     width: 50
                 }),
             ]

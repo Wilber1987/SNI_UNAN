@@ -25,8 +25,7 @@ namespace CAPA_NEGOCIO
         public Object TakeInvestigaciones()
         {
             try
-            {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");               
+            {             
                 return SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
             }
             catch (Exception)

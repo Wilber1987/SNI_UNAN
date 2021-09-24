@@ -164,7 +164,7 @@ class MasterDomClass extends ComponentsManager {
                     "background-color": "#09315f",
                     color: "#fff",
                     "font-weight": "bold",
-                    "font-size": "30px",
+                    "font-size": 25,
                     width: 50
                 }),
             ]

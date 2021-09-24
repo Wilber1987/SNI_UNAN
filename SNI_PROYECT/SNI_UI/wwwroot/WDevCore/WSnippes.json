@@ -12,6 +12,10 @@
 		"prefix": ["wh", "WHeader"],
 		"body": ["{ type:'h1', props: { innerText: 'header'}}"],
 		"description": "Objeto para WREnder."
+	},"WLink": {
+		"prefix": ["wlink", "WLink"],
+		"body": ["{ type:'a', props: { innerText: 'header', href: '#'}}"],
+		"description": "Objeto para WREnder."
 	},"WImg": {
 		"prefix": ["wimg", "Wimg"],
 		"body": ["{ type:'img', props: { src: 'img', class: 'className'}}"],

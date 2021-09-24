@@ -4,9 +4,9 @@ import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
 
 const OnLoad = async () => {
-    const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
-        { Id_Investigacion: Id_Investigacion }
+    const id_Proyecto = new URLSearchParams(window.location.search).get('param');
+    const response = await WAjaxTools.PostRequest("../api/Proyect/TakeProyect",
+        { id_Proyecto: id_Proyecto }
     );
     const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
     const modules = await import("../MasterDomDetaills.js");
@@ -14,22 +14,15 @@ const OnLoad = async () => {
         window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
     }
     const Card = new WCard({
-        nombres: response.nombres,
-        apellidos: response.apellidos,
-        foto: response.foto,
-        tipoColaboracion: "Autor",
-        nombreInstitucion: response.nombreInstitucion,
-        id_Investigador: response.id_Investigador
+        
     }, 2, ActionFunction);
-
-    const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), Card);
+    const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), );
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WReadInvestigacion extends HTMLElement {
     constructor(response) {
         super();
         this.response = response;
-
         this.InvestigacionContainer = WRender.createElement({ type: 'div', props: { class: 'InvestigacionContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
         this.append(WRender.createElement(this.styleComponent), this.InvestigacionContainer);
@@ -40,60 +33,7 @@ class WReadInvestigacion extends HTMLElement {
         }
         this.DrawComponent();
     }
-    DrawComponent = async () => {
-        const Card = WRender.createElement({
-            type: 'div',
-            props: { class: 'InvestigacionCard' }, children: [
-                {
-                    type: 'div', props: { id: '', class: 'Details' }, children: [
-                        {
-                            type: 'a', props: {
-                                onclick: () => { }, innerText: (`${this.response.titulo}`).toUpperCase()
-                            }
-                        },
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Tipo: " + this.response.descripcion],
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Fecha: " + this.response.fecha_ejecucion],
-                        [{
-                            type: 'input', props: {
-                                type: 'button', class: 'BtnPrimary', value: 'Leer...', onclick: async () => {
-                                    window.location = this.response.url_publicacion;
-                                }
-                            }
-                        }]
-                    ]
-                }
-            ]
-        });
-        const divCar = { type: 'div', props: { id: '', class: 'TagContainer' }, children: [] };
-        const Detaills = WRender.createElement({
-            type: 'div',
-            props: { class: 'PropiedadDetails' }, children: [
-                {
-                    type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
-                        WRender.CreateStringNode("<h4>Resumen</h4>"),
-                        this.response.resumen
-                    ]
-                },
-                {
-                    type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
-                        WRender.CreateStringNode("<h4>Abstract</h4>"),
-                        this.response.abstract
-                    ]
-                }
-            ]
-        });
-        const Colaboradores = new WCardCarousel(this.response.colaboradores);
-        Colaboradores.ActionFunction = (Object) => {
-            window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
-        }
-        this.InvestigacionContainer.append(WRender.createElement({
-            type: 'img',
-            props: { src: "data:image/png;base64," + this.response.photo, class: 'photoBaner' }
-        }));
-        this.InvestigacionContainer.append(WRender.createElement(Card));
-        this.InvestigacionContainer.append(WRender.createElement(Detaills));
-        this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
-        this.InvestigacionContainer.append(WRender.createElement(Colaboradores));
+    DrawComponent = async () => {        
 
     }
     styleComponent = {

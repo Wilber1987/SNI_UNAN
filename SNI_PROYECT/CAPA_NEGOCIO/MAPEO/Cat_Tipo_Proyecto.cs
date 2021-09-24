@@ -9,5 +9,17 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Proyecto { get; set; }
         public string Descripcion_Tipo_Proyecto { get; set; }
         public string Estado_Tipo_Proyecto { get; set; }
+        public List<Object> TakeTipoProyecto()
+        {
+            try
+            {
+                return SqlADOConexion.SQLM.TakeList("Cat_Tipo_Proyecto", this);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
