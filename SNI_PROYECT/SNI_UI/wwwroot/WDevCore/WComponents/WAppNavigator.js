@@ -89,7 +89,7 @@ class WAppNavigator extends HTMLElement {
             }
             Nav.children.push(elementNav);
             if (element.SubNav != undefined) {
-                elementNav.href = null;
+                elementNav.href = "#";
                 const SubMenuId = "SubMenu" + Index + this.id;
                 const SubNav = {
                     type: "section",
@@ -227,33 +227,7 @@ class WAppNavigator extends HTMLElement {
                 ],
                 MediaQuery: [{
                     condicion: "(max-width: 1200px)",
-                    ClassList: [
-                        // new WCssClass(`.elementNav`, {
-                        //     display: "none",
-                        // }),new WCssClass(`.elementNavMedia` , {
-                        //     display: "block",
-                        //     "font-size": "26px",                        
-                        //     "text-align": "center",
-                        //     padding: "10px",
-                        //     "text-decoration": "none",
-                        //     "font-weight": "bold",
-                        //     cursor: "pointer",
-                        //     "border-bottom": "solid 2px #eee",
-                        //     margin: "0px"
-                        // }),  new WCssClass(`.elementNavActive` , {
-                        //     display: "block",
-                        //     "font-size": "26px",                        
-                        //     "text-align": "center",
-                        //     padding: "10px",
-                        //     "text-decoration": "none",
-                        //     "font-weight": "bold",
-                        //     cursor: "pointer",
-                        //     "border-bottom": "solid 2px #eee",
-                        //     margin: "0px"
-                        // }),  new WCssClass(`label.elementNavActive` , {
-                        //     display: "none",
-                        // })
-                    ]
+                    ClassList: []
                 }, {
                     condicion: "(max-width: 800px)",
                     ClassList: [

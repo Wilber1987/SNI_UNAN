@@ -33,11 +33,11 @@ class WFilterOptions extends HTMLElement {
         for (const prop in this.Config.Dataset[0]) {
             const flag = this.checkDisplay(prop);
             if (flag) {
-               /* if ((typeof this.Config.Dataset[0][prop] != "number"
+               if ((typeof this.Config.Dataset[0][prop] != "number"
                     && !prop.toUpperCase().includes("FECHA")
                     && !prop.toUpperCase().includes("DATE"))
                     || prop.toUpperCase().includes("AÑO")
-                    || prop.toUpperCase().includes("YEAR")) {*/
+                    || prop.toUpperCase().includes("YEAR")) {
                     const select = {
                         type: 'select', props: { id: prop }, children: [
                             { type: 'option', props: { innerText: 'Seleccione', value: '' } }
@@ -56,7 +56,6 @@ class WFilterOptions extends HTMLElement {
                         this.shadowRoot.querySelectorAll("#optionsContainter select").forEach(select => {
                             if (select.id != ev.target.id) {
                                 if (select.value != "") {
-                                    console.log("valor: ", select.value);
                                     SelectFlag = true;
                                 }
                             }
@@ -76,16 +75,15 @@ class WFilterOptions extends HTMLElement {
                                 }
                             });
                             return flagObj;
-                        });
-                        // console.log(DFilt);             
-                        if (this.FilterFunction != undefined) {
-                            this.FilterFunction(DFilt);
+                        });            
+                        if (this.Config.FilterFunction != undefined) {
+                            this.Config.FilterFunction(DFilt);
                         } else {
                             console.log(DFilt);
                         }
                     }
-                    ControlOptions.children.push([prop, select]);
-                //}
+                    ControlOptions.children.push([WArrayF.Capitalize(prop.replace("_", " ")), select]);
+                }
             }
         }        
         this.shadowRoot.append(WRender.createElement(ControlOptions));
@@ -108,18 +106,19 @@ class WFilterOptions extends HTMLElement {
                 new WCssClass(`.reportV`, {
                     margin: '10px',
                 }), new WCssClass(`.OptionContainer`, {
-                    display: "flex",
-                    "flex-wrap": "wrap",
-                    "margin-bottom": "10px",
-                    width: "100%"
+                    padding: 20,
+                    display: "grid",
+                    "grid-template-columns": "50% 50%",
+                    "grid-gap": 10
+                }), new WCssClass(`.OptionContainer label`, {
+                    padding: 10,
+                    display: "block"
                 }), new WCssClass(`.OptionContainer div`, {
                     display: "grid",
-                    "grid-template-rows": "20px 30px",
-                    "grid-template-columns": "200px",
+                    "grid-template-rows": "30px 30px",
                     margin: "5px",
                     "font-size": "12px",
-                }), new WCssClass(
-                    `.OptionContainer input, .OptionContainer select`, {
+                }), new WCssClass(`.OptionContainer input, .OptionContainer select`, {
                     "grid-row": "2/3",
                     margin: "0px",
                     padding: "5px 10px"

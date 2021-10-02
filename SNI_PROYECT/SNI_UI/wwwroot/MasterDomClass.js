@@ -95,11 +95,17 @@ class MasterDomClass extends ComponentsManager {
                         "grid-column": "1/3",
                         display: "flex",
                     }), new WCssClass(".AppHeader", {
-                        "grid-column": "1/3",                        
+                        "grid-column": "1/3",       
+                        "grid-template-columns": "auto auto ",                   
                     }), new WCssClass(".SecondAside", {
                        display: "none"                     
                     }), new WCssClass( `.HeaderH`, {
                         display: "none"    
+                    }), new WCssClass( `.HeaderH`, {
+                        display: "none !important"    
+                    }), new WCssClass( `.HeaderNav`, {
+                        width: "100%",
+                        "justify-content": "flex-end"
                     }),
                 ]
             }, {
@@ -150,9 +156,10 @@ class MasterDomClass extends ComponentsManager {
                     "grid-template-columns": "250px auto 250px",
                 }), new WCssClass(".AppHeader .HeaderH", {
                     color: "#444",
-                    //width: "100%",
-                    "text-align": "center",
-                    "font-size": 18,
+                    "font-size": 22,
+                    display: "flex",
+                    "justify-content": "center",
+                    "align-items": "center"
                 }), new WCssClass(".AppHeader img", {
                     display: "block",
                     height: "100%"

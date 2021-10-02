@@ -11,7 +11,7 @@ class ChartConfig {
         this.AttNameG2 = Config.AttNameG2;
         this.AttNameG3 = Config.AttNameG3;
         this.GroupLabelsData = Config.GroupLabelsData; //series
-        this.Datasets = Config.Datasets; //datos        
+        this.Dataset = Config.Dataset; //datos        
         this.Colors = Config.Colors;
         this.GroupDataTotals = Config.GroupDataTotals;
         this.ContainerSize = Config.ContainerSize;
@@ -24,12 +24,6 @@ class ColumChart extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
     }
-    /*
-        PARA CONVERTIRLO EN GRAFICO DE BARRAS NO STAKED
-        1. modificar el flex direccion de Conteinerbars
-        2. modificar ancho de containerbars y label(la agrupada), en base a la cantidad de series/staks usar anchos fijos
-        3. modificar el alto y ancho de la bar
-    */
     attributeChangedCallBack() {
         this.DrawChart();
     }
@@ -57,10 +51,10 @@ class ColumChart extends HTMLElement {
         ChartFragment.append(this._AddSectionlabels(this.ChartInstance.GroupLabelsData, this.ChartInstance.Colors));
 
         let GroupsData = [
-            this.ChartInstance.Datasets,
-            WArrayF.ArrayUnique(this.ChartInstance.Datasets, this.ChartInstance.AttNameG1),
-            WArrayF.ArrayUnique(this.ChartInstance.Datasets, this.ChartInstance.AttNameG2),
-            WArrayF.ArrayUnique(this.ChartInstance.Datasets, this.ChartInstance.AttNameG3)
+            this.ChartInstance.Dataset,
+            WArrayF.ArrayUnique(this.ChartInstance.Dataset, this.ChartInstance.AttNameG1),
+            WArrayF.ArrayUnique(this.ChartInstance.Dataset, this.ChartInstance.AttNameG2),
+            WArrayF.ArrayUnique(this.ChartInstance.Dataset, this.ChartInstance.AttNameG3)
         ];
         ChartFragment.append(this._AddSectionBars(GroupsData, this.ChartInstance));
         ChartFragment.append(this._AddSectionLabelsGroups(this.ChartInstance));
@@ -184,7 +178,7 @@ class ColumChart extends HTMLElement {
     _DrawGroupChart(Config, ContainerBars, elementGroup = null, elementSecondGroup = null, elementThreeGroup = null) {
         let index = 0;
         Config.GroupLabelsData.forEach(elementLabelData => { //RECORREMOS LOS STAKS 
-            Config.Datasets.forEach(element => { //RECORREMOS EL DTA EN BUSCA DEL TIEMPO Y EL STAK                
+            Config.Dataset.forEach(element => { //RECORREMOS EL DTA EN BUSCA DEL TIEMPO Y EL STAK                
                 let bar = null;
                 if (elementThreeGroup != null) {
                     if (element[Config.AttNameG1] == elementGroup[Config.AttNameG1] &&
@@ -391,7 +385,7 @@ class RadialChart extends HTMLElement {
         return SectionLabels;
     }
     _AddSectionData(Config) {
-        const DataSet = Config.Datasets;
+        const DataSet = Config.Dataset;
         let SectionChart = document.createElement("section");
         SectionChart.className = "SectionRadialChart";
         var Chart = WRender.createElementNS({

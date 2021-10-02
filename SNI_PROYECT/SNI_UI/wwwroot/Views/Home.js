@@ -1,6 +1,5 @@
 import { ComponentsManager, WAjaxTools, WRender, WArrayF } from "../WDevCore/WModules/WComponentsTools.js";
 import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
-import "../WDevCore/WComponents/WTableComponents.js";
 import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.js";
 
 class HomeClass extends HTMLElement {

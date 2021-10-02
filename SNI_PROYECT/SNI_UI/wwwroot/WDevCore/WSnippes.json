@@ -95,5 +95,40 @@
 			"import { WCssClass } from '../WModules/WStyledRender.js';"			
 			],
 		"description": "Objeto para WREnder."
+	}, "WTableBasic": {
+		"prefix": ["WTableBasic", "WTableBasic"],
+		"body": [
+			"new WBTableComponent({",
+                "\tDataset: dataTestFact,",
+                "\tDisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],",
+                "\tOptions: {",
+                    "\t\tSearch: true,  UrlSearch: 'api_route',",
+                    "\t\tAdd: true, UrlAdd: 'api_route',", 
+                    "\t\tUserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]",
+                "\t}",
+            "})"			
+			],
+		"description": "Objeto para WREnder."
+	}, "WTableBasicFull": {
+		"prefix": ["WTableBasicFull", "WTableBasicFull"],
+		"body": [
+			"new WBTableComponent({",
+                "\tDataset: dataTestFact,",
+                "\tDisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],",
+                "\tmaxElementByPage: 5,",
+                "\tpaginate: true,",
+                "\tModelObject: {'prop':'', 'prop':'', 'prop':'', 'prop':'', 'prop':''},",
+                "\tOptions: {",
+                    "\t\tSearch: true,  UrlSearch: 'api_route',",
+                    "\t\tAdd: true, UrlAdd: 'api_route',",
+                    "\t\tEdit: true, UrlUpdate: 'api_route',",
+                    "\t\tDelete: true, UrlDelete: 'api_route',",
+                    "\t\tShow: true, ",
+                    "\t\tSelect: true,",
+                    "\t\tUserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]",
+                "\t}",
+            "})"			
+			],
+		"description": "Objeto para WREnder."
 	}
 }

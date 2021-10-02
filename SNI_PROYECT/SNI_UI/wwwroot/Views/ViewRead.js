@@ -14,11 +14,10 @@ const OnLoad = async () => {
         window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
     }
     const Card = new WCard({
-        nombres: response.nombres,
-        apellidos: response.apellidos,
-        foto: response.foto,
-        tipoColaboracion: "Autor",
-        nombreInstitucion: response.nombreInstitucion,
+        titulo: `${response.nombres} ${response.apellidos}`,        
+        picture: response.foto,
+        subtitulo: "Autor",
+        descripcion: response.nombreInstitucion,
         id_Investigador: response.id_Investigador
     }, 2, ActionFunction);
 
@@ -81,6 +80,12 @@ class WReadInvestigacion extends HTMLElement {
                     ]
                 }
             ]
+        });
+        this.response.colaboradores.forEach(element => {
+            element.titulo = `${element.nombres} ${element.apellidos}`;
+            element.picture = element.foto,
+            element.subtitulo = element.tipoColaboracion;
+            element.descripcion =  element.nombreInstitucion;
         });
         const Colaboradores = new WCardCarousel(this.response.colaboradores);
         Colaboradores.ActionFunction = (Object) => {

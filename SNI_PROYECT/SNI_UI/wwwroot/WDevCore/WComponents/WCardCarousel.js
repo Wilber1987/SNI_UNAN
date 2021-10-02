@@ -2,9 +2,16 @@
 import { WRender } from "../WModules/WComponentsTools.js";
 import { StylesControlsV1 } from "../StyleModules/WStyleComponents.js";
 
+class CardModel {
+    picture = "image url/image base64";
+    titulo = "corto";
+    subtitulo = "corto";
+    descripcion = "parrafo de tres lineas";
+    ActionFunction = null;
+}
 
 class WCardCarousel extends HTMLElement {
-    constructor(Dataset) {
+    constructor(Dataset = []) {
         super();
         this.attachShadow({ mode: 'open' });
         this.Container = WRender.createElement({ type: 'div', props: { class: 'Links' }, children: [] });
@@ -23,11 +30,7 @@ class WCardCarousel extends HTMLElement {
     }
     DrawCardCarousel = async () => {
         this.Dataset.forEach((element, index) => {
-            if (element.foto == undefined) {
-                return;
-            }
             const Card = WRender.createElement(new WCard(element, this.CardType, this.ActionFunction));
-            //Card.ActionFunction = this.ActionFunction;
             this.CarouselDiv.append(Card);
         });
     }
@@ -64,11 +67,8 @@ class WCardCarousel extends HTMLElement {
                     display: 'flex',
                     "align-items": "center",
                     "justify-content": "left",
-                    "max-width": 1240,
-                    overflow: "hidden",
                 }), new WCssClass(".Links", {
                     "position": "relative",
-                    "max-width": "1240px",
                     "width": "100%",
                     "bottom": "0",
                     "height": "480px",
@@ -99,14 +99,18 @@ class WCardCarousel extends HTMLElement {
 }
 customElements.define('w-card-carousel', WCardCarousel);
 class WCard extends HTMLElement {
-    constructor(element, CardType = 1, ActionFunction) {
+    constructor(element = (new CardModel()), CardType = 1, ActionFunction) {
         super();
         this.style.transition = "all 0.6s";
         this.className = "CardElement";
-        const cadenaB64 = "data:image/png;base64,";
+        let cadenaB64 = "data:image/png;base64,";
+        if (!element.picture) {
+            cadenaB64 = "data:image/svg+xml;base64,";
+            element.picture =  "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDE1LjMxIDE0LjA3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxNS4zMSAxNC4wNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0ZGRkZGRjtzdHJva2U6IzAwMDAwMDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPGNpcmNsZSBjbGFzcz0ic3QwIiBjeD0iNy42NSIgY3k9IjQuNjkiIHI9IjQuMDMiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xLjE1LDEzLjgyYzAsMCwwLTQuNjgsNi00LjVsMS40NiwwYzAsMCw1LjQzLTAuMDQsNS42OSw0LjVIMS4xNXoiLz4NCjwvc3ZnPg0K";
+        }
         const Figure = WRender.createElement({
             type: 'img',
-            props: { class: 'fotoColaborador', src: cadenaB64 + element.foto }
+            props: { class: 'fotoColaborador', src: cadenaB64 + element.picture }
         });
         this.ActionFunction = ActionFunction;
         switch (CardType) {
@@ -120,13 +124,13 @@ class WCard extends HTMLElement {
         const cardC = WRender.createElement({
             type: 'div', props: { id: '', class: 'Details' }, children: [
                 {
-                    type: 'a', props: {
-                        href: '#' + element.id, class: "aLabel",
-                        innerText: `${element.nombres} ${element.apellidos}`
+                    type: 'label', props: {
+                        class: "aLabel",
+                        innerText: `${element.titulo}`
                     }
                 },
-                { type: 'label', props: { innerText: element.tipoColaboracion } },
-                { type: 'label', props: { innerText: element.nombreInstitucion } }
+                { type: 'label', props: { innerText: element.subtitulo } },
+                { type: 'label', props: { innerText: element.descripcion } }
             ]
         })
         if (this.ActionFunction != undefined) {

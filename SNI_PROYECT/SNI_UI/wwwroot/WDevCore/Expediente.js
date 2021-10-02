@@ -193,6 +193,5 @@ class Expediente extends HTMLElement {
            return imgMag;
         }
     }
-
 }
 customElements.define("w-expediente", Expediente);

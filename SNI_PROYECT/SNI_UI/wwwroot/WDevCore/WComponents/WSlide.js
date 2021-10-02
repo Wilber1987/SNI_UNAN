@@ -63,7 +63,6 @@ class WSlide extends HTMLElement {
                 props: { class: "content" },
                 children: [
                     { type: "h3", props: { innerText: element.title } },
-                    // { type: "p", props: { innerText: element.description } },
                 ]
             }
             const image = { type: "img", props: { class: "embed", src: element.image } }
@@ -84,12 +83,7 @@ class WSlide extends HTMLElement {
                                     id: "viewVideo" + this.id,
                                     ObjectModal: embed
                                 }
-                            }));
-                            /*
-                            setTimeout(() => {
-                                ComponentsManager.modalFunction("viewVideo" + this.id)
-                            }, 100);
-                            */
+                            }));                           
                         }
                     }
                 }, ]

@@ -2,7 +2,7 @@
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import "../WDevCore/WComponents/WTableComponents.js";
+import "../WDevCore/WComponents/WTableComponent.js";
 const DOMManager = new ComponentsManager();
 const OnLoad = async () => {
     const Id_Investigador = new URLSearchParams(window.location.search).get('param');
@@ -11,12 +11,13 @@ const OnLoad = async () => {
     );
     const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
     const modules = await import("../MasterDomDetaills.js");
+   
     const Card = new WCard({
-        nombres: response.nombres,
-        apellidos: response.apellidos,
-        foto: response.foto,
-        tipoColaboracion: "Autor",
-        nombreInstitucion: response.nombreInstitucion
+        titulo: `${response.nombres} ${response.apellidos}`,        
+        picture: response.foto,
+        subtitulo: "Autor",
+        descripcion: response.nombreInstitucion,
+        id_Investigador: response.id_Investigador
     }, 2);
     const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
     const cadenaB64 = "data:image/png;base64,";
@@ -143,6 +144,7 @@ class WProfileInvestigador extends HTMLElement {
                     "flex-wrap": "wrap"
                 }), new WCssClass( `.divIdiomas label`, {
                     padding: 8,
+                    margin: "5px 2px",
                     "background-color": "#5964a7",
                     color: "#fff",
                     "font-weight": "bold",
@@ -200,7 +202,7 @@ class ProfileTab {
         if (Dataset.length != 0) {
             const Label1 = { type: 'h3', props: { innerText: 'Initial Guides', class: 'className' } };
             var TableConfigG = {
-                Datasets: Dataset,
+                Dataset: Dataset,
                 Colors: ["#ff6699", "#ffbb99", "#adebad"],
                 DisplayData: DisplayData,
                 Options: {

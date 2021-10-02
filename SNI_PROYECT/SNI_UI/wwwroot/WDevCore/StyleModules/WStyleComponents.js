@@ -189,13 +189,41 @@ const ArticleStyle = {
                 "font-family": "system-ui",
                 "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)"
             }), new WCssClass(`.WArticles .ArticleBody`, {
-                padding: 10,
+                margin: 10,
                 display: "flex",
                 "flex-direction": "column",
                 "font-size": 12,
                 "font-family": "system-ui",
+                position: "relative",
+                "min-height": 150,
+                "border": "solid 1px rgba(0,0,0,0.3)",
+                "border-radius": "0.2cm",
+                overflow: "hidden"
+            }),new WCssClass(`.WArticles  .ArticleBody label`, {
+                padding: 10,
+                "font-size": 16,
+                "font-weight": "bold", 
+                color: "#444"               
             }), new WCssClass(`.WArticles .ArticleBody p`, {
                 "text-align": "justify",
+                "text-overflow": "ellipsis",
+                "display": "-webkit-box",
+                " display": "-moz-box",
+                "  display": "box",
+                "-webkit-box-orient": "vertical",
+                "-moz-box-orient": "vertical",
+                "box-orient": "vertical",
+                "-webkit-line-clamp": "4",
+                "line-clamp": "4",
+                height: 75,
+                position: "absolute",
+                overflow: "hidden",
+                padding: "5px 15px",
+                color: "#fff",
+                bottom:0,
+                "background-color": "rgb(0,0,0,50%)",
+                "font-size": 14,
+                width: "calc(100% - 30px)"
             }), new WCssClass(`.ArticleHeader img`, {
                 "grid-row": "1/3",
                 "grid-column": "1/2",
