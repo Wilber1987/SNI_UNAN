@@ -8,14 +8,14 @@ import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
 class MasterDomClass extends ComponentsManager {
-    constructor(Component) {
+    constructor(Component, AsideComponent) {
         super();
         this.props = { className: "App" }
         this.children = [
             new headerClass(),
             new AsideClass(),
             new MainClass(Component),
-            new AsideClass("SecondAside"),
+            new AsideClass("SecondAside", AsideComponent),
             //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
@@ -130,6 +130,22 @@ class MasterDomClass extends ComponentsManager {
             }]
         }
     };
+    #WNav = {
+        type: "w-app-navigator",
+        props: {
+            Direction: "column", id: "AppNav",
+            title: "Menu",
+            Inicialize: true,
+            Elements: [
+                {
+                    name: "Home", url: "#",
+                    action: (ev) => {
+                        DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
+                    }
+                }
+            ]
+        }
+    }
 }
  class headerClass {
     constructor() {
@@ -140,8 +156,6 @@ class MasterDomClass extends ComponentsManager {
             WRender.CreateStringNode("<div class='logDv'>SNI</div>") ,
             WRender.CreateStringNode("<div class='HeaderH'>Sistemas Nacional de Investigadores</div>"),
             new HeaderNavigator(),
-                 
-           
         ];
     }
     Style = {
@@ -179,27 +193,14 @@ class MasterDomClass extends ComponentsManager {
     };
 }
 class AsideClass {
-    constructor(Class = "") {
+    constructor(Class = "", Component = null) {
         this.type = "aside";
         this.props = { className: "AppAside "+Class }
         this.children = [
            // this.#WNav
         ];
-    }
-    #WNav = {
-        type: "w-app-navigator",
-        props: {
-            Direction: "column", id: "AppNav",
-            title: "Menu",
-            Inicialize: true,
-            Elements: [
-                {
-                    name: "Home", url: "#",
-                    action: (ev) => {
-                        DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
-                    }
-                }
-            ]
+        if (Component != null) {
+            this.children.push(Component)
         }
     }
 }

@@ -14,7 +14,7 @@ const OnLoad = async () => {
         window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
     }
     const Card = new WCard({
-        titulo: `${response.nombres} ${response.apellidos}`,        
+        titulo: `${response.nombres} ${response.apellidos}`,
         picture: response.foto,
         subtitulo: "Autor",
         descripcion: response.nombreInstitucion,
@@ -62,8 +62,7 @@ class WReadInvestigacion extends HTMLElement {
                     ]
                 }
             ]
-        });
-        const divCar = { type: 'div', props: { id: '', class: 'TagContainer' }, children: [] };
+        });       
         const Detaills = WRender.createElement({
             type: 'div',
             props: { class: 'PropiedadDetails' }, children: [
@@ -83,19 +82,70 @@ class WReadInvestigacion extends HTMLElement {
         });
         this.response.colaboradores.forEach(element => {
             element.titulo = `${element.nombres} ${element.apellidos}`;
-            element.picture = element.foto,
+            element.picture = element.foto;
             element.subtitulo = element.tipoColaboracion;
-            element.descripcion =  element.nombreInstitucion;
+            element.descripcion = element.nombreInstitucion;
         });
         const Colaboradores = new WCardCarousel(this.response.colaboradores);
         Colaboradores.ActionFunction = (Object) => {
             window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
         }
+        if (this.response.photo == null) {
+            this.response.photo = ""
+        }
         this.InvestigacionContainer.append(WRender.createElement({
             type: 'img',
             props: { src: "data:image/png;base64," + this.response.photo, class: 'photoBaner' }
         }));
+        const DisplinesList = WRender.createElement({ type: 'div', props: { class: 'DisciplineClass' } });
+        DisplinesList.appendChild(WRender.createElement({
+            type: 'w-style', props: {
+                id: '', ClassList: [
+                    new WCssClass(`.DisciplineClass`, {
+                        display: 'flex',
+                    }), new WCssClass(`.DisciplineClass div`, {
+                        display: 'flex',
+                        "justify-content": "space-between",
+                        padding: 10,
+                        "border-radius": 10,
+                        filter: "invert(100%)",
+                        "background-color": "#999",
+                        margin: "10px 5px",
+                        cursor: "pointer",
+                        "font-weight": "bold"
+                    }), new WCssClass(`.DisciplineClass img`, {
+                        height: 18,
+                        width: 18,
+                        "margin-left": 10
+                    }), new WCssClass(`.HeaderDis`, {
+                        "color": "#444",
+                        "font-size": "22px",
+                        "display": "flex",
+                        "justify-content": "center",
+                        "align-items": "center",
+                        margin: 10
+                    }),
+                ]
+            }
+        }));
+        this.response.disciplinas.forEach(element => {
+            if (element.icono == null) {
+                return;
+            }
+            DisplinesList.appendChild(WRender.createElement({
+                type: 'div', props: {
+                    style: 'background:' + element.color, onclick: async () => {
+                        console.log(element)
+                    }
+                }, children: [
+                    element.descripcionDisciplina,
+                    { type: 'img', props: { src: 'data:image/png;base64,' + element.icono, class: 'className' } }
+                ]
+            }));
+        });
         this.InvestigacionContainer.append(WRender.createElement(Card));
+        this.InvestigacionContainer.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Disciplinas</h3>"));
+        this.InvestigacionContainer.append(WRender.createElement(DisplinesList));
         this.InvestigacionContainer.append(WRender.createElement(Detaills));
         this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
         this.InvestigacionContainer.append(WRender.createElement(Colaboradores));
@@ -181,13 +231,13 @@ class WReadInvestigacion extends HTMLElement {
                     color: "#fff",
                     margin: 5,
                 }),
-            ],  MediaQuery: [{
+            ], MediaQuery: [{
                 condicion: "(max-width: 800px)",
                 ClassList: [
                     new WCssClass(`.InvestigacionContainer`, {
-                        overflow: "hidden", 
-                        "flex-wrap": "inherit",                        
-                    }), new WCssClass( `w-card-carousel`, {
+                        overflow: "hidden",
+                        "flex-wrap": "inherit",
+                    }), new WCssClass(`w-card-carousel`, {
                         width: "100%"
                     }),
                 ]

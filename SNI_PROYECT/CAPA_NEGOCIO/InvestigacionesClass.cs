@@ -22,10 +22,13 @@ namespace CAPA_NEGOCIO
         public string NombreInstitucion { get; set; }
         public string Photo { get; set; }
         public List<Object> Colaboradores { get; set; }
+        public List<Object> Disciplinas { get; set; }
+
         public Object TakeInvestigaciones()
         {
             try
-            {             
+            {
+                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 return SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
             }
             catch (Exception)
@@ -41,9 +44,14 @@ namespace CAPA_NEGOCIO
                 SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 var List = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
                 InvestigacionesClass Investigacion = (InvestigacionesClass)List[0];
+                //Colaboradores
                 MAPEO.Tbl_Colaboradores ModelCol = new MAPEO.Tbl_Colaboradores();
                 ModelCol.Id_Investigacion = this.Id_Investigacion;
                 Investigacion.Colaboradores = ModelCol.TakeColaboradores();
+                //Disciplinas
+                MAPEO.Cat_Disciplinas ModelDis = new MAPEO.Cat_Disciplinas();
+                ModelDis.Id_Investigacion = this.Id_Investigacion;
+                Investigacion.Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();
                 return Investigacion;
             }
             catch (Exception)

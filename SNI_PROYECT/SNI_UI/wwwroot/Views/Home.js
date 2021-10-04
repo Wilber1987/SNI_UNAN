@@ -3,10 +3,11 @@ import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
 import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.js";
 
 class HomeClass extends HTMLElement {
-    constructor() {
+    constructor(response) {
         super();
         this.id = "HomeClass";
         this.className = "HomeClass DivContainer";
+        this.response = response;
         this.contain = WRender.createElement({ type: 'div', props: { id: '', class: 'CardContainer' }, children: [] });
         this.append(WRender.createElement(this.Style));
         this.append(this.contain);
@@ -18,14 +19,14 @@ class HomeClass extends HTMLElement {
         this.DrawComponent();
     }
     DrawComponent = async () => {
-        const response = await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");
+        
         this.append(WRender.createElement({
             type: 'w-articles',
             props: {
                 id: "Artcles",
                 ArticleHeader : ["foto", "nombres", "apellidos",  "fecha_ejecucion"],
                 ArticleBody  : ["titulo","photo", "resumen"],
-                Dataset: response, Options: {
+                Dataset: this.response, Options: {
                     Search: true,
                     //Show: true,
                     ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
