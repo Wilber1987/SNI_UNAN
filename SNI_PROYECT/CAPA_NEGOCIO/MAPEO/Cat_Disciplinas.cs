@@ -7,7 +7,7 @@ namespace CAPA_NEGOCIO.MAPEO
 {
     public class Cat_Disciplinas
     {
-        public int? Id_Disciplinas { get; set; }
+        public int? Id_Disciplina { get; set; }
         public string DescripcionDisciplina { get; set; }
         public string Color { get; set;}
         public string Icono { get; set; }

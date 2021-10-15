@@ -20,7 +20,6 @@ const OnLoad = async () => {
         descripcion: response.nombreInstitucion,
         id_Investigador: response.id_Investigador
     }, 2, ActionFunction);
-
     const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), Card);
     App.appendChild(WRender.createElement(BodyComponents));
 }

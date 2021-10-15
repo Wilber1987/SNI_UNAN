@@ -20,7 +20,12 @@ namespace CAPA_NEGOCIO
         public DateTime? Fecha_ejecucion { get; set; }
         public string url_publicacion { get; set; }
         public string NombreInstitucion { get; set; }
+        public string País { get; set; }
+        public string Nombre_Localidad { get; set; }
+        public string Nombre_TipoLocalidad { get; set; }
         public string Photo { get; set; }
+        public int? Id_Localidad { get; set; }
+        public int? Id_LocalidadPadre { get; set; }
         public List<Object> Colaboradores { get; set; }
         public List<Object> Disciplinas { get; set; }
 
@@ -28,8 +33,15 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
-                return SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
+                SqlADOConexion.IniciarConexion("sa", "zaxscd");  
+                var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
+                foreach (var item in Investigaciones)
+                {
+                    MAPEO.Cat_Disciplinas ModelDis = new MAPEO.Cat_Disciplinas();
+                    ModelDis.Id_Investigacion = ((InvestigacionesClass)item).Id_Investigacion;
+                    ((InvestigacionesClass)item).Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();
+                }
+                return Investigaciones;
             }
             catch (Exception)
             {
@@ -59,6 +71,6 @@ namespace CAPA_NEGOCIO
 
                 throw;
             }
-        }
+        }        
     }
 }

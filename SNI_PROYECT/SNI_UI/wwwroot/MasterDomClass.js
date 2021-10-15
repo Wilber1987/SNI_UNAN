@@ -50,6 +50,7 @@ class MasterDomClass extends ComponentsManager {
                     "background-color": "#fff",
                     height: 600,
                     "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
+                    "border-radius": "0.3cm",
                     margin: "0px 10px",
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",

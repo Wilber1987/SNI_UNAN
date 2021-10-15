@@ -392,11 +392,29 @@ class WArrayF {
         }
         return Arry;
     }
-    static ArrayUnique(DataArray, param) {
+    static ArrayUnique(DataArray, param, sumParam = null) {
         let DataArraySR = []
         DataArray.forEach(element => {
-            if (!DataArraySR.find(x => x[param] == element[param])) {
-                DataArraySR.push(element)
+            const DFilt = DataArraySR.find(x => x[param] == element[param]);
+            if (!DFilt) {
+                const NewElement = {};
+                for (const prop in element) {
+                    NewElement[prop] = element[prop]
+                }
+                //NewElement[param] =  element[param];
+                if (!element.count) {
+                    NewElement.count = 1;
+                }
+                NewElement.rate = ((1 / DataArray.length) * 100).toFixed(2) + "%";
+                DataArraySR.push(NewElement)
+            } else {
+                if (!element.count) {
+                    DFilt.count = DFilt.count + 1;
+                }
+                DFilt.rate = ((DFilt.count / DataArray.length) * 100).toFixed(2) + "%";
+                if (sumParam != null) {
+                    DFilt[sumParam] = DFilt[sumParam] + element[sumParam];
+                }
             }
         });
         return DataArraySR;
@@ -418,11 +436,15 @@ class WArrayF {
                 for (const prop in element) {
                     NewElement[prop] = element[prop]
                 }
-                NewElement.count = 1;
+                if (!element.count) {
+                    NewElement.count = 1;
+                }
                 NewElement.rate = ((1 / DataArray.length) * 100).toFixed(2) + "%";
                 DataArraySR.push(NewElement)
             } else {
-                DFilt.count = DFilt.count + 1;
+                if (!element.count) {
+                    DFilt.count = DFilt.count + 1;
+                }
                 DFilt.rate = ((DFilt.count / DataArray.length) * 100).toFixed(2) + "%";
                 if (sumParam != null) {
                     DFilt[sumParam] = DFilt[sumParam] + element[sumParam];

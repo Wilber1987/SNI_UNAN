@@ -13,15 +13,22 @@ namespace CAPA_DATOS
         protected abstract IDbConnection CrearConexion(string cadena);
         protected abstract IDbCommand ComandoSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(string comandoSql, IDbConnection connection);
-        public bool ExcuteSqlQuery(string strQuery)
+        public object ExcuteSqlQuery(string strQuery)
         {
             try
-            {              
+            {
                 SQLMCon.Open();
                 var com = ComandoSql(strQuery, SQLMCon);
-                com.ExecuteNonQuery();
+                var scalar = com.ExecuteScalar();
                 SQLMCon.Close();
-                return true;
+                if (scalar == (object)DBNull.Value)
+                {
+                    return true;
+                }
+                else
+                {
+                    return Convert.ToInt32(scalar);
+                }
             }
             catch (Exception)
             {
@@ -32,15 +39,26 @@ namespace CAPA_DATOS
         {
             try
             {
+                string ColumnNames = "";
                 string Values = "";
                 Type _type = Inst.GetType();
                 PropertyInfo[] lst = _type.GetProperties();
                 foreach (PropertyInfo oProperty in lst) {
                     string AtributeName = oProperty.Name;
                     var AtributeValue = oProperty.GetValue(Inst);
-                    if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
+                    if (AtributeValue == null)
                     {
+                        continue;
+                    }
+                    else if (AtributeValue.GetType() == typeof(string))
+                    {
+                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
                         Values = Values + "'" + AtributeValue.ToString() + "',";
+                    }
+                    else if (AtributeValue.GetType() == typeof(DateTime))
+                    {
+                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
+                        Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
                     }
                     else
                     {
@@ -51,7 +69,7 @@ namespace CAPA_DATOS
                     }
                 }
                 Values = Values.TrimEnd(',');
-                string strQuery = "INSERT INTO " + TableName + " VALUES(" + Values + ")";                
+                string strQuery = "INSERT INTO " + TableName   + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
                 return ExcuteSqlQuery(strQuery);
             }
             catch (Exception)
@@ -73,9 +91,17 @@ namespace CAPA_DATOS
                     var AtributeValue = oProperty.GetValue(Inst);
                     if (AtributeName != IdObject)
                     {
-                        if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
+                        if (AtributeValue == null)
+                        {
+                            continue;
+                        }
+                        else if (AtributeValue.GetType() == typeof(string))
                         {
                             Values = Values + AtributeName + "= '" + AtributeValue.ToString() + "',";
+                        }
+                        else if (AtributeValue.GetType() == typeof(DateTime)) 
+                        {
+                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";                           
                         }
                         else
                         {
@@ -138,7 +164,7 @@ namespace CAPA_DATOS
 
                 }               
                 CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R'});
-                string queryString = "SELECT TOP 10 * FROM " + TableName + CondicionString;
+                string queryString = "SELECT * FROM " + TableName + CondicionString;
                 DataTable Table = TraerDatosSQL(queryString);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
