@@ -1,25 +1,43 @@
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools, GenerateColor } from '../WDevCore/WModules/WComponentsTools.js';
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import "../WDevCore/WComponents/WTableComponent.js";
 import { RadialChart, ColumChart } from "../WDevCore/WComponents/WChartJSComponents.js";
+import { WTableComponent } from '../WDevCore/WComponents/WTableComponent.js';
+let town = "Nicaragua";
+let SrcMap = `https://maps.google.com/maps?q=${encodeURIComponent(town)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+SrcMap = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1674440.5174158672!2d-85.50662771759073!3d12.896594765807182!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f10c200ceff22cd%3A0xc8faa7e53fac15b5!2sNicaragua!5e0!3m2!1ses!2sus!4v1634680432067!5m2!1ses!2sus"
+const MapIframe = WRender.createElement({
+    type: 'iframe',
+    props: { id: 'MapIframe', class: 'MapIframe', src: SrcMap }
+});
+const DivAside = WRender.createElement({
+    type: 'div', props: { id: '', class: 'DivAside' }, children: [
+        MapIframe,
+        { type: 'div', props: { class: 'DivAsideInvestigations' }, children: [] }
+    ]
+});
+const ColorsDis = [];
 const DOMManager = new ComponentsManager();
 const OnLoad = async () => {
-    const Id_Investigador = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones",
-        { Id_Investigador: Id_Investigador }
-    );
+    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones");
+    const DataDisciplinas = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacionesPorDisciplina");
     const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
     const modules = await import("../MasterDomDetaills.js");
     const cadenaB64 = "data:image/png;base64,";
-    const BodyComponents = new modules.MasterDomDetaills(new KnowledgeMap(response));
+    response[1].forEach(dis => {
+        ColorsDis.push(dis.color)
+    });
+
+    const BodyComponents = new modules.MasterDomDetaills(new KnowledgeMap(response, DataDisciplinas), DivAside);
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class KnowledgeMap extends HTMLElement {
-    constructor(response) {
+    constructor(response, DataDisciplinas) {
         super();
         this.response = response;
+        this.DatasetDis = DataDisciplinas[0];
         this.KnowledgeMapContainer = WRender.createElement({ type: 'div', props: { class: 'KnowledgeMapContainer' } });
         //this.KnowledgeMapContainer.append(Card);
         const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
@@ -67,7 +85,7 @@ class KnowledgeMap extends HTMLElement {
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Colaboraciones", new KnowledgeMapTab(
                             this.response[0],
-                            "Departamentales"
+                            "Departamentales", this.DatasetDis
                         ), "TabContainer");
                     }
                 }, {
@@ -75,7 +93,7 @@ class KnowledgeMap extends HTMLElement {
                     action: async (ev) => {
                         DOMManager.NavigateFunction("Tab-Proyectos", new KnowledgeMapTab(
                             this.response[0],
-                            "Municipales"
+                            "Municipales", this.DatasetDis
                         ), "TabContainer");
                     }
                 }
@@ -100,44 +118,12 @@ class KnowledgeMap extends HTMLElement {
                     color: "#09315f"
                 }), new WCssClass(`.DataContainer label`, {
                     margin: "5px 10px",
-                }), new WCssClass(`.ResumenContainer`, {
-                    "background-color": '#fff',
-                    "border-radius": "0.2cm",
-                    padding: 20,
-                    "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
-                    display: "flex",
-                    "flex-direction": "column",
-                    "min-height": 600
-                }), new WCssClass(`.ResumenContainer label`, {
-                    "background-color": '#eee',
-                    padding: 10,
-                    margin: 5,
-                    "border-radius": "0.3cm"
-                }), new WCssClass(`.divIdiomas`, {
-                    display: 'flex',
-                    "flex-wrap": "wrap"
-                }), new WCssClass(`.divIdiomas label`, {
-                    padding: 8,
-                    margin: "5px 2px",
-                    "background-color": "#5964a7",
-                    color: "#fff",
-                    "font-weight": "bold",
-                    "border-radius": "0.4cm",
-                    "font-size": 12
-                }), new WCssClass(`.divRedes img`, {
-                    height: 35,
-                    width: 35,
-                    "margin-right": 10
-                }), new WCssClass(`.divRedes div`, {
-                    display: "flex",
-                    "align-items": "center",
-                    "justify-content": "left",
-                    margin: 5
-                }), new WCssClass(`.divRedes a`, {
-                    "text-decoration": "none",
-                    "font-weight": "bold",
-                    color: "#09f"
-                })
+                }), new WCssClass(`.MapIframe`, {
+                    width: '100%',
+                    height: 400,
+                    border: "none",
+                    "border-bottom": "solid 6px rgb(12 109 148)"
+                }),
             ], MediaQuery: [{
                 condicion: "(max-width: 800px)",
                 ClassList: [
@@ -151,11 +137,12 @@ class KnowledgeMap extends HTMLElement {
     };
 }
 class KnowledgeMapTab {
-    constructor(Dataset = [], name) {
+    constructor(Dataset = [], name, DatasetDis = []) {
         this.type = "div"
         this.props = {
             className: "Tab",
         }
+        this.DatasetDis = DatasetDis;
         let PropFilter;
         let EvalValue;
         let ValueFilter;
@@ -200,15 +187,18 @@ class KnowledgeMapTab {
         });
         if (PropFilter != "país") {
             ArrayChart = ArrayLocalidad.filter(x => x[PropFilter] == ValueFilter);
+            this.DatasetDis = this.DatasetDis.filter(x => x[PropFilter] == ValueFilter);
             console.log(ArrayChart);
         }
-        
+        this.DatasetDis.forEach(element => {
+            element.value = 1;
+        });    
         this.Chart = new ColumChart({
-            Dataset: Dataset.filter(x => x[PropFilter] == ValueFilter && x[EvalValue] == ArrayChart[0][EvalValue]), 
-            AttNameEval: "descripcion",
-            EvalValue: "count",
-            Colors: ["#ff6699", "#ffbb99", "#adebad"],
-            groupParams: [EvalValue, ]
+            Dataset: this.DatasetDis,
+            AttNameEval: "disciplina",
+            EvalValue: "value",
+            Colors: ColorsDis,
+            groupParams: [EvalValue]
         });
         this.children.push(DivLocation);
         this.children.push(new RadialChart({
@@ -216,11 +206,51 @@ class KnowledgeMapTab {
             AttNameEval: EvalValue,
             EvalValue: "count",
             Colors: ["#ff6699", "#ffbb99", "#adebad"],
-            ChartFunction: (Data) => {
+            ChartFunction: async (Data) => {
                 console.log(Data);
+                const filt = this.DatasetDis.filter(x => WArrayF.compareObj({
+                    nombre_Localidad: Data.nombre_Localidad
+                }, x));
+                console.log(filt);
+                this.Chart.ChartInstance = {
+                    Dataset: filt,
+                    AttNameEval: "disciplina",
+                    EvalValue: "value",
+                    Colors: ColorsDis,
+                    groupParams: [EvalValue]
+                };
+                SrcMap = `https://maps.google.com/maps?q=${encodeURIComponent(Data.nombre_Localidad)}&t=&z=11&ie=UTF8&iwloc=&output=embed`;
+                MapIframe.src = SrcMap;
+                const investigaciones = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones", {
+                    id_Localidad: Data.id_Localidad
+                });
+                DivAside.querySelector(".DivAsideInvestigations").innerHTML = "";
+                investigaciones[0].forEach(inv => {
+                    const DisplineDiv = { type: 'div', props: { class: 'DisplineDiv' }, children: [] };
+                    inv.disciplinas.forEach(dis => {
+                        DisplineDiv.children.push({
+                            type: 'div', props: { style: 'background:' + dis.color },
+                            children: [
+                                dis.descripcionDisciplina
+                            ]
+                        });
+                    });
+                    DivAside.querySelector(".DivAsideInvestigations").append(WRender.createElement([inv.titulo, DisplineDiv]));
+                });
+                this.Chart.connectedCallback();
             }
         }))
         this.children.push(this.Chart);
+
+
+        // const container = WRender.createElement({ type:'div', children: { n: 5, type: "div"} })
+        // array.forEach(element => {
+        //     container.append(element);
+        // });
+
+        // const container = WRender.CreateStringNode(`<div>
+        //     ${ array.map(x=> `<a>${x}</a>`).join("")  }
+        // </div>`);
     }
     Style = {
         type: "w-style",
@@ -247,6 +277,20 @@ class KnowledgeMapTab {
                     color: "#fff"
                 }), new WCssClass(`.Tab w-colum-chart`, {
                     "grid-column": '1/3',
+                }), new WCssClass(`.DivAsideInvestigations`, {
+                    "overflow-y": 'auto',
+                    height: 320,
+                    "padding-top": 10,
+                    "padding-left": 10,
+                    "padding-right": 10
+                }), new WCssClass(`.DivAsideInvestigations div:nth-child(odd)`, {
+                    "background-color": "#f5f4f4",
+                    "border-radius": "0.2cm",
+                }), new WCssClass(`.DivAsideInvestigations div, .DisplineDiv`, {
+                    display: "flex", padding: 5, "align-items": "center", "font-size": 12,
+                }), new WCssClass(`.DisplineDiv div`, {
+                    "border-radius": "0.2cm",
+                    "margin-right": 5,
                 }),
             ], MediaQuery: [{
                 condicion: '(max-width: 1200px)',

@@ -222,7 +222,7 @@ const StyleCard2 = WRender.createElement({
     type: 'w-style', props: {
         id: '', ClassList: [
             new WCssClass(`.CardElement`, {
-                width: "calc(100% - 20px)",
+                width: 250,//"calc(100% - 20px)",
                 height: "auto",
                 "min-width": 220,
                 margin: "10px !important",

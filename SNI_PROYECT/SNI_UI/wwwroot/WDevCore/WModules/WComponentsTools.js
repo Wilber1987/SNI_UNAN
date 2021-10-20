@@ -106,7 +106,11 @@ class WAjaxTools {
             }
         } else {
             response = await response.json();
-            localStorage.setItem(Url, JSON.stringify(response));
+            try {
+                localStorage.setItem(Url, JSON.stringify(response));
+            } catch (error) {
+                console.log(error);
+            }
             return response;
         }
     }
@@ -540,4 +544,14 @@ class WArrayF {
         return flag;
     }
 }
-export { WAjaxTools, WRender, ComponentsManager, WArrayF, type }
+//METODOS VARIOS
+const GenerateColor = () => {
+    var hexadecimal = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+    var color_aleatorio = "#FF";
+    for (let index = 0; index < 4; index++) {
+        const random = Math.floor(Math.random() * hexadecimal.length);
+        color_aleatorio += hexadecimal[random]
+    }
+    return color_aleatorio
+}
+export { WAjaxTools, WRender, ComponentsManager, WArrayF, type, GenerateColor }

@@ -31,7 +31,7 @@ class MasterDomDetaills extends ComponentsManager {
                 }),
                 new WCssClass(".App", {
                     display: "grid",
-                    "grid-template-columns": "250px 650px 300px",
+                    "grid-template-columns": "800px 400px",
                     "grid-template-rows": "70px auto ",
                     "grid-gap": 10,
                     "grid-column-gap": 0,
@@ -40,25 +40,31 @@ class MasterDomDetaills extends ComponentsManager {
                     "background-color": "#eee",
                     margin: "auto",
                 }), new WCssClass(".AppHeader", {
-                    "grid-column": "1/4",
+                    "grid-column": "1/3",
                     "background-color": "#fff",
                     "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)",
                     width: "calc(100vw - 80px)",
                     "justify-self": "center",
                 }), new WCssClass(".AppAside", {
-                    //"background-color": "#fff",
-                    //height: 600,
-                    //"box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
+                    "background-color": "#fff",
+                    height: 750,
+                    "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
                     margin: "0px 10px",
-                }), new WCssClass(".AppMain", {
-                    "grid-column": "1/3",
+                    "border-radius": "0.3cm",
+                    "text-align": "center",
+                    "text-align" : "-webkit-center"
+                }), new WCssClass(".AppMain", {                   
                     overflow: "auto",
                     "justify-self": "center",
                     padding: 10,
                     "margin-right": 20,
-                    width: "calc(100% - 60px)"
+                    "margin-bottom": 20,
+                    width: "calc(100% - 60px)",
+                    // "border-radius": "0.3cm",
+                    // "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)",
+                    // "background-color": "#fff"
                 }), new WCssClass(".AppFooter", {
-                    "grid-column": "1/4",
+                    "grid-column": "1/3",
                     "background-color": "#eee",
                     "border-top": "solid #4da6ff 5px"
                 }), new WCssClass("body", {
@@ -73,7 +79,7 @@ class MasterDomDetaills extends ComponentsManager {
                 condicion: "(max-width: 1200px)",
                 ClassList: [
                     new WCssClass(`.App`, {                        
-                        "grid-template-columns": "250px calc(100% - 500px) 250px",
+                        "grid-template-columns": "calc(100% - 400px) 400px",
                         "grid-template-rows": "70px auto ",
                         width: "100%",
                     }), new WCssClass(".AppAside", {
@@ -93,7 +99,10 @@ class MasterDomDetaills extends ComponentsManager {
                         position: "fixed",
                         top: 0,
                         bottom: 0
-                    }), new WCssClass(".FooterNav", {
+                    }), 
+                    new WCssClass(".AppMain", {
+                        "grid-column": "1/3",
+                    }),new WCssClass(".FooterNav", {
                         "grid-column": "1/3",
                         display: "flex",
                     }), new WCssClass(".AppHeader", {
@@ -131,8 +140,6 @@ class MasterDomDetaills extends ComponentsManager {
             ClassList: [
                 new WCssClass(".AppHeader", {
                     display: "grid",
-                    //"justify-content": "right",
-                    //"align-items": "center",
                     padding: "10px 40px",
                     "grid-template-columns": "250px auto 250px",
                 }), new WCssClass(".AppHeader .HeaderH", {

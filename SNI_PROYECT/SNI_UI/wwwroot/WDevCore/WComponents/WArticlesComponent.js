@@ -88,7 +88,6 @@ class WArticlesComponent extends HTMLElement {
             return "";
         }
         if (this.Options != undefined) {
-            console.log(this.Options);
             if (this.Options.Search != undefined || this.Options.Add != undefined) {
                 const trOptions = { type: "div", props: { class:  this.ArticlesClass }, children: [] }
                 if (this.Options.Search != undefined) {
@@ -203,7 +202,7 @@ class WArticlesComponent extends HTMLElement {
             for (let index = 0; index < this.numPage; index++) {
                 let ArticlesContainerStyle = "display:none";
                 if (index == 0) {
-
+                    ArticlesContainerStyle = "";
                 }
                 ArticlesContainer.children.push({ type: "ArticlesContainer", props: { class: "ArticlesContainerChild", style: ArticlesContainerStyle }, children: [] });
             }

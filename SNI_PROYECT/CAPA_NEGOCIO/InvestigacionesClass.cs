@@ -24,11 +24,14 @@ namespace CAPA_NEGOCIO
         public string Nombre_Localidad { get; set; }
         public string Nombre_TipoLocalidad { get; set; }
         public string Photo { get; set; }
+        
         public int? Id_Localidad { get; set; }
         public int? Id_LocalidadPadre { get; set; }
         public List<Object> Colaboradores { get; set; }
         public List<Object> Disciplinas { get; set; }
-
+        //DATOS PARA VIEW ViewInvestigacionesPorDisciplinas
+        public int? Id_Disciplina { get; set; }
+        public string Disciplina { get; set; }
         public Object TakeInvestigaciones()
         {
             try
@@ -41,6 +44,20 @@ namespace CAPA_NEGOCIO
                     ModelDis.Id_Investigacion = ((InvestigacionesClass)item).Id_Investigacion;
                     ((InvestigacionesClass)item).Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();
                 }
+                return Investigaciones;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public Object TakeInvestigacionesPorDisciplinas()
+        {
+            try
+            {
+                SqlADOConexion.IniciarConexion("sa", "zaxscd");
+                var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigacionesPorDisciplinas", this);                
                 return Investigaciones;
             }
             catch (Exception)

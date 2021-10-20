@@ -2,9 +2,9 @@ import { HomeClass } from "./Views/Home.js";
 import { WCssClass } from "./WDevCore/WModules/WStyledRender.js";
 import { WRender, WAjaxTools } from "./WDevCore/WModules/WComponentsTools.js";
 const OnLoad = async () => {
-    const { WRender, WAjaxTools } = await import("./WDevCore/WModules/WComponentsTools.js");
-    const response = await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");
-    const modules = await import("./MasterDomClass.js");
+    //const { WRender, WAjaxTools } = await import("./WDevCore/WModules/WComponentsTools.js");
+    const response =  await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");    
+    const modules = await import("./MasterDomDetaills.js");
     const DisplinesList = WRender.createElement({ type: 'div', props: { class: 'DisciplineClass' } });
     DisplinesList.appendChild(AppStyle);
     DisplinesList.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Mapa de Conocimiento</h3>"));
@@ -27,7 +27,7 @@ const OnLoad = async () => {
             ]
         }));
     });
-    const BodyComponents = new modules.MasterDomClass(new HomeClass(response[0]), DisplinesList);
+    const BodyComponents = new modules.MasterDomDetaills(new HomeClass(response[0]), DisplinesList);
     App.appendChild(WRender.createElement(BodyComponents));
 
 }

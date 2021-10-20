@@ -113,7 +113,7 @@ class WProfileInvestigador extends HTMLElement {
             ClassList: [
                 new WCssClass(`.ProfileContainer`, {
                     display: 'grid',
-                    "grid-template-columns": "250px auto",
+                    "grid-template-columns": "270px auto",
                     "border-bottom": "solid 2px #bbbec1",
                     "padding-bottom": 10,
                     "margin-bottom": 20,

@@ -25,6 +25,16 @@ namespace SNI_UI.Controllers
             return Data;
         }
         [HttpPost]
+        public object TakeInvestigacionesPorDisciplina(Object ObjInst)
+        {
+            var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
+            Cat_Disciplinas Dis = new Cat_Disciplinas();
+            List<Object> Data = new List<Object>();
+            Data.Add(Inst.TakeInvestigacionesPorDisciplinas());
+            Data.Add(Dis.TakeDisciplinas());
+            return Data;
+        }
+        [HttpPost]
         public object TakeInvestigacion(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());

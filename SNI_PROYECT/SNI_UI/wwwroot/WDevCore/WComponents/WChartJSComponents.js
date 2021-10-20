@@ -24,23 +24,32 @@ class ColumChart extends HTMLElement {
         this.DrawChart();
     }
     connectedCallback() {
-        if (this.shadowRoot.innerHTML != "") {
-            return;
-        }
+        console.log("conected");
+        this.shadowRoot.innerHTML = "";
+        this.MainChart.children = [];
+        this.GroupsData = [];
+        // if (this.shadowRoot.innerHTML != "") {
+        //     return;
+        // }
+        
         this.groupParams = this.ChartInstance.groupParams ?? [];
         this.EvalValue = this.ChartInstance.EvalValue ?? null;
         this.AttNameEval = this.ChartInstance.AttNameEval ?? null;
         this.Dataset = this.ChartInstance.Dataset ?? [];
         this.ChartInstance.Colors = this.ChartInstance.Colors ?? [];
+        console.log(this.groupParams);
+        console.log(this.AttNameEval);
+        console.log(this.EvalValue);
+        console.log(this.Dataset);
         if (this.ChartInstance.TypeChart == "staked") {// bar or staked
             this.ChartInstance.TypeChart = "column";
         } else {
             this.ChartInstance.TypeChart = "row";
-        }
-        this.shadowRoot.append(WRender.createElement(WChartStyle(this.ChartInstance)));
+        }       
         this.DrawChart();
     }
     DrawChart() {
+        this.shadowRoot.append(WRender.createElement(WChartStyle(this.ChartInstance)));
         const object = {};
         if (this.ChartInstance.TypeChart = "row") {
             object[this.AttNameEval] = "";
@@ -441,8 +450,8 @@ const WChartStyle = (ChartInstance) => {
                     "position": " relative",
                     "overflow-x": " scroll",
                     padding: 10,
-                    "padding-left": " 40px",
-                    //"min-height": " 270px",
+                    "padding-left": 40,
+                    "min-height": 150,
                 }), new WCssClass(".SectionBars label", {
                     padding: 5,
                 }), new WCssClass(".GroupSection ", {
@@ -473,7 +482,7 @@ const WChartStyle = (ChartInstance) => {
                     "align-items": " flex-end",
                     "justify-content": " flex-end",
                     overflow: "hidden",
-                    "border-bottom": "1px solid #BFBFBF"
+                    "border-bottom": "1px solid #BFBFBF",                    
                 }), new WCssClass(".ContainerBars .Bars ", {
                     "display": " block",
                     "margin": " 0 auto",
@@ -567,7 +576,7 @@ const WChartStyle = (ChartInstance) => {
                     "text-align": " center",
                     "display": " block",
                     "width": " 100%",
-                    "height": " 300px",
+                    "height": 220,
                 }), new WCssClass(".RadialDataBackground ", {
                     "transform": " rotate(-90deg)",
                 }), new WCssClass(".RadialDataBackground:first-child ", {
