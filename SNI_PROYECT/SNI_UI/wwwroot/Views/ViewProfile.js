@@ -190,7 +190,7 @@ class ProfileTab {
                 idAction = "id_Investigacion";
                 break;
             case "Proyectos":
-                urlAction = "./ViewProyect.html?param=";
+                urlAction = "./MProyects/ViewProyect.html?param=";
                 idAction = "id_Proyecto";
                 break;
             case "Colaboraciones":

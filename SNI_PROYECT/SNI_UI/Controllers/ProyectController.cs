@@ -1,4 +1,5 @@
-﻿using CAPA_NEGOCIO;
+﻿using CAPA_DATOS;
+using CAPA_NEGOCIO;
 using CAPA_NEGOCIO.MAPEO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,10 @@ namespace SNI_UI.Controllers
     [ApiController]
     public class ProyectController : ControllerBase
     {
+        public ProyectController()
+        {
+            SqlADOConexion.IniciarConexion("sa", "zaxscd");
+        }
         [HttpPost]
         public object TakeProyect(Object ObjInst)
         {
@@ -24,6 +29,11 @@ namespace SNI_UI.Controllers
         {
             var Inst = JsonConvert.DeserializeObject<Tbl_Proyectos>(ObjInst.ToString());
             return Inst.TakeProyects();
+        }
+        public object TakeTypeProyects(Object ObjInst)
+        {
+            var Inst = JsonConvert.DeserializeObject<Cat_Tipo_Proyecto>(ObjInst.ToString());
+            return Inst.TakeTipoProyecto();
         }
     }
 }

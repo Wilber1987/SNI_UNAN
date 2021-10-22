@@ -1,15 +1,15 @@
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
-import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
+import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
+import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 
 const OnLoad = async () => {
     const id_Proyecto = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../api/Proyect/TakeProyect",
+    const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
         { id_Proyecto: id_Proyecto }
     );
-    const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
-    const modules = await import("../MasterDomDetaills.js");
+    const { WRender } = await import("../../WDevCore/WModules/WComponentsTools.js");
+    const modules = await import("../../MasterDomDetaills.js");
     const ActionFunction = (Object) => {
         window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
     }

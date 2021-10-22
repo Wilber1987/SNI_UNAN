@@ -11,14 +11,14 @@ class WAppNavigator extends HTMLElement {
         this.DrawAppNavigator();
     }
     connectedCallback() {
-        if (this.shadowRoot.innerHTML != "") {            
+        if (this.shadowRoot.innerHTML != "") {
             return;
         }
         if (this.id == undefined) {
             const Rand = Math.random();
             this.id = "Menu" + Rand;
         }
-        this.DrawAppNavigator();       
+        this.DrawAppNavigator();
         if (this.Inicialize == true) {
             this.InitialNav();
         }
@@ -33,7 +33,7 @@ class WAppNavigator extends HTMLElement {
         ev.className = "elementNavActive";
         if (this.NavStyle != "tab") {
             this.shadowRoot.querySelector("#MainNav").className = "navInactive";
-        }       
+        }
     }
     DrawAppNavigator() {
         this.shadowRoot.append(WRender.createElement(this.Style()));
@@ -55,7 +55,7 @@ class WAppNavigator extends HTMLElement {
                     type: "img", props: {
                         src: WIcons.Menu,
                         class: "DisplayBtn",
-                    }, children: []
+                    }
                 }]
             }
             if (typeof this.title === "string") {
@@ -75,9 +75,17 @@ class WAppNavigator extends HTMLElement {
             }
             const elementNav = WRender.createElement({
                 type: "a",
-                props: { class: "elementNav", innerText: element.name },
-               
-            });
+                props: { class: "elementNav" },
+
+            });            
+            if (element.icon) {                
+                elementNav.append(WRender.createElement({
+                    type: 'img', props: {
+                        src: "data:image/png;base64," + element.icon, class: 'IconNav'
+                    }
+                }));
+            }
+            elementNav.append(element.name)
             if (element.url != undefined && element.url != "#") {
                 elementNav.href = element.url
             }
@@ -127,7 +135,7 @@ class WAppNavigator extends HTMLElement {
             if (Index == 0 && element.SubNav == undefined) {
                 this.InitialNav = () => {
                     elementNav.onclick();
-                }                
+                }
             }
         });
         this.shadowRoot.append(WRender.createElement(Nav));
@@ -169,6 +177,9 @@ class WAppNavigator extends HTMLElement {
                         "text-decoration": "none",
                         color: "#444444",
                         padding: "10px",
+                        "border-top": "solid 1px rgb(0,0,0,0)",
+                        "border-left": "solid 1px rgb(0,0,0,0)",
+                        "border-right": "solid 1px rgb(0,0,0,0)",
                         "border-bottom": "solid 2px #eee",
                         transition: "all 0.6s",
                         display: "flex", "align-items": "center",
@@ -189,8 +200,17 @@ class WAppNavigator extends HTMLElement {
                         "align-items": "center",
                         "justify-content": "left",
                         "box-shadow": "0 1px 1px 0 rgba(0,0,0,0.3)"
-                    }),
-                    new WCssClass(`.title`, {
+                    }), new WCssClass(`.IconNav`, {
+                        height: 20,
+                        width: 20,
+                        margin: 5
+                    }), new WCssClass(`.tab .elementNavActive, .tab .elementNav`, {
+                        display: "flex",
+                        "flex-direction": "column", width: 100
+                    }), new WCssClass(`.tab .IconNav`, {
+                        height: 40,
+                        width: 40
+                    }), new WCssClass(`.title`, {
                         "font-size": "1.1rem",
                         padding: "10px",
                         color: "#888888",
@@ -220,9 +240,6 @@ class WAppNavigator extends HTMLElement {
                     }), new WCssClass(`.navActive`, {
                         overflow: "hidden",
                         "max-height": "5000px",
-                    }), new WCssClass(`.elementNavMedia`, {
-                        display: "none",
-
                     })
                 ],
                 MediaQuery: [{

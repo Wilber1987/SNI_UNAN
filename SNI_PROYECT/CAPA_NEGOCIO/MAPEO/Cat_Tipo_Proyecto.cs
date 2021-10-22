@@ -9,6 +9,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Proyecto { get; set; }
         public string Descripcion_Tipo_Proyecto { get; set; }
         public string Estado_Tipo_Proyecto { get; set; }
+        public string Icon { get; set; }
         public List<Object> TakeTipoProyecto()
         {
             try

@@ -9,9 +9,10 @@ namespace CAPA_NEGOCIO
     {
         public int? Id_Investigacion { get; set; }
         public int? Id_Investigador { get; set; }
-        public string Nombres { get; set; }
-        public string  Apellidos { get; set; }
         public string Foto { get; set; }
+        public string Photo { get; set; }
+        public string Nombres { get; set; }
+        public string  Apellidos { get; set; }       
         public string Titulo { get; set; }
         public string Resumen { get; set; }
         public string Abstract { get; set; }
@@ -23,7 +24,7 @@ namespace CAPA_NEGOCIO
         public string País { get; set; }
         public string Nombre_Localidad { get; set; }
         public string Nombre_TipoLocalidad { get; set; }
-        public string Photo { get; set; }
+      
         
         public int? Id_Localidad { get; set; }
         public int? Id_LocalidadPadre { get; set; }
@@ -48,7 +49,6 @@ namespace CAPA_NEGOCIO
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -62,7 +62,6 @@ namespace CAPA_NEGOCIO
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -85,7 +84,6 @@ namespace CAPA_NEGOCIO
             }
             catch (Exception)
             {
-
                 throw;
             }
         }        

@@ -103,7 +103,13 @@ class KnowledgeMap extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`.KnowledgeMapContainer`, {
+                new WCssClass( `w-view`, {
+                    display: 'block',
+                    "background-color": "#fff",
+                    padding: 20,
+                    "border-radius": "0.3cm",
+                    "box-shadow": "0 2px 5px 2px rgba(0,0,0,0.2)"
+                }), new WCssClass(`.KnowledgeMapContainer`, {
                     display: 'grid',
                     "grid-template-columns": "250px auto",
                     "border-bottom": "solid 2px #bbbec1",
