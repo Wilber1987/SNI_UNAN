@@ -8,8 +8,8 @@ namespace CAPA_DATOS
     {
         static string UserSQLConexion = "";
         public static SqlServerGDatos SQLM;
-        static string SQLServer = ".";
-        //static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
+        //static string SQLServer = ".";
+        static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
         static public bool IniciarConexion(string user, string password)
         {
             try

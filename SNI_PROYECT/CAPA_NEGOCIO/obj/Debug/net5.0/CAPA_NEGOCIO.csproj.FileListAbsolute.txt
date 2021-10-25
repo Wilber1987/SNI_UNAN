@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\CAPA_NEGOCIO.deps.json
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\CAPA_NEGOCIO.dll
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\ref\CAPA_NEGOCIO.dll
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\CAPA_NEGOCIO.pdb
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\CAPA_DATOS.dll
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\net5.0\CAPA_DATOS.pdb
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.csprojAssemblyReference.cache
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.AssemblyInfo.cs
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.csproj.CopyComplete
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.dll
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\ref\CAPA_NEGOCIO.dll
+C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\net5.0\CAPA_NEGOCIO.pdb

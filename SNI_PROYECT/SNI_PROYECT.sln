@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAPA_NEGOCIO", "CAPA_NEGOCI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAPA_DATOS", "CAPA_DATOS\CAPA_DATOS.csproj", "{8FF1A6C7-4251-4041-A3EE-0A23AE39517D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNI_UI2", "SNI_UI2\SNI_UI2.csproj", "{65064C0F-E1E2-4448-9F71-6581FA14B112}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8FF1A6C7-4251-4041-A3EE-0A23AE39517D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FF1A6C7-4251-4041-A3EE-0A23AE39517D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FF1A6C7-4251-4041-A3EE-0A23AE39517D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65064C0F-E1E2-4448-9F71-6581FA14B112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65064C0F-E1E2-4448-9F71-6581FA14B112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65064C0F-E1E2-4448-9F71-6581FA14B112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65064C0F-E1E2-4448-9F71-6581FA14B112}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
