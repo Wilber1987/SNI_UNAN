@@ -2,6 +2,7 @@ import { WSecurity } from "../WModules/WSecurity.js";
 import { WRender, ComponentsManager } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
 import { WIcons } from "../WModules/WIcons.js";
+
 class WAppNavigator extends HTMLElement {
     constructor() {
         super();
@@ -58,9 +59,10 @@ class WAppNavigator extends HTMLElement {
                     }
                 }]
             }
-            if (typeof this.title === "string") {
+            if (typeof this.NavTitle === "string") {
+                //console.log( this.NavTitle);
                 header.children.push({
-                    type: "label", props: { class: "title", innerText: this.title }
+                    type: "label", props: { class: "NavTitle", innerText: this.NavTitle }
                 });
             }
             this.shadowRoot.appendChild(WRender.createElement(header));
@@ -154,11 +156,12 @@ class WAppNavigator extends HTMLElement {
             props: {
                 id: "NavStyle" + this.id,
                 ClassList: [
-                    new WCssClass(`.nav, .navInactive`, {
+                    new WCssClass(`.nav, .navInactive, .navActive`, {
                         display: "flex",
                         "flex-direction": navDirection,
                         padding: "0px 10px",
                         transition: "all 1s",
+                        "justify-content": this.alignItems
                     }), new WCssClass(`.tab`, {
                         display: "flex",
                         "flex-direction": navDirection,
@@ -198,7 +201,7 @@ class WAppNavigator extends HTMLElement {
                     }), new WCssClass(`header`, {
                         display: "flex",
                         "align-items": "center",
-                        "justify-content": "left",
+                        "justify-content": this.alignItems,
                         "box-shadow": "0 1px 1px 0 rgba(0,0,0,0.3)"
                     }), new WCssClass(`.IconNav`, {
                         height: 20,
@@ -210,7 +213,7 @@ class WAppNavigator extends HTMLElement {
                     }), new WCssClass(`.tab .IconNav`, {
                         height: 40,
                         width: 40
-                    }), new WCssClass(`.title`, {
+                    }), new WCssClass(`.NavTitle`, {
                         "font-size": "1.1rem",
                         padding: "10px",
                         color: "#888888",
@@ -256,40 +259,30 @@ class WAppNavigator extends HTMLElement {
                             "flex-direction": "column",
                             overflow: "hidden",
                             "max-height": "0px"
-                        }), new WCssClass(`nav`, {
-
-                        }), new WCssClass(`.navActive`, {
+                        }), new WCssClass(`.navActive, .navInactive, .nav`, {
                             overflow: "hidden",
                             "max-height": "5000px",
+                            transition: "all 0.6s",
                             "position": "fixed",
                             "z-index": "999",
                             "background-color": "#fff",
                             "color": "#fff",
                             "width": "80%",
                             "height": "100vh",
-                            top: 0,
-                            transition: "all 0.6s",
-                            "box-shadow": "0 5px 5px 3px rgba(0,0,0,0.3)"
-                        }), new WCssClass(`.navInactive, .nav`, {
-                            overflow: "hidden",
-                            "max-height": "0px",
-                            "max-height": "5000px",
-                            transition: "all 0.6s",
-                            transform: "translateX(-100%)",
-                            "position": "fixed",
-                            "z-index": "999",
-                            "background-color": "#fff",
-                            "color": "#fff",
-                            "width": "80%",
-                            "height": "100vh",
-                            top: 0,
-                            transition: "all 0.6s",
-                            "box-shadow": "0 0 0 0 rgba(0,0,0,0.3)"
+                            top: 0,                            
+                            "box-shadow": "0 5px 5px 3px rgba(0,0,0,0.3)",
+                            "flex-direction": "column",
+                            "justify-content": "initial",
+                            "padding-top": 20
+                        }), new WCssClass(`.navInactive, .nav`, {                            
+                            opacity: "0",
+                            "pointer-events": "none",
+                            transform: "translateX(+100%)",
                         }),
                         new WCssClass(`header`, {
                             display: "flex",
                             "align-items": "center",
-                            "justify-content": "left",
+                            "justify-content": this.alignItems,
                             "box-shadow": "none"
                         }),
                     ]

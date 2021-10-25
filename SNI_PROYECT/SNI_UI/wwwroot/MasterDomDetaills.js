@@ -4,6 +4,7 @@ import "./WDevCore/WComponents/WAppNavigator.js";
 import { WSecurity } from "./WDevCore/WModules/WSecurity.js";
 import "./WDevCore/WComponents/WLoginTemplate.js";
 import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
+import { HomeClass } from "./Views/Home.js";
 
 //const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({SPAManage : true});
@@ -127,11 +128,41 @@ class MasterDomDetaills extends ComponentsManager {
         this.props = { className: "AppHeader" }
         this.children = [
             this.Style,    
-            WRender.CreateStringNode("<div class='logDv'>SNI</div>") ,
-            WRender.CreateStringNode("<div class='HeaderH'>Sistemas Nacional de Investigadores</div>"),
-            new HeaderNavigator(),
-                 
-           
+            WRender.CreateStringNode(`<div style='display:flex'>
+                <div class='logDv'>SNI</div>
+                <div class='HeaderH'>Sistemas Nacional de Investigadores</div>
+            </div>`) ,
+            //WRender.CreateStringNode("<div class='HeaderH'>Sistemas Nacional de Investigadores</div>"),
+            WRender.createElement({
+                type: "w-app-navigator",                
+                props: {
+                    Inicialize: false,
+                    alignItems: "flex-end",
+                    Elements: [
+                        {
+                            name: "Investigaciones", url: "#",
+                            action: (ev) => {
+                                DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
+                            }
+                        },{
+                            name: "Proyectos", url: "#",
+                            action: (ev) => {
+                                DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
+                            }
+                        },{
+                            name: "Eventos", url: "#",
+                            action: (ev) => {
+                                DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
+                            }
+                        },{
+                            name: "Perfil", url: "#",
+                            action: (ev) => {
+                                DOMManager.NavigateFunction("HomeClass", new HomeClass(), "AppMain");
+                            }
+                        } 
+                    ]
+                }
+            })
         ];
     }
     Style = {
@@ -141,13 +172,15 @@ class MasterDomDetaills extends ComponentsManager {
                 new WCssClass(".AppHeader", {
                     display: "grid",
                     padding: "10px 40px",
-                    "grid-template-columns": "250px auto 250px",
+                    //"grid-template-columns": "250px auto 250px",
+                    "grid-template-columns": "50% 50%",
                 }), new WCssClass(".AppHeader .HeaderH", {
                     color: "#444",
                     "font-size": 22,
                     display: "flex",
                     "justify-content": "center",
-                    "align-items": "center"
+                    "align-items": "center",
+                    "padding-left": 20
                 }), new WCssClass(".AppHeader img", {
                     display: "block",
                     height: "100%"
@@ -181,7 +214,7 @@ class AsideClass {
         type: "w-app-navigator",
         props: {
             Direction: "column", id: "AppNav",
-            title: "Menu",
+            NavTitle: "Menu",
             Inicialize: true,
             Elements: [
                 {

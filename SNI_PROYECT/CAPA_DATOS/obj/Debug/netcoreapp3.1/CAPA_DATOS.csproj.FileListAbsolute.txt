@@ -16,3 +16,13 @@ C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.dll
 C:\Users\User\source\repos\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\bin\Debug\netcoreapp3.1\CAPA_DATOS.deps.json
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\bin\Debug\netcoreapp3.1\CAPA_DATOS.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\bin\Debug\netcoreapp3.1\CAPA_DATOS.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.AssemblyInfoInputs.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.AssemblyInfo.cs
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.csproj.AssemblyReference.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_DATOS\obj\Debug\netcoreapp3.1\CAPA_DATOS.GeneratedMSBuildEditorConfig.editorconfig
