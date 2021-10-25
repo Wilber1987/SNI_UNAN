@@ -36,8 +36,8 @@ namespace CAPA_NEGOCIO
         public Object TakeInvestigaciones()
         {
             try
-            {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");  
+            {               
+
                 var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
                 foreach (var item in Investigaciones)
                 {
@@ -56,7 +56,6 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigacionesPorDisciplinas", this);                
                 return Investigaciones;
             }
@@ -69,7 +68,6 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 var List = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
                 InvestigacionesClass Investigacion = (InvestigacionesClass)List[0];
                 //Colaboradores

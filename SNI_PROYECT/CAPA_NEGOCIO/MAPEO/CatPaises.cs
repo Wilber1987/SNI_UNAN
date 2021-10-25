@@ -16,7 +16,6 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 if (Inst.Id_Pais == -1)
                 {
                     return SqlADOConexion.SQLM.InsertObject(TableName, Inst);

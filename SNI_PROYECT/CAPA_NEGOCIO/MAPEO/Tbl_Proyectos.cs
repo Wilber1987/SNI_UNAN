@@ -22,7 +22,6 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 var List = SqlADOConexion.SQLM.TakeList("Tbl_Proyectos", this);
                 Tbl_Proyectos Proyecto = (Tbl_Proyectos)List[0];
                 Tbl_Participantes_Proyectos ModelProyect = new Tbl_Participantes_Proyectos();

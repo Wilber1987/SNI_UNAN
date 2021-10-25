@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CAPA_NEGOCIO;
 using Newtonsoft.Json;
 using CAPA_NEGOCIO.MAPEO;
+using CAPA_DATOS;
 
 namespace SNI_UI.Controllers
 {
@@ -14,6 +15,10 @@ namespace SNI_UI.Controllers
     [ApiController]
     public class InvestigacionesController : ControllerBase
     {
+        public InvestigacionesController()
+        {
+            SqlADOConexion.IniciarConexion("sa", "zaxscd");
+        }
         [HttpPost]
         public object TakeInvestigaciones(Object ObjInst)
         {

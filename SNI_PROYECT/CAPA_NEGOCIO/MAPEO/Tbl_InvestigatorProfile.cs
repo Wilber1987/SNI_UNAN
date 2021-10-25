@@ -33,7 +33,6 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                SqlADOConexion.IniciarConexion("sa", "zaxscd");
                 var List = SqlADOConexion.SQLM.TakeList("Tbl_InvestigatorProfile", this);
                 Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
                 //Investigaciones
