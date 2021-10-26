@@ -29,6 +29,20 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> Eventos { get; set; }
         public List<Object> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
+        public Object TakeProfile()
+        {
+            try
+            {
+                var List = SqlADOConexion.SQLM.TakeList("Tbl_InvestigatorProfile", this);
+                Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
+                return Investigador;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public Object TakeInvestigadorProfile()
         {
             try

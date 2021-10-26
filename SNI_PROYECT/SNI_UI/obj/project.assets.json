@@ -157,7 +157,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "CAPA_DATOS": "1.0.0"
+          "CAPA_DATOS": "1.0.0",
+          "Newtonsoft.Json": "13.0.1"
         },
         "compile": {
           "bin/placeholder/CAPA_NEGOCIO.dll": {}

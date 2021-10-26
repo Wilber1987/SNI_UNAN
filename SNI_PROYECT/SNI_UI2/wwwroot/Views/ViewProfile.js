@@ -186,15 +186,15 @@ class ProfileTab {
         let idAction;
         switch (name) {
             case "Investigaciones":
-                urlAction = location.origin + "/ViewRead.html?param=";
+                urlAction = location.origin + "/Views/ViewRead.html?param=";
                 idAction = "id_Investigacion";
                 break;
             case "Proyectos":
-                urlAction = location.origin + "/MProyects/ViewProyect.html?param=";
+                urlAction = location.origin + "/Views/MProyects/ViewProyect.html?param=";
                 idAction = "id_Proyecto";
                 break;
             case "Colaboraciones":
-                urlAction = location.origin + "/ViewRead.html?param=";
+                urlAction = location.origin + "/Views/ViewRead.html?param=";
                 idAction = "id_Investigacion";
                 break;
         }

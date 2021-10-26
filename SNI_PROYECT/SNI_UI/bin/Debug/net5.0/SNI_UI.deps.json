@@ -420,7 +420,8 @@
       },
       "CAPA_NEGOCIO/1.0.0": {
         "dependencies": {
-          "CAPA_DATOS": "1.0.0"
+          "CAPA_DATOS": "1.0.0",
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "CAPA_NEGOCIO.dll": {}

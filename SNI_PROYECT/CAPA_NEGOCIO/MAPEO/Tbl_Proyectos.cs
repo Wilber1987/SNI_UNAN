@@ -30,6 +30,9 @@ namespace CAPA_NEGOCIO.MAPEO
                 var CP = (Cat_Tipo_Proyecto)TP.TakeTipoProyecto()[0];
                 Proyecto.Descripcion_Tipo_Proyecto = CP.Descripcion_Tipo_Proyecto;
                 Proyecto.Participantes = ModelProyect.TakeParicipantesProyectos();
+                Cat_instituciones ModelInst = new Cat_instituciones();
+                ModelInst.Id_Proyecto = Proyecto.Id_Proyecto;
+                Proyecto.Instituciones = ModelInst.TakeInstitucionesAsociadas();
                 return Proyecto;
             }
             catch (Exception)

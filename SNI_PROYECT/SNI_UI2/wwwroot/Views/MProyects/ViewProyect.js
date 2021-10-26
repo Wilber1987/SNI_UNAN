@@ -16,25 +16,60 @@ const OnLoad = async () => {
     const Card = new WCard({
         
     }, 2, ActionFunction);
-    const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), );
+    const BodyComponents = new modules.MasterDomDetaills(new WViewProyect(response), );
     App.appendChild(WRender.createElement(BodyComponents));
 }
-class WReadInvestigacion extends HTMLElement {
+class WViewProyect extends HTMLElement {
     constructor(response) {
         super();
         this.response = response;
-        this.InvestigacionContainer = WRender.createElement({ type: 'div', props: { class: 'InvestigacionContainer' }, children: [] });
+        this.ProyectContainer = WRender.createElement({ type: 'div', props: { class: 'ProyectContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
-        this.append(WRender.createElement(this.styleComponent), this.InvestigacionContainer);
+        this.append(WRender.createElement(this.styleComponent), this.ProyectContainer);
     }
     connectedCallback() {
-        if (this.InvestigacionContainer.innerHTML != "") {
+        if (this.ProyectContainer.innerHTML != "") {
             return;
         }
         this.DrawComponent();
     }
-    DrawComponent = async () => {        
-
+    DrawComponent = async () => {  
+        const Detaills = WRender.createElement({
+            type: 'div',
+            props: { class: 'PropiedadDetails' }, children: [
+                {
+                    type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
+                        WRender.CreateStringNode("<h4>Descripción del Proyecto</h4>"),
+                        this.response.descripcionProyecto,
+                        WRender.CreateStringNode(`<label class="labelDetail">Tipo de Proyecto: ${this.response.descripcion_Tipo_Proyecto}</label>`),
+                        WRender.CreateStringNode(`<label class="labelDetail">Estado: ${this.response.estado_Proyecto}</label>`),
+                        WRender.CreateStringNode("<h4>Instituciones</h4>"),
+                        WRender.CreateStringNode(`<div class="InstitucionesContainer">${
+                            this.response.instituciones.map(x=>{
+                                return `<div class="InstitucionDiv">
+                                    <img src="${x.logo}"/>
+                                    <label>${x.nombre}</label>
+                                    <label>${x.descripcion}</label>
+                                </div>`;
+                            }).join('')
+                        }</div>`)
+                    ]
+                }
+            ]
+        });
+        this.ProyectContainer.append(WRender.createElement(Detaills));
+        this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes</h4>"));
+        this.response.participantes.forEach(element => {
+            element.titulo = `${element.perfil.nombres} ${element.perfil.apellidos}`;
+            element.picture = element.perfil.foto;
+            element.subtitulo = element.cargo;
+            element.descripcion = "";
+        });
+        const Colaboradores = new WCardCarousel(this.response.participantes);
+        Colaboradores.ActionFunction = (Object) => {
+            window.location = location.origin + "/ViewProfile.html?param=" + Object.id_Investigador;
+        }
+        this.ProyectContainer.append(WRender.createElement(Colaboradores));
     }
     styleComponent = {
         type: 'w-style', props: {
@@ -44,7 +79,7 @@ class WReadInvestigacion extends HTMLElement {
                     "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
                     "border-radius": "0.3cm",
                     "object-fit": "cover",
-                }), new WCssClass(`.InvestigacionContainer`, {
+                }), new WCssClass(`.ProyectContainer`, {
                     display: 'flex',
                     "align-items": "center",
                     "justify-content": "center",
@@ -119,7 +154,7 @@ class WReadInvestigacion extends HTMLElement {
             ],  MediaQuery: [{
                 condicion: "(max-width: 800px)",
                 ClassList: [
-                    new WCssClass(`.InvestigacionContainer`, {
+                    new WCssClass(`.ProyectContainer`, {
                         overflow: "hidden", 
                         "flex-wrap": "inherit",                        
                     }), new WCssClass( `w-card-carousel`, {
@@ -130,5 +165,5 @@ class WReadInvestigacion extends HTMLElement {
         }
     };
 }
-customElements.define('w-view', WReadInvestigacion);
+customElements.define('w-view', WViewProyect);
 window.onload = OnLoad;

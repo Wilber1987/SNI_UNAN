@@ -125,7 +125,7 @@ class ViewProyectsTab {
                         ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                         UserActions: [{
                             name: "Detalles", Function: async (Article)=>{
-                                //window.location = urlAction + element[idAction]
+                                window.location = location.origin + "/Views/MProyects/ViewProyect.html?param=" + Article.id_Proyecto
                             }
                         }]
                     }
