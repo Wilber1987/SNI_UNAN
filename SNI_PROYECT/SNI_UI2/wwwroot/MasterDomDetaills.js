@@ -57,7 +57,7 @@ class MasterDomDetaills extends ComponentsManager {
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
                     "justify-self": "center",
-                    padding: 10,
+                    padding: "0px 10px",
                     "margin-right": 20,
                     "margin-bottom": 20,
                     width: "calc(100% - 60px)",

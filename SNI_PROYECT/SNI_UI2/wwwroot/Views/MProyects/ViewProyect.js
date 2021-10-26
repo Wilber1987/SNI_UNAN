@@ -2,7 +2,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/
 import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
-
+import { AsideV1 } from "../../AppComponents/AsideV1.js";
 const OnLoad = async () => {
     const id_Proyecto = new URLSearchParams(window.location.search).get('param');
     const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
@@ -16,7 +16,8 @@ const OnLoad = async () => {
     const Card = new WCard({
         
     }, 2, ActionFunction);
-    const BodyComponents = new modules.MasterDomDetaills(new WViewProyect(response), );
+    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");      
+    const BodyComponents = new modules.MasterDomDetaills(new WViewProyect(response), [ new AsideV1(Disciplinas)] );
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WViewProyect extends HTMLElement {
@@ -39,11 +40,13 @@ class WViewProyect extends HTMLElement {
             props: { class: 'PropiedadDetails' }, children: [
                 {
                     type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
-                        WRender.CreateStringNode("<h4>Descripción del Proyecto</h4>"),
+                        WRender.CreateStringNode(`<h3 class="headerTitle">Proyecto ${this.response.nombre_Proyecto}</h3>`),
+                        WRender.CreateStringNode("<h4>Descripción del Proyecto <hr></h4>"),
                         this.response.descripcionProyecto,
                         WRender.CreateStringNode(`<label class="labelDetail">Tipo de Proyecto: ${this.response.descripcion_Tipo_Proyecto}</label>`),
                         WRender.CreateStringNode(`<label class="labelDetail">Estado: ${this.response.estado_Proyecto}</label>`),
-                        WRender.CreateStringNode("<h4>Instituciones</h4>"),
+                        WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.fecha_Inicio}</label>`),
+                        WRender.CreateStringNode("<h4>Instituciones<hr></h4>"),
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
                             this.response.instituciones.map(x=>{
                                 return `<div class="InstitucionDiv">
@@ -58,7 +61,7 @@ class WViewProyect extends HTMLElement {
             ]
         });
         this.ProyectContainer.append(WRender.createElement(Detaills));
-        this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes</h4>"));
+        this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes<hr></h4>"));
         this.response.participantes.forEach(element => {
             element.titulo = `${element.perfil.nombres} ${element.perfil.apellidos}`;
             element.picture = element.perfil.foto;
@@ -74,82 +77,57 @@ class WViewProyect extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`.photoBaner`, {
-                    width: "95%",
-                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
-                    "border-radius": "0.3cm",
-                    "object-fit": "cover",
-                }), new WCssClass(`.ProyectContainer`, {
+                new WCssClass(`.ProyectContainer`, {
                     display: 'flex',
                     "align-items": "center",
                     "justify-content": "center",
                     "flex-wrap": "wrap",
-                    "flex-direction": "column"
-                }), new WCssClass(`.InvestigacionCard`, {
-                    display: 'flex',
-                    width: "100%",
-                    "margin-top": "10px !important",
-                    overflow: "hidden",
-                    position: "relative",
-                    "border-radius": "0.3cm"
-                }), new WCssClass(`.InvestigacionCard .Details`, {
-                    width: '100%',
-                    "text-align": "left",
-                    display: "grid",
-                    "grid-template-columns": "33% 33% 33%",
-                    "grid-template-rows": "50px 80px",
-                    "grid-gap": 5,
-                    "text-align": "center",
-                    bottom: 0,
-                    left: 10,
-                    right: 0,
-                    color: "#444"
-                }), new WCssClass(`.InvestigacionCard .Details a`, {
-                    "grid-column": "1/4",
-                    color: "#444 !important",
-                    padding: 10,
-                    margin: 0,
-                    background: "rgb(187 187 187 / 50%)",
-                    "font-size": 16,
-                    "border-radius": "0.2cm"
-                }), new WCssClass(`.InvestigacionCard .Details div`, {
-                    padding: 10,
-                    background: "rgb(187 187 187 / 50%)",
-                    "font-size": 14,
-                    "border-radius": "0.2cm",
-                    height: "calc(100% - 20px)",
-                    display: "flex",
                     "flex-direction": "column",
-                    "align-items": "center",
-                    "justify-content": "center",
-                }), new WCssClass(`.InvestigacionCard .Details div .imgIcon`, {
-                    height: "40px !important",
-                    width: "40px !important"
-                }),
-                new WCssClass(`.Animate`, {
-                    animation: "cambio 5s infinite",
-                }),
-                new WCssClass(`.InvestigacionCard img`, {
-                    float: "left",
-                    width: "400px !important",
-                    height: "300px !important",
-                }), new WCssClass(`.PropiedadDetails`, {
-                    display: 'grid',
-                    "grid-template-columns": "100%",
-                }), new WCssClass(`.DetailsDiv`, {
-                    padding: 10,
-                }), new WCssClass(`.DetailsDiv p`, {
-                    "text-align": "justify",
-                    "font-size": 14
-                }), new WCssClass(`.TagContainer`, {
-                    display: "grid",
-                    "grid-template-columns": "auto auto",
-                }), new WCssClass(`.TagContainer label`, {
-                    padding: 10,
+                    padding: 20,
+                    margin: 10,
+                    "background-color": "#fff",
+                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
+                    "border-radius": "0.3cm",
+                    overflow: "hidden",
+                    "text-align": "justify"
+                }), new WCssClass( `.InstitucionesContainer`, {
+                    display: 'flex',
+                    "justify-content": "center"
+                }),new WCssClass( `.DetailsDiv`, {
+                    display: 'flex',
+                    "flex-direction": "column",
+                }),new WCssClass( `.InstitucionDiv`, {
+                    display: 'flex',
+                    "flex-direction": "column",
+                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
+                    overflow: "hidden",
                     "border-radius": "0.2cm",
-                    background: "#0084d2",
-                    color: "#fff",
+                    margin: 10,
+                    "align-items": "center", 
+                    "justify-content": "center",
+                    padding: 5,
+                    width: 120,
+                    height: 150,
+                    "font-size": 12,
+                }),new WCssClass( `.InstitucionDiv img`, {
+                    width: 80,
+                    height: 80,
                     margin: 5,
+                    "object-fit": "cover"
+                }),new WCssClass( `.headerTitle`, {
+                    "text-align": 'center',
+                    padding:10,
+                    margin: 0
+                }), new WCssClass( `.labelDetail`, {
+                    "border-radius": "0.2cm",
+                    color: "#fff",
+                    "background-color": "#28a745",
+                    "font-size": 13,
+                    padding: "5px 10px",
+                    margin: 5,
+                    width: 300
+                }),new WCssClass(`w-card-carousel`, {
+                    width: "100%"
                 }),
             ],  MediaQuery: [{
                 condicion: "(max-width: 800px)",
@@ -158,7 +136,7 @@ class WViewProyect extends HTMLElement {
                         overflow: "hidden", 
                         "flex-wrap": "inherit",                        
                     }), new WCssClass( `w-card-carousel`, {
-                        width: "100%"
+                        //width: "100%"
                     }),
                 ]
             }]

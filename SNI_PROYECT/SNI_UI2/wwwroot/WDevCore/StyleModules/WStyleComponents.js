@@ -238,7 +238,8 @@ const ArticleStyle = {
                 height: 60,
                 width: 60,
                 "border-radius": "20%",
-                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)"
+                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)",
+                "object-fit": "cover"
             }), new WCssClass(`.ArticleBody img`, {                
                 width: "100%", 
                 height: 200, 

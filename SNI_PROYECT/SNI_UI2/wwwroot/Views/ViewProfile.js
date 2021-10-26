@@ -3,6 +3,7 @@ import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import "../WDevCore/WComponents/WTableComponent.js";
+import { AsideV1 } from "../AppComponents/AsideV1.js";
 const DOMManager = new ComponentsManager();
 const OnLoad = async () => {
     const Id_Investigador = new URLSearchParams(window.location.search).get('param');
@@ -25,6 +26,7 @@ const OnLoad = async () => {
         divRedes.append(WRender.createElement([{ type:'img', props: { src: cadenaB64 + element.icon, class: 'RedsIcon'}}, 
         { type:'a', props: { innerText: element.descripcion, href:element.url_red_inv, target:"_blank" }} ]));
     });
+    divRedes.append(WRender.CreateStringNode("<hr style='margin-top: 30px'>"))
     const dataResume = WRender.createElement({
         type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
             WRender.CreateStringNode("<h3>Logros</h3>"),
@@ -32,10 +34,11 @@ const OnLoad = async () => {
             "Proyectos: " + response.proyectos.length,
             "Colaboraciones: " + response.colaboraciones.length,
             WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
-            divRedes
+            divRedes            
         ]
     });
-    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), dataResume);
+    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");    
+    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), [dataResume, new AsideV1(Disciplinas)]);
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WProfileInvestigador extends HTMLElement {
@@ -111,7 +114,12 @@ class WProfileInvestigador extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`.ProfileContainer`, {
+                new WCssClass( `w-view`, {
+                    "background-color": '#fff',
+                    display: "block",
+                    "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
+                    "border-radius": "0.3cm"
+                }), new WCssClass(`.ProfileContainer`, {
                     display: 'grid',
                     "grid-template-columns": "270px auto",
                     "border-bottom": "solid 2px #bbbec1",
@@ -127,13 +135,13 @@ class WProfileInvestigador extends HTMLElement {
                 }), new WCssClass(`.DataContainer label`, {
                     margin: "5px 10px",
                 }), new WCssClass(`.ResumenContainer`, {
-                    "background-color": '#fff',
+                    //"background-color": '#fff',
                     "border-radius": "0.2cm",
                     padding: 20,
-                    "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
+                    //"box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
                     display: "flex",
                     "flex-direction": "column",
-                    "min-height": 600
+
                 }), new WCssClass(`.ResumenContainer label`, {
                     "background-color": '#eee',
                     padding: 10,

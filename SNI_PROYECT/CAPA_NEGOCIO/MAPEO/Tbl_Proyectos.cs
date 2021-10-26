@@ -14,8 +14,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Visibilidad {get; set; }        
         public string Estado_Proyecto {get; set; }
         public DateTime? Fecha_Inicio {get; set; }
-        public DateTime? Fecha_Finalizacion {get; set; }
-        
+        public DateTime? Fecha_Finalizacion {get; set; }        
         public List<Object> Participantes { get; set; }
         public List<Object> Instituciones { get; set; }
         public Object TakeProyect()

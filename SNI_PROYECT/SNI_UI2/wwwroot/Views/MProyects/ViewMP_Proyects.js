@@ -1,11 +1,9 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools, GenerateColor } from '../../WDevCore/WModules/WComponentsTools.js';
 import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
-import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import "../../WDevCore/WComponents/WTableComponent.js";
-import { RadialChart, ColumChart } from "../../WDevCore/WComponents/WChartJSComponents.js";
-import { WTableComponent } from '../../WDevCore/WComponents/WTableComponent.js';
 import { WArticlesComponent } from "../../WDevCore/WComponents/WArticlesComponent.js";
+import { AsideV1 } from "../../AppComponents/AsideV1.js";
+
 const DivAside = WRender.createElement({
     type: 'div', props: { id: '', class: 'DivAside' }, children: [
         { type: 'div', props: { class: 'DivAsideInvestigations' }, children: [] }
@@ -15,6 +13,8 @@ const DOMManager = new ComponentsManager();
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeTypeProyects");
     const modules = await import("../../MasterDomDetaills.js");
+    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");    
+    DivAside.append(new AsideV1(Disciplinas));
     const BodyComponents = new modules.MasterDomDetaills(new ViewProyects(response), DivAside);
     App.appendChild(WRender.createElement(BodyComponents));
 }
@@ -119,7 +119,7 @@ class ViewProyectsTab {
                 type: 'w-articles',
                 props: {
                     //ArticleHeader : ["nombre_Proyecto"],
-                    ArticleBody  : ["nombre_Proyecto","estado_Proyecto", "descripcionProyecto"],
+                    ArticleBody  : ["nombre_Proyecto", "descripcionProyecto"],
                     Dataset: Dataset, Options: {
                         Search: true,
                         ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",

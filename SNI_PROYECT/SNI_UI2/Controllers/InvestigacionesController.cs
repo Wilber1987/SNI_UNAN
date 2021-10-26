@@ -52,6 +52,11 @@ namespace SNI_UI.Controllers
             return Inst.TakeInvestigadorProfile();
         }
         [HttpPost]
+        public object TakeDisciplinas(Object ObjInst)
+        {
+            var Inst = JsonConvert.DeserializeObject<Cat_Disciplinas>(ObjInst.ToString());
+            return Inst.TakeDisciplinas();
+        }
         public object TakeKnowledgeMap(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
