@@ -127,7 +127,7 @@ class WViewProyect extends HTMLElement {
                     margin: 5,
                     width: 300
                 }),new WCssClass(`w-card-carousel`, {
-                    width: "100%"
+                    //width: "100%"
                 }),
             ],  MediaQuery: [{
                 condicion: "(max-width: 800px)",
