@@ -15,7 +15,7 @@ namespace CAPA_NEGOCIO
         public string  Apellidos { get; set; }       
         public string Titulo { get; set; }
         public string Resumen { get; set; }
-        public string Abstract { get; set; }
+        public string Abstract { get; set; } 
         public byte[] Repositorio { get; set; }
         public string Descripcion { get; set; }
         public DateTime? Fecha_ejecucion { get; set; }
