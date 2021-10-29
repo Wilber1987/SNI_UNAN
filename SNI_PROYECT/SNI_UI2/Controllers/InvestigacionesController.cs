@@ -29,7 +29,6 @@ namespace SNI_UI.Controllers
             Data.Add(Dis.TakeDisciplinas());
             return Data;
         }
-        [HttpPost]
         public object TakeInvestigacionesPorDisciplina(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
@@ -39,19 +38,16 @@ namespace SNI_UI.Controllers
             Data.Add(Dis.TakeDisciplinas());
             return Data;
         }
-        [HttpPost]
         public object TakeInvestigacion(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
             return Inst.TakeInvestigacion();
         }
-        [HttpPost]
         public object TakeInvestigadorProfile(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
             return Inst.TakeInvestigadorProfile();
         }
-        [HttpPost]
         public object TakeDisciplinas(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<Cat_Disciplinas>(ObjInst.ToString());
