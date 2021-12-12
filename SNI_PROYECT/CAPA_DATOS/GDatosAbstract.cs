@@ -130,7 +130,7 @@ namespace CAPA_DATOS
             CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
         }
-        public List<Object> TakeList(string TableName, Object Inst)
+        public List<Object> TakeList(string TableName, Object Inst, string CondSQL = "")
         {
             try
             {
