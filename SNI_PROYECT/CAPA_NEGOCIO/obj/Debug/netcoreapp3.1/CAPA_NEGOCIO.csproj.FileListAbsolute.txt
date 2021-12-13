@@ -35,3 +35,15 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_N
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.csproj.AssemblyReference.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\netcoreapp3.1\CAPA_NEGOCIO.deps.json
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\netcoreapp3.1\CAPA_NEGOCIO.dll
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\netcoreapp3.1\CAPA_NEGOCIO.pdb
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\netcoreapp3.1\CAPA_DATOS.dll
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\bin\Debug\netcoreapp3.1\CAPA_DATOS.pdb
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.csprojAssemblyReference.cache
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.AssemblyInfoInputs.cache
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.AssemblyInfo.cs
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.csproj.CoreCompileInputs.cache
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.csproj.CopyComplete
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.dll
+C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\CAPA_NEGOCIO\obj\Debug\netcoreapp3.1\CAPA_NEGOCIO.pdb
