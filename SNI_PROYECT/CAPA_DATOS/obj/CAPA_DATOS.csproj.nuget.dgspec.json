@@ -1,36 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {}
+    "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {
+    "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj",
+        "projectUniqueName": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj",
         "projectName": "CAPA_DATOS",
-        "projectPath": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj",
+        "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj",
         "packagesPath": "C:\\Users\\wilbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\obj\\",
+        "outputPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-<<<<<<< HEAD
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
-=======
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\wilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> ef3229738acdb70017983d4774352efc46821d4a
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -70,12 +59,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

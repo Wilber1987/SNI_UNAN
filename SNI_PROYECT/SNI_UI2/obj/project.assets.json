@@ -528,42 +528,25 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
-=======
     "C:\\Users\\wilbe\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
->>>>>>> ef3229738acdb70017983d4774352efc46821d4a
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\SNI_UI2.csproj",
+      "projectUniqueName": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\SNI_UI2.csproj",
       "projectName": "SNI_UI2",
-      "projectPath": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\SNI_UI2.csproj",
+      "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\SNI_UI2.csproj",
       "packagesPath": "C:\\Users\\wilbe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\obj\\",
+      "outputPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-<<<<<<< HEAD
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
-      "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
-=======
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\wilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> ef3229738acdb70017983d4774352efc46821d4a
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -576,8 +559,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj": {
-              "projectPath": "C:\\Users\\wilbe\\Documents\\PROYECTOS\\REPOS\\SNI_UNAN\\SNI_PROYECT\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj"
+            "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj": {
+              "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj"
             }
           }
         }
@@ -607,6 +590,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.13, 5.0.13]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -615,8 +616,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SNI_UI2\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
