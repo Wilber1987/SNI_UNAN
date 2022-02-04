@@ -26,5 +26,11 @@ namespace CAPA_DATOS
             var da = new SqlDataAdapter((SqlCommand)ComandoSql(comandoSql, Conexion));
             return da;
         }
+        protected override IDataAdapter CrearDataAdapterSql(IDbCommand comandoSql)
+        {
+            var da = new SqlDataAdapter((SqlCommand)comandoSql);
+            return da;
+        }
+
     }
 }

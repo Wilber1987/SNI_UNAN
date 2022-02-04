@@ -13,6 +13,7 @@ namespace CAPA_DATOS
         protected abstract IDbConnection CrearConexion(string cadena);
         protected abstract IDbCommand ComandoSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(string comandoSql, IDbConnection connection);
+        protected abstract IDataAdapter CrearDataAdapterSql(IDbCommand comandoSql);
         public object ExcuteSqlQuery(string strQuery)
         {
             try
@@ -130,6 +131,12 @@ namespace CAPA_DATOS
             CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
         }
+        public DataTable TraerDatosSQL(IDbCommand Command)
+        {
+            DataSet ObjDS = new DataSet();
+            CrearDataAdapterSql(Command).Fill(ObjDS);
+            return ObjDS.Tables[0].Copy();
+        }
         public List<Object> TakeList(string TableName, Object Inst, string CondSQL = "")
         {
             try
@@ -166,6 +173,35 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R'});
                 string queryString = "SELECT * FROM " + TableName + CondicionString;
                 DataTable Table = TraerDatosSQL(queryString);
+                List<Object> ListD = ConvertDataTable(Table, Inst);
+                return ListD;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public Object TakeListWithProcedure(string ProcedureName, Object Inst, List<Object> Params)
+        {
+            try
+            {
+                SQLMCon.Open();
+                var Command = ComandoSql(ProcedureName, SQLMCon);
+                Command.CommandType = CommandType.StoredProcedure; 
+                //REPARAR
+                SqlCommandBuilder.DeriveParameters((SqlCommand)Command);
+                SQLMCon.Close();
+                if (Params.Count != 0)
+                {
+                    int i = 0;
+                    foreach (var param in Params)
+                    {
+                        var p = (SqlParameter)Command.Parameters[i + 1];
+                        p.Value = param;
+                        i++;
+                    }
+                }
+                DataTable Table = TraerDatosSQL(Command);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
             }
