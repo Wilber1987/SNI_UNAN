@@ -15,6 +15,8 @@ class WTableDynamicComp extends HTMLElement {
         this.DisplayFilts = this.TableConfig.DisplayFilts ?? null;
         this.EvalValue = this.TableConfig.EvalValue ?? null;
         this.AttNameEval = this.TableConfig.AttNameEval ?? null;
+        this.OperationsType = "sum";//"sum" count;
+        
         this.attachShadow({ mode: "open" });
         this.MainTable = WRender.createElement({ type: "div", props: { class: this.TableClass, id: "MainTable" + this.id }, children: [] });
         this.divTableContainer = WRender.createElement({
@@ -27,23 +29,14 @@ class WTableDynamicComp extends HTMLElement {
         });
         this.FilterControl = WRender.createElement(this.FilterOptions());
         this.ConfigControl = WRender.createElement(this.CreateConfig());
-        this.TableStyle = WRender.createElement(this.TableStyleDinamic());
-        this.shadowRoot.append(this.TableStyle);
-        this.shadowRoot.append(this.divTableContainer);
-        this.shadowRoot.append(this.ChartContainer);
     }
     connectedCallback() {
         if (this.MainTable.innerHTML != "") {
             return;
-        }
-        //PAGINACION
-        if (this.TableConfig.maxElementByPage == undefined) {
-            this.maxElementByPage = 10;
-        } else {
-            this.maxElementByPage = this.TableConfig.maxElementByPage;
-        }
-        this.AddItemsFromApi = this.TableConfig.AddItemsFromApi;
-        this.SearchItemsFromApi = this.TableConfig.SearchItemsFromApi;
+        } 
+        this.RunTable();
+    }
+    RunTable() {
         if (typeof this.TableConfig.Dataset === "undefined" || this.TableConfig.Dataset.length == 0) {
             this.innerHTML = "Defina un Dataset en formato JSON";
             return;
@@ -56,9 +49,6 @@ class WTableDynamicComp extends HTMLElement {
         if (this.TableConfig.TableClass) {
             this.TableClass = this.TableConfig.TableClass + " WScroll";
         }
-        this.RunTable();
-    }
-    RunTable() {
         this.GroupsData = [];
         this.ProcessData = [];
         this.EvalArray = WArrayF.ArrayUnique(this.TableConfig.Dataset, this.AttNameEval);
@@ -81,8 +71,16 @@ class WTableDynamicComp extends HTMLElement {
                     }),
                 ]
             }
-        }));        
-        this.shadowRoot.append(WRender.createElement(this.TableOptions()));
+        }));  
+        this.GridTC = "1/3";
+        if (this.TableConfig.DisplayOptions != false) {
+            this.GridTC = "1/2";
+            this.shadowRoot.append(WRender.createElement(this.TableOptions()));
+        } 
+        this.TableStyle = WRender.createElement(this.TableStyleDinamic());
+        this.shadowRoot.append(this.TableStyle);
+        this.shadowRoot.append(this.divTableContainer);
+        this.shadowRoot.append(this.ChartContainer);
         this.ChartContainer.innerHTML = "";
         this.DrawGroupTable(this.Dataset);
         this.ChartContainer.append(WRender.createElement(this.DrawChart()));
@@ -209,7 +207,10 @@ class WTableDynamicComp extends HTMLElement {
         let select = {
             type: "select",
             props: {
-                id: "Select" + this.id, class: "titleParam", onchange: () => { this.DefineTable(); }
+                id: "Select" + this.id, class: "titleParam", onchange: (ev) => {
+                    this.OperationsType = ev.target.value;
+                    this.DefineTable(); 
+                }
             }, children: [
                 { type: "option", props: { innerText: "Value - Suma", value: "sum" } },
                 { type: "option", props: { innerText: "Value - Count", value: "count" } }
@@ -265,7 +266,7 @@ class WTableDynamicComp extends HTMLElement {
             type: 'div', props: { id: '', class: 'TableOptionsBTN' }, children: [
                 {//display
                     type: 'input', props: {
-                        style: 'transform: rotate(90deg)', type: 'button', class: 'BtnTableSR', value: '>', onclick: async (ev) => {
+                        style: 'transform: rotate(90deg)', type: 'button', class: 'BtnDinamictT', value: '>', onclick: async (ev) => {
                             if (TOpcion.className == "TableOptions") {
                                 ev.target.style["transform"] = "inherit";
                                 TOpcion.className = "TableOptionsInact";
@@ -279,7 +280,7 @@ class WTableDynamicComp extends HTMLElement {
                     }
                 }, {//filters
                     type: 'button', props: {
-                        class: 'BtnTableSR', innerText: '', onclick: async () => {
+                        class: 'BtnDinamictT', innerText: '', onclick: async () => {
                             this.shadowRoot.append(WRender.createElement({
                                 type: "w-modal-form",
                                 props: {
@@ -294,7 +295,7 @@ class WTableDynamicComp extends HTMLElement {
                     }, children: [{ type: 'img', props: { src: this.Icons.filter, srcset: this.Icons.filter } }]
                 }, {//Data
                     type: 'button', props: {
-                        class: 'BtnTableSR', innerText: '', onclick: async () => {
+                        class: 'BtnDinamictT', innerText: '', onclick: async () => {
                             this.shadowRoot.append(WRender.createElement({
                                 type: "w-modal-form",
                                 props: {
@@ -311,7 +312,7 @@ class WTableDynamicComp extends HTMLElement {
                     }, children: [{ type: 'img', props: { src: this.Icons.config, srcset: this.Icons.dataset } }]
                 }, {//Print
                     type: 'button', props: {
-                        class: 'BtnTableSR', innerText: '', onclick: async () => {
+                        class: 'BtnDinamictT', innerText: '', onclick: async () => {
                             const MainTable = this.MainTable.innerHTML + this.TableStyle.innerHTML;
                             const MainChart = this.ChartContainer.querySelector("w-colum-chart");
                             const PrintNode = MainTable + MainChart.shadowRoot.innerHTML;
@@ -325,7 +326,7 @@ class WTableDynamicComp extends HTMLElement {
                     }, children: [{ type: 'img', props: { src: this.Icons.config, srcset: this.Icons.printI } }]
                 }, {//Config
                     type: 'button', props: {
-                        class: 'BtnTableSR', innerText: '', onclick: async () => {
+                        class: 'BtnDinamictT', innerText: '', onclick: async () => {
                             this.shadowRoot.append(WRender.createElement({
                                 type: "w-modal-form",
                                 props: {
@@ -377,12 +378,12 @@ class WTableDynamicComp extends HTMLElement {
             }
         });
         if (nodes.length != []) {
-            let Operations = this.shadowRoot.querySelector("#Select" + this.id);
+            //let Operations = this.OperationsType;// this.shadowRoot.querySelector("#Select" + this.id);
             let value = "fail!";
-            if (Operations != null) {
-                if (Operations.value == "sum") {
+            if (this.OperationsType != null) {
+                if (this.OperationsType == "sum") {
                     value = WArrayF.SumValAtt(nodes, this.EvalValue);
-                } else if (Operations.value == "count") {
+                } else if (this.OperationsType == "count") {
                     value = nodes.length;
                 }
             } else {
@@ -534,7 +535,8 @@ class WTableDynamicComp extends HTMLElement {
                         //transition: "all 1s"
                     }), new WCssClass(`.tableContainer`, {
                         overflow: "auto",
-                        "grid-row": "1/2",
+                        "grid-row": "1/2" ,
+                        "grid-column":  this.GridTC
                     }), new WCssClass(`.WTable`, {
                         "font-family": "Verdana, sans-serif",
                         width: "100%",
@@ -579,7 +581,7 @@ class WTableDynamicComp extends HTMLElement {
                         "flex-direction": "column",
                     }), new WCssClass(`.flexChild`, {
                         padding: "0px",
-                        width: "100%"
+                        //width: "100%"
                     }), new WCssClass(`TData`, {
                         "overflow-y": "hidden",
                         "white-space": "nowrap",
@@ -664,7 +666,7 @@ class WTableDynamicComp extends HTMLElement {
                     }), new WCssClass(`.TableOptionsInact .TableOptionsAtribs`, {
                         display: "none"
                     }), //BOTONES
-                    new WCssClass(`.Btn,.BtnTable, .BtnTableA, .BtnTableS, .BtnTableSR`, {
+                    new WCssClass(`.Btn,.BtnTable, .BtnTableA, .BtnTableS, .BtnDinamictT`, {
                         "font-weight": "bold",
                         "border": "none",
                         "padding": "5px",
@@ -676,12 +678,12 @@ class WTableDynamicComp extends HTMLElement {
                         "background-color": "#4894aa",
                         "color": "#fff",
                         "border-radius": "0.2cm"
-                    }), new WCssClass(`.BtnTableSR`, {
+                    }), new WCssClass(`.BtnDinamictT`, {
                         width: 30,
                         height: 30,
                         "background-color": "#4894aa",
                         "font-family": "monospace"
-                    }), new WCssClass(`.BtnTableSR img`, {
+                    }), new WCssClass(`.BtnDinamictT img`, {
                         width: 20,
                         height: 20,
                         filter: "invert(100%)"
@@ -726,7 +728,7 @@ class WTableDynamicComp extends HTMLElement {
                     //CHART.....
                     new WCssClass(`.CharttableReport`, {
                         "grid-row": "2/3",
-                        "grid-column": "1/2"
+                        "grid-column": this.GridTC 
                     }),
                 ],
                 MediaQuery: [{

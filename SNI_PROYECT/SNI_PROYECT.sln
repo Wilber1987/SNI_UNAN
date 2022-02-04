@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAPA_NEGOCIO", "CAPA_NEGOCIO\CAPA_NEGOCIO.csproj", "{3A1BD19D-5C38-4166-9A02-B94B79EC5717}"
 EndProject

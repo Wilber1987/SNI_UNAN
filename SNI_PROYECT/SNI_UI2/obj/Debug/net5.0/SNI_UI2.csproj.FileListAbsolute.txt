@@ -79,7 +79,6 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.MvcApplica
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.RazorAssemblyInfo.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.RazorAssemblyInfo.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\staticwebassets\SNI_UI2.StaticWebAssets.Manifest.cache
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\staticwebassets\SNI_UI2.StaticWebAssets.xml
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\scopedcss\bundle\SNI_UI2.styles.css
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.TagHelpers.input.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.TagHelpers.output.cache
@@ -148,3 +147,7 @@ C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\
 C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\ref\SNI_UI2.dll
 C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.pdb
 C:\Users\wilbe\Documents\PROYECTOS\REPOS\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.genruntimeconfig.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\bin\Debug\net5.0\System.Web.Http.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Login.cshtml.g.cs

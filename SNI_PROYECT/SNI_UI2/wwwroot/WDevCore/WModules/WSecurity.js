@@ -1,23 +1,35 @@
-
 import { ComponentsManager, WAjaxTools, WArrayF, WRender } from "./WComponentsTools.js";
-import "../WComponents/WModalForm.js";
-import "../WComponents/WLoginTemplate.js";
+// import "../WComponents/WModalForm.js";
+// import "../WComponents/WLoginTemplate.js";
 
 class WSecurity {
     constructor() {
-        WAjaxTools.PostRequest(WSecurity.urlLogin, this.UserData).then((result) => {
-            if (result.success == false) {
-                WSecurity.LoginIn();
-                WSecurity.Authenticate = false;
-            }
+        WSecurity.Authenticate = true;
+        console.log(WSecurity.UserData);
+        WAjaxTools.PostRequest(WSecurity.urlVerification).then((result) => {
+            if (result == false) {
+                console.log("no auth");
+                WSecurity.LogOut();
+            } 
         })
     }
-    static urlLogin = "http://seyfergames.mygamesonline.org/API/Auth.php/?function=login";
-    static urlRegister = "http://seyfergames.mygamesonline.org/API/Auth.php/?function=Register";
-    static UserData = {
-        nickname: "null",
-        password: "null"
-    }
+    static Path = location.origin;
+    static Authenticate = false;
+    //VIEWS
+    static LoginInView = WSecurity.Path + "/security/login.html";
+    static urlHomeView = WSecurity.Path;
+    //API
+    static urlVerification = WSecurity.Path + "/api/Security/Verification";
+    static urlLogIn = WSecurity.Path + "/api/Security/Login";
+    static urlRegister = WSecurity.Path + "/api/Security/Register";
+    static urlLogOut = WSecurity.Path + "/api/Security/LogOut";
+    
+    static UserData = localStorage.getItem(WSecurity.urlLogIn) != null ? 
+        localStorage.getItem(WSecurity.urlLogIn):{
+            success: false,
+            nickname: "null",
+            password: "null"
+        };
     static RegisterModel = {
         nickname: "xx",
         name: "xx",
@@ -29,68 +41,20 @@ class WSecurity {
         photo: "xx",
         //state: "xx",
     };
-    static Authenticate = false;
-    static Auth = () => {
-        try {
-            this.Authenticate;
-        } catch (error) { }
-    }
-    static Security = async () => {
-        try {
-
-        } catch (error) {
-
-        }
-    }
-    static LoginIn = async () => {
-        try {
-            console.log("login in...");
-            const Modal = WRender.createElement({
-                type: "w-modal-form",
-                props: {
-                    ObjectModal: WRender.createElement({
-                        type: "w-login-template",
-                        props: {
-                            id: "MyLogin",
-                            LoginModel: this.UserData,//{ Email: null, Password: null },
-                            LoginFuncion: async (Data) => {
-                                const dataLog = await this.login(Data);
-                                //console.log(dataLog)
-                                return { username: dataLog.data.nickname, token: dataLog.data.login_token };
-                            },
-                            RegisterModel: this.RegisterModel,
-                            RegisterFuncion: async (NewUser) => {
-                                return Register(NewUser);
-                            },
-                        }
-                    })
-                }
-            });
-            document.body.append(WRender.createElement(Modal));
-        } catch (error) {
-
-        }
-    }
-    static login = async (UserData) => {
-        const result = await WAjaxTools.PostRequest(WSecurity.urlLogin, UserData)
+    static Login = async (UserData) => {
+        const result = await WAjaxTools.PostRequest(WSecurity.urlLogIn, UserData)
         if (result.success == true) {
-            this.UserData = result.data;
-            WSecurity.Authenticate = true;
+            this.UserData = result;
+            window.location = WSecurity.urlHomeView;
         } else {
-            WSecurity.LoginIn();
-            WSecurity.Authenticate = false;
+            console.log("Fail to login");
         }
-        return result;
     }
-    static User = () => {
-        try {
-            const UserData = {
-                id_user: "null"
-            }
-            return UserData;
-        } catch (error) {
-
-        }
+    static LogOut = async () => {
+        const result = await WAjaxTools.PostRequest(WSecurity.urlLogOut);
+        localStorage.clear();        
+        window.location = WSecurity.LoginInView;  
+        return result;
     }
 }
 export { WSecurity }

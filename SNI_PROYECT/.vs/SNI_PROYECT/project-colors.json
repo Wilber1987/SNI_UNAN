@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8ff1a6c7-4251-4041-a3ee-0a23ae39517d": {
+      "ProjectGuid": "8ff1a6c7-4251-4041-a3ee-0a23ae39517d",
+      "DisplayName": "CAPA_DATOS",
+      "ColorIndex": 0
+    },
+    "3a1bd19d-5c38-4166-9a02-b94b79ec5717": {
+      "ProjectGuid": "3a1bd19d-5c38-4166-9a02-b94b79ec5717",
+      "DisplayName": "CAPA_NEGOCIO",
+      "ColorIndex": 1
+    },
+    "65064c0f-e1e2-4448-9f71-6581fa14b112": {
+      "ProjectGuid": "65064c0f-e1e2-4448-9f71-6581fa14b112",
+      "DisplayName": "SNI_UI2",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 3
+}

@@ -1,6 +1,6 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
-import "./WModalForm.js";
+import { WModalForm } from "./WModalForm.js";
 class WTableComponent extends HTMLElement {
     constructor(TableConfig = {}) {
         super();
@@ -10,13 +10,13 @@ class WTableComponent extends HTMLElement {
         this.ModelObject = {};
         this.paginate = true;
         this.attachShadow({ mode: "open" });
-        this.TypeMoney = "Euro";     
+        this.TypeMoney = "Euro";
         this.TableConfig = TableConfig;
     }
-    connectedCallback() {        
+    connectedCallback() {
         if (this.shadowRoot.innerHTML != "") {
             return;
-        } 
+        }
         this.shadowRoot.append(WRender.createElement(this.PaginateTOptionsStyle()));
         switch (this.TableConfig.StyleType) {
             default:
@@ -24,12 +24,16 @@ class WTableComponent extends HTMLElement {
                 break;
         }
         //PAGINACION
-        this.append(WRender.createElement({ type:'w-style', props: {id: '', ClassList: [
-            new WCssClass(`w-table`, {
-                padding: 10,
-                display: "block"
-            }),
-        ]}}));
+        this.append(WRender.createElement(
+            {
+                type: 'w-style', props: {
+                    id: '', ClassList: [
+                        new WCssClass(`w-table`, {
+                            display: "block"
+                        }),
+                    ]
+                }
+            }));
         if (this.TableConfig.maxElementByPage == undefined) {
             this.maxElementByPage = 10;
         } else {
@@ -78,8 +82,9 @@ class WTableComponent extends HTMLElement {
             this.TableClass = this.TableConfig.TableClass + " WScroll";
         }
         this.RunTable();
-    }  
+    }
     RunTable() {
+        this.DarkMode = this.DarkMode ?? false;
         this.GroupsData = [];
         this.ProcessData = [];
         this.EvalArray = WArrayF.ArrayUnique(this.TableConfig.Dataset, this.AttNameEval);
@@ -225,7 +230,6 @@ class WTableComponent extends HTMLElement {
             return "";
         }
         if (this.Options != undefined) {
-            console.log(this.Options);
             if (this.Options.Search != undefined || this.Options.Add != undefined) {
                 const trOptions = { type: "div", props: { class: "thOptions" }, children: [] }
                 if (this.Options.Search != undefined) {
@@ -258,7 +262,6 @@ class WTableComponent extends HTMLElement {
                                             } catch (error) {
                                                 console.log(element);
                                             }
-
                                         }
                                     })
                                     if (Dataset.length == 0 && this.Options.UrlSearch != undefined) {
@@ -279,13 +282,12 @@ class WTableComponent extends HTMLElement {
                     const BtnOptions = {
                         type: "button",
                         props: {
-                            class: "Btn",
+                            class: "BtnTableSR",
                             type: "button",
                             innerText: "Add+",
                             onclick: async () => {
-                                this.shadowRoot.append(WRender.createElement({
-                                    type: "w-modal-form",
-                                    props: {
+                                this.shadowRoot.append(
+                                    new WModalForm({
                                         ObjectModel: this.ModelObject,
                                         AddItemsFromApi: this.AddItemsFromApi,
                                         Dataset: this.Dataset,
@@ -302,8 +304,8 @@ class WTableComponent extends HTMLElement {
                                                 this.DrawTable();
                                             }
                                         }
-                                    }
-                                }));
+                                    })
+                                );
                             }
                         }
                     }
@@ -314,34 +316,34 @@ class WTableComponent extends HTMLElement {
             return null;
         }
         return null;
-    }    
+    }
     DrawTHead = (element = this.ModelObject) => {
         const thead = { type: "thead", props: {}, children: [] };
         //const element = this.Dataset[0];
         let tr = { type: "tr", children: [] }
 
         for (const prop in element) {
-            const flag = WArrayF.checkDisplay(this.DisplayData,prop);
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
             if (flag) {
                 if (!prop.includes("_hidden")) {
                     const th = {
                         type: "th",
                         children: [
-                            prop.replaceAll("_operationValue", "").replaceAll("_", " ")                            
+                            prop.replaceAll("_operationValue", "").replaceAll("_", " ")
                         ]
                     };
                     tr.children.push(th);
-                    const BtnU =  {
+                    const BtnU = {
                         type: 'img',
                         props:
                         {
-                            class: 'orderBtn', src: WIcons.UpRow, onclick: async () => {                                       
-                                this.Dataset.sort( (a, b) => {
+                            class: 'orderBtn', src: WIcons.UpRow, onclick: async () => {
+                                this.Dataset.sort((a, b) => {
                                     if (typeof a[prop] === "number") {
                                         return a[prop] - b[prop];
                                     } else {
-                                        return parseFloat(a[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], "")) 
-                                        - parseFloat(b[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""));
+                                        return parseFloat(a[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""))
+                                            - parseFloat(b[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""));
                                     }
                                 });
                                 this.DrawTable();
@@ -353,19 +355,19 @@ class WTableComponent extends HTMLElement {
                         props:
                         {
                             class: 'orderBtn', src: WIcons.DownRow, onclick: async () => {
-                                this.Dataset.sort( (a, b) => {                                            
+                                this.Dataset.sort((a, b) => {
                                     if (typeof a[prop] === "number") {
                                         return b[prop] - a[prop];
                                     } else {
-                                        return parseFloat(b[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], "")) 
-                                        - parseFloat(a[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""));
+                                        return parseFloat(b[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""))
+                                            - parseFloat(a[prop].replaceAll("%", "").replaceAll(Money[this.TypeMoney], ""));
                                     }
                                 });
                                 this.DrawTable();
                             }
                         }
                     };
-                    if (element[prop] != null && parseFloat(element[prop].toString().replaceAll("%", "").replaceAll(Money[this.TypeMoney], "")).toString() != "NaN" ) {
+                    if (element[prop] != null && parseFloat(element[prop].toString().replaceAll("%", "").replaceAll(Money[this.TypeMoney], "")).toString() != "NaN") {
                         th.children.push(BtnU);
                         th.children.push(BtnD);
                     }
@@ -385,6 +387,192 @@ class WTableComponent extends HTMLElement {
         }
         thead.children.push(tr);
         return thead;
+    }
+    DrawTRow = (tr, element) => {
+        tr.innerHTML = "";
+        for (const prop in element) {
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
+            if (flag) {
+
+                if (!prop.includes("_hidden")) {
+                    let value = "";
+                    if (element[prop] != null) {
+                        value = element[prop];
+                    }
+                    //DEFINICION DE VALORES-------------
+                    if (prop.includes("img") || prop.includes("pict") ||
+                        prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
+                        prop.includes("Photo")) {
+                        let cadenaB64 = "";
+                        //console.log(this.TableConfig)
+                        var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+                        if (base64regex.test(value)) {
+                            cadenaB64 = "data:image/png;base64,";
+                        } else if (this.TableConfig.ImageUrlPath != undefined) {
+                            cadenaB64 = this.TableConfig.ImageUrlPath + "/";
+                        }
+                        tr.append(WRender.createElement({
+                            type: "td",
+                            props: { class: "tdImage" },
+                            children: [{
+                                type: "img",
+                                props: {
+                                    src: cadenaB64 + value,
+                                    class: "imgPhoto",
+                                    height: 50,
+                                    width: 50
+                                }
+                            }]
+                        }));
+                    } else if (prop.toUpperCase().includes("TOTAL")
+                        || prop.toUpperCase().includes("MONTO")
+                        || prop.toUpperCase().includes("SUBTOTAL")
+                        || prop.toUpperCase().includes("SUB-TOTAL")
+                        || prop.toUpperCase().includes("SUB TOTAL")
+                        || prop.toUpperCase().includes("IMPUESTO")
+                        || prop.toUpperCase().includes("IVA")
+                        || prop.toUpperCase().includes("TAXT")
+                        || prop.toUpperCase().includes("P/U")
+                        || prop.toUpperCase().includes("P-U")) {
+                        tr.append(WRender.createElement({
+                            type: "td", props: {
+                                style: "text-align: right",
+                                innerHTML: `${Money[this.TypeMoney]} ${value}`
+                            }
+                        }));
+                    } else if (typeof value === "number") {
+                        tr.append(WRender.createElement({ type: "td", props: { innerHTML: value.toFixed(2) } }));
+                    } else {
+                        tr.append(WRender.createElement({ type: "td", props: { innerHTML: value } }));
+                    }
+                }
+            }
+        }
+        if (this.Options != undefined) {
+            if (this.Options.Select != undefined ||
+                this.Options.Show != undefined ||
+                this.Options.Edit != undefined ||
+                this.Options.Delete != undefined ||
+                this.Options.UserActions != undefined) {
+                const Options = { type: "td", props: { class: "tdAction" }, children: [] };
+                if (this.Options.Select != undefined && this.Options.Select == true) {
+                    let Checked = WArrayF.FindInArray(element, this.selectedItems);
+                    Options.children.push({
+                        type: "input",
+                        props: {
+                            class: "Btn",
+                            type: "checkbox",
+                            innerText: "Select",
+                            checked: Checked,
+                            onclick: async (ev) => {
+                                const control = ev.target;
+                                const index = this.selectedItems.indexOf(element);
+                                if (index == -1 && control.checked == true) {
+                                    if (WArrayF.FindInArray(element, this.selectedItems) == false) {
+                                        this.selectedItems.push(element)
+                                    } else {
+                                        console.log("Item Existente")
+                                    }
+                                } else {
+                                    this.selectedItems.splice(index, 1)
+                                }
+                            }
+                        }
+                    })
+                }
+                if (this.Options.Show != undefined && this.Options.Show == true) {
+                    Options.children.push({
+                        type: "button",
+                        children: [{ type: 'img', props: { class: "icon", src: WIcons["show2"] } }],
+                        props: {
+                            class: "BtnTable",
+                            type: "button",
+                            onclick: async () => {
+                                this.shadowRoot.append(
+                                    new WModalForm({
+                                        icon: this.TableConfig.icon,
+                                        ImageUrlPath: this.TableConfig.ImageUrlPath,
+                                        title: "Detalle",
+                                        ObjectDetail: element,
+                                    }));
+                            }
+                        }
+                    })
+                }
+                if (this.Options.Edit != undefined && this.Options.Edit == true) {
+                    Options.children.push({
+                        type: "button",
+                        children: [{ type: 'img', props: { class: "icon", src: WIcons["edit"] } }],
+                        props: {
+                            class: "BtnTableS",
+                            type: "button",
+                            onclick: async () => {
+                                this.shadowRoot.append(
+                                    new WModalForm({
+                                        ObjectModel: this.ModelObject,
+                                        EditObject: element,
+                                        icon: this.TableConfig.icon,
+                                        ImageUrlPath: this.TableConfig.ImageUrlPath,
+                                        title: "Editar",
+                                        ValidateFunction: this.TableConfig.ValidateFunction,
+                                        ObjectOptions: {
+                                            Url: this.Options.UrlUpdate,
+                                            SaveFunction: () => {
+                                                this.DrawTRow(tr, element);
+                                            }
+                                        }
+                                    }));
+                            }
+                        }
+                    })
+                }
+                if (this.Options.Delete != undefined && this.Options.Delete == true) {
+                    Options.children.push({
+                        type: "button",
+                        children: [{ type: 'img', props: { class: "icon", src: WIcons["delete"] } }],
+                        props: {
+                            class: "BtnTableA",
+                            type: "button",
+                            onclick: async () => {
+                                this.shadowRoot.append(
+                                    new WModalForm({
+                                        icon: this.TableConfig.icon,
+                                        title: "Eliminar",
+                                        id: "Alert" + this.id,
+                                        ObjectModal: { type: "h5", children: ["¿Esta seguro de eliminar este elemento?"] },
+                                        ObjectOptions: {
+                                            Url: this.Options.UrlDelete,
+                                            SaveFunction: () => {
+                                                const index = Dataset.indexOf(element);
+                                                if (WArrayF.FindInArray(element, Dataset) == true) {
+                                                    Dataset.splice(index, 1);
+                                                    tr.parentNode.removeChild(tr);
+                                                } else { console.log("No Object") }
+                                            }
+                                        }
+                                    }));
+                            }
+                        }
+                    })
+                }
+                if (this.Options.UserActions != undefined) {
+                    this.Options.UserActions.forEach(Action => {
+                        Options.children.push({
+                            type: "button",
+                            props: {
+                                class: "BtnTableSR",
+                                type: "button",
+                                innerText: Action.name,
+                                onclick: async (ev) => {
+                                    Action.Function(element, ev.target);
+                                }
+                            }
+                        })
+                    });
+                }
+                tr.append(WRender.createElement(Options));
+            }
+        }
     }
     DrawTBody = (Dataset = this.Dataset) => {
         let tbody = { type: "tbody", props: {}, children: [] };
@@ -416,195 +604,8 @@ class WTableComponent extends HTMLElement {
             if (DatasetIndex >= 50) {
                 return;
             }
-            let tr = { type: "tr", props: {}, children: [] };
-            for (const prop in element) {
-                const flag = WArrayF.checkDisplay(this.DisplayData,prop);
-                if (flag) {
-                    if (!prop.includes("_hidden")) {
-                        let value = "";
-                        if (element[prop] != null) {
-                            value = element[prop].toString();
-                        }
-                        //DEFINICION DE VALORES-------------
-                        if (prop.includes("img") || prop.includes("pict") ||
-                            prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
-                            prop.includes("Photo")) {
-                            let cadenaB64 = "";
-                            //console.log(this.TableConfig)
-                            var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-                            if (base64regex.test(value)) {
-                                cadenaB64 = "data:image/png;base64,";
-                            } else if (this.TableConfig.ImageUrlPath != undefined) {
-                                cadenaB64 = this.TableConfig.ImageUrlPath + "/";
-                            }
-                            tr.children.push({
-                                type: "td",
-                                props: { class: "tdImage" },
-                                children: [{
-                                    type: "img",
-                                    props: {
-                                        src: cadenaB64 + value,
-                                        class: "imgPhoto",
-                                        height: 50,
-                                        width: 50
-                                    }
-                                }]
-                            });
-                        } else if (prop.toUpperCase().includes("TOTAL")
-                            || prop.toUpperCase().includes("MONTO")
-                            || prop.toUpperCase().includes("SUBTOTAL")
-                            || prop.toUpperCase().includes("SUB-TOTAL")
-                            || prop.toUpperCase().includes("SUB TOTAL")
-                            || prop.toUpperCase().includes("IMPUESTO")
-                            || prop.toUpperCase().includes("IVA")
-                            || prop.toUpperCase().includes("TAXT")
-                            || prop.toUpperCase().includes("P/U")
-                            || prop.toUpperCase().includes("P-U")) {
-                            tr.children.push({
-                                type: "td", props: {
-                                    style: "text-align: right",
-                                    innerHTML: `${Money[this.TypeMoney]} ${value}`
-                                }
-                            });
-                        } else {
-                            tr.children.push({ type: "td", props: { innerHTML: value } });
-                        }
-                    }
-                }
-            }
-            if (this.Options != undefined) {
-                if (this.Options.Select != undefined ||
-                    this.Options.Show != undefined ||
-                    this.Options.Edit != undefined ||
-                    this.Options.Delete != undefined ||
-                    this.Options.UserActions != undefined) {
-                    const Options = { type: "td", props: { class: "tdAction" }, children: [] };
-                    if (this.Options.Select != undefined && this.Options.Select == true) {
-                        let Checked = WArrayF.FindInArray(element, this.selectedItems);
-                        Options.children.push({
-                            type: "input",
-                            props: {
-                                class: "Btn",
-                                type: "checkbox",
-                                innerText: "Select",
-                                checked: Checked,
-                                onclick: async (ev) => {
-                                    const control = ev.target;
-                                    const index = this.selectedItems.indexOf(element);
-                                    if (index == -1 && control.checked == true) {
-                                        if (WArrayF.FindInArray(element, this.selectedItems) == false) {
-                                            this.selectedItems.push(element)
-                                        } else {
-                                            console.log("Item Existente")
-                                        }
-                                    } else {
-                                        this.selectedItems.splice(index, 1)
-                                    }
-                                }
-                            }
-                        })
-                    }
-                    if (this.Options.Show != undefined && this.Options.Show == true) {
-                        Options.children.push({
-                            type: "button",
-                            children: [{ type: 'img', props: { class: "icon", src: WIcons["show2"] } }],
-                            props: {
-                                class: "BtnTable",
-                                type: "button",
-                                onclick: async () => {
-                                    this.shadowRoot.append(WRender.createElement({
-                                        type: "w-modal-form",
-                                        props: {
-                                            icon: this.TableConfig.icon,
-                                            ImageUrlPath: this.TableConfig.ImageUrlPath,
-                                            title: "Detalle",
-                                            ObjectDetail: element,
-                                        }
-                                    }));
-                                }
-                            }
-                        })
-                    }
-                    if (this.Options.Edit != undefined && this.Options.Edit == true) {
-                        Options.children.push({
-                            type: "button",
-                            children: [{ type: 'img', props: { class: "icon", src: WIcons["edit"] } }],
-                            props: {
-                                class: "BtnTableS",
-                                type: "button",
-                                onclick: async () => {
-                                    this.shadowRoot.append(WRender.createElement({
-                                        type: "w-modal-form",
-                                        props: {
-                                            ObjectModel: this.ModelObject,
-                                            EditObject: element,
-                                            icon: this.TableConfig.icon,
-                                            ImageUrlPath: this.TableConfig.ImageUrlPath,
-                                            title: "Editar",
-                                            ValidateFunction: this.TableConfig.ValidateFunction,
-                                            ObjectOptions: {
-                                                Url: this.Options.UrlUpdate,
-                                                SaveFunction: () => {
-                                                    this.DrawTable();
-                                                }
-                                            }
-                                        }
-                                    }));
-                                }
-                            }
-                        })
-                    }
-                    if (this.Options.Delete != undefined && this.Options.Delete == true) {
-                        Options.children.push({
-                            type: "button",
-                            children: [{ type: 'img', props: { class: "icon", src: WIcons["delete"] } }],
-                            props: {
-                                class: "BtnTableA",
-                                type: "button",
-                                onclick: async () => {
-                                    this.shadowRoot.append(WRender.createElement({
-                                        type: "w-modal-form",
-                                        props: {
-                                            icon: this.TableConfig.icon,
-                                            title: "Eliminar",
-                                            id: "Alert" + this.id,
-                                            ObjectModal: { type: "h5", children: ["¿Esta seguro de eliminar este elemento?"] },
-                                            ObjectOptions: {
-                                                Url: this.Options.UrlDelete,
-                                                SaveFunction: () => {
-                                                    const index = Dataset.indexOf(element);
-                                                    if (WArrayF.FindInArray(element, Dataset) == true) {
-                                                        ;
-                                                        Dataset.splice(index, 1);
-                                                        this.DrawTable();
-                                                    } else { console.log("No Object") }
-                                                }
-                                            }
-                                        }
-                                    }));
-                                }
-                            }
-                        })
-                    }
-                    if (this.Options.UserActions != undefined) {
-                        this.Options.UserActions.forEach(Action => {
-                            Options.children.push({
-                                type: "button",
-                                props: {
-                                    class: "BtnTableSR",
-                                    type: "button",
-                                    innerText: Action.name,
-                                    onclick: async (ev) => {
-                                        Action.Function(element, ev.target);
-                                    }
-                                }
-                            })
-                        });
-                    }
-                    tr.children.push(Options);
-                }
-            }
-
+            let tr = WRender.Create({ tagName: "tr" });
+            this.DrawTRow(tr, element);
             if (this.numPage > 1 && tbody.children[page] &&
                 (this.paginate == true && Dataset.length > this.maxElementByPage)) {
                 tbody.children[page].children.push(tr);
@@ -716,7 +717,7 @@ class WTableComponent extends HTMLElement {
         const ClassList = [];
         let index = 1;
         for (const prop in this.ModelObject) {
-            const flag = WArrayF.checkDisplay(this.DisplayData,prop);
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
             if (flag) {
                 if (!prop.includes("Photo") &&
                     !prop.includes("img") &&
@@ -759,7 +760,7 @@ class WTableComponent extends HTMLElement {
             type: "w-style",
             props: {
                 id: "TableStyle" + this.id,
-                ClassList: [                    
+                ClassList: [
                     //ESTILO DE LA TABLA BASICA----------------------------tableContainer
                     new WCssClass(`.tableContainer`, {
                         overflow: "auto"
@@ -768,19 +769,24 @@ class WTableComponent extends HTMLElement {
                         width: "100%",
                         "border-collapse": "collapse",
                         "font-size": "12px",
-                        position: "relative"
+                        "box-shadow": "0 0 2px 0 rgba(0,0,0,0.5)",
+                        border: "1px rgba(10, 10, 10, 0.3) solid",
+                        position: "relative",
+                        //overflow: "hidden",
+                        //"border-radius": 10
                     }), new WCssClass(`.WTable th`, {
                         "text-align": "left",
-                        border: "1px #ccc solid"
+                        border: "1px rgba(10, 10, 10, 0.3) solid",
                     }), new WCssClass(`.WTable td`, {
                         padding: "0.25rem 0.8rem",
                         "text-align": "left",
-                        border: "1px #ccc solid"
+                        //"border-bottom": "1px rgba(10, 10, 10, 0.5) solid",
+                        //border: "1px #ccc solid"
                     }), new WCssClass(`.WTable .tdAction`, {
                         "text-align": "center",
                         "width": "120px",
                     }), new WCssClass(`.WTable tbody tr:nth-child(odd)`, {
-                        "background-color": "#f5f4f4"
+                        "background-color": "rgba(0,0,0,0.1)"
                     }), new WCssClass(`.icon`, {
                         height: "16px", width: "16px", filter: "invert(1)",
                     }), new WCssClass(`.orderBtn`, {
@@ -796,6 +802,24 @@ class WTableComponent extends HTMLElement {
                         "text-align": "center",
                         "text-overflow": "ellipsis",
                         overflow: "hidden"
+                    }), new WCssClass(`.thOptions`, {
+                        display: "flex",
+                        overflow: "hidden",
+                        padding: "10px 0px",
+                        "justify-content": "space-between"
+                    }), new WCssClass(`input[type=text], input[type=string], input[type=number], input[type=date]`, {
+                        padding: 10,
+                        "border": "2px solid rgba(0,0,0,0.2)",
+                        width: 300,
+                        "font-size": "15px",
+                        "border-radius": 10
+                    }), new WCssClass(`input:active, input:focus`, {
+                        //"border-bottom": "2px solid #0099cc",
+                        outline: "none",
+                    }), new WCssClass(`input[type=button]`, {
+                        cursor: "pointer",
+                        width: "calc(100% - 0px)",
+                        height: "initial"
                     })
                 ],
                 MediaQuery: [{
@@ -816,10 +840,10 @@ class WTableComponent extends HTMLElement {
                             margin: "10px",
                             "border-radius": "0.3cm",
                             overflow: "hidden",
-                            "box-shadow": "0 2px 5px 2px rgba(0,0,0,0.2)"
+                            "box-shadow": "0 0 5px 2px rgba(0,0,0,0.4)"
                         }), new WCssClass(`.WTable td`, {
                             display: "flex ",
-                            "border-bottom": "1px solid #c5c5c5",
+                            "border-bottom": "1px rgba(10, 10, 10, 0.3) solid",
                             padding: "10px"
                             //width: "100%"
                         }), new WCssClass(`.WTable .tdAction`, {
@@ -829,7 +853,10 @@ class WTableComponent extends HTMLElement {
                             width: "auto",
                             padding: "10px"
                         }), new WCssClass(`.WTable tbody tr:nth-child(odd)`, {
-                            "background-color": "#fff"
+                            "background-color": "rgba(0,0,0,0.2)"
+                        }), new WCssClass(`input[type=text], input[type=string], input[type=number], input[type=date]`, {
+                            padding: "5px 10px",
+                            width: "calc(100% - 20px)",
                         }),
 
                     ]
@@ -837,7 +864,7 @@ class WTableComponent extends HTMLElement {
             }
         }
         return WTableStyle;
-    }   
+    }
     PaginateTOptionsStyle() {
         const style = this.shadowRoot.querySelector("#PaginateTOptionsStyle" + this.id);
         if (style) {
@@ -848,24 +875,6 @@ class WTableComponent extends HTMLElement {
             props: {
                 id: "PaginateTOptionsStyle" + this.id,
                 ClassList: [
-                    new WCssClass(`.thOptions`, {
-                        display: "flex",
-                        overflow: "hidden",                       
-                        padding: "10px 0px",
-                        "justify-content": "space-between"
-                    }), new WCssClass(`input[type=text], input[type=string], input[type=number], input[type=date]`, {
-                        padding: 8,
-                        "border": "2px solid #e1d4d4",
-                        width: 300,
-                        "font-size": "15px",
-                    }), new WCssClass(`input:active, input:focus`, {
-                        "border-bottom": "2px solid #0099cc",
-                        outline: "none",
-                    }), new WCssClass(`input[type=button]`, {
-                        cursor: "pointer",
-                        width: "calc(100% - 0px)",
-                        height: "initial"
-                    }),
                     //PAGINACION****************************************************
                     new WCssClass(`.paginateBTN`, {
                         display: "inline-block",
@@ -892,7 +901,7 @@ class WTableComponent extends HTMLElement {
                         "text-align": "center",
                     }), new WCssClass(`.tfooter`, {
                         display: "flex",
-                        border: "1px rgb(185, 185, 185) solid",
+                        border: "1px rgba(10, 10, 10, 0.5) solid",
                         "border-top": "none",
                         "justify-content": "flex-end",
                         "padding-left": "20px",
@@ -902,9 +911,9 @@ class WTableComponent extends HTMLElement {
                         "max-width": "390px",
                         "text-overflow": "ellipsis",
                         "white-space": "nowrap",
-                    }), 
+                    }),
                     //BTN OPTIONS BOTONES               
-                    new WCssClass(`.Btn,.BtnTable, .BtnTableA, .BtnTableS, .BtnTableSR`, {
+                    new WCssClass(`.BtnTable, .BtnTableA, .BtnTableS, .BtnTableSR`, {
                         "font-weight": "bold",
                         "border": "none",
                         "padding": "5px",
@@ -917,20 +926,21 @@ class WTableComponent extends HTMLElement {
                         "background-color": "#4894aa",
                         "color": "#fff",
                         "border-radius": "0.2cm"
-                    }),new WCssClass( `.Btn`, {
+                    }), new WCssClass(`.Btn`, {
                         width: 120,
-                    }),, new WCssClass(`.BtnTableS`, {
+                    }), , new WCssClass(`.BtnTableS`, {
                         "background-color": "#5fb454",
-                    }),  new WCssClass(`.BtnTableA`, {
+                    }), new WCssClass(`.BtnTableA`, {
                         "background-color": "#d24545",
                     }), new WCssClass(`.BtnTableSR`, {
                         "background-color": "#4894aa",
                         width: "inherit",
+                        "min-width": 100
                     }), new WCssClass(`.Btn[type=checkbox]`, {
                         "height": "20px",
                         "min-width": "20px",
                         "margin": "5px",
-                    }), 
+                    }),
                     //IMAGE TABLE
                     new WCssClass(`.imgPhoto`, {
                         "width": "80px",

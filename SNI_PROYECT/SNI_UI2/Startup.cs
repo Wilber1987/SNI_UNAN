@@ -25,6 +25,7 @@ namespace SNI_UI2
         {
             services.AddRazorPages();
             services.AddControllers();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +56,9 @@ namespace SNI_UI2
             {
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Login}/{id?}");
             });
         }
     }

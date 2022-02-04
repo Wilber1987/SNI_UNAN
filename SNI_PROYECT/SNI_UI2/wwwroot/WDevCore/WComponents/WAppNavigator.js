@@ -7,7 +7,7 @@ class WAppNavigator extends HTMLElement {
     constructor(Elements = []) {
         super();
         this.attachShadow({ mode: "open" });
-        this.Elements = Elements;
+        this.Elements = Elements;       
     }
     attributeChangedCallBack() {
         this.DrawAppNavigator();
@@ -38,10 +38,12 @@ class WAppNavigator extends HTMLElement {
         }
     }
     DrawAppNavigator() {
+        this.DarkMode = this.DarkMode ?? false;
+        this.DisplayMode = this.DisplayMode ?? "left";
         this.shadowRoot.append(WRender.createElement(this.Style()));
         if (this.NavStyle == undefined) {
             this.NavStyle = "nav";
-        }
+        }        
         if (this.NavStyle == "nav") {
             const header = {
                 type: "header", props: {
@@ -167,25 +169,26 @@ class WAppNavigator extends HTMLElement {
                         transition: "all 1s",
                         "justify-content": "center"
                     }), new WCssClass(`.tab .elementNavActive`, {
-                        "border-top": "solid 1px #dedddd",
-                        "border-left": "solid 1px #dedddd",
-                        "border-right": "solid 1px #dedddd",
+                        "border-top": "solid 1px rgba(0,0,0,0)",
+                        "border-left": "solid 1px rgba(0,0,0,0)",
+                        "border-right": "solid 1px rgba(0,0,0,0)",
                         "border-radius": "0.1cm",
+                        color: this.DarkMode ? "#4da6ff" : "#444444"
                     }), new WCssClass(`a`, {
                         "text-decoration": "none",
                         cursor: "pointer"
                     }), new WCssClass(`.elementNav`, {
                         "text-decoration": "none",
-                        color: "#444444",
+                        color: this.DarkMode ? "#d3d3d3" : "#444444",
                         padding: "10px",
                         "border": "solid 1px rgb(0,0,0,0)",
-                        "border-bottom": "solid 2px #eee",
+                        "border-bottom": `solid 2px rgba(0,0,0,0)`,
                         transition: "all 0.6s",
                         display: "flex", "align-items": "center",
                         cursor: "pointer"
                     }), new WCssClass(`.elementNavActive`, {
                         "text-decoration": "none",
-                        color: "#444444",
+                        color: this.DarkMode ? "#4da6ff" : "#444444",
                         padding: "10px",
                         "border": "solid 1px rgb(0,0,0,0)",
                         "border-bottom": "solid 2px #4da6ff",
@@ -237,7 +240,8 @@ class WAppNavigator extends HTMLElement {
                         margin: "10px",
                         display: "none",
                         height: "15px", width: "15px",
-                        cursor: "pointer"
+                        cursor: "pointer",
+                        filter:  this.DarkMode ? "invert(90%)": "invert(0%)"
                     }), new WCssClass(`.navActive`, {
                         overflow: "hidden",
                         "max-height": "5000px",
@@ -263,7 +267,7 @@ class WAppNavigator extends HTMLElement {
                             transition: "all 0.6s",
                             "position": "fixed",
                             "z-index": "999",
-                            "background-color": "#fff",
+                            "background-color": this.DarkMode ? "#444444" : "#fff", 
                             "color": "#fff",
                             "width": "80%",
                             "height": "100vh",
@@ -275,7 +279,7 @@ class WAppNavigator extends HTMLElement {
                         }), new WCssClass(`.navInactive, .nav`, {                            
                             opacity: "0",
                             "pointer-events": "none",
-                            transform: "translateX(+100%)",
+                            transform: this.DisplayMode == "left" ? "translateX(-100%)":"translateX(+100%)" ,
                         }),
                         new WCssClass(`header`, {
                             display: "flex",

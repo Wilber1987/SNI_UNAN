@@ -7,26 +7,19 @@ const StyleScrolls = {
             new WCssClass("*::-webkit-scrollbar-thumb", {
                 "background": " #ccc",
                 "border-radius": " 4px",
-            }),
-            new WCssClass("*::-webkit-scrollbar-thumb:hover", {
+            }), new WCssClass("*::-webkit-scrollbar-thumb:hover", {
                 "background": " #b3b3b3",
                 "box-shadow": " 0 0 3px 2px rgba(0, 0, 0, 0.2)",
-            }),
-            new WCssClass("*::-webkit-scrollbar-thumb:active ", {
+            }), new WCssClass("*::-webkit-scrollbar-thumb:active ", {
                 "background-color": " #999999",
-            }),
-
-            new WCssClass("*::-webkit-scrollbar ", {
+            }), new WCssClass("*::-webkit-scrollbar ", {
                 "width": " 8px",
                 "height": " 10px",
                 "margin": " 10px",
-            }),
-
-            new WCssClass("*::-webkit-scrollbar-track ", {
+            }), new WCssClass("*::-webkit-scrollbar-track ", {
                 "background": " #e1e1e1",
                 "border-radius": " 4px",
-            }),
-            new WCssClass("*::-webkit-scrollbar-track:active ,*::-webkit-scrollbar-track:hover", {
+            }), new WCssClass("*::-webkit-scrollbar-track:active ,*::-webkit-scrollbar-track:hover", {
                 "background": " #d4d4d4",
             })
         ]
@@ -70,212 +63,91 @@ const StylesControlsV1 = {
                 "height": "20px",
                 "min-width": "20px",
                 "margin": "5px",
-            }), new WCssClass(`.BtnTable, .BtnTableA, .BtnTableS, .BtnTableSR`, {
-                "font-weight": "bold",
-                "border": "none",
-                "padding": "5px",
-                "margin": "2px",
-                "text-align": "center",
-                "display": "inline-block",
-                "min-width": "30px",
-                "font-size": "12px",
-                "cursor": "pointer",
-                "background-color": "#09f",
-                "color": "#fff",
-                //"border-right": "rgb(3, 106, 175) 5px solid",
-            }), new WCssClass(`.BtnTableS`, {
-                "background-color": "#106705",
-                //"border-right": "#0a3e03 5px solid"
-            }), new WCssClass(`.BtnTableSR`, {
-                "background-color": "#ff8080",
-                //"border-right": "#d86060 5px solid",
-                width: "100%",
-            }), new WCssClass(`.BtnTableA`, {
-                "background-color": "#af0909",
-                //"border-right": "#670505 5px solid"
             }),
             //INPUTS
             new WCssClass(`input[type=text], 
             input[type=string], 
             input[type=number],
-            input[type=date]`, {
-                padding: "8px",
+            input[type=date], select, textarea`, {
+                padding: 10,
                 border: "none",
-                "border-bottom": "3px solid #999999",
-                width: "calc(100% - 16px)",
+                border: "2px solid #dddada",
+                width: "calc(100%)",
+                //height: "100%",
                 "font-size": "15px",
-                height: "20px"
-            }), new WCssClass(`input:active, input:focus`, {
-                "border-bottom": "3px solid #0099cc",
+                "border-radius": "0.2cm",
+                "box-sizing": "border-box",
+                "border-radius": 10
+            }), new WCssClass(`input:active, input:focus, select:active, select:focus`, {
+                "border-bottom": "2px solid #0099cc",
                 outline: "none",
-            }), new WCssClass(`input[type=button]`, {
-                cursor: "pointer",
-                width: "calc(100% - 0px)",
-                height: "initial"
-            }),
-        ]
-    }
-}
-const StyleTFooter = {
-    type: 'w-style', props: {
-        id: '', ClassList: [
-            new WCssClass(`.paginateBTN`, {
-                display: "inline-block",
-                padding: "5px",
-                //"background-color": "#09f",
-                color: "#888888",
-                "margin": "5px",
-                cursor: "pointer",
-                "border-radius": "0.2cm",
-                //"font-weight": "bold",
-                transition: "all 0.6s"
-            }), new WCssClass(`.paginateBTNHidden`, {
-                display: "none",
-            }), new WCssClass(`.paginateBTNActive`, {
-                //"background-color": "rgb(3, 106, 175)",
-                "font-weight": "bold",
-                color: "#444444",
-            }), new WCssClass(`.pagBTN`, {
-                display: "inline-block",
-                padding: "5px",
-                //"background-color": "rgb(3, 106, 175)",
-                color: "#888888",
-                "margin": "5px",
-                cursor: "pointer",
-                "border-radius": "0.2cm",
-                "font-weight": "bold",
-                transition: "all 0.6s",
-                //width: "80px",
-                "text-align": "center",
-            }), new WCssClass(`.tfooter`, {
-                display: "flex",
-                "border-bottom": "1px rgb(185, 185, 185) solid",
-                "justify-content": "flex-end",
-                "padding-left": "20px",
-                "padding-right": "20px",
-            }), new WCssClass(`.tfooterNumbers`, {
-                overflow: "hidden",
-                "max-width": "390px",
-                "text-overflow": "ellipsis",
-                "white-space": "nowrap",
-            }), new WCssClass(`h5`, {
-                padding: "0.25rem 5px",
-                "padding-left": "20px",
-                "padding-right": "20px",
-                margin: "0px",
             })
         ]
     }
 }
-//#endregion ##################################################################################################
-//#region WARTICLESTYLE #######################################################################################
-const ArticleStyle = {
+const StylesControlsV2 = {
     type: 'w-style', props: {
         id: '', ClassList: [
-            new WCssClass(`.WArticles`, {
-                padding: 10,
-            }), new WCssClass(`.WArticles article`, {
-                padding: 0,
-                "background-color": "#fff",
-                "margin-bottom": 10,
-                "border-radius": "0.2cm",
-                "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)",
-                overflow: "hidden"
-            }), new WCssClass(`.WArticles .ArticleHeader`, {
-                padding: 10,
-                display: "flex",
-                "align-items": "center",
-                "font-size": 13,
-                "font-family": "system-ui",
-                "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)",
-                "justify-content": "space-between"
-            }), new WCssClass(`.WArticles .ArticleBody`, {
-                margin: 10,
-                display: "flex",
-                "flex-direction": "column",
-                "font-size": 12,
-                "font-family": "system-ui",
-                position: "relative",
-                "min-height": 126,
-                "border": "solid 1px rgba(0,0,0,0.3)",
-                "border-radius": "0.2cm",
-                overflow: "hidden"
-            }),new WCssClass(`.WArticles  .ArticleBody label`, {
-                padding: 10,
-                "font-size": 16,
-                "font-weight": "bold", 
-                color: "#444" ,
-                position: "absolute" ,
-                "background-color": "rgb(9, 49, 95, 80%)",
-                color: "#fff", left: 0, right: 0,
-                margin: 0,
-                top: 0,
-                "text-align": "center"     
-            }), new WCssClass(`.WArticles .ArticleBody p`, {
-                "text-align": "justify",
-                "text-overflow": "ellipsis",
-                "display": "-webkit-box",
-                " display": "-moz-box",
-                "  display": "box",
-                "-webkit-box-orient": "vertical",
-                "-moz-box-orient": "vertical",
-                "box-orient": "vertical",
-                "-webkit-line-clamp": "4",
-                "line-clamp": "4",
-                height: 75,
-                position: "absolute",
-                overflow: "hidden",
-                padding: "5px 15px",
-                color: "#fff",
-                bottom:0,
-                "background-color": "rgb(0,0,0,50%)",
-                "font-size": 14,
-                width: "calc(100% - 30px)", 
-                margin: 0
-            }), new WCssClass(`.ArticleHeader img`, {
-                //"grid-row": "1/3",
-                //"grid-column": "1/2",
-                height: 60,
-                width: 60,
-                "border-radius": "20%",
-                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)",
-                "object-fit": "cover"
-            }), new WCssClass(`.ArticleBody img`, {                
-                width: "100%", 
-                height: 200, 
-                "object-fit": "cover",
-                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)"
-            }), new WCssClass(`.ArticleBody img`, {                
-                width: "100%",  
-                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)"
-            }), new WCssClass( `.ArticleAction`, {
-                display: 'flex',
-                //height: 30,
-                padding: "10px 30px",
-                "justify-content": "flex-end",
-                "align-items": "center"
-            }),  new WCssClass( `.ArticleAction .BtnArticles, .ArticleAction img`, {                
-                height: 30,
-                width: 30,
+            //BOTONES
+            new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
+                width: "150px",
+                "background-color": "#5995fd",
                 border: "none",
-                "background-color": "initial",
+                outline: "none",
+                height: "40px",
+                "border-radius": "49px",
+                color: "#fff",
+                "text-transform": "uppercase",
+                "font-weight": "600",
+                margin: "10px 0",
                 cursor: "pointer",
+                transition: "0.5s",
+            }), new WCssClass(`.BtnPrimary`, {
+                "color": "#fff",
+                "background-color": "007bff",
+            }), new WCssClass(`.BtnAlert`, {
+                "color": "#fff",
+                "background-color": "#dc3545",
+            }), new WCssClass(`.BtnSuccess`, {
+                "color": "#fff",
+                "background-color": "#28a745",
+            }), new WCssClass(`.BtnSecundary`, {
+                "color": "#fff",
+                "background-color": "#17a2b8",
+            }), new WCssClass(`.Btn[type=checkbox]`, {
+                "height": "20px",
+                "min-width": "20px",
+                "margin": "5px",
             }),
-        ], MediaQuery: [{
-            condicion: '(max-width: 600px)',
-            ClassList: []
-        },
+            //INPUTS
+            new WCssClass(`input[type=text], 
+            input[type=string], 
+            input[type=password], 
+            input[type=number],
+            input[type=date], select, textarea,
+            input:-internal-autofill-selected`, {
+                width: "100%",
+                "background-color": "#f0f0f0 !important",
+                "border-radius": "55px",
+                padding: "10px 15px",
+                outline: "none",
+                border: "none",
+                "line-height": "1",
+                "font-weight": "600 !important",
+                "font-size": "1.1rem !important",
+                color: "#333 !important",
+                "box-sizing": "border-box"
+            }), new WCssClass(`input:active, 
+                input:focus, 
+                select:active, 
+                select:focus,
+                textarea:focus,textarea:focus`, {
+                "box-shadow": "0 0 5px #4894aa",
+               // outline: "none",
+            })
         ]
     }
-};
-const WArticleStyleContainer = {
-    type: 'div',
-    props: { id: '', style: 'display: none' },
-    children: [
-        StyleScrolls, ArticleStyle, StylesControlsV1, StyleTFooter
-    ]
 }
-
 //#endregion  #################################################################################################
 
-export { StyleScrolls, WArticleStyleContainer , StylesControlsV1}
+export { StyleScrolls, StylesControlsV1, StylesControlsV2 }

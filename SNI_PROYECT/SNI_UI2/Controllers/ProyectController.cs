@@ -1,6 +1,7 @@
 ﻿using CAPA_DATOS;
 using CAPA_NEGOCIO;
 using CAPA_NEGOCIO.MAPEO;
+using CAPA_NEGOCIO.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -17,7 +18,11 @@ namespace SNI_UI.Controllers
     {
         public ProyectController()
         {
-            SqlADOConexion.IniciarConexion("sa", "zaxscd");
+            //SqlADOConexion.IniciarConexion("sa", "zaxscd");
+            if (!AuthNetCore.Authenticate())
+            {
+                Redirect("./Security/Login");
+            }
         }
         [HttpPost]
         public object TakeProyect(Object ObjInst)

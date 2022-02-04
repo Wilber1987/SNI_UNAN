@@ -1,6 +1,6 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
-import { WArticleStyleContainer } from "../StyleModules/WStyleComponents.JS";
+import {StyleScrolls, StylesControlsV1} from "../StyleModules/WStyleComponents.JS";
 import "./WModalForm.js";
 class WArticlesComponent extends HTMLElement {
     constructor() {
@@ -442,6 +442,158 @@ const Money = {
     Euro: "€",
     Dollar: "$",
     Cordoba: "C$"
+}
+const StyleTFooter = {
+    type: 'w-style', props: {
+        id: '', ClassList: [
+            new WCssClass(`.paginateBTN`, {
+                display: "inline-block",
+                padding: "5px",
+                //"background-color": "#09f",
+                color: "#888888",
+                "margin": "5px",
+                cursor: "pointer",
+                "border-radius": "0.2cm",
+                //"font-weight": "bold",
+                transition: "all 0.6s"
+            }), new WCssClass(`.paginateBTNHidden`, {
+                display: "none",
+            }), new WCssClass(`.paginateBTNActive`, {
+                //"background-color": "rgb(3, 106, 175)",
+                "font-weight": "bold",
+                color: "#444444",
+            }), new WCssClass(`.pagBTN`, {
+                display: "inline-block",
+                padding: "5px",
+                //"background-color": "rgb(3, 106, 175)",
+                color: "#888888",
+                "margin": "5px",
+                cursor: "pointer",
+                "border-radius": "0.2cm",
+                "font-weight": "bold",
+                transition: "all 0.6s",
+                //width: "80px",
+                "text-align": "center",
+            }), new WCssClass(`.tfooter`, {
+                display: "flex",
+                "border-bottom": "1px rgb(185, 185, 185) solid",
+                "justify-content": "flex-end",
+                "padding-left": "20px",
+                "padding-right": "20px",
+            }), new WCssClass(`.tfooterNumbers`, {
+                overflow: "hidden",
+                "max-width": "390px",
+                "text-overflow": "ellipsis",
+                "white-space": "nowrap",
+            }), new WCssClass(`h5`, {
+                padding: "0.25rem 5px",
+                "padding-left": "20px",
+                "padding-right": "20px",
+                margin: "0px",
+            })
+        ]
+    }
+}
+//#endregion ##################################################################################################
+//#region WARTICLESTYLE #######################################################################################
+const ArticleStyle = {
+    type: 'w-style', props: {
+        id: '', ClassList: [
+            new WCssClass(`.WArticles`, {
+                padding: 10,
+            }), new WCssClass(`.WArticles article`, {
+                padding: 0,
+                "background-color": "#fff",
+                "margin-bottom": 10,
+                "border-radius": "0.2cm",
+                "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)",
+                overflow: "hidden"
+            }), new WCssClass(`.WArticles .ArticleHeader`, {
+                padding: 10,
+                display: "flex",
+                "align-items": "center",
+                "font-size": 13,
+                "font-family": '"Poppins", sans-serif',
+                "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.3)",
+                "justify-content": "space-between"
+            }), new WCssClass(`.WArticles .ArticleBody`, {
+                margin: 10,
+                display: "flex",
+                "flex-direction": "column",
+                "font-size": 12,
+                "font-family": '"Poppins", sans-serif',
+                position: "relative",
+                "min-height": 150,
+                "border": "solid 1px rgba(0,0,0,0.3)",
+                "border-radius": "0.2cm",
+                overflow: "hidden"
+            }),new WCssClass(`.WArticles  .ArticleBody label`, {
+                padding: 10,
+                "font-size": 16,
+                "font-weight": "bold", 
+                color: "#444"               
+            }), new WCssClass(`.WArticles .ArticleBody p`, {
+                "text-align": "justify",
+                "text-overflow": "ellipsis",
+                "display": "-webkit-box",
+                " display": "-moz-box",
+                "  display": "box",
+                "-webkit-box-orient": "vertical",
+                "-moz-box-orient": "vertical",
+                "box-orient": "vertical",
+                "-webkit-line-clamp": "4",
+                "line-clamp": "4",
+                height: 75,
+                position: "absolute",
+                overflow: "hidden",
+                padding: "5px 15px",
+                color: "#fff",
+                bottom:0,
+                "background-color": "rgb(0,0,0,50%)",
+                "font-size": 14,
+                width: "calc(100% - 30px)"
+            }), new WCssClass(`.ArticleHeader img`, {
+                //"grid-row": "1/3",
+                //"grid-column": "1/2",
+                height: 60,
+                width: 60,
+                "border-radius": "20%",
+                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)",
+                "object-fit": "cover"
+            }), new WCssClass(`.ArticleBody img`, {                
+                width: "100%", 
+                height: 200, 
+                "object-fit": "cover",
+                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)"
+            }), new WCssClass(`.ArticleBody img`, {                
+                width: "100%",  
+                "box-shadow": "0 0px 1px 0 rgba(0,0,0,0.3)"
+            }), new WCssClass( `.ArticleAction`, {
+                display: 'flex',
+                //height: 30,
+                padding: "10px 30px",
+                "justify-content": "flex-end",
+                "align-items": "center"
+            }),  new WCssClass( `.ArticleAction .BtnArticles, .ArticleAction img`, {                
+                height: 30,
+                width: 30,
+                border: "none",
+                "background-color": "initial",
+                cursor: "pointer",
+            }),
+        ], MediaQuery: [{
+            condicion: '(max-width: 600px)',
+            ClassList: []
+        },
+        ]
+    }
+};
+const WArticleStyleContainer = {
+    type: 'div',
+    props: { id: '', style: 'display: none' },
+    children: [
+        StyleScrolls, ArticleStyle, StylesControlsV1, StyleTFooter
+    ]
 }
 customElements.define("w-articles", WArticlesComponent);
 export { WArticlesComponent }

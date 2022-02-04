@@ -91,10 +91,6 @@ class WLoginTemplate extends HTMLElement {
                                             alert("Debe definir una funcion asyncrona de registro");
                                         } else {
                                             const response = await this.RegisterFuncion(LoginObject);
-                                            /*this.#LoginData.username = response.username;
-                                            this.#LoginData.token = response.token;
-                                            sessionStorage.setItem("username", this.#LoginData.username);
-                                            sessionStorage.setItem("token", this.#LoginData.token);  */
                                             this.DrawComponent();
                                         }
                                     }
@@ -124,11 +120,6 @@ class WLoginTemplate extends HTMLElement {
                     } else {
                         console.log("no ha definido un funcion de cierre de sesion");
                     }
-                    //this.#LoginData.username = null;
-                    //this.#LoginData.token = null;
-                    //sessionStorage.removeItem(this.id + "username");
-                    //sessionStorage.removeItem(this.id + "token");
-                    //this.DrawComponent();
                 }
             },
             children: ['▼']

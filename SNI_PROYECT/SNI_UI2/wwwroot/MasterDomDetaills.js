@@ -6,13 +6,14 @@ import "./WDevCore/WComponents/WLoginTemplate.js";
 import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 import { HomeClass } from "./Views/Home.js";
 
-//const Auth = new WSecurity();
+const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({ SPAManage: true });
 class MasterDomDetaills extends ComponentsManager {
     constructor(MainComponent, AsideComponent = null) {
         super();
         this.props = { className: "App" }
         this.children = [
+            WRender.Create({tagName: "style", innerHTML: '@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");'}),
             new headerClass(),
             new MainClass(MainComponent),
             new AsideClass("SecondAside", AsideComponent),
@@ -28,7 +29,7 @@ class MasterDomDetaills extends ComponentsManager {
             ClassList: [
                 new WCssClass(`body`, {
                     "background-color": "#eee",
-                    "font-family": "system-ui !important"
+                    "font-family": '"Poppins", sans-serif' //"system-ui !important"
                 }),
                 new WCssClass(".App", {
                     display: "grid",

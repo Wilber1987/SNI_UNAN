@@ -5,23 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CAPA_NEGOCIO;
+using CAPA_NEGOCIO.Security;
 using Newtonsoft.Json;
 using CAPA_NEGOCIO.MAPEO;
 using CAPA_DATOS;
+using SNI_UI2.Controllers;
 
 namespace SNI_UI.Controllers
 {
+    //[AuthController]
     [Route("api/[controller]/[action]")]
     [ApiController]
+   
     public class InvestigacionesController : ControllerBase
     {
         public InvestigacionesController()
         {
-            SqlADOConexion.IniciarConexion("sa", "zaxscd");
+           
         }
         [HttpPost]
+        [AuthController]
         public object TakeInvestigaciones(Object ObjInst)
         {
+            
             var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();

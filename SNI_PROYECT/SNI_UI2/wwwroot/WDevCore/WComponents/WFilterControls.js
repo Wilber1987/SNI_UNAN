@@ -105,8 +105,7 @@ class WFilterOptions extends HTMLElement {
             id: '', ClassList: [
                 new WCssClass(`.reportV`, {
                     margin: '10px',
-                }), new WCssClass(`.OptionContainer`, {
-                    padding: 20,
+                }), new WCssClass(`.OptionContainer`, {                    
                     display: "grid",
                     "grid-template-columns": "50% 50%",
                     "grid-gap": 10
@@ -116,12 +115,13 @@ class WFilterOptions extends HTMLElement {
                 }), new WCssClass(`.OptionContainer div`, {
                     display: "grid",
                     "grid-template-rows": "30px 30px",
-                    margin: "5px",
+                    //margin: "5px",
                     "font-size": "12px",
                 }), new WCssClass(`.OptionContainer input, .OptionContainer select`, {
                     "grid-row": "2/3",
                     margin: "0px",
-                    padding: "5px 10px"
+                    padding: "5px 10px",
+                    "border": "2px solid #e1d4d4"
                 }), new WCssClass(`.BtnSuccess`, {
                     "font-weight": "bold",
                     "border": "none",
@@ -141,9 +141,9 @@ class WFilterOptions extends HTMLElement {
                     "flex-direction": "column",                    
                 }),new WCssClass(`.OptionContainer div`, {
                     display: "grid",
-                    "grid-template-rows": "20px 30px",
+                    "grid-template-rows": "30px 30px",
                     "grid-template-columns": "auto",
-                    margin: "5px",
+                    //margin: "5px",
                     "font-size": "12px",
                 }),]
             },

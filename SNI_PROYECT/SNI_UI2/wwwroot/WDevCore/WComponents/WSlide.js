@@ -1,6 +1,6 @@
 import { WRender, ComponentsManager } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
-import "./WModalForm.js"
+import "./WModalForm.js";
 class WSlide extends HTMLElement {
     constructor() {
         super();
@@ -45,7 +45,7 @@ class WSlide extends HTMLElement {
         return Slides;
     }
     TakeSlide = (element) => {
-        const slide = {
+        let slide = {
             type: "div",
             props: {},
             children: []
@@ -108,10 +108,12 @@ class WSlide extends HTMLElement {
         } else if (this.slideType == "images") {
             slide.type = "img";
             slide.props.src = element.url;
-        } else {
+        } else if (typeof element === "string"){
             slide.type = "p";
             slide.props.class = "pText";
             slide.children.push(element);
+        } else {
+            slide = element;
         }
         return slide;
     }
@@ -122,7 +124,6 @@ class WSlide extends HTMLElement {
         let frag = { type: "div", props: { class: "slideshow-container" }, children: [] }
         let dotContainer = { type: "div", props: { class: "dot-container" }, children: [] }
         let Slides = this.TakeArray();
-        console.log(Slides)
         Slides.forEach((element, index = 1) => {
             const slide = this.TakeSlide(element);
             frag.children.push({
@@ -276,7 +277,7 @@ class WSlide extends HTMLElement {
                         //"padding": "20px 50px",
                         "height": "350px",
                         //"overflow-y": "auto",
-                        //"overflow-x": "hidden",
+                        "overflow": "hidden",
                         "text-align": "justify",
                         "white-space": "pre-wrap",
                     }),

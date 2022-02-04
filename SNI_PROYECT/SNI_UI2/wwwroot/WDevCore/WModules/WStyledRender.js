@@ -194,9 +194,15 @@ class WCssClass {
         this.CSSProps = PropsList;
     }
 }
+class StyleConfig {
+    ClassList = [];
+}
 class WStyledRender extends HTMLElement {
-    constructor() {
-        super();       
+    constructor(Config = (new StyleConfig())) {
+        super();  
+        for (const p in Config) {
+            this[p] = Config[p];
+        }     
     }
     attributeChangedCallBack() {
         this.DrawStyle();
@@ -256,4 +262,4 @@ class WStyledRender extends HTMLElement {
     }
 }
 customElements.define("w-style", WStyledRender);
-export { WCssClass };
+export { WCssClass, WStyledRender };
