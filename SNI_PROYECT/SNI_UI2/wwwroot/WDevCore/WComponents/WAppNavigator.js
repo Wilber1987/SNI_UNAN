@@ -2,12 +2,23 @@ import { WSecurity } from "../WModules/WSecurity.js";
 import { WRender, ComponentsManager } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
 import { WIcons } from "../WModules/WIcons.js";
-
+class NavConfig {
+    Inicialize = false;
+    alignItems = "flex-end";
+    DisplayMode = "right";
+    Elements = null;
+    DarkMode = false;
+    Direction = "row";
+    NavStyle = "nav";
+}
 class WAppNavigator extends HTMLElement {
-    constructor(Elements = []) {
+    constructor(Config = (new NavConfig())) {
         super();
         this.attachShadow({ mode: "open" });
-        this.Elements = Elements;       
+        this.Config = Config;
+        for (const p in Config) {
+            this[p] = Config[p];
+        }
     }
     attributeChangedCallBack() {
         this.DrawAppNavigator();
@@ -43,7 +54,7 @@ class WAppNavigator extends HTMLElement {
         this.shadowRoot.append(WRender.createElement(this.Style()));
         if (this.NavStyle == undefined) {
             this.NavStyle = "nav";
-        }        
+        }
         if (this.NavStyle == "nav") {
             const header = {
                 type: "header", props: {
@@ -79,8 +90,8 @@ class WAppNavigator extends HTMLElement {
                 type: "a",
                 props: { class: "elementNav" },
 
-            });            
-            if (element.icon) {                
+            });
+            if (element.icon) {
                 elementNav.append(WRender.createElement({
                     type: 'img', props: {
                         src: "data:image/png;base64," + element.icon, class: 'IconNav'
@@ -209,7 +220,7 @@ class WAppNavigator extends HTMLElement {
                         margin: 5
                     }), new WCssClass(`.tab .elementNavActive, .tab .elementNav`, {
                         display: "flex",
-                        "flex-direction": "column", 
+                        "flex-direction": "column",
                         "min-width": 100
                     }), new WCssClass(`.tab .IconNav`, {
                         height: 40,
@@ -241,7 +252,7 @@ class WAppNavigator extends HTMLElement {
                         display: "none",
                         height: "15px", width: "15px",
                         cursor: "pointer",
-                        filter:  this.DarkMode ? "invert(90%)": "invert(0%)"
+                        filter: this.DarkMode ? "invert(90%)" : "invert(0%)"
                     }), new WCssClass(`.navActive`, {
                         overflow: "hidden",
                         "max-height": "5000px",
@@ -267,19 +278,21 @@ class WAppNavigator extends HTMLElement {
                             transition: "all 0.6s",
                             "position": "fixed",
                             "z-index": "999",
-                            "background-color": this.DarkMode ? "#444444" : "#fff", 
+                            "background-color": this.DarkMode ? "#444444" : "#fff",
                             "color": "#fff",
                             "width": "80%",
                             "height": "100vh",
-                            top: 0,                            
+                            top: 0,
                             "box-shadow": "0 5px 5px 3px rgba(0,0,0,0.3)",
                             "flex-direction": "column",
                             "justify-content": "initial",
-                            "padding-top": 20
-                        }), new WCssClass(`.navInactive, .nav`, {                            
+                            "padding-top": 20,
+                            right: this.DisplayMode == "left" ? "inherit" : "0",
+                        }), new WCssClass(`.navInactive, .nav`, {
                             opacity: "0",
                             "pointer-events": "none",
-                            transform: this.DisplayMode == "left" ? "translateX(-100%)":"translateX(+100%)" ,
+                            transform: this.DisplayMode == "left" ? "translateX(-100%)" : "translateX(+100%)",
+
                         }),
                         new WCssClass(`header`, {
                             display: "flex",
@@ -295,4 +308,4 @@ class WAppNavigator extends HTMLElement {
     }
 }
 customElements.define("w-app-navigator", WAppNavigator);
-export {WAppNavigator}
+export { WAppNavigator }

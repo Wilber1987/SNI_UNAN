@@ -25,7 +25,7 @@ namespace SNI_UI2.Controllers
         }
         public object LogOut()
         {
-            return AuthNetCore.Authenticate();
+            return AuthNetCore.ClearSeason();
         }
         public object Verification()
         {

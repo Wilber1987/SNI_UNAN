@@ -17,13 +17,13 @@ const OnLoad = async () => {
             { tagName: 'img', src: Icons.SNI, class: 'className'  },
             {
                 children: ["Usuario", {
-                    tagName: 'input', type: 'text', className: 'className', onchange: (ev) => {
+                    tagName: 'input', type: 'text', placeholder: 'Usuario', onchange: (ev) => {
                         UserData.user = ev.target.value;
                     }
                 }]
             }, {
                 children: ["Contraseña", {
-                    tagName: 'input', type: 'password', className: 'className', onchange: (ev) => {
+                    tagName: 'input', type: 'password', placeholder: 'Contraseña', onchange: (ev) => {
                         UserData.password = ev.target.value;
                     }
                 }]
@@ -67,13 +67,8 @@ const MasterStyle = {
     ], MediaQuery: [{
         condicion: "(max-width: 800px)",
         ClassList: [
-            new WCssClass(`.App`, {
-                display: "grid",
-                "grid-template-columns": "200px calc(100% - 200px)",
-                "grid-template-rows": "70px auto 50px",
-                position: "fixed",
-                top: 0,
-                bottom: 0
+            new WCssClass(`.LoginForm`, {
+                "box-shadow": "none",
             })
         ]
     }]

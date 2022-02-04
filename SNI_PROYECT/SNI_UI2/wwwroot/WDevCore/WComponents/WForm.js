@@ -127,9 +127,10 @@ class WForm  extends HTMLElement {
             if (flag) {
                 if (prop.includes("_hidden")) {
 
-                } else if (prop.includes("img") || prop.includes("pic") ||
-                    prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
-                    prop.includes("Photo")) {
+                } else if (prop.toUpperCase().includes("IMG") ||
+                    prop.toUpperCase().includes("PICT") || 
+                    prop.toUpperCase().includes("IMAGE") || prop.toUpperCase().includes("Image") ||
+                    prop.toUpperCase().includes("PHOTO")) {
                     let cadenaB64 = "";
                     var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
                     if (base64regex.test(ObjectF[prop])) {
@@ -155,7 +156,7 @@ class WForm  extends HTMLElement {
                     Form.children.push({
                         type: "div",
                         props: {
-                            class: "ModalElement"
+                            class: "ModalDetailElement"
                         }, children: [{
                             type: "label",
                             props: {
@@ -454,7 +455,7 @@ class WForm  extends HTMLElement {
                         padding: "20px", "text-align": "center"
                     }), new WCssClass(` .imgPhotoWModal`, {
                         "grid-column": "1/2",
-                        "grid-row": "1/10",
+                        "grid-row": "1/5",
                         height: "200px",
                         display: "block",
                         width: "100%",
@@ -492,7 +493,11 @@ class WForm  extends HTMLElement {
                     }), new WCssClass(`.ModalDetailElement`, {
                         "background-color": "#4da6ff",
                         padding: 10,
-                        "border-radius": 5
+                        "border-radius": 5,
+                        overflow: "hidden",
+                        "overflow-y": "auto",
+                        "max-height": 300,
+                        margin:5
                     }),new WCssClass(` .BtnClose`, {
                         "font-size": "18pt",
                         "color": "#b9b2b3",

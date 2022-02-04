@@ -105,7 +105,7 @@ class WModalForm extends HTMLElement {
             this.Modal.children.push({ type: "div", props: { class: "ObjectModalContainer" }, children: [this.ObjectModal] });
             if (this.ObjectOptions != undefined) {
                 if (this.ObjectOptions.SaveFunction != undefined || this.UserActions != undefined) {
-                    this.Modal.children.push(this.SaveOptions());
+                    //this.Modal.children.push(this.SaveOptions());
                 }
             }
         } else if (this.ObjectDetail || this.ObjectModel) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA

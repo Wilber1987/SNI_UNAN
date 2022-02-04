@@ -215,9 +215,6 @@ class ProfileTab {
                 DisplayData: DisplayData,
                 Options: {
                     Search: true,
-                    Show: true,
-                    Add: true,
-                    Edit: true,
                     UserActions: [{
                         name: "Leer..", Function: (element) => {
                             window.location = urlAction + element[idAction]
