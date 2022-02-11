@@ -20,7 +20,22 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Archivos varios",
       "ColorIndex": -1
+    },
+    "2262a898-60ac-48af-a22f-9a88eac478fb": {
+      "ProjectGuid": "2262a898-60ac-48af-a22f-9a88eac478fb",
+      "DisplayName": "CAPA_MODEL",
+      "ColorIndex": 3
+    },
+    "9eed8d73-2fe4-4f44-9f48-9e387b8a69fe": {
+      "ProjectGuid": "9eed8d73-2fe4-4f44-9f48-9e387b8a69fe",
+      "DisplayName": "UNAN_UI",
+      "ColorIndex": 4
+    },
+    "e84f61c0-c447-41b7-9469-689b4770bdc2": {
+      "ProjectGuid": "e84f61c0-c447-41b7-9469-689b4770bdc2",
+      "DisplayName": "SECURITY",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 6
 }

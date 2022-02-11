@@ -17,7 +17,6 @@ class MasterDomDetaills extends ComponentsManager {
             new headerClass(),
             new MainClass(MainComponent),
             new AsideClass("SecondAside", AsideComponent),
-            //new FooterClass(),
             new FooterNavigator(),
             this.MasterStyle,
             StyleScrolls

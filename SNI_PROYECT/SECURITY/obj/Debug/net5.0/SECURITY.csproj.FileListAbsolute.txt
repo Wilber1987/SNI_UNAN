@@ -1,0 +1,15 @@
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.deps.json
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\ref\SECURITY.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\CAPA_DATOS.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\CAPA_DATOS.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.AssemblyReference.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.AssemblyInfoInputs.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.AssemblyInfo.cs
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.CopyComplete
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\ref\SECURITY.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.pdb

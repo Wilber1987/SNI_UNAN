@@ -44,7 +44,6 @@ namespace SNI_UI2
             }
 
             app.UseHttpsRedirection();
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
