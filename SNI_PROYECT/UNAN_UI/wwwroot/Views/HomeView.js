@@ -92,7 +92,7 @@ class HomeView extends HTMLElement {
                 width: 100,
                 margin: 10
             }), new WCssClass( `.TabContainer`, {
-                height: 600,
+                height: 500,
                 overflow: "hidden",
                 "overflow-y": "auto"
             }),
