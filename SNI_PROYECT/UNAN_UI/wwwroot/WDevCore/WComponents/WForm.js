@@ -2,15 +2,32 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WModules/WCo
 import { WCssClass } from '../WModules/WStyledRender.js';
 import { StyleScrolls, StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
+class FormConfig {
+    ObjectDetail =  undefined;
+    EditObject =  undefined;
+    UserActions =  undefined;
+    ObjectModel =  undefined;
+    AddItemsFromApi = undefined;
+    ValidateFunction = undefined;
+    DarkMode = false;
+    StyleForm =  "columnX1";
+    ObjectOptions =  { AddObject: false, Url: undefined };
+}
 class WForm  extends HTMLElement {
-    constructor(Config) { 
+    constructor(Config = (new FormConfig())) { 
         super(); 
         this.attachShadow({ mode: 'open' });
-        console.log(Config);
         for (const p in Config) {
             this[p] = Config[p];
+        }     
+        this.Config = Config;
+        if (this.StyleForm == "columnX1") {            
+            this.DivColumns = this.Config.DivColumns = "calc(100%)";
+        } else if (this.StyleForm == "columnX3") {
+            this.DivColumns = this.Config.DivColumns = "calc(30%) calc(30%) calc(30%)";
+        } else {
+            this.DivColumns = this.Config.DivColumns = "calc(50%) calc(50%)";
         }
-        
         this.shadowRoot.append(WRender.createElement(StyleScrolls));
         this.shadowRoot.append(WRender.createElement(StylesControlsV2));
         this.shadowRoot.append(WRender.createElement(this.FormStyle()));
@@ -436,7 +453,7 @@ class WForm  extends HTMLElement {
             props: {
                 ClassList: [
                      new WCssClass("divForm", {
-                        padding: "20px",
+                        //padding: "20px",
                         "display": "grid",
                         //"grid-gap": "1rem",
                         "grid-template-columns": this.DivColumns,// "calc(50% - 10px) calc(50% - 10px)",

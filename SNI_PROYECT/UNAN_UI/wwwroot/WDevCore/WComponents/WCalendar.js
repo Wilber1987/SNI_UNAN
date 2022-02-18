@@ -2,9 +2,13 @@ import { WRender, WAjaxTools, ComponentsManager } from "../WModules/WComponentsT
 import { WCssClass } from "../WModules/WStyledRender.js";
 import "../WComponents/WModalForm.js";
 let photoB64;
+class CalendarConfig {}
 class WCalendar extends HTMLElement {
-    constructor() {
+    constructor(Config = (new CalendarConfig())) {
         super();
+        for (const p in Config) {
+            this[p] = Config[p];
+        }
         this.listOfAllDays = [
             'Monday',
             'Tuesday',
@@ -22,6 +26,9 @@ class WCalendar extends HTMLElement {
             'Viernes',
             'Sábado',
             'Domingo'
+        ];
+        this.listOfAllDaysSpanish_mini = [
+            'LUN','MAR','MI','JUE','VIE','SAB','DOM'
         ];
         this.listOfAllMonths = [
             'January',
@@ -99,7 +106,7 @@ class WCalendar extends HTMLElement {
     DrawMonth(Month, Days, indexM) {
         const ContainerMonth = { type: "div", props: { id: Month + this.id, class: "GridCalendarMonthContainer" }, children: [] };
         const Title = { type: "div", props: { class: "calendarTitle" }, children: [Month + " " + this.year] };
-        const DaysLabel = { type: "div", props: { class: "ListDays" }, children: this.listOfAllDaysSpanish };
+        const DaysLabel = { type: "div", props: { class: "ListDays" }, children: this.listOfAllDaysSpanish_mini };
         //DAYS
         const Monday = { type: "div", props: { class: "GridDayColum" }, children: [] };
         const Tuesday = { type: "div", props: { class: "GridDayColum" }, children: [] };
@@ -256,25 +263,25 @@ class WCalendar extends HTMLElement {
                         "text-align": "center"
                     }),new WCssClass(`.GridDayColum`, {
                         display: "grid",
-                        "grid-template-rows": "60px 60px 60px 60px 60px 60px",
+                        "grid-template-rows": "35px 35px 35px 35px 35px 35px",
                     }), new WCssClass(`.CalendarDayDisable`, {
-                        padding: "20px",
+                        padding: 10,
+                        "font-size": 12,
                         border: "solid 1px #999",
                         "background-color": "#bebebe",
                     }), new WCssClass(`.CalendarDay`, {
-                        padding: "20px",
+                        padding: 10,
+                        "font-size": 12,
                         border: "solid 1px #c6c5c5",
                         cursor: "pointer",
                         transition: "all 0.5s"
                     }), new WCssClass(`.CalendarDay:hover`, {
-                        padding: "20px",
-                        border: "solid 1px #c6c5c5",
-                        cursor: "pointer",
                         "background-color": "#79a6d2"
                     }), new WCssClass(`.CalendarDayActive`, {
-                        padding: "20px",
+                        padding: 10,
                         border: "solid 1px #2d5986",
                         cursor: "pointer",
+                        "font-size": 12,
                         transition: "all 0.5s",
                         "background-color": "#538cc6",
                         color: "#fff",
@@ -291,7 +298,6 @@ class WCalendar extends HTMLElement {
                         "text-align": "center",
                     }), new WCssClass(`.div`, {
                         display: "flex",
-                        "border-bottom": "1px rgb(185, 185, 185) solid",
                         "justify-content": "flex-end",
                         "padding-left": "20px",
                         "padding-right": "20px",
@@ -308,3 +314,4 @@ class WCalendar extends HTMLElement {
     }
 }
 customElements.define("w-calendar", WCalendar);
+export {WCalendar}

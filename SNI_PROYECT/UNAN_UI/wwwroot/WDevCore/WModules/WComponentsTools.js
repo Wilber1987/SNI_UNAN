@@ -279,13 +279,14 @@ class WRender {
 
 }
 class ComponentsManager {
-    constructor(Config = {SPAManage: false, MainContainer: undefined}) {
+    constructor(Config = {SPAManage: false, MainContainer: undefined, ContainerName: undefined}) {
         this.DomComponents = [];
         this.type = "div";
         this.props = {
             class: "MyForm"
         };
         this.SelectedComponent = "";
+        this.ContainerName = Config.ContainerName;
         this.MainContainer = Config.MainContainer;
         this.Config = Config;
         if (this.Config.SPAManage == true) {
@@ -310,15 +311,16 @@ class ComponentsManager {
         }
 
     }
-    NavigateFunction = async (IdComponent, ComponentsInstance, ContainerName) => {
+    NavigateFunction = async (IdComponent, ComponentsInstance, ContainerName = "ContainerName") => {
+        this.ContainerName = ContainerName ?? this.ContainerName;
         if (this.MainContainer == undefined) {
-            this.MainContainer = ContainerName;
+            this.MainContainer = document.querySelector("#" + this.ContainerName);
         }
-        const ContainerNavigate = document.querySelector("#" + this.MainContainer);
+        const ContainerNavigate = this.MainContainer;
         let Nodes = ContainerNavigate.querySelectorAll(".DivContainer");
         Nodes.forEach((node) => {
             if (node.id != IdComponent) {
-                let nodeF = this.DomComponents.find(n => n.id == node.id);
+                let nodeF = this.DomComponents.find(n => n == node);
                 if (nodeF != undefined && nodeF != null) {
                     nodeF = node;
                 } else {

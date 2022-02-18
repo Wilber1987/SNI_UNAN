@@ -2,21 +2,32 @@ import { WAppNavigator } from '../WDevCore/WComponents/WAppNavigator.js';
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
 import { WCssClass, WStyledRender } from '../WDevCore/WModules/WStyledRender.js';
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
+import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
+import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
+import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
+
 class HomeView extends HTMLElement {
     constructor() {
         super();
         this.className = "HomeView DivContainer";
-        this.append(this.WStyle);
-        this.TabManager = new ComponentsManager({MainContainer: "TabContainer"}); 
+        this.append(this.WStyle, WRender.createElement(StylesControlsV2));
+        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
+        this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({
             className: "OptionContainer",
             children: [
                 {
-                    tagName: 'img', src: this.Icons.New, onclick: async () => {
-                        //code.....
+                    tagName: 'input', type: 'button', className: 'Btn', value: 'Nueva',
+                    onclick: async () => {
+                        this.append(new WModalForm({
+                            ObjectModal: new ReservarComponent(),
+                            ShadowRoot: false,
+                            StyleForm: "columnX3"
+                        }))
                     }
                 }, {
-                    tagName: 'img', src: this.Icons.New, onclick: async () => {
+                    tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Otras',
+                    onclick: async () => {
                         //code.....
                     }
                 }
@@ -34,13 +45,13 @@ class HomeView extends HTMLElement {
                             Dataset: Dataset,
                             DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
                             Options: {
-                                Search: true,  UrlSearch: 'api_route',
+                                Search: true, UrlSearch: 'api_route',
                                 Add: true, UrlAdd: 'api_route',
                                 UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
                             }
                         }));
                     }
-                },{
+                }, {
                     name: "Pendientes", url: "#",
                     action: async (ev) => {
                         const Dataset = [];
@@ -48,7 +59,7 @@ class HomeView extends HTMLElement {
                             Dataset: Dataset,
                             DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
                             Options: {
-                                Search: true,  UrlSearch: 'api_route',
+                                Search: true, UrlSearch: 'api_route',
                                 Add: true, UrlAdd: 'api_route',
                                 UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
                             }
@@ -62,7 +73,7 @@ class HomeView extends HTMLElement {
                             Dataset: Dataset,
                             DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
                             Options: {
-                                Search: true,  UrlSearch: 'api_route',
+                                Search: true, UrlSearch: 'api_route',
                                 Add: true, UrlAdd: 'api_route',
                                 UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
                             }
@@ -71,7 +82,7 @@ class HomeView extends HTMLElement {
                 }
             ]
         });
-        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
+        
         this.DrawComponent();
     }
     connectedCallback() { }
@@ -91,7 +102,7 @@ class HomeView extends HTMLElement {
                 height: 100,
                 width: 100,
                 margin: 10
-            }), new WCssClass( `.TabContainer`, {
+            }), new WCssClass(`.TabContainer`, {
                 height: 500,
                 overflow: "hidden",
                 "overflow-y": "auto"

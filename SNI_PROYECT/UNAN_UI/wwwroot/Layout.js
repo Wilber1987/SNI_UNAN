@@ -6,7 +6,7 @@ import "./WDevCore/WComponents/WLoginTemplate.js";
 import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 import { WModalForm } from "./WDevCore/WComponents/WModalForm.js";
 const Auth = new WSecurity();
-const DOMManager = new ComponentsManager({ SPAManage: true, MainContainer: "AppMain" });
+const DOMManager = new ComponentsManager({ SPAManage: true, ContainerName: "AppMain" });
 class MainClass extends HTMLElement {
     constructor(Component) {
         super();

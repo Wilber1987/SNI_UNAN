@@ -3,7 +3,12 @@ import { WCssClass } from "../WModules/WStyledRender.js";
 import { StyleScrolls } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
 class ModalConfig {
-
+    ObjectModal = null;
+    ShadowRoot = null;
+    icon = null;
+    title = null;
+    HeadOptions = null;
+    StyleForm = null;
 }
 class WModalForm extends HTMLElement {
     constructor(Config = (new ModalConfig())) {
@@ -192,14 +197,7 @@ class WModalForm extends HTMLElement {
                         "padding": "10px",
                         "margin": "0px",
                         "background": "#09f",
-                    }), new WCssClass("divForm", {
-                        //display: "flex", "flex-wrap": "wrap",
-                        padding: "20px",
-                        "display": "grid",
-                        "grid-gap": "1rem",
-                        "grid-template-columns": this.DivColumns,// "calc(50% - 10px) calc(50% - 10px)",
-                        "grid-template-rows": "auto",
-                    }),  new WCssClass(` .ContainerFormWModal h1, 
+                    }), new WCssClass(` .ContainerFormWModal h1, 
                          .ContainerFormWModal h3,
                          .ContainerFormWModal h4, .ContainerFormWModal h5`, {
                         display: "block",
