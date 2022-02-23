@@ -35,7 +35,12 @@
       "ProjectGuid": "e84f61c0-c447-41b7-9469-689b4770bdc2",
       "DisplayName": "SECURITY",
       "ColorIndex": 5
+    },
+    "1c294730-559b-4c71-ba6a-3a4b1344d0b6": {
+      "ProjectGuid": "1c294730-559b-4c71-ba6a-3a4b1344d0b6",
+      "DisplayName": "UI_USAV",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 7
 }
