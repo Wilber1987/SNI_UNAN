@@ -19,7 +19,7 @@ namespace CAPA_MODEL
 
         public List<Object> TakeAgenda()
         {
-            var Agenda = SqlADOConexion.SQLM.TakeList(typeof(TblAgenda).Name, this);
+            var Agenda = SqlADOConexion.SQLM.TakeList(this);
             return Agenda;
         }
 
