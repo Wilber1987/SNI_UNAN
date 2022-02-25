@@ -8,9 +8,10 @@ class FormConfig {
     UserActions =  undefined;
     ObjectModel =  undefined;
     AddItemsFromApi = undefined;
-    ValidateFunction = undefined;
     DarkMode = false;
     StyleForm =  "columnX1";
+    ValidateFunction = (Object)=>{};
+    SaveFunction = (Object)=>{};
     ObjectOptions =  { AddObject: false, Url: undefined };
 }
 class WForm  extends HTMLElement {

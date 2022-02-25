@@ -83,17 +83,17 @@ class WSlide extends HTMLElement {
                                     id: "viewVideo" + this.id,
                                     ObjectModal: embed
                                 }
-                            }));                           
+                            }));
                         }
                     }
-                }, ]
+                },]
             }
             slide.children.push({
-                    type: "div",
-                    props: { class: "embed" },
-                    children: [image, midlee]
-                })
-                //slide.children.push(image);
+                type: "div",
+                props: { class: "embed" },
+                children: [image, midlee]
+            })
+            //slide.children.push(image);
             slide.children.push({
                 type: "div",
                 props: { class: "videoSlideInfo" },
@@ -108,7 +108,7 @@ class WSlide extends HTMLElement {
         } else if (this.slideType == "images") {
             slide.type = "img";
             slide.props.src = element.url;
-        } else if (typeof element === "string"){
+        } else if (typeof element === "string") {
             slide.type = "p";
             slide.props.class = "pText";
             slide.children.push(element);
@@ -120,7 +120,7 @@ class WSlide extends HTMLElement {
     VideoViewer(url) {
 
     }
-    DrawSlide = async() => {
+    DrawSlide = async () => {
         let frag = { type: "div", props: { class: "slideshow-container" }, children: [] }
         let dotContainer = { type: "div", props: { class: "dot-container" }, children: [] }
         let Slides = this.TakeArray();
@@ -154,7 +154,7 @@ class WSlide extends HTMLElement {
         });
         this.append(WRender.createElement(frag), WRender.createElement(dotContainer));
     }
-    DrawForm = async() => {
+    DrawForm = async () => {
         const url = Url_Path + 'api/Form/GetForm?idform=' + this.idform[0];
         this.data = await GetRequest(url);
         let frag = { type: "div", props: { class: "slideshow-container" }, children: [FormStyle] }
@@ -183,21 +183,21 @@ class WSlide extends HTMLElement {
                     type: "div",
                     props: { class: "divOption" },
                     children: [{
-                            type: "label",
-                            props: {
-                                for: `preg${preg.IdQuestion}_${pregOption.IdQuestionOption}`
-                            },
-                            children: [pregOption.OptionDesc]
+                        type: "label",
+                        props: {
+                            for: `preg${preg.IdQuestion}_${pregOption.IdQuestionOption}`
                         },
-                        {
-                            type: "input",
-                            props: {
-                                type: typeOption,
-                                id: `preg${preg.IdQuestion}_${pregOption.IdQuestionOption}`,
-                                name: `preg${preg.IdQuestion}`,
-                                value: pregOption.Value
-                            }
+                        children: [pregOption.OptionDesc]
+                    },
+                    {
+                        type: "input",
+                        props: {
+                            type: typeOption,
+                            id: `preg${preg.IdQuestion}_${pregOption.IdQuestionOption}`,
+                            name: `preg${preg.IdQuestion}`,
+                            value: pregOption.Value
                         }
+                    }
                     ]
                 })
             });
@@ -397,6 +397,9 @@ class WSlide extends HTMLElement {
                         "border-radius": "0.3cm",
                         padding: "10px",
                         color: "#1e5799"
+                    }), new WCssClass( `w-slide .mySlides img`, {
+                        "object-fit": "cover",
+                        width: "100%",
                     }),
                     //ANIMATION
                     new WCssClass(Id + "w-slide .bg", {
@@ -467,3 +470,4 @@ class WSlide extends HTMLElement {
 }
 
 customElements.define("w-slide", WSlide);
+export { WSlide }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAPA_DATOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace CAPA_MODEL
         public string Data { get; set; }
         public int IdActividad { get; set; }
         public TblActividades Actividad { get; set; }
+
+      
 
     }
 }

@@ -2,41 +2,59 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/
 import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
 import { WCalendar } from '../../WDevCore/WComponents/WCalendar.js';
 import { WForm } from '../../WDevCore/WComponents/WForm.js';
+import { WModalForm } from '../../WDevCore/WComponents/WModalForm.js';
 const Reservaciones = [];
 const CompM = new ComponentsManager();
 class ReservarComponent extends HTMLElement {
     constructor(Cita) {
         super();
         this.className = "Reservar";
+        this.ObjectActividad = {
+            Titulo: null,
+            Dependencia: null,
+            Descripcion: null,
+            imagenes: null,
+        };
+        this.DrawComponent();
+    }
+    DrawComponent = async ()=>{
         const calendar = new WCalendar({
             id: "Calendar",
             Function: async (DateParam) => {
+                if (this.ObjectActividad.Dependencia == null) {
+                    this.append(new WModalForm({
+                        title: "Alert",
+                        ObjectModal: "Seleccione una dependencia"
+                    }));
+                    return;
+                }
+                const response = await WAjaxTools.PostRequest("./api/Calendar/TakeCalendar", {
+                    IdDependencia: this.Dependencia,
+                    IdUsuario: 1
+                });
                 const idDetailDay = `DetailDay${DateParam.date}`;
                 CompM.NavigateFunction(
                     idDetailDay,
                     new DetailDayClass({
                         id: idDetailDay
-                    }, DateParam, [], []));
+                    }, DateParam, response.agenda, response.reservaciones));
             }
         });
-        const DetailPsicolog = WRender.Create({
-            class: "Form",
-            children: [
-                ["Nombre", { tagName: 'input', type: 'text' }],
-                ["Dependencia", { tagName: 'input', type: 'text' }],
-                ["Descripcion", { tagName: 'textarea' }],
-                ["imagenes", { tagName: 'input', type: 'file' }]
-            ]
-        });
+        const response = await WAjaxTools.PostRequest("./api/Calendar/TakeData");
         const RForm = new WForm({
             StyleForm: "columnX1",
             className: "Form",
             ObjectModel: {
                 Nombre: null,
-                Dependencia: [],
+                Dependencia: response.Dependencias,
                 Descripcion: null,
                 imagenes: null,
-            }, ObjectOptions: { AddObject : true }
+            }, EditObject: this.ObjectActividad,
+            ValidateFunction: (TObject) => {
+                return true;
+            }, SaveFunction: (Object) => {
+                alert("save");
+            }
         });
         const DetailDay = WRender.Create({
             class: "DetailCalendar",
@@ -44,7 +62,7 @@ class ReservarComponent extends HTMLElement {
             children: [new DetailDayClass()]
         });
         CompM.MainContainer = DetailDay;
-        this.append(this.Style, RForm, calendar, DetailDay,);
+        this.append(this.Style, RForm, calendar, DetailDay);
     }
     Style = new WStyledRender({
         ClassList: [
@@ -78,6 +96,9 @@ class DetailDayClass extends HTMLElement {
     constructor(Props = {}, DateParam, agenda = [], reservaciones = []) {
         super();
         this.id = "baseDayDetail";
+        for (const p in Props) {
+            this[p] = Props[p];
+        }
         this.className = "DayDetail DivContainer";
         const ListDays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         this.append(WRender.createElement(this.Style));

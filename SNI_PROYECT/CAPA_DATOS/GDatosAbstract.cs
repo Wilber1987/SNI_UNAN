@@ -137,6 +137,52 @@ namespace CAPA_DATOS
             CrearDataAdapterSql(Command).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
         }
+        public List<Object> TakeList(Object Inst, string CondSQL = "")
+        {
+            try
+            {
+                string CondicionString = "";
+                Type _type = Inst.GetType();
+                PropertyInfo[] lst = _type.GetProperties();
+                int index = 0;
+                foreach (PropertyInfo oProperty in lst)
+                {
+                    string AtributeName = oProperty.Name;
+                    var AtributeValue = oProperty.GetValue(Inst);
+                    if (AtributeValue != null)
+                    {
+                        if (index == 0)
+                        {
+                            CondicionString = " WHERE ";
+                            index++;
+                        }
+                        else
+                        {
+                            CondicionString = CondicionString + " OR ";
+                        }
+                        if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
+                        {
+                            CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
+                        }
+                        else
+                        {
+                            CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
+                        }
+                    }
+
+                }
+                CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
+                string queryString = "SELECT * FROM " + Inst.GetType().Name  + CondicionString;
+                DataTable Table = TraerDatosSQL(queryString);
+                List<Object> ListD = ConvertDataTable(Table, Inst);
+                return ListD;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<Object> TakeList(string TableName, Object Inst, string CondSQL = "")
         {
             try
