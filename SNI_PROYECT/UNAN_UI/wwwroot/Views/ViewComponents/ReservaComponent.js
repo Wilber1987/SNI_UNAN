@@ -6,49 +6,53 @@ import { WModalForm } from '../../WDevCore/WComponents/WModalForm.js';
 const Reservaciones = [];
 const CompM = new ComponentsManager();
 class ReservarComponent extends HTMLElement {
-    constructor(Cita) {
+    constructor(CalendarData = { IdUsuario: undefined, IdDependencia: undefined }) {
         super();
         this.className = "Reservar";
         this.ObjectActividad = {
-            Titulo: null,
-            Dependencia: null,
-            Descripcion: null,
-            imagenes: null,
+            Titulo: undefined,
+            IdDependencia: CalendarData.IdDependencia,
+            IdUsuario: CalendarData.IdUsuario,
+            Descripcion: undefined,
+            Evidencias: undefined,
+            Participantes: undefined,
         };
+        this.CalendarData = CalendarData;
         this.DrawComponent();
     }
-    DrawComponent = async ()=>{
+    DrawComponent = async () => {
         const calendar = new WCalendar({
             id: "Calendar",
             Function: async (DateParam) => {
-                if (this.ObjectActividad.Dependencia == null) {
+                if (this.ObjectActividad.IdDependencia == undefined) {
+                    console.log("heare");
                     this.append(new WModalForm({
                         title: "Alert",
                         ObjectModal: "Seleccione una dependencia"
                     }));
                     return;
                 }
-                const response = await WAjaxTools.PostRequest("./api/Calendar/TakeCalendar", {
-                    IdDependencia: this.Dependencia,
-                    IdUsuario: 1
-                });
+                const response = await WAjaxTools.PostRequest("./api/Calendar/TakeCalendar", this.ObjectActividad);
                 const idDetailDay = `DetailDay${DateParam.date}`;
                 CompM.NavigateFunction(
                     idDetailDay,
                     new DetailDayClass({
                         id: idDetailDay
-                    }, DateParam, response.agenda, response.reservaciones));
+                    }, DateParam, response.agenda, response.actividades));
             }
         });
         const response = await WAjaxTools.PostRequest("./api/Calendar/TakeData");
+
         const RForm = new WForm({
             StyleForm: "columnX1",
             className: "Form",
             ObjectModel: {
-                Nombre: null,
-                Dependencia: response.Dependencias,
-                Descripcion: null,
-                imagenes: null,
+                Nombre: "",
+                IdDependencia: response[0].map(x => {
+                    return { id: x.idDependencia, desc: x.descripcion };
+                }),
+                Descripcion: "",
+                Evidencias: { type: "images" },
             }, EditObject: this.ObjectActividad,
             ValidateFunction: (TObject) => {
                 return true;
@@ -132,8 +136,8 @@ class DetailDayClass extends HTMLElement {
             }
             let DayState = false;
             horarioAtencion.forEach(horario => {
-                const fecha1A = new Date(`${DateParam.date} ${horario.hora_inicial}`);
-                const fecha2A = new Date(`${DateParam.date} ${horario.hora_final}`);
+                const fecha1A = new Date(`${DateParam.date} ${horario.hora_Inicial}`);
+                const fecha2A = new Date(`${DateParam.date} ${horario.hora_Final}`);
                 if (fecha1 >= fecha1A && fecha2 <= fecha2A) {
                     DayState = true;
                 }

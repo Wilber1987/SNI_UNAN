@@ -9,12 +9,12 @@ namespace CAPA_MODEL
 {
     public class CatDependencias
     {
-        public int IdDependencia { get; set; }
+        public int? IdDependencia { get; set; }
         public string Descripcion { get;  set; }
-        public int IdDependenciaP { get; set; }
-        public List<Object> TakeAgenda()
+        public int? IdDependenciaP { get; set; }
+        public List<Object> TakeDependencias()
         {
-            var Dependencias = SqlADOConexion.SQLM.TakeList(typeof(CatDependencias).Name, this);
+            var Dependencias = SqlADOConexion.SQLM.TakeList(this);
             return Dependencias;
         }
     }

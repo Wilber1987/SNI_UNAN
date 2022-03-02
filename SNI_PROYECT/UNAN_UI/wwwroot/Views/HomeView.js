@@ -17,7 +17,7 @@ class HomeView extends HTMLElement {
             className: "OptionContainer",
             children: [
                 {
-                    tagName: 'input', type: 'button', className: 'Btn', value: 'Nueva',
+                    tagName: 'input', type: 'button', className: 'Btn', value: 'Nueva Actividad',
                     onclick: async () => {
                         this.append(new WModalForm({
                             ObjectModal: new ReservarComponent(),
@@ -26,9 +26,13 @@ class HomeView extends HTMLElement {
                         }))
                     }
                 }, {
-                    tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Otras',
+                    tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Reservar',
                     onclick: async () => {
-                        //code.....
+                        this.append(new WModalForm({
+                            ObjectModal: new ReservarComponent(),
+                            ShadowRoot: false,
+                            StyleForm: "columnX3"
+                        }))
                     }
                 }
             ]

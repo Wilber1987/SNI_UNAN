@@ -6,9 +6,11 @@ namespace CAPA_DATOS
 {
     public class SqlADOConexion
     {
-        static string UserSQLConexion = "";
+        private static string UserSQLConexion = "";
         public static SqlServerGDatos SQLM;
-       // static string SQLServer = ".";
+        //public static string DataBaseName = "SNIBD";
+        public static string DataBaseName = "SIAC_BD";
+        // static string SQLServer = ".";
         //static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
         static string SQLServer = ".";
         static public bool IniciarConexion(string user, string password)
@@ -16,7 +18,7 @@ namespace CAPA_DATOS
             try
             {
                 UserSQLConexion = "Data Source="+ SQLServer + 
-                    "; Initial Catalog=SNIBD; User ID=" 
+                    "; Initial Catalog="+DataBaseName+"; User ID=" 
                     + user + ";Password=" + password;
                 SQLM = new SqlServerGDatos(UserSQLConexion);                
                 return true;

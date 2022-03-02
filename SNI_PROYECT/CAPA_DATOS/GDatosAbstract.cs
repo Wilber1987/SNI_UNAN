@@ -136,7 +136,7 @@ namespace CAPA_DATOS
             DataSet ObjDS = new DataSet();
             CrearDataAdapterSql(Command).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
-        }
+        }        
         public List<Object> TakeList(Object Inst, string CondSQL = "")
         {
             try
@@ -182,7 +182,6 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-
         public List<Object> TakeList(string TableName, Object Inst, string CondSQL = "")
         {
             try

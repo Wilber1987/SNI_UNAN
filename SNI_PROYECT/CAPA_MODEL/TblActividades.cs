@@ -9,13 +9,14 @@ namespace CAPA_MODEL
 {
     public class TblActividades
     {
-        public int IdActividad { get; set; }
+        public int? IdActividad { get; set; }
         public string Titulo   { get; set; }
         public string Descripcion { get; set; }
         public string Estado { get; set; }
-        public DateTime Fecha_Inicial { get; set; }
-        public DateTime Fecha_Final { get; set; }
-        public int IdUsuario { get; set; }
+        public DateTime? Fecha_Inicial { get; set; }
+        public DateTime? Fecha_Final { get; set; }
+        public int? IdUsuario { get; set; }
+        public int? IdDependencia { get; set; }
         public List<TblEvidencias> Evidencias { get; set; }
         public List<TblParticipantes> Participantes { get; set; }
         public List<Object> TakeActividades()

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SECURITY;
 using CAPA_MODEL;
+using System.IO;
+using System.Text;
 
 namespace UNAN_UI.Controllers
 {
@@ -17,8 +19,10 @@ namespace UNAN_UI.Controllers
         [HttpPost]
         public Object TakeData()
         {
-            
-            return cal;
+            List<object> data = new List<object>();
+            CatDependencias Dep = new CatDependencias();
+            data.Add(Dep.TakeDependencias());
+            return data;
         }
         public Object TakeCalendar(Calendar cal)
         {
@@ -37,6 +41,7 @@ namespace UNAN_UI.Controllers
         public void TakeAgenda()
         {
             TblAgenda ag = new TblAgenda();
+            ag.IdDependencia = this.IdDependencia;
             this.Agenda = ag.TakeAgenda();
         }
         public void TakeActividades()
