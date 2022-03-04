@@ -18,6 +18,10 @@ class WForm extends HTMLElement {
     constructor(Config = (new FormConfig())) {
         super();
         this.attachShadow({ mode: 'open' });
+        WRender.SetStyle(this, {
+            height: "90%",
+            display: "block"
+        })
         for (const p in Config) {
             this[p] = Config[p];
         }
@@ -36,21 +40,13 @@ class WForm extends HTMLElement {
     connectedCallback() { this.DrawComponent(); }
     DrawComponent = async () => {
         this.DarkMode = this.DarkMode ?? false;
-        this.DivForm = {
-            type: "div",
-            props: {
-                class: "ContainerFormWModal"
-            },
-            children: []
-        };
+        this.DivForm = WRender.Create({ class: "ContainerFormWModal" });
         if (this.ObjectDetail) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
-            console.log("detail");
-            this.DivForm.children.push(this.ShowFormDetail());
+            this.DivForm.append(this.ShowFormDetail());
             if (this.UserActions != undefined) {
-                this.DivForm.children.push(this.SaveOptions());
+                this.DivForm.append(this.SaveOptions());
             }
         } else { //AGREGA FORMULARIO CRUD A LA VISTA
-
             if (this.ObjectOptions == undefined) {
                 this.ObjectOptions = {
                     AddObject: false,
@@ -59,70 +55,15 @@ class WForm extends HTMLElement {
             }
             if (this.ObjectOptions.AddObject == true) { //AGREGA NUEVO OBJETO
                 const NewObject = {};
-                let ProxyFlag = false;
-                const ModelH = this.ObjectModel;
-                for (const prop in this.ObjectModel) {
-                    if (prop.includes("_operationValue")) {
-                        ProxyFlag = true;
-                    }
-                }
-                if (ProxyFlag) {
-                    const ObjHandler = {
-                        get: function (target, property) {
-                            return target[property];
-                        },
-                        set: function (target, property, value, receiver) {
-                            target[property] = value;
-                            for (const prop in target) {
-                                if (prop.includes("_operationValue")) {
-                                    switch (ModelH[prop].operation) {
-                                        case "+":
-                                            target[prop] =
-                                                target[ModelH[prop].value1] +
-                                                target[ModelH[prop].value2];
-                                            break;
-                                        case "-":
-                                            target[prop] =
-                                                target[ModelH[prop].value1] -
-                                                target[ModelH[prop].value2];
-                                            break;
-                                        case "*":
-                                            target[prop] =
-                                                target[ModelH[prop].value1] *
-                                                target[ModelH[prop].value2];
-                                            break;
-                                        case "/":
-                                            target[prop] =
-                                                target[ModelH[prop].value1] /
-                                                target[ModelH[prop].value2];
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            }
-                            //console.log(target);
-                            return true;
-                        }
-                    };
-                    const ObjectProxy = new Proxy(NewObject, ObjHandler);
-                    this.DivForm.children.push(this.CrudForm(ObjectProxy, this.ObjectOptions));
-                    this.DivForm.children.push(this.SaveOptions(ObjectProxy));
-                } else {
-                    this.DivForm.children.push(this.CrudForm(NewObject, this.ObjectOptions));
-                    this.DivForm.children.push(this.SaveOptions(NewObject));
-                }
+                this.DivForm.append(this.CrudForm(NewObject, this.ObjectOptions));
+                this.DivForm.append(this.SaveOptions(NewObject));
             } else { //EDITA UN OBJETO EXISTENTE               
-                if (this.ObjectModel == undefined) {
-                    //verifica que el modelo exista,
-                    //sino es asi le asigna el valor de un objeto existente
-                    this.ObjectModel = this.EditObject;
-                }
-                this.DivForm.children.push(this.CrudForm(this.EditObject, this.ObjectOptions));
-                this.DivForm.children.push(this.SaveOptions(this.EditObject));
+
+                this.DivForm.append(await this.CrudForm(this.EditObject, this.ObjectOptions));
+                this.DivForm.append(this.SaveOptions(this.EditObject));
             }
         }
-        this.shadowRoot.append(WRender.createElement(this.DivForm));
+        this.shadowRoot.append(this.DivForm);
     }
     checkDisplay(prop) {
         let flag = true
@@ -158,7 +99,7 @@ class WForm extends HTMLElement {
                         && this.ImageUrlPath.__proto__ == String.prototype) {
                         cadenaB64 = this.ImageUrlPath + "/";
                     }
-                    Form.children.push({
+                    FormDivForm.append({
                         type: "img",
                         props: {
                             src: cadenaB64 + ObjectF[prop],
@@ -171,7 +112,7 @@ class WForm extends HTMLElement {
                     if (typeof value === "number") {
                         value = value.toFixed(2)
                     }
-                    Form.children.push({
+                    FormDivForm.append({
                         type: "div",
                         props: {
                             class: "ModalDetailElement"
@@ -187,8 +128,7 @@ class WForm extends HTMLElement {
         }
         return Form;
     }
-    CrudForm(ObjectF = {}, ObjectOptions) {
-        console.log(ObjectF);
+    CrudForm = async (ObjectF = {}, ObjectOptions) => {        
         if (this.AddItemsFromApi != undefined) {
             var Config = {
                 MasterDetailTable: true,
@@ -207,139 +147,91 @@ class WForm extends HTMLElement {
                 }
             };
         }
-        const Model = this.ObjectModel;
-        const Form = {
-            type: 'divForm',
-            children: []
-        };
+        //verifica que el modelo exista,
+        //sino es asi le asigna el valor de un objeto existente
+        //console.log(ObjectF);
+        const Model = this.ObjectModel ?? this.EditObject;
+        const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
-            if (prop.includes("_operationValue")) {
-                if (ObjectOptions.AddObject == true) {
-                    ObjectF[prop] = "";
-                }
-            } else if (!prop.includes("_hidden")) {
-                const ControlContainer = {
-                    type: "div",
-                    props: {
-                        class: "ModalElement"
+            let val = ObjectOptions.AddObject == true ? "" : this.EditObject[prop];
+            if (Model[prop].__proto__ == Object.prototype &&
+                Model[prop].type.toUpperCase() == "OPERATION") {
+                const ObjHandler = {
+                    get: function (target, property) {
+                        return target[property];
                     },
-                    children: []
-                }
-                let ControlTagName = "input";
-                let InputType = typeof Model[prop];
-                let InputValue = "";
-                //--------------------------------
-                if (ObjectOptions.AddObject == true) {
-                    InputValue = "";
-                } else {
-                    InputValue = this.EditObject[prop];
-                }
-                let Options = [];
-                console.log(prop,Model[prop]);
+                    set: function (target, property, value, receiver) {
+                        target[property] = value;
+                        ObjectF[prop] = Model[prop].Function(ObjectF);
+                        console.log(ObjectF[prop]);
+                        return true;
+                    }
+                };
+                this.ObjectProxy = new Proxy(ObjectF, ObjHandler);
+            } else if (!prop.includes("_hidden")) {
+                const ControlContainer = WRender.Create({
+                    class: "ModalElement", children: [{
+                        tagName: "label", class: "inputTitle", innerText: prop.replaceAll("_", " ")
+                    }]
+                })
+                let InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text" });;
                 if (Model[prop].__proto__ == Object.prototype) {
                     switch (Model[prop].type.toUpperCase()) {
-                        case "IMAGES":
-                            ({ InputType, ControlTagName } = this.CreateImageControl(InputValue, ControlContainer, prop, InputType, ControlTagName));
+                        case "IMAGE": case "IMAGES":
+                            InputControl = this.CreateImageControl(val, ControlContainer, prop);
+                            break;
+                        case "FECHA": case "HORA": case "PASSWORD":
+                            let type = "date";
+                            if (Model[prop].type.toUpperCase() == "HORA") {
+                                type = "time";
+                            } else if (Model[prop].type.toUpperCase() == "PASSWORD") {
+                                type = "password";
+                            }
+                            InputControl = WRender.Create({ tagName: "input", className: prop, type: type, placeholder: prop });
+                            InputControl.value = ObjectOptions.AddObject == true ? "" : ObjectF[prop];
+                            break;
+                        case "SELECT":
+                            InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
+                            break;
+                        case "MULTISELECT":
+                            const { MultiSelect } = await import("./WMultiSelect.js");
+                            InputControl = new MultiSelect({ Dataset: Model[prop].Dataset });
+                            ObjectF[prop] = InputControl.selectedItems;
+                            break;
+                        case "TABLE":
                             break;
                         default:
                             break;
                     }
-                } else if (prop.toUpperCase().includes("PASS") || prop.toUpperCase().includes("PASSWORD")) {
-                    InputType = "password";
-                } else if (prop.toUpperCase().includes("DATE") || prop.toUpperCase().includes("FECHA") || prop.toUpperCase().includes("TIME")) {
-                    InputType = "date";
-                } else if (prop.toUpperCase().includes("HORA") || prop.toUpperCase().includes("HOUR")) {
-                    InputType = "time";
-                } else if (prop.toUpperCase().includes("IMG") || prop.toUpperCase().includes("PICT") ||
-                    prop.toUpperCase().includes("IMAGE") || prop.toUpperCase().includes("PHOTO")) {
-                        ({ InputType, ControlTagName } = this.CreateImageControl(InputValue, ControlContainer, prop, InputType, ControlTagName));                           
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
-                    ControlTagName = "select";
-                    InputType = "";
-                    Options.push({
-                        type: "option",
-                        props: {
-                            value: "",
-                            innerText: "Seleccionar"
-                        }
-                    })
-                    for (const key in Model[prop]) {
-                        let OValue, ODisplay;
-                        if (Model[prop][key].__proto__ == Object.prototype) {
-                            OValue = Model[prop][key]["id"];
-                            ODisplay = Model[prop][key]["desc"];
-                        } else {
-                            OValue = Model[prop][key];
-                            ODisplay = Model[prop][key];
-                        }
-                        const Option = {
-                            type: "option",
-                            props: {
-                                value: OValue,
-                                innerText: ODisplay
-                            }
-                        };
-                        if (key == 0 && ObjectOptions.AddObject == true) {
-                            ObjectF[prop] = OValue;
-                        } else {
-                            if (ObjectF[prop] != undefined && ObjectF[prop].toString() == OValue.toString()) {
-                                Option.props.selected = "true";
-                            }
-                        }
-                        Options.push(Option)
-                    }
+                    InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
                 } else if (typeof Model[prop] === "string" && Model[prop].length >= 50) {
-                    ControlTagName = "textarea";
-                    InputType = "";
+                    InputControl = WRender.Create({ tagName: "textarea", className: prop });
                 } else if (parseFloat(Model[prop]).toString() != "NaN") {
-                    InputType = "number";
+                    InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "number", placeholder: prop });
                 } else {
-                    InputType = "text";
+                    InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text", placeholder: prop });
                 }
-                //DEFINICION DE TIPO            
-                const InputControl = {
-                    type: ControlTagName,
-                    props: {
-                        id: "ControlValue" + prop,
-                        class: prop,
-                        value: null,
-                        onchange: async (ev) => { //evento de actualizacion del componente
-                            if (ev.target.type == "file") {
-                                await this.SelectedFile(ev.target.files[0]);
-                                await setTimeout(() => {
-                                    ObjectF[prop] = photoB64.toString();
-                                    this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
-                                }, 1000);
-                            } else {
-                                ev.target.style = "";
-                                ObjectF[prop] = ev.target.value;
-                            }
-                        }
-                    },
-                    children: []
-                }
-                if (InputType != "" && InputType != "file") {
-                    InputControl.props.type = InputType;
-                    InputControl.props.placeholder = prop + "..."
-                } else if (InputType == "file") {
-                    InputControl.props.type = InputType;
-                    InputControl.props.style = "display: none";
-                } else if (ControlTagName == "select") {
-                    InputControl.children = Options;
-                }
-                InputControl.props.value = InputValue;
-                const label = {
-                    type: "label",
-                    props: {
-                        class: "inputTitle",
-                        innerText: prop.replaceAll("_", " ")
+                InputControl.id = "ControlValue" + prop;
+                InputControl.onchange = async (ev) => { //evento de actualizacion del componente
+                    if (ev.target.type == "file") {
+                        await this.SelectedFile(ev.target.files[0]);
+                        await setTimeout(() => {
+                            if (this.ObjectProxy) { this.ObjectProxy[prop] = photoB64.toString();
+                            } else { ObjectF[prop] = photoB64.toString(); }
+                            this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
+                        }, 1000);
+                    } else {
+                        ev.target.style = "";
+                        if (this.ObjectProxy) {  this.ObjectProxy[prop] = ev.target.value;
+                        } else { ObjectF[prop] = ev.target.value; }
                     }
-                }
-                ControlContainer.children.push(label, InputControl);
-                if (ObjectOptions.AddObject == true) {
-                    ObjectF[prop] = "";
-                }
-                Form.children.push(ControlContainer);
+                };
+                ControlContainer.append(InputControl);
+                // if (ObjectOptions.AddObject == true) {
+                //     ObjectF[prop] = "";
+                // }
+                Form.append(ControlContainer);
             } else {
                 if (ObjectOptions.AddObject == true) {
                     ObjectF[prop] = Model[prop];
@@ -348,7 +240,28 @@ class WForm extends HTMLElement {
         }
         return Form;
     }
-    CreateImageControl(InputValue, ControlContainer, prop, InputType, ControlTagName) {
+    CreateSelect(InputControl, Model, prop, ObjectF) {
+        InputControl = WRender.Create({
+            tagName: "select", value: null, className: prop,
+            children: Model[prop].map(option => {
+                let OValue, ODisplay;
+                if (option.__proto__ == Object.prototype) {
+                    OValue = option["id"];
+                    ODisplay = option["desc"];
+                } else {
+                    OValue = option;
+                    ODisplay = option;
+                }
+                const OptionObject = { tagName: "option", value: OValue, innerText: ODisplay };
+                if (ObjectF[prop] != undefined && ObjectF[prop].toString() == OValue.toString()) {
+                    OptionObject.selected = "true";
+                }
+                return OptionObject;
+            })
+        });
+        return InputControl;
+    }
+    CreateImageControl(InputValue, ControlContainer, prop) {
         let cadenaB64 = "";
         let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
         if (base64regex.test(InputValue)) {
@@ -358,87 +271,77 @@ class WForm extends HTMLElement {
             && this.ImageUrlPath.__proto__ == String.prototype) {
             cadenaB64 = this.ImageUrlPath + "/";
         }
-        ControlContainer.children.push({
-            type: "img",
-            props: {
-                src: cadenaB64 + InputValue,
-                class: "imgPhotoWModal",
-                id: "imgControl" + prop + this.id,
-            }
-        });
-        ControlContainer.children.push({
+        ControlContainer.append(WRender.Create({
+            tagName: "img",
+            src: cadenaB64 + InputValue,
+            class: "imgPhotoWModal",
+            id: "imgControl" + prop + this.id,
+        }));
+        ControlContainer.append(WRender.Create({
             type: "label",
-            props: {
-                class: "LabelFile",
-                innerText: "Seleccionar Archivo ⇪",
-                htmlFor: "ControlValue" + prop
+            class: "LabelFile",
+            innerText: "Seleccionar Archivo",
+            htmlFor: "ControlValue" + prop
+        }));
+        ControlContainer.class += " imageGridForm";
+        return WRender.Create({
+            tagName: "input", className: prop, type: "file", style: {
+                display: "none"
             }
         });
-        InputType = "file";
-        ControlTagName = "input";
-        ControlContainer.props.class += " imageGridForm";
-        return { InputType, ControlTagName };
     }
-
     SaveOptions(ObjectF = {}) {
-        const DivOptions = {
-            type: 'div',
-            props: {
-                class: "DivSaveOptions"
-            },
-            children: []
-        };
+        ObjectF = this.ObjectProxy ?? ObjectF;
+        const DivOptions = WRender.Create({ class: "DivSaveOptions" });
         if (this.ObjectOptions != undefined) {
-            const InputSave = {
-                type: 'button',
-                props: {
-                    class: 'Btn',
-                    type: "button",
-                    onclick: async () => {
-                        if (this.ValidateFunction != undefined &&
-                            this.ValidateFunction.__proto__ == Function.prototype) {
-                            const response = this.ValidateFunction(ObjectF);
-                            if (response.validate == false) {
-                                alert(response.message);
-                                return;
-                            }
+            const InputSave = WRender.Create({
+                tagName: 'button',
+                class: 'Btn',
+                type: "button",
+                innerText: 'Aceptar',
+                onclick: async () => {
+                    if (this.ValidateFunction != undefined &&
+                        this.ValidateFunction.__proto__ == Function.prototype) {
+                        const response = this.ValidateFunction(ObjectF);
+                        if (response.validate == false) {
+                            alert(response.message);
+                            return;
                         }
-                        if (this.DataRequire == true) {
-                            for (const prop in ObjectF) {
-                                if (!prop.includes("_hidden")) {
-                                    if (ObjectF[prop] == null || ObjectF[prop] == "") {
-                                        if (this.ShadowRoot) {
-                                            const control = this.shadowRoot.querySelector("." + prop);
-                                            control.style = "border-bottom:3px solid #ef4d00";
-                                            return;
-                                        } else {
-                                            const control = this.querySelector("." + prop);
-                                            control.style = "border-bottom:3px solid #ef4d00";
-                                            return;
-                                        }
+                    }
+                    if (this.DataRequire == true) {
+                        for (const prop in ObjectF) {
+                            if (!prop.includes("_hidden")) {
+                                if (ObjectF[prop] == null || ObjectF[prop] == "") {
+                                    if (this.ShadowRoot) {
+                                        const control = this.shadowRoot.querySelector("." + prop);
+                                        control.style = "border-bottom:3px solid #ef4d00";
+                                        return;
+                                    } else {
+                                        const control = this.querySelector("." + prop);
+                                        control.style = "border-bottom:3px solid #ef4d00";
+                                        return;
                                     }
                                 }
                             }
                         }
-                        if (this.SaveFunction != undefined) {
-                            this.SaveFunction(ObjectF);
-                        } else if (this.ObjectOptions.SaveFunction != undefined) {
-                            this.ObjectOptions.SaveFunction(ObjectF);
-                        }
-                        if (this.ObjectOptions.Url != undefined) {
-                            const response = await WAjaxTools.PostRequest(this.ObjectOptions.Url, ObjectF);
-                            console.log(response);
-                        }
-                        //ComponentsManager.modalFunction(this);
                     }
-                },
-                children: ['Aceptar']
-            };
-            DivOptions.children.push(InputSave);
+                    if (this.SaveFunction != undefined) {
+                        this.SaveFunction(ObjectF);
+                    } else if (this.ObjectOptions.SaveFunction != undefined) {
+                        this.ObjectOptions.SaveFunction(ObjectF);
+                    }
+                    if (this.ObjectOptions.Url != undefined) {
+                        const response = await WAjaxTools.PostRequest(this.ObjectOptions.Url, ObjectF);
+                        console.log(response);
+                    }
+                    //ComponentsManager.modalFunction(this);
+                }
+            });
+            DivOptions.append(InputSave);
         }
         if (this.UserActions != undefined && this.UserActions != Array) {
             this.UserActions.forEach(Action => {
-                DivOptions.children.push({
+                DivOptions.append({
                     type: "button",
                     props: {
                         class: "Btn",
@@ -465,13 +368,17 @@ class WForm extends HTMLElement {
             type: "w-style",
             props: {
                 ClassList: [
-                    new WCssClass("divForm", {
-                        //padding: "20px",
-                        "display": "grid",
-                        //"grid-gap": "1rem",
+                    new WCssClass(" .ContainerFormWModal", {
+                        height: "100%",
+                        overflow: "hidden"
+                    }), new WCssClass(".divForm", {
+                        display: "grid",
                         "grid-template-columns": this.DivColumns,// "calc(50% - 10px) calc(50% - 10px)",
                         "grid-template-rows": "auto",
-                    }), new WCssClass(" divForm .imageGridForm", {
+                        height: "calc(100% - 70px)",
+                        "overflow-y": "auto",
+                        "border-bottom": "1px solid #888"
+                    }), new WCssClass(".divForm .imageGridForm", {
                         "grid-row": "1/4",
                         //width: "calc(50% - 10px)", margin: "5px"
                     }), new WCssClass(` input:-internal-autofill-selected`, {
@@ -482,7 +389,8 @@ class WForm extends HTMLElement {
                     }), new WCssClass(` .DivSaveOptions`, {
                         "margin-top": "10px",
                         "margin-bottom": "10px",
-                        padding: "20px", "text-align": "center"
+                        "text-align": "center",
+                        //height: 100
                     }), new WCssClass(` .imgPhotoWModal`, {
                         "grid-column": "1/2",
                         "grid-row": "1/5",
@@ -552,11 +460,7 @@ class WForm extends HTMLElement {
                     }),
                 ], MediaQuery: [{
                     condicion: "(max-width: 800px)",
-                    ClassList: [new WCssClass(" .ContainerFormWModal", {
-                        position: "fixed",
-                        top: 0, left: 0, right: 0, bottom: 0,
-                        height: "100%"
-                    }), new WCssClass(" divForm", {
+                    ClassList: [new WCssClass(".divForm", {
                         padding: "20px",
                         "display": "grid",
                         "grid-gap": "1rem",

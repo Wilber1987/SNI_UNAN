@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class TblAgenda
+    public class TblAgenda : EntityClass
     {
         public int? IdAgenda { get; set; }
         public int? IdUsuario { get; set; }
@@ -17,11 +17,7 @@ namespace CAPA_MODEL
         public string Hora_Final { get; set; }
         public DateTime? Fecha_Caducidad { get; set; }
 
-        public List<Object> TakeAgenda()
-        {
-            var Agenda = SqlADOConexion.SQLM.TakeList(this);
-            return Agenda;
-        }
+       
 
     }
 }

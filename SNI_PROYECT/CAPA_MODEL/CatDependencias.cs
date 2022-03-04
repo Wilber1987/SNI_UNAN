@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class CatDependencias
+    public class CatDependencias : EntityClass
     {
         public int? IdDependencia { get; set; }
         public string Descripcion { get;  set; }
         public int? IdDependenciaP { get; set; }
-        public List<Object> TakeDependencias()
-        {
-            var Dependencias = SqlADOConexion.SQLM.TakeList(this);
-            return Dependencias;
-        }
+        
     }
 }

@@ -16,7 +16,7 @@ class WModalForm extends HTMLElement {
         this.ShadowRoot = true;
         this.DataRequire = true;
         this.Config = Config;
-        console.log(this.Config);
+        //console.log(this.Config);
         for (const p in Config) {
             this[p] = Config[p];
         }

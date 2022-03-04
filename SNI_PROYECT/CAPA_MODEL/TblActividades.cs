@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class TblActividades
+    public class TblActividades : EntityClass
     {
         public int? IdActividad { get; set; }
         public string Titulo   { get; set; }
@@ -19,10 +19,6 @@ namespace CAPA_MODEL
         public int? IdDependencia { get; set; }
         public List<TblEvidencias> Evidencias { get; set; }
         public List<TblParticipantes> Participantes { get; set; }
-        public List<Object> TakeActividades()
-        {
-            var Actividades = SqlADOConexion.SQLM.TakeList(typeof(TblActividades).Name, this);
-            return Actividades;
-        }
+        
     }
 }

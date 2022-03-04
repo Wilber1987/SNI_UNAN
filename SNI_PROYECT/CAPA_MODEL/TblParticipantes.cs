@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class TblParticipantes
+    public class TblParticipantes : EntityClass
     {
     }
 }

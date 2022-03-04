@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class CatCargosDepenedencias
+    public class CatCargosDepenedencias : EntityClass
     {
         public int? IdCargo { get; set; }
         public string Descripcion { get; set; }

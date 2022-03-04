@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class TblEvidencias
+    public class TblEvidencias : EntityClass
     {
         public int IdEvidencia { get; set; }
         public int IdTipo { get; set; }

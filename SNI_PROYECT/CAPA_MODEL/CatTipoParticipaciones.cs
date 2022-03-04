@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    internal class CatTipoParticipaciones
+    internal class CatTipoParticipaciones : EntityClass
     {
     }
 }

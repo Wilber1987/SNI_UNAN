@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAPA_MODEL
 {
-    public class TblDependencias_Usuarios
+    public class TblDependencias_Usuarios : EntityClass
     {
         public int? IdUsuario { get; set; }
         public int? IdDependencia { get; set; }

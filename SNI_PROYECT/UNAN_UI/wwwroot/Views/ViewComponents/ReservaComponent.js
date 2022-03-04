@@ -10,12 +10,12 @@ class ReservarComponent extends HTMLElement {
         super();
         this.className = "Reservar";
         this.ObjectActividad = {
-            Titulo: undefined,
+            Participantes: "",
+            Titulo: "",
             IdDependencia: CalendarData.IdDependencia,
             IdUsuario: CalendarData.IdUsuario,
-            Descripcion: undefined,
-            Evidencias: undefined,
-            Participantes: undefined,
+            Descripcion: "",
+            Evidencias: "",
         };
         this.CalendarData = CalendarData;
         this.DrawComponent();
@@ -25,7 +25,6 @@ class ReservarComponent extends HTMLElement {
             id: "Calendar",
             Function: async (DateParam) => {
                 if (this.ObjectActividad.IdDependencia == undefined) {
-                    console.log("heare");
                     this.append(new WModalForm({
                         title: "Alert",
                         ObjectModal: "Seleccione una dependencia"
@@ -47,17 +46,29 @@ class ReservarComponent extends HTMLElement {
             StyleForm: "columnX1",
             className: "Form",
             ObjectModel: {
-                Nombre: "",
+                Participantes: {
+                    type: "MULTISELECT", Dataset: response[1].map(x => {
+                        return { id_: x.idUsuario, Descripcion: `${x.nombres} ${x.apellidos} - ${x.mail}` };
+                    })
+                },
+                Titulo: "",
                 IdDependencia: response[0].map(x => {
                     return { id: x.idDependencia, desc: x.descripcion };
                 }),
                 Descripcion: "",
-                Evidencias: { type: "images" },
+                //Evidencias: { type: "IMAGES" },
+                value1: 0,
+                value2: 0,
+                Total: { type: "OPERATION", propertys: ["value1", "value2"], Function: (obj)=>{
+                    return obj.value1 + obj.value2; 
+                }},
             }, EditObject: this.ObjectActividad,
             ValidateFunction: (TObject) => {
                 return true;
             }, SaveFunction: (Object) => {
-                alert("save");
+                console.log(this.ObjectActividad);
+                console.log(Object);
+                //alert("save");
             }
         });
         const DetailDay = WRender.Create({
@@ -250,3 +261,39 @@ class DetailDayClass extends HTMLElement {
     };
 }
 customElements.define('w-day', DetailDayClass);
+const Estados = [
+    { id_: "Fresa", Descripcion: "Severa" },
+    { id_: "Naranja", Descripcion: "Moderada" },
+    { id_: "Verde", Descripcion: "Sin sintomas" }
+];
+const TiposEstados = [
+    //Deportes------------->
+    {
+        name: "log_estados_psicoemocionales",
+        FieldName: "area_psicoemocional",
+        SubOptions: Estados,
+        SubOptionsFieldName: "estado_final",
+        id_test: 1, Test: "Deportes", id_: "Autoconfianza", Descripcion: "Autoconfianza",
+    },
+    {
+        name: "log_estados_psicoemocionales",
+        FieldName: "area_psicoemocional",
+        SubOptions: Estados,
+        SubOptionsFieldName: "estado_final",
+        id_test: 1, Test: "Deportes", id_: "Control de la energía negativa", Descripcion: "Control de la energía negativa",
+    },
+    {
+        name: "log_estados_psicoemocionales",
+        FieldName: "area_psicoemocional",
+        SubOptions: Estados,
+        SubOptionsFieldName: "estado_final",
+        id_test: 1, Test: "Deportes", id_: "Control de la atención", Descripcion: "Control de la atención",
+    },
+    {
+        name: "log_estados_psicoemocionales",
+        FieldName: "area_psicoemocional",
+        SubOptions: Estados,
+        SubOptionsFieldName: "estado_final",
+        id_test: 1, Test: "Deportes", id_: "Control de la visualización y de las imágenes", Descripcion: "Control de la visualización y de las imágenes",
+    }
+];

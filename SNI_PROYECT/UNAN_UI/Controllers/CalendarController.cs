@@ -21,7 +21,9 @@ namespace UNAN_UI.Controllers
         {
             List<object> data = new List<object>();
             CatDependencias Dep = new CatDependencias();
-            data.Add(Dep.TakeDependencias());
+            data.Add(Dep.Get());
+            TblUsuario Users = new TblUsuario();
+            data.Add(Users.Get());
             return data;
         }
         public Object TakeCalendar(Calendar cal)
@@ -42,12 +44,12 @@ namespace UNAN_UI.Controllers
         {
             TblAgenda ag = new TblAgenda();
             ag.IdDependencia = this.IdDependencia;
-            this.Agenda = ag.TakeAgenda();
+            this.Agenda = ag.Get();
         }
         public void TakeActividades()
         {
             TblActividades ag = new TblActividades();
-            this.Actividades = ag.TakeActividades();
+            this.Actividades = ag.Get();
         }
     }
 }

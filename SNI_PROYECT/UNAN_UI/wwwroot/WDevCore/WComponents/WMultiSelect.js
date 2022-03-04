@@ -9,6 +9,7 @@ class MultiSelect extends HTMLElement {
     constructor(Config = (new ConfigMS()), Style = null) {
         super();
         this.Config = Config;
+        this.Dataset = this.Config.Dataset ?? [];
         this.attachShadow({ mode: 'open' });
         this.selectedItems = [];
         this.NameSelected = "";
@@ -20,35 +21,58 @@ class MultiSelect extends HTMLElement {
             boxShadow: "0 0 4px 0 rgb(0,0,0,50%)",
             fontSize: "12px"
         });
-        this.LabelMultiselect = WRender.Create({ className: "LabelMultiselect", innerText: "MultiSelect", onclick: ()=>{
-            if(this.OptionsContainer.className.includes("MenuActive")){
-                this.OptionsContainer.className = "OptionsContainer MenuInactive";
-            }else {
-                this.OptionsContainer.className = "OptionsContainer MenuActive";
+        this.LabelMultiselect = WRender.Create({
+            className: "LabelMultiselect", innerText: "MultiSelect", onclick: () => {
+                if (this.OptionsContainer.className.includes("MenuActive")) {
+                    this.OptionsContainer.className = "OptionsContainer MenuInactive";
+                } else {
+                    this.OptionsContainer.className = "OptionsContainer MenuActive";
+                }
             }
-        }});
+        });
         this.OptionsContainer = WRender.Create({ className: "OptionsContainer MenuInactive" });
+        const SearchControl = WRender.Create({
+            tagName: "input",
+            class: "txtControl",
+            placeholder: "Buscar...",
+            onchange: async (ev) => {
+                const Dataset = this.Dataset.filter((element) => {
+                    for (const prop in element) {
+                        try {
+                            if (element[prop] != null) {
+                                if (element[prop].toString().toUpperCase().includes(ev.target.value.toUpperCase())) {
+                                    return element;
+                                }
+                            }
+                        } catch (error) {
+                            console.log(element);
+                        }
+                    }
+                });
+                this.Draw(Dataset);
+            }
+        });
         this.shadowRoot.append(
-            this.LabelMultiselect, this.OptionsContainer,
+            this.LabelMultiselect,
+            SearchControl,
+            this.OptionsContainer,
             new WStyledRender(MainMenu),
             WRender.createElement(StyleScrolls)
         );
         if (Style != null && Style.__proto__ == WStyledRender.prototype) {
             this.shadowRoot.append(Style);
         }
-
     }
     connectedCallback() {
         this.LabelMultiselect.innerHTML = "";
-        this.OptionsContainer.innerHTML = "";
+
         this.Draw();
         this.DrawLabel();
     }
-    Draw = () => {
-        //console.log(this.Config.Dataset);
-        this.Dataset = this.Config.Dataset ?? [];
+    Draw = (Dataset = this.Dataset) => {
+        this.OptionsContainer.innerHTML = "";
         this.MultiSelect = this.Config.MultiSelect ?? true;
-        this.Dataset.forEach(element => {
+        Dataset.forEach(element => {
             //console.log(element);
             const OType = this.MultiSelect == true ? "checkbox" : "radio";
             const OptionLabel = WRender.Create({
@@ -96,7 +120,7 @@ class MultiSelect extends HTMLElement {
                     }
                 }, new WStyledRender(SubMenu));
                 element.selectedItems = element.SubMultiSelect.selectedItems;
-                SubContainer.append(element.SubMultiSelect);                
+                SubContainer.append(element.SubMultiSelect);
             }
             this.OptionsContainer.append(WRender.Create({
                 className: "OContainer",
@@ -125,9 +149,8 @@ class MultiSelect extends HTMLElement {
                         this.DrawLabel();
                         this.shadowRoot.querySelector("#OType" + element.id_).checked = false;
                     }
-                }));                
+                }));
             }
-
         });
     }
 }
@@ -139,18 +162,20 @@ const MainMenu = {
             padding: "0px 10px",
             background: "#f1f1f1",
             display: "flex",
+            "flex-wrap": "wrap",
             "align-items": "center",
             "min-height": 40,
             "border-bottom": "#c3c3c3 solid 1px",
             cursor: "pointer",
-            height: "100%"            
-        }),new WCssClass(`.LabelMultiselect label`, {
+            height: "100%",
+        }), new WCssClass(`.LabelMultiselect label`, {
             padding: "5px 10px",
             "border-radius": "0.3cm",
             "background-color": "#009f97",
             color: "#fff",
             "font-size": 11,
-            overflow: "hidden"
+            overflow: "hidden",
+            margin: 3
         }), new WCssClass(`.LabelMultiselect label button`, {
             padding: "0px 5px",
             border: "none",
@@ -158,7 +183,7 @@ const MainMenu = {
             cursor: "pointer",
             "border-left": "solid 2px #062e2c",
             "background": "none",
-        }),  new WCssClass(`.OptionsContainer`, {
+        }), new WCssClass(`.OptionsContainer`, {
             "max-height": 0,
             "overflow-y": "auto",
             transition: "all 1s",
@@ -166,7 +191,7 @@ const MainMenu = {
             width: "100%",
             position: "absolute",
             "box-shadow": "0 0 4px 0 rgb(0,0,0,50%)",
-        }),  new WCssClass(`.MenuActive`, {
+        }), new WCssClass(`.MenuActive`, {
             "max-height": 500,
         }), new WCssClass(`.OContainer`, {
             transition: "all 0.6s",
@@ -184,18 +209,27 @@ const MainMenu = {
             cursor: "pointer",
             padding: "10px 10px",
         }), new WCssClass(".SubMenu", {
-            "max-height": 0,            
+            "max-height": 0,
             width: "100%",
             "grid-column": "1/3",
             "background-color": "rgb(0,0,0,35%)",
             transition: "all 0.6s",
             overflow: "hidden",
-        }), new WCssClass(".SubMenu w-multi-select:first-child", {           
+        }), new WCssClass(".SubMenu w-multi-select:first-child", {
             margin: 10,
         }), new WCssClass(".Option:checked ~ .SubMenu", {
             //display: "block",            
             "max-height": 500,
-        })
+        }), new WCssClass(`.txtControl`, {
+            width: 'calc(100% - 20px)',
+            padding: "8px 10px",
+            border: "none",
+            outline: "none",
+        }), new WCssClass(`.txtControl:active,.txtControl:focus,`, {
+            border: "none",
+            outline: "none",
+            "box-shadow": "0 0 5px #4894aa",
+        }),
     ]
 }
 const SubMenu = {
@@ -203,7 +237,7 @@ const SubMenu = {
         new WCssClass(`.OptionsContainer`, {
             "max-height": 500,
             position: "relative",
-            "box-shadow": "none",           
+            "box-shadow": "none",
         })
     ]
 }
