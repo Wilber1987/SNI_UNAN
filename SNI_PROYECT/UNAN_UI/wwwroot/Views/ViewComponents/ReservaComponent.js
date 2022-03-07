@@ -13,7 +13,7 @@ class ReservarComponent extends HTMLElement {
             Participantes: "",
             Titulo: "",
             IdDependencia: CalendarData.IdDependencia,
-            IdUsuario: CalendarData.IdUsuario,
+            //IdUsuario: CalendarData.IdUsuario,
             Descripcion: "",
             Evidencias: "",
         };
@@ -41,7 +41,6 @@ class ReservarComponent extends HTMLElement {
             }
         });
         const response = await WAjaxTools.PostRequest("./api/Calendar/TakeData");
-
         const RForm = new WForm({
             StyleForm: "columnX1",
             className: "Form",
@@ -56,19 +55,13 @@ class ReservarComponent extends HTMLElement {
                     return { id: x.idDependencia, desc: x.descripcion };
                 }),
                 Descripcion: "",
-                //Evidencias: { type: "IMAGES" },
-                value1: 0,
-                value2: 0,
-                Total: { type: "OPERATION", propertys: ["value1", "value2"], Function: (obj)=>{
-                    return obj.value1 + obj.value2; 
-                }},
+                Evidencias: { type: "IMAGES" },
             }, EditObject: this.ObjectActividad,
             ValidateFunction: (TObject) => {
                 return true;
             }, SaveFunction: (Object) => {
-                console.log(this.ObjectActividad);
                 console.log(Object);
-                //alert("save");
+                console.log(JSON.stringify(Object));
             }
         });
         const DetailDay = WRender.Create({
@@ -134,8 +127,8 @@ class DetailDayClass extends HTMLElement {
             ]
         }));
         const hours = [
-            "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
-            "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"
+            "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", 
+            "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"
         ];
         hours.forEach((element, index) => {
             const hour = WRender.Create({ className: "hourDetail" });
