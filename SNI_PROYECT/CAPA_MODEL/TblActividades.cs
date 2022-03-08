@@ -19,11 +19,23 @@ namespace CAPA_MODEL
         public int? IdDependencia { get; set; }
         public List<TblEvidencias> Evidencias { get; set; }
         public List<TblParticipantes> Participantes { get; set; }
+        public bool SaveActividades()
+        {
+            this.Save();
+            foreach (TblParticipantes obj in this.Participantes)
+            {
+               // obj.id
+            }
+            foreach (TblEvidencias obj in this.Evidencias)
+            {
+
+            }
+            return true;
+        }
         public List<TblParticipantes> GetParticiapantes()
         {
             this.Participantes = SqlADOConexion.SQLM.TakeList<TblParticipantes>(this);
             return this.Participantes;
         }
-
     }
 }

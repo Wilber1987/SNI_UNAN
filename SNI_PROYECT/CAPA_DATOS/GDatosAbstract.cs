@@ -42,34 +42,7 @@ namespace CAPA_DATOS
             {
                 string ColumnNames = "";
                 string Values = "";
-                Type _type = Inst.GetType();
-                PropertyInfo[] lst = _type.GetProperties();
-                foreach (PropertyInfo oProperty in lst) {
-                    string AtributeName = oProperty.Name;
-                    var AtributeValue = oProperty.GetValue(Inst);
-                    if (AtributeValue == null)
-                    {
-                        continue;
-                    }
-                    else if (AtributeValue.GetType() == typeof(string))
-                    {
-                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                        Values = Values + "'" + AtributeValue.ToString() + "',";
-                    }
-                    else if (AtributeValue.GetType() == typeof(DateTime))
-                    {
-                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                        Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
-                    }
-                    else
-                    {
-                        if ((Int32)AtributeValue != -1)
-                        {
-                            Values = Values + AtributeValue.ToString() + ",";
-                        }
-                    }
-                }
-                Values = Values.TrimEnd(',');
+                BuildInsertQueryByObject(Inst, ref ColumnNames, ref Values);
                 string strQuery = "INSERT INTO " + TableName   + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
                 return ExcuteSqlQuery(strQuery);
             }
@@ -78,6 +51,56 @@ namespace CAPA_DATOS
                 throw;
             }
         }
+        public Object InsertObject(Object Inst)
+        {
+            try
+            {
+                string ColumnNames = "";
+                string Values = "";
+                string TableName = Inst.GetType().Name;
+                BuildInsertQueryByObject(Inst, ref ColumnNames, ref Values);
+                string strQuery = "INSERT INTO " + TableName + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+                return ExcuteSqlQuery(strQuery);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private static void BuildInsertQueryByObject(object Inst, ref string ColumnNames, ref string Values)
+        {
+            Type _type = Inst.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(Inst);
+                if (AtributeValue == null)
+                {
+                    continue;
+                }
+                else if (AtributeValue.GetType() == typeof(string))
+                {
+                    ColumnNames = ColumnNames + AtributeName.ToString() + ",";
+                    Values = Values + "'" + AtributeValue.ToString() + "',";
+                }
+                else if (AtributeValue.GetType() == typeof(DateTime))
+                {
+                    ColumnNames = ColumnNames + AtributeName.ToString() + ",";
+                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
+                }
+                else
+                {
+                    if ((Int32)AtributeValue != -1)
+                    {
+                        Values = Values + AtributeValue.ToString() + ",";
+                    }
+                }
+            }
+            Values = Values.TrimEnd(',');
+        }
+
         public Object UpdateObject(string TableName, Object Inst, string IdObject)
         {
             try

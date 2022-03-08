@@ -14,5 +14,10 @@ namespace CAPA_MODEL
             var Data = SqlADOConexion.SQLM.TakeList(this);
             return Data;
         }
+        public bool Save()
+        {
+            SqlADOConexion.SQLM.InsertObject(this);
+            return true;
+        }
     }
 }
