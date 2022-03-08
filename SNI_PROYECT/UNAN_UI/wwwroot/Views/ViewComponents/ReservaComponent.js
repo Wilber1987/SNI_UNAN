@@ -61,7 +61,6 @@ class ReservarComponent extends HTMLElement {
                 return true;
             }, SaveFunction: (Object) => {
                 console.log(Object);
-                console.log(JSON.stringify(Object));
             }
         });
         const DetailDay = WRender.Create({

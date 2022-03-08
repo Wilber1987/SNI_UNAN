@@ -2,6 +2,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WModules/WCo
 import { WCssClass } from '../WModules/WStyledRender.js';
 import { StyleScrolls, StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
+const ImageArray = [];
 class FormConfig {
     ObjectDetail = undefined;
     EditObject = undefined;
@@ -20,6 +21,7 @@ class FormConfig {
     ValidateFunction = (Object) => { /* Validacion */ };
     SaveFunction = (Object) => { /* Guardado */ };
     ObjectOptions = { AddObject: false, Url: undefined };
+    DisplayData = ["prop"];
 
 }
 class WForm extends HTMLElement {
@@ -87,8 +89,7 @@ class WForm extends HTMLElement {
             //     const NewObject = {};
             //     this.DivForm.append(this.CrudForm(NewObject, this.ObjectOptions));
             //     this.DivForm.append(this.SaveOptions(NewObject));
-            // } else { //EDITA UN OBJETO EXISTENTE               
-
+            // } else { //EDITA UN OBJETO EXISTENTE
             //     this.DivForm.append(await this.CrudForm(this.EditObject, this.ObjectOptions));
             //     this.DivForm.append(this.SaveOptions(this.EditObject));
             // }
@@ -234,10 +235,17 @@ class WForm extends HTMLElement {
                 InputControl.id = "ControlValue" + prop;
                 InputControl.onchange = async (ev) => { //evento de actualizacion del componente
                     if (ev.target.type == "file") {
-                        await this.SelectedFile(ev.target.files[0]);
-                        await setTimeout(() => {
-                            ObjectF[prop] = photoB64.toString(); this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
-                        }, 1000);
+                        if (ev.target.multiple) {
+                            await this.SelectedFile(ev.target.files, true);
+                            ObjectF[prop] = ImageArray;
+                        } else {
+                            await this.SelectedFile(ev.target.files[0]);
+                            
+                            await setTimeout(() => {
+                                ObjectF[prop] = photoB64.toString();
+                                this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
+                            }, 1000);
+                        }
                     } else {
                         WRender.SetStyle(ev.target, {
                             boxShadow: "none"
@@ -295,8 +303,11 @@ class WForm extends HTMLElement {
             const Div = WRender.Create({ class: "listImage" });
             ControlContainer.append(Div);
             InputControl.addEventListener("change", (ev) => {
-                console.log(ev.target.files);
-                Div.innerHTML = ev.target.files.map(x => JSON.stringify(x))
+                for (const file in ev.target.files) {
+                    if (ev.target.files[file].__proto__ == File.prototype) {
+                        Div.append(ev.target.files[file].name)
+                    }
+                }
             });
         } else {
             ControlContainer.append(WRender.Create({
@@ -306,7 +317,6 @@ class WForm extends HTMLElement {
                 id: "imgControl" + prop + this.id,
             }));
         }
-
         ControlContainer.append(WRender.Create({
             tagName: "label",
             class: "LabelFile",
@@ -337,13 +347,13 @@ class WForm extends HTMLElement {
                     if (this.DataRequire == true) {
                         for (const prop in ObjectF) {
                             if (!prop.includes("_hidden")) {
+                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);
                                 if (ObjectF[prop] == null || ObjectF[prop] == "") {
-                                    const control = this.shadowRoot.querySelector("#ControlValue" + prop);
                                     WRender.SetStyle(control, {
                                         boxShadow: "0 0 3px #ef4d00"
                                     });
                                     return;
-                                }
+                                } 
                             }
                         }
                     }
@@ -377,12 +387,26 @@ class WForm extends HTMLElement {
         }
         return DivOptions;
     }
-    async SelectedFile(value) {
-        var reader = new FileReader();
-        reader.onloadend = function (e) {
-            photoB64 = e.target.result.split("base64,")[1];
+    async SelectedFile(value, multiple = false) {
+
+        if (multiple) {
+            //console.log(value);
+            for (const file in value) {
+                if (value[file].__proto__ == File.prototype) {
+                    const reader = new FileReader();
+                    reader.onloadend = function (e) {
+                        ImageArray.push(e.target.result.split("base64,")[1]);
+                    }
+                    await reader.readAsDataURL(value[file]);
+                }
+            }
+        } else {
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                photoB64 = e.target.result.split("base64,")[1];
+            }
+            reader.readAsDataURL(value);
         }
-        reader.readAsDataURL(value);
     }
     FormStyle = () => {
         const Style = {
