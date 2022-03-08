@@ -130,7 +130,7 @@ namespace CAPA_DATOS
             DataSet ObjDS = new DataSet();
             CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
-        }
+        } 
         public DataTable TraerDatosSQL(IDbCommand Command)
         {
             DataSet ObjDS = new DataSet();
@@ -141,39 +141,9 @@ namespace CAPA_DATOS
         {
             try
             {
+                string TableName = Inst.GetType().Name;
                 string CondicionString = "";
-                Type _type = Inst.GetType();
-                PropertyInfo[] lst = _type.GetProperties();
-                int index = 0;
-                foreach (PropertyInfo oProperty in lst)
-                {
-                    string AtributeName = oProperty.Name;
-                    var AtributeValue = oProperty.GetValue(Inst);
-                    if (AtributeValue != null)
-                    {
-                        if (index == 0)
-                        {
-                            CondicionString = " WHERE ";
-                            index++;
-                        }
-                        else
-                        {
-                            CondicionString = CondicionString + " OR ";
-                        }
-                        if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
-                        {
-                            CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
-                        }
-                        else
-                        {
-                            CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
-                        }
-                    }
-
-                }
-                CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-                string queryString = "SELECT * FROM " + Inst.GetType().Name  + CondicionString;
-                DataTable Table = TraerDatosSQL(queryString);
+                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
             }
@@ -187,37 +157,7 @@ namespace CAPA_DATOS
             try
             {
                 string CondicionString = "";
-                Type _type = Inst.GetType();
-                PropertyInfo[] lst = _type.GetProperties();
-                int index = 0;
-                foreach (PropertyInfo oProperty in lst)
-                {
-                    string AtributeName = oProperty.Name;
-                    var AtributeValue = oProperty.GetValue(Inst);
-                    if (AtributeValue != null)
-                    {
-                        if (index == 0)
-                        {
-                            CondicionString = " WHERE ";
-                            index++;
-                        } else
-                        {
-                            CondicionString = CondicionString + " OR ";
-                        }
-                        if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
-                        {
-                            CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
-                        }
-                        else
-                        {
-                            CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
-                        }
-                    }
-
-                }               
-                CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R'});
-                string queryString = "SELECT * FROM " + TableName + CondicionString;
-                DataTable Table = TraerDatosSQL(queryString);
+                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
             }
@@ -225,6 +165,57 @@ namespace CAPA_DATOS
             {
                 throw;
             }
+        }
+        public List<T> TakeList<T>(Object Inst, string CondSQL = "")
+        {
+            try
+            {
+                string TableName = Inst.GetType().Name;
+                string CondicionString = "";
+                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
+                List<T> ListD = ConvertDataTable<T> (Table, Inst);
+                return ListD;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private DataTable BuildTable(object Inst, string TableName, ref string CondicionString)
+        {
+            Type _type = Inst.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            int index = 0;
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(Inst);
+                if (AtributeValue != null)
+                {
+                    if (index == 0)
+                    {
+                        CondicionString = " WHERE ";
+                        index++;
+                    }
+                    else
+                    {
+                        CondicionString = CondicionString + " OR ";
+                    }
+                    if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
+                    {
+                        CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
+                    }
+                    else
+                    {
+                        CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
+                    }
+                }
+
+            }
+            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
+            string queryString = "SELECT * FROM " + TableName + CondicionString;
+            DataTable Table = TraerDatosSQL(queryString);
+            return Table;
         }
         public Object TakeListWithProcedure(string ProcedureName, Object Inst, List<Object> Params)
         {
@@ -263,7 +254,7 @@ namespace CAPA_DATOS
                 data.Add(item);
             }
             return data;
-        }
+        }      
         private static Object GetItem(DataRow dr, Object Inst)
         {
             Type temp = Inst.GetType();
@@ -304,5 +295,42 @@ namespace CAPA_DATOS
                 return Convert.ChangeType(obj, type);
             }
         }
+
+
+
+
+
+        private static List<T> ConvertDataTable<T>(DataTable dt, Object Inst)
+        {
+            List<T> data = new List<T>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                var obj = Activator.CreateInstance<T>();
+                Type temp = Inst.GetType();
+                foreach (DataColumn column in dr.Table.Columns)
+                {
+                    if (!string.IsNullOrEmpty(dr[column.ColumnName].ToString()))
+                    {
+                        foreach (PropertyInfo pro in temp.GetProperties())
+                        {
+                            if (pro.Name == column.ColumnName)
+                            {
+                                pro.SetValue(obj, GetValue(dr[column.ColumnName], pro.PropertyType));
+                            }
+                            else
+                                continue;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                //return obj;
+                data.Add(obj);
+            }
+            return data;
+        }
+       
     }
 }
