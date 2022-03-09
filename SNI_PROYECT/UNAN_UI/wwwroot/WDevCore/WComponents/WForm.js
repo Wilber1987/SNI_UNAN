@@ -179,8 +179,7 @@ class WForm extends HTMLElement {
             };
         }
         //verifica que el modelo exista,
-        //sino es asi le asigna el valor de un objeto existente
-        //console.log(ObjectF);
+        //sino es asi le asigna el valor de un objeto existente        
         const Model = this.ObjectModel ?? this.EditObject;
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
@@ -305,7 +304,7 @@ class WForm extends HTMLElement {
             InputControl.addEventListener("change", (ev) => {
                 for (const file in ev.target.files) {
                     if (ev.target.files[file].__proto__ == File.prototype) {
-                        Div.append(ev.target.files[file].name)
+                        Div.append(WRender.Create(ev.target.files[file].name))
                     }
                 }
             });
@@ -388,9 +387,7 @@ class WForm extends HTMLElement {
         return DivOptions;
     }
     async SelectedFile(value, multiple = false) {
-
         if (multiple) {
-            //console.log(value);
             for (const file in value) {
                 if (value[file].__proto__ == File.prototype) {
                     const reader = new FileReader();
@@ -502,6 +499,12 @@ class WForm extends HTMLElement {
                         "overflow-y": 'auto',
                         "max-height": "calc(100vh - 120px)",
                         margin: 10
+                    }), new WCssClass( `.listImage label`, {
+                        "font-size": 11,
+                        padding: 5,
+                        width: "100%",
+                        overflow: "hidden",
+                        display: "block"
                     }),
                 ], MediaQuery: [{
                     condicion: "(max-width: 800px)",
@@ -529,7 +532,6 @@ class WForm extends HTMLElement {
         }
         return WRender.createElement(Style);
     }
-
 }
 customElements.define('w-form', WForm);
 export { WForm }

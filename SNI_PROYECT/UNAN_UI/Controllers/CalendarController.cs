@@ -32,6 +32,11 @@ namespace UNAN_UI.Controllers
             cal.TakeAgenda();
             return cal;
         }
+        public Object SaveActividad(TblActividades Act)
+        {
+            //Act.
+            return true;
+        }
     }
     public class Calendar
     {
