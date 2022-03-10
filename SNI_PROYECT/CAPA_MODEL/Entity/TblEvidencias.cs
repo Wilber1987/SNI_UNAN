@@ -9,10 +9,10 @@ namespace CAPA_MODEL
 {
     public class TblEvidencias : EntityClass
     {
-        public int IdEvidencia { get; set; }
-        public int IdTipo { get; set; }
+        public int? IdEvidencia { get; set; }
+        public int? IdTipo { get; set; }
         public string Data { get; set; }
-        public int IdActividad { get; set; }
+        public int? IdTarea { get; set; }
         public TblActividades Actividad { get; set; }
 
       

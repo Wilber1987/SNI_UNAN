@@ -5,30 +5,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAPA_MODEL
+namespace CAPA_MODEL.Entity
 {
-    public class TblActividades : EntityClass
+    public class TblTareas: EntityClass
     {
-        public int? IdActividad { get; set; }
-        public string Titulo   { get; set; }
+        public int? IdTarea { get; set; }
+        public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public string Estado { get; set; }
-        public DateTime? Fecha_Inicial { get; set; }
-        public DateTime? Fecha_Final { get; set; }
-        public int? IdUsuario { get; set; }
-        public int? IdDependencia { get; set; }
+        public int? IdTareaPadre { get; set; }
+        public int? IdActividad { get; set; }
+        public List<TblCalendario> Calendarios { get; set; }
         public List<TblEvidencias> Evidencias { get; set; }
         public List<TblParticipantes> Participantes { get; set; }
-        public bool SaveActividades()
+        public bool SaveTarea()
         {
-            this.Save();
+            this.Estado = "Activa";
+            this.IdTarea = (Int32)SqlADOConexion.SQLM.InsertObject(this);
+            foreach (TblCalendario obj in this.Calendarios)
+            {
+                obj.IdTarea = this.IdTarea;
+                obj.Save();
+            }
             foreach (TblParticipantes obj in this.Participantes)
             {
-               // obj.id
+                obj.IdTarea = this.IdTarea;
+                obj.IdTipoParticipacion = 1;
+                obj.Save();
             }
             foreach (TblEvidencias obj in this.Evidencias)
             {
-
+                obj.IdTarea = this.IdTarea;
+                obj.Save();
             }
             return true;
         }

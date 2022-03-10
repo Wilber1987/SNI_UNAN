@@ -11,7 +11,7 @@ namespace CAPA_MODEL
     {
         public int? IdDependencia { get; set; }
         public string Descripcion { get;  set; }
-        public int? IdDependenciaP { get; set; }
-        
+        public int? IdDependenciaP { get; set; }        
+
     }
 }

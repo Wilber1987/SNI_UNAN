@@ -6,7 +6,7 @@ import { WModalForm } from '../../WDevCore/WComponents/WModalForm.js';
 const Reservaciones = [];
 const CompM = new ComponentsManager();
 class ReservarComponent extends HTMLElement {
-    constructor(CalendarData = { IdUsuario: undefined, IdDependencia: undefined }) {
+    constructor(TypeReserva = "New", CalendarData = { IdUsuario: undefined, IdDependencia: undefined }) {
         super();
         this.className = "Reservar";
         this.ObjectActividad = {
@@ -17,6 +17,7 @@ class ReservarComponent extends HTMLElement {
             Descripcion: "",
             Evidencias: "",
         };
+        this.TypeReserva = TypeReserva;
         this.CalendarData = CalendarData;
         this.DrawComponent();
     }
@@ -37,30 +38,67 @@ class ReservarComponent extends HTMLElement {
                     idDetailDay,
                     new DetailDayClass({
                         id: idDetailDay
-                    }, DateParam, response.agenda, response.actividades));
+                    }, DateParam, response.agenda, response.calendario));
             }
         });
         const response = await WAjaxTools.PostRequest("./api/Calendar/TakeData");
+        let Dependencias = [];
+        if (this.TypeReserva == "ApplyFor") {
+            Dependencias = response[0].map(x => {
+                return { id: x.idDependencia, desc: x.descripcion };
+            });
+        } else {
+            Dependencias = response[2].map(x => {
+                const dep = response[0].find(dep => dep.idDependencia == x.idDependencia);
+                return { id: x.idDependencia, desc: dep.descripcion };
+            });
+        }
         const RForm = new WForm({
             StyleForm: "columnX1",
             className: "Form",
             ObjectModel: {
+                Titulo: "",
+                Descripcion: "",
                 Participantes: {
                     type: "MULTISELECT", Dataset: response[1].map(x => {
-                        return { id_: x.idUsuario, Descripcion: `${x.nombres} ${x.apellidos} - ${x.mail}` };
+                        x.id_ = x.idUsuario;
+                        x.IdUsuario = x.idUsuario;
+                        x.Descripcion = `${x.nombres} ${x.apellidos} - ${x.mail}`;
+                        return x; //{ id_: x.idUsuario, Descripcion: `${x.nombres} ${x.apellidos} - ${x.mail}` };
                     })
                 },
-                Titulo: "",
-                IdDependencia: response[0].map(x => {
-                    return { id: x.idDependencia, desc: x.descripcion };
-                }),
-                Descripcion: "",
+                IdDependencia: Dependencias,
                 Evidencias: { type: "IMAGES" },
             }, EditObject: this.ObjectActividad,
             ValidateFunction: (TObject) => {
                 return true;
-            }, SaveFunction: (Object) => {
+            }, SaveFunction: async (Object) => {
                 console.log(Object);
+                const PostData = {
+                    Titulo: Object.Titulo,
+                    Descripcion: Object.Descripcion,
+                    Estado: "Activa",
+                    IdDependencia: Object.IdDependencia,
+                    Tareas: [{
+                        Titulo: "Ejecución",
+                        Descripcion: "Tarea principal",
+                        Estado: "Pendiente",
+                        Calendarios: Reservaciones,
+                        Evidencias: Object.Evidencias.map(x => {
+                            if (typeof x === "string") {
+                                return { Data: x };
+                            }
+                            return x;
+                        }),
+                        Participantes: Object.Participantes
+
+                    }]
+                }
+                const FunctionName = this.TypeReserva == "New"? "": "SaveActividad";
+                const response = await WAjaxTools.PostRequest(
+                    "./api/Calendar/" + FunctionName , PostData
+                );
+
             }
         });
         const DetailDay = WRender.Create({
@@ -126,7 +164,7 @@ class DetailDayClass extends HTMLElement {
             ]
         }));
         const hours = [
-            "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", 
+            "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
             "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"
         ];
         hours.forEach((element, index) => {
@@ -149,8 +187,8 @@ class DetailDayClass extends HTMLElement {
                 hour.className = "hourDetail hourH";
                 let Reservable = true;
                 reservaciones.forEach(reserva => {
-                    const fecha1R = new Date(reserva.fecha_prevista);
-                    const fecha2R = new Date(reserva.fecha_final_p);
+                    const fecha1R = new Date(reserva.fecha_Inicial);
+                    const fecha2R = new Date(reserva.fecha_Final);
                     if (fecha1.toString() == fecha1R.toString()
                         && fecha2.toString() == fecha2R.toString()) {
                         hour.className = "hourDetail hourR";
@@ -161,6 +199,7 @@ class DetailDayClass extends HTMLElement {
                     const checkB = WRender.Create({
                         tagName: "input", id: "Checkbox" + element, type: "Checkbox", innerText: `${element}`
                     })
+                    //Wed Mar 09 2022 15:10:44 GMT-0600
                     hour.append(checkB);
                     checkB.onchange = async (ev) => {
                         if (checkB.checked == false) {
@@ -170,12 +209,13 @@ class DetailDayClass extends HTMLElement {
                             Reservaciones.splice(filtObject, 1);
                             return;
                         }
+                        //console.log(`${DateParam.date} ${element}`, `${DateParam.date} ${element.replace(":00", ":59")}`)
+                        //console.log(new Date())
+                        //console.log(new Date(new Date(`${DateParam.date} ${element}`)), new Date(`${DateParam.date} ${element.replace(":00", ":59")}`))
                         const dataPost = {
                             id: `${DateParam.date} ${element}`,
-                            data: {
-                                fecha_inicial: `${DateParam.date} ${element}`, //DateParam.date +" "+element,
-                                fecha_final: `${DateParam.date} ${element.replace(":00", ":59")}` //DateParam.date +" "+element.replace(":00", ":59"),
-                            }
+                            Fecha_Inicial: `${DateParam.date}T${element}:00.000Z`,
+                            Fecha_Final: `${DateParam.date}T${element.replace(":00", ":59")}:00.000Z`
                         }
                         Reservaciones.push(dataPost);
                     }

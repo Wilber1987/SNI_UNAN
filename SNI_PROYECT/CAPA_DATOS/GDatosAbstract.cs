@@ -4,6 +4,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Globalization;
 
 namespace CAPA_DATOS
 {
@@ -88,17 +89,27 @@ namespace CAPA_DATOS
                 else if (AtributeValue.GetType() == typeof(DateTime))
                 {
                     ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
+                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd HH:mm:ss") + "',";
                 }
-                else
+                else if (IsNumeric(AtributeValue))
                 {
                     if ((Int32)AtributeValue != -1)
                     {
+                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
                         Values = Values + AtributeValue.ToString() + ",";
                     }
                 }
             }
+            ColumnNames = ColumnNames.TrimEnd(',');
             Values = Values.TrimEnd(',');
+        }
+
+        private static bool IsNumeric(object AtributeValue)
+        {
+            return AtributeValue.GetType() == typeof(int)
+                                || AtributeValue.GetType() == typeof(Double)
+                                || AtributeValue.GetType() == typeof(Decimal)
+                                || AtributeValue.GetType() == typeof(int?);
         }
 
         public Object UpdateObject(string TableName, Object Inst, string IdObject)
@@ -165,8 +176,7 @@ namespace CAPA_DATOS
             try
             {
                 string TableName = Inst.GetType().Name;
-                string CondicionString = "";
-                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
+                DataTable Table = BuildTable(Inst, TableName, ref CondSQL);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
             }
@@ -179,8 +189,7 @@ namespace CAPA_DATOS
         {
             try
             {
-                string CondicionString = "";
-                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
+                DataTable Table = BuildTable(Inst, TableName, ref CondSQL);
                 List<Object> ListD = ConvertDataTable(Table, Inst);
                 return ListD;
             }
@@ -194,8 +203,7 @@ namespace CAPA_DATOS
             try
             {
                 string TableName = Inst.GetType().Name;
-                string CondicionString = "";
-                DataTable Table = BuildTable(Inst, TableName, ref CondicionString);
+                DataTable Table = BuildTable(Inst, TableName, ref CondSQL);
                 List<T> ListD = ConvertDataTable<T> (Table, Inst);
                 return ListD;
             }
@@ -204,8 +212,10 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        private DataTable BuildTable(object Inst, string TableName, ref string CondicionString)
+        private DataTable BuildTable(object Inst, string TableName, ref string CondSQL)
         {
+
+            string CondicionString = "";
             Type _type = Inst.GetType();
             PropertyInfo[] lst = _type.GetProperties();
             int index = 0;
@@ -222,7 +232,7 @@ namespace CAPA_DATOS
                     }
                     else
                     {
-                        CondicionString = CondicionString + " OR ";
+                        CondicionString = CondicionString + " AND ";
                     }
                     if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
                     {
@@ -236,7 +246,14 @@ namespace CAPA_DATOS
 
             }
             CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-            string queryString = "SELECT * FROM " + TableName + CondicionString;
+            if (CondicionString == "" && CondSQL != "")
+            {
+                CondicionString = " WHERE ";
+            }else if(CondicionString != "" && CondSQL != "")
+            {
+                CondicionString = CondicionString + " AND ";
+            }
+            string queryString = "SELECT * FROM " + TableName + CondicionString + CondSQL;
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
         }

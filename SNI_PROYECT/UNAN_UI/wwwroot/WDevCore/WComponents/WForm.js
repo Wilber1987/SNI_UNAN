@@ -85,14 +85,6 @@ class WForm extends HTMLElement {
             const ObjectProxy = new Proxy(this.FormObject, ObjHandler);
             this.DivForm.append(await this.CrudForm(ObjectProxy, this.ObjectOptions));
             this.DivForm.append(await this.SaveOptions(ObjectProxy));
-            // if (this.ObjectOptions.AddObject == true) { //AGREGA NUEVO OBJETO
-            //     const NewObject = {};
-            //     this.DivForm.append(this.CrudForm(NewObject, this.ObjectOptions));
-            //     this.DivForm.append(this.SaveOptions(NewObject));
-            // } else { //EDITA UN OBJETO EXISTENTE
-            //     this.DivForm.append(await this.CrudForm(this.EditObject, this.ObjectOptions));
-            //     this.DivForm.append(this.SaveOptions(this.EditObject));
-            // }
         }
         this.shadowRoot.append(this.DivForm);
     }
@@ -183,7 +175,7 @@ class WForm extends HTMLElement {
         const Model = this.ObjectModel ?? this.EditObject;
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
-            let val = ObjectOptions.AddObject == true ? "" : this.EditObject[prop];
+            let val = ObjectF[prop] == undefined ? "" : ObjectF[prop];
             if (Model[prop].__proto__ == Object.prototype && Model[prop].type.toUpperCase() == "OPERATION") {
                 //---------------------------------------->
             } else if (!prop.includes("_hidden")) {
@@ -198,6 +190,9 @@ class WForm extends HTMLElement {
                         case "IMAGE": case "IMAGES":
                             const Multiple = Model[prop].type.toUpperCase() == "IMAGES" ? true : false;
                             InputControl = this.CreateImageControl(val, ControlContainer, prop, Multiple);
+                            if (Multiple) {
+                                ObjectF[prop] = ImageArray;
+                            }
                             break;
                         case "FECHA": case "HORA": case "PASSWORD":
                             let type = "date";
@@ -211,6 +206,7 @@ class WForm extends HTMLElement {
                             break;
                         case "SELECT":
                             InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
+                            ObjectF[prop] = InputControl.value;
                             break;
                         case "MULTISELECT":
                             const { MultiSelect } = await import("./WMultiSelect.js");
@@ -224,6 +220,7 @@ class WForm extends HTMLElement {
                     }
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
                     InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
+                    ObjectF[prop] = InputControl.value
                 } else if (typeof Model[prop] === "string" && Model[prop].length >= 50) {
                     InputControl = WRender.Create({ tagName: "textarea", className: prop });
                 } else if (parseFloat(Model[prop]).toString() != "NaN") {
@@ -235,11 +232,9 @@ class WForm extends HTMLElement {
                 InputControl.onchange = async (ev) => { //evento de actualizacion del componente
                     if (ev.target.type == "file") {
                         if (ev.target.multiple) {
-                            await this.SelectedFile(ev.target.files, true);
-                            ObjectF[prop] = ImageArray;
+                            await this.SelectedFile(ev.target.files, true);                            
                         } else {
-                            await this.SelectedFile(ev.target.files[0]);
-                            
+                            await this.SelectedFile(ev.target.files[0]);                            
                             await setTimeout(() => {
                                 ObjectF[prop] = photoB64.toString();
                                 this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
@@ -346,8 +341,9 @@ class WForm extends HTMLElement {
                     if (this.DataRequire == true) {
                         for (const prop in ObjectF) {
                             if (!prop.includes("_hidden")) {
-                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);
-                                if (ObjectF[prop] == null || ObjectF[prop] == "") {
+                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);                                
+                                if ((ObjectF[prop] == null || ObjectF[prop] == "") && ObjectF[prop].__proto__ != Array.prototype) {
+                                    console.log(prop, ObjectF[prop]);
                                     WRender.SetStyle(control, {
                                         boxShadow: "0 0 3px #ef4d00"
                                     });

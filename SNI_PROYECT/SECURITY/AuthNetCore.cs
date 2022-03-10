@@ -36,5 +36,12 @@ namespace SECURITY
             return true;
 
         }
+        static public UserModel User()
+        {
+            UserModel Model = new UserModel();
+            Model.UserId = 1;
+            return Model;
+
+        }
     }
 }

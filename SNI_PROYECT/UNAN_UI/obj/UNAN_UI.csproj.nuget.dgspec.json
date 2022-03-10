@@ -112,6 +112,9 @@
             "projectReferences": {
               "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {
                 "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj"
+              },
+              "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SECURITY\\SECURITY.csproj": {
+                "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SECURITY\\SECURITY.csproj"
               }
             }
           }

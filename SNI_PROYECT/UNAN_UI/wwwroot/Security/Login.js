@@ -60,7 +60,12 @@ const MasterStyle = {
             "justify-content": "center",
             "flex-direction": "column",
             "align-items": "center"
-        }), new WCssClass("img", {
+        }), new WCssClass(".LoginForm div", {
+            width: "100%",
+            "text-align": "center",
+            "margin-bottom": 10,
+            "margin-top": 10
+        }),new WCssClass("img", {
             display: "block",
             width: "50%"
         }),

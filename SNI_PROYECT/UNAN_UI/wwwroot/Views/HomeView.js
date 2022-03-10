@@ -29,7 +29,7 @@ class HomeView extends HTMLElement {
                     tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Reservar',
                     onclick: async () => {
                         this.append(new WModalForm({
-                            ObjectModal: new ReservarComponent(),
+                            ObjectModal: new ReservarComponent("ApplyFor"),
                             ShadowRoot: false,
                             StyleForm: "columnX3"
                         }))
@@ -44,50 +44,38 @@ class HomeView extends HTMLElement {
                 {
                     name: "En Proceso", url: "#",
                     action: async (ev) => {
-                        const Dataset = [];
-                        this.TabManager.NavigateFunction("Tab-Investigaciones", new WTableComponent({
-                            Dataset: Dataset,
-                            DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
-                            Options: {
-                                Search: true, UrlSearch: 'api_route',
-                                Add: true, UrlAdd: 'api_route',
-                                UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
-                            }
-                        }));
+                        const DataPost = { estado: "Activa" };
+                        this.NavActividad("Tab-Proceso", DataPost);
                     }
                 }, {
                     name: "Pendientes", url: "#",
                     action: async (ev) => {
-                        const Dataset = [];
-                        this.TabManager.NavigateFunction("Tab-Investigaciones", new WTableComponent({
-                            Dataset: Dataset,
-                            DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
-                            Options: {
-                                Search: true, UrlSearch: 'api_route',
-                                Add: true, UrlAdd: 'api_route',
-                                UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
-                            }
-                        }));
+                        const DataPost = { estado: "Pendiente" };
+                        this.NavActividad("Tab-Pendientes", DataPost);
                     }
                 }, {
                     name: "Ejecutadas", url: "#",
                     action: async (ev) => {
-                        const Dataset = [];
-                        this.TabManager.NavigateFunction("Tab-Colaboraciones", new WTableComponent({
-                            Dataset: Dataset,
-                            DisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],
-                            Options: {
-                                Search: true, UrlSearch: 'api_route',
-                                Add: true, UrlAdd: 'api_route',
-                                UserActions: [{ name: 'Log...', Function: (TableElement) => { console.log(TableElement); } }]
-                            }
-                        }));
+                        const DataPost = { estado: "Finalizada" };     
+                        this.NavActividad("Tab-Ejecutadas", DataPost);
                     }
                 }
             ]
         });
-        
+
         this.DrawComponent();
+    }
+    NavActividad = async (TabId, DataPost) =>{
+        const Dataset = await WAjaxTools.PostRequest("./api/Calendar/TakeActividades", DataPost);
+        this.TabManager.NavigateFunction(TabId, new WTableComponent({
+            Dataset: Dataset,
+            DisplayData: ['titulo', 'estado'],
+            Options: {
+                Search: true, UrlSearch: 'api_route',
+                Add: true, UrlAdd: 'api_route',
+                UserActions: [{ name: 'Ver Detalle', Function: (TableElement) => { console.log(TableElement); } }]
+            }
+        }));
     }
     connectedCallback() { }
     DrawComponent = async () => {

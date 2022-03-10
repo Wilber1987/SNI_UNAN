@@ -429,7 +429,8 @@
       },
       "CAPA_MODEL/1.0.0": {
         "dependencies": {
-          "CAPA_DATOS": "1.0.0"
+          "CAPA_DATOS": "1.0.0",
+          "SECURITY": "1.0.0"
         },
         "runtime": {
           "CAPA_MODEL.dll": {}

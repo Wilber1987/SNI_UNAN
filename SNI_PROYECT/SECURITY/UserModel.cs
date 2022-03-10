@@ -8,6 +8,7 @@ namespace SECURITY
     public class UserModel
     {
         public string user { get; set; }
+        public int UserId { get; set; }
         public string password { get; set; }
         public bool success { get; set; }
         public void LoginIn()

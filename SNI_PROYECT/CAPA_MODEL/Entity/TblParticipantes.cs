@@ -8,5 +8,9 @@ namespace CAPA_MODEL
 {
     public class TblParticipantes : EntityClass
     {
+        public int? IdTarea { get; set; }
+        public int? IdUsuario { get; set; }
+        public int? IdTipoParticipacion { get; set; }
+
     }
 }

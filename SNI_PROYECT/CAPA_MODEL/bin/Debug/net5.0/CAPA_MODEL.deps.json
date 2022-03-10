@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v5.0": {
       "CAPA_MODEL/1.0.0": {
         "dependencies": {
-          "CAPA_DATOS": "1.0.0"
+          "CAPA_DATOS": "1.0.0",
+          "SECURITY": "1.0.0"
         },
         "runtime": {
           "CAPA_MODEL.dll": {}
@@ -96,6 +97,14 @@
         "runtime": {
           "CAPA_DATOS.dll": {}
         }
+      },
+      "SECURITY/1.0.0": {
+        "dependencies": {
+          "CAPA_DATOS": "1.0.0"
+        },
+        "runtime": {
+          "SECURITY.dll": {}
+        }
       }
     }
   },
@@ -169,6 +178,11 @@
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
     },
     "CAPA_DATOS/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SECURITY/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

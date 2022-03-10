@@ -13,7 +13,13 @@ namespace CAPA_MODEL
         public string Nombres   { get; set; }
         public string Apellidos { get; set; }
         public string Mail { get; set; }
-        public List<Object> Dependencias { get; set; }
+        public List<TblDependencias_Usuarios> Dependencias { get; set; }
+        public List<Object> TakeDepCoordinaciones()
+        {
+            TblDependencias_Usuarios DU = new TblDependencias_Usuarios();
+            DU.IdUsuario = this.IdUsuario;            
+            return DU.Get_WhereIN("IdCargo", new string[] { "1", "2" });
+        }
 
     }
 }

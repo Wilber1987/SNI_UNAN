@@ -143,6 +143,19 @@
         "runtime": {
           "bin/placeholder/CAPA_DATOS.dll": {}
         }
+      },
+      "SECURITY/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "CAPA_DATOS": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SECURITY.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SECURITY.dll": {}
+        }
       }
     }
   },
@@ -464,11 +477,17 @@
       "type": "project",
       "path": "../CAPA_DATOS/CAPA_DATOS.csproj",
       "msbuildProject": "../CAPA_DATOS/CAPA_DATOS.csproj"
+    },
+    "SECURITY/1.0.0": {
+      "type": "project",
+      "path": "../SECURITY/SECURITY.csproj",
+      "msbuildProject": "../SECURITY/SECURITY.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "CAPA_DATOS >= 1.0.0"
+      "CAPA_DATOS >= 1.0.0",
+      "SECURITY >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -505,6 +524,9 @@
           "projectReferences": {
             "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj": {
               "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\CAPA_DATOS\\CAPA_DATOS.csproj"
+            },
+            "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SECURITY\\SECURITY.csproj": {
+              "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\SECURITY\\SECURITY.csproj"
             }
           }
         }

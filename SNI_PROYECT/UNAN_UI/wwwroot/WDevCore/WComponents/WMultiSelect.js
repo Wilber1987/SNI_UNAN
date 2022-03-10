@@ -23,11 +23,11 @@ class MultiSelect extends HTMLElement {
         });
         this.LabelMultiselect = WRender.Create({
             className: "LabelMultiselect", innerText: "MultiSelect", onclick: () => {
-                if (this.OptionsContainer.className.includes("MenuActive")) {
-                    this.OptionsContainer.className = "OptionsContainer MenuInactive";
-                } else {
-                    this.OptionsContainer.className = "OptionsContainer MenuActive";
-                }
+                // if (this.OptionsContainer.className.includes("MenuActive")) {
+                //     this.OptionsContainer.className = "OptionsContainer MenuInactive";
+                // } else {
+                //     this.OptionsContainer.className = "OptionsContainer MenuActive";
+                // }
             }
         });
         this.OptionsContainer = WRender.Create({ className: "OptionsContainer MenuInactive" });
@@ -168,7 +168,10 @@ const MainMenu = {
             "border-bottom": "#c3c3c3 solid 1px",
             cursor: "pointer",
             height: "100%",
-        }), new WCssClass(`.LabelMultiselect label`, {
+        }),new WCssClass(`.LabelMultiselect:hover ~ .OptionsContainer,
+         .OptionsContainer:hover, .txtControl:focus ~ .OptionsContainer`, {
+            "max-height": 500
+        }),  new WCssClass(`.LabelMultiselect label`, {
             padding: "5px 10px",
             "border-radius": "0.3cm",
             "background-color": "#009f97",
@@ -186,7 +189,7 @@ const MainMenu = {
         }), new WCssClass(`.OptionsContainer`, {
             "max-height": 0,
             "overflow-y": "auto",
-            transition: "all 1s",
+            transition: "all .6s",
             "z-index": "100",
             width: "100%",
             position: "absolute",

@@ -157,7 +157,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "CAPA_DATOS": "1.0.0"
+          "CAPA_DATOS": "1.0.0",
+          "SECURITY": "1.0.0"
         },
         "compile": {
           "bin/placeholder/CAPA_MODEL.dll": {}
