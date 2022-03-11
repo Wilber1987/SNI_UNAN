@@ -135,7 +135,7 @@ class ReservarComponent extends HTMLElement {
 }
 
 customElements.define('w-reserva', ReservarComponent);
-export { ReservarComponent }
+
 
 class DetailDayClass extends HTMLElement {
     constructor(Props = {}, DateParam, agenda = [], reservaciones = []) {
@@ -292,6 +292,7 @@ class DetailDayClass extends HTMLElement {
         }
     };
 }
+export { ReservarComponent,  DetailDayClass}
 customElements.define('w-day', DetailDayClass);
 const Estados = [
     { id_: "Fresa", Descripcion: "Severa" },

@@ -59,10 +59,14 @@ namespace CAPA_MODEL
             }
             return true;
         }
-        //public List<TblParticipantes> GetParticiapantes()
-        //{
-        //    this.Participantes = SqlADOConexion.SQLM.TakeList<TblParticipantes>(this);
-        //    return this.Participantes;
-        //}
+        public TblActividades GetActividad()
+        {
+            this.Tareas = (new TblTareas()).Get<TblTareas>("IdActividad = " + this.IdActividad.ToString());
+            foreach (TblTareas tarea in this.Tareas)
+            {
+                tarea.Calendarios = (new TblCalendario()).Get<TblCalendario>("IdTarea = " + tarea.IdTarea.ToString());
+            }
+            return this;
+        }
     }
 }

@@ -19,6 +19,11 @@ namespace CAPA_MODEL
             var Data = SqlADOConexion.SQLM.TakeList(this, condition);
             return Data;
         }
+        public List<T> Get<T>(string condition)
+        {
+            var Data = SqlADOConexion.SQLM.TakeList<T>(this, condition);
+            return Data;
+        }
         public List<Object> Get_WhereIN(string Field, string[] conditions)
         {
             string condition = BuildArrayIN(conditions);

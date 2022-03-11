@@ -40,6 +40,10 @@ namespace UNAN_UI.Controllers
         {            
             return Inst.Get();
         }
+        public Object TakeActividad(TblActividades Inst)
+        {
+            return Inst.GetActividad();
+        }
         public Object SaveActividad(TblActividades Act)
         {            
             return Act.SaveActividades();

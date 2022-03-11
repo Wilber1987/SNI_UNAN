@@ -5,6 +5,7 @@ import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
 import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
+import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
 
 class HomeView extends HTMLElement {
     constructor() {
@@ -56,16 +57,15 @@ class HomeView extends HTMLElement {
                 }, {
                     name: "Ejecutadas", url: "#",
                     action: async (ev) => {
-                        const DataPost = { estado: "Finalizada" };     
+                        const DataPost = { estado: "Finalizada" };
                         this.NavActividad("Tab-Ejecutadas", DataPost);
                     }
                 }
             ]
         });
-
         this.DrawComponent();
     }
-    NavActividad = async (TabId, DataPost) =>{
+    NavActividad = async (TabId, DataPost) => {
         const Dataset = await WAjaxTools.PostRequest("./api/Calendar/TakeActividades", DataPost);
         this.TabManager.NavigateFunction(TabId, new WTableComponent({
             Dataset: Dataset,
@@ -73,7 +73,19 @@ class HomeView extends HTMLElement {
             Options: {
                 Search: true, UrlSearch: 'api_route',
                 Add: true, UrlAdd: 'api_route',
-                UserActions: [{ name: 'Ver Detalle', Function: (TableElement) => { console.log(TableElement); } }]
+                UserActions: [{
+                    name: 'Ver Detalle', Function: async (TableElement) => {
+                        console.log(TableElement);
+                        const Dataset = await WAjaxTools.PostRequest("./api/Calendar/TakeActividad", TableElement);
+                        this.append(new WModalForm({
+                            ObjectModal: new ViewActivityComponent(Dataset, ),
+                            ShadowRoot: false,
+                            title: Dataset.titulo,
+                            StyleForm: "FullScreen"
+                        }))
+
+                    }
+                }]
             }
         }));
     }
