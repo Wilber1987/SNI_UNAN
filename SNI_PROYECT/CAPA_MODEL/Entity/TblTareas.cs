@@ -14,6 +14,7 @@ namespace CAPA_MODEL.Entity
         public string Descripcion { get; set; }
         public string Estado { get; set; }
         public int? IdTareaPadre { get; set; }
+        public int? IdTareaRequicito { get; set; }
         public int? IdActividad { get; set; }
         public List<TblCalendario> Calendarios { get; set; }
         public List<TblEvidencias> Evidencias { get; set; }

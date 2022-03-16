@@ -10,6 +10,7 @@ using CAPA_MODEL;
 using System.IO;
 using System.Text;
 using CAPA_MODEL.Views;
+using CAPA_MODEL.Entity;
 
 namespace UNAN_UI.Controllers
 {
@@ -47,6 +48,10 @@ namespace UNAN_UI.Controllers
         public Object SaveActividad(TblActividades Act)
         {            
             return Act.SaveActividades();
+        }
+        public Object SaveTarea(TblTareas Act)
+        {
+            return Act.SaveTarea();
         }
         public Object SolicitarActividad(TblActividades Act)
         {

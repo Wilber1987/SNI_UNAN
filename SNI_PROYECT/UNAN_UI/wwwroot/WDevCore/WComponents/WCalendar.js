@@ -320,6 +320,7 @@ class WCalendar extends HTMLElement {
         return Style;
     }
 }
+const Reservaciones = []
 class DetailDayClass extends HTMLElement {
     constructor(Props = {}, DateParam, agenda = [], reservaciones = []) {
         super();
@@ -475,11 +476,17 @@ class DetailDayClass extends HTMLElement {
         }
     };
 }
-const Reservaciones = [];
+
 const CalendarManager = new ComponentsManager();
 class ReservaConfig {
-    CalendarFunction = async ()=>{};
-    SaveFunction = async ()=>{};
+    Reservaciones = [];
+    CalendarFunction = async () => {
+        return {
+            agenda: [],
+            calendario: []
+        };
+    };
+    SaveFunction = async () => { };
     Form = undefined;
 }
 class ReservarComponent extends HTMLElement {
@@ -488,7 +495,8 @@ class ReservarComponent extends HTMLElement {
         for (const p in Config) {
             this[p] = Config[p];
         }
-        this.className = "Reservar";     
+        this.Reservaciones = Reservaciones;
+        this.className = "Reservar";
         this.DrawComponent();
     }
     DrawComponent = async () => {
@@ -496,11 +504,12 @@ class ReservarComponent extends HTMLElement {
             id: "Calendar",
             Function: async (DateParam) => {
                 const IdDetailDay = `DetailDay${DateParam.date}`;
+                const response = await this.CalendarFunction();
                 CalendarManager.NavigateFunction(
                     IdDetailDay,
                     new DetailDayClass({
                         id: IdDetailDay
-                    }, DateParam, [], []));
+                    }, DateParam, response.agenda, response.calendario));
             }
         });
         const DetailDay = WRender.Create({
