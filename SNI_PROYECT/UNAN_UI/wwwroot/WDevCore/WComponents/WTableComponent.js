@@ -43,7 +43,7 @@ class WTableComponent extends HTMLElement {
         this.SearchItemsFromApi = this.TableConfig.SearchItemsFromApi;
         this.DisplayData = this.TableConfig.DisplayData ?? null;
         //this.TableConfig.MasterDetailTable = true
-        if (this.TableConfig != undefined && this.TableConfig.MasterDetailTable == true) {
+        if (this.TableConfig != undefined) {
             this.Dataset = this.TableConfig.Dataset;
             if (this.Dataset == undefined) {
                 this.Dataset = [];
@@ -68,7 +68,7 @@ class WTableComponent extends HTMLElement {
             }
             this.DrawTable();
             return;
-        } else if (typeof this.TableConfig.Dataset === "undefined" || this.TableConfig.Dataset.length == 0) {
+        } else if (typeof this.TableConfig.Dataset === "undefined") {
             this.innerHTML = "Defina un Dataset en formato JSON";
             return;
         }
@@ -294,6 +294,7 @@ class WTableComponent extends HTMLElement {
                                         icon: this.TableConfig.icon,
                                         title: "Nuevo",
                                         ValidateFunction: this.TableConfig.ValidateFunction,
+                                        DisplayData: this.DisplayData,
                                         ObjectOptions: {
                                             Url: this.Options.UrlAdd,
                                             AddObject: true,
@@ -511,6 +512,7 @@ class WTableComponent extends HTMLElement {
                                     new WModalForm({
                                         ObjectModel: this.ModelObject,
                                         EditObject: element,
+                                        DisplayData: this.DisplayData,
                                         icon: this.TableConfig.icon,
                                         ImageUrlPath: this.TableConfig.ImageUrlPath,
                                         title: "Editar",

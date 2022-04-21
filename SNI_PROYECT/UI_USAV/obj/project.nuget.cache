@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KcXH5t4j4SLIrJYDoItTO7gkEhgn5ggbrfY75WTJBUB985ybrVh2tU15pHQV7/d6BcGMLLFT2OTg8Z5ZEjz0OA==",
+  "dgSpecHash": "7FFYkAzS8tAPgGu8t4+b8rLKYMjPvzzvIN5R1X4KUWdEptK6ijKZcYeje2vwNJ0AllG7vWTLj9qMYHXWAuZRHQ==",
   "success": true,
-  "projectFilePath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\UI_USAV\\UI_USAV.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\wilbe\\source\\repos\\NET CORE\\SNI_UNAN\\SNI_PROYECT\\UI_USAV\\UI_USAV.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

@@ -175,6 +175,10 @@ class WForm extends HTMLElement {
         const Model = this.ObjectModel ?? this.EditObject;
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
+            if (!flag) {
+                continue;
+            }
             let val = ObjectF[prop] == undefined ? "" : ObjectF[prop];
             if (Model[prop].__proto__ == Object.prototype && Model[prop].type.toUpperCase() == "OPERATION") {
                 //---------------------------------------->
@@ -183,9 +187,12 @@ class WForm extends HTMLElement {
                     class: "ModalElement", children: [{
                         tagName: "label", class: "inputTitle", innerText: prop.replaceAll("_", " ")
                     }]
-                })
+                });
+                let validateFunction = undefined;
                 let InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text" });;
                 if (Model[prop].__proto__ == Object.prototype) {
+                    validateFunction = Model[prop].validateFunction;
+                    val = Model[prop].defaultValue;
                     switch (Model[prop].type.toUpperCase()) {
                         case "IMAGE": case "IMAGES":
                             const Multiple = Model[prop].type.toUpperCase() == "IMAGES" ? true : false;
@@ -196,13 +203,18 @@ class WForm extends HTMLElement {
                             break;
                         case "FECHA": case "HORA": case "PASSWORD":
                             let type = "date";
+                            let date_val = val ?? (new Date()).toISO();
                             if (Model[prop].type.toUpperCase() == "HORA") {
                                 type = "time";
+                                date_val = val ?? "08:00";
                             } else if (Model[prop].type.toUpperCase() == "PASSWORD") {
                                 type = "password";
                             }
-                            InputControl = WRender.Create({ tagName: "input", className: prop, type: type, placeholder: prop });
-                            InputControl.value = ObjectOptions.AddObject == true ? "" : ObjectF[prop];
+                            InputControl = WRender.Create({
+                                tagName: "input", className: prop, type: type, placeholder: prop
+                            });
+                            const date = new Date();  
+                            ObjectF[prop] = InputControl.value = ObjectOptions.AddObject == true ? date_val : ObjectF[prop];                            
                             break;
                         case "SELECT":
                             InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
@@ -221,20 +233,31 @@ class WForm extends HTMLElement {
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
                     InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
                     ObjectF[prop] = InputControl.value
-                } else if (typeof Model[prop] === "string" && Model[prop].length >= 50) {
-                    InputControl = WRender.Create({ tagName: "textarea", className: prop });
-                } else if (parseFloat(Model[prop]).toString() != "NaN") {
-                    InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "number", placeholder: prop });
                 } else {
-                    InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text", placeholder: prop });
+                    val = Model[prop] != undefined && Model[prop] != "" && Model[prop] != null ? Model[prop] : "";
+                    ObjectF[prop] = val;
+                    if (typeof Model[prop] === "string" && Model[prop].length >= 50) {
+                        InputControl = WRender.Create({ tagName: "textarea", className: prop });
+                    } else if (parseFloat(Model[prop]).toString() != "NaN") {
+                        InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "number", placeholder: prop });
+                    } else {
+                        InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text", placeholder: prop });
+                    }
                 }
                 InputControl.id = "ControlValue" + prop;
                 InputControl.onchange = async (ev) => { //evento de actualizacion del componente
+                    if (validateFunction) {
+                        const result = validateFunction(ObjectF, ev.target.value);
+                        if (!result.success) {
+                            alert(result.message);
+                            return;
+                        }
+                    }
                     if (ev.target.type == "file") {
                         if (ev.target.multiple) {
-                            await this.SelectedFile(ev.target.files, true);                            
+                            await this.SelectedFile(ev.target.files, true);
                         } else {
-                            await this.SelectedFile(ev.target.files[0]);                            
+                            await this.SelectedFile(ev.target.files[0]);
                             await setTimeout(() => {
                                 ObjectF[prop] = photoB64.toString();
                                 this.shadowRoot.querySelector("#imgControl" + prop + this.id).src = "data:image/png;base64," + ObjectF[prop];
@@ -341,14 +364,14 @@ class WForm extends HTMLElement {
                     if (this.DataRequire == true) {
                         for (const prop in ObjectF) {
                             if (!prop.includes("_hidden")) {
-                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);                                
+                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);
                                 if ((ObjectF[prop] == null || ObjectF[prop] == "") && ObjectF[prop].__proto__ != Array.prototype) {
                                     console.log(prop, ObjectF[prop]);
                                     WRender.SetStyle(control, {
                                         boxShadow: "0 0 3px #ef4d00"
                                     });
                                     return;
-                                } 
+                                }
                             }
                         }
                     }
@@ -495,7 +518,7 @@ class WForm extends HTMLElement {
                         "overflow-y": 'auto',
                         "max-height": "calc(100vh - 120px)",
                         margin: 10
-                    }), new WCssClass( `.listImage label`, {
+                    }), new WCssClass(`.listImage label`, {
                         "font-size": 11,
                         padding: 5,
                         width: "100%",

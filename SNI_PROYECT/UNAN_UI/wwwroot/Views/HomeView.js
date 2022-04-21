@@ -10,6 +10,7 @@ import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js
 class HomeView extends HTMLElement {
     constructor() {
         super();
+        this.id = "HomeView";
         this.className = "HomeView DivContainer";
         this.append(this.WStyle, WRender.createElement(StylesControlsV2));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
