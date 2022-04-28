@@ -1,6 +1,7 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WModules/WComponentsTools.js';
 import { WCssClass } from '../WModules/WStyledRender.js';
 import { StyleScrolls, StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
+import { WModalForm } from './WModalForm.js';
 let photoB64;
 const ImageArray = [];
 class FormConfig {
@@ -176,10 +177,11 @@ class WForm extends HTMLElement {
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
             const flag = WArrayF.checkDisplay(this.DisplayData, prop);
+            let val = ObjectF[prop] == undefined ? Model[prop] : ObjectF[prop];
+            ObjectF[prop] = ObjectF[prop] ?? Model[prop];            
             if (!flag) {
                 continue;
             }
-            let val = ObjectF[prop] == undefined ? "" : ObjectF[prop];
             if (Model[prop].__proto__ == Object.prototype && Model[prop].type.toUpperCase() == "OPERATION") {
                 //---------------------------------------->
             } else if (!prop.includes("_hidden")) {
@@ -213,8 +215,8 @@ class WForm extends HTMLElement {
                             InputControl = WRender.Create({
                                 tagName: "input", className: prop, type: type, placeholder: prop
                             });
-                            const date = new Date();  
-                            ObjectF[prop] = InputControl.value = ObjectOptions.AddObject == true ? date_val : ObjectF[prop];                            
+                            const date = new Date();
+                            ObjectF[prop] = InputControl.value = ObjectOptions.AddObject == true ? date_val : ObjectF[prop];
                             break;
                         case "SELECT":
                             InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
@@ -375,15 +377,17 @@ class WForm extends HTMLElement {
                             }
                         }
                     }
-                    if (this.SaveFunction != undefined) {
-                        this.SaveFunction(ObjectF);
-                    } else if (this.ObjectOptions.SaveFunction != undefined) {
-                        this.ObjectOptions.SaveFunction(ObjectF);
-                    }
                     if (this.ObjectOptions.Url != undefined) {
-                        const response = await WAjaxTools.PostRequest(this.ObjectOptions.Url, ObjectF);
-                        console.log(response);
+                        const ModalCheck = this.ModalCheck(ObjectF, ModalCheck);
+                        this.shadowRoot.append(ModalCheck)
+                    } else {
+                        if (this.SaveFunction != undefined) {
+                            this.SaveFunction(ObjectF);
+                        } else if (this.ObjectOptions.SaveFunction != undefined) {
+                            this.ObjectOptions.SaveFunction(ObjectF);
+                        }
                     }
+
                 }
             });
             DivOptions.append(InputSave);
@@ -405,6 +409,38 @@ class WForm extends HTMLElement {
         }
         return DivOptions;
     }
+    Save = async () => {
+
+    }
+    ModalCheck(ObjectF, ModalCheck) {
+        return new WModalForm({
+            ObjectModal: [
+                WRender.Create({ tagName: "h3", innerText: "¿Esta seguro que desea guardar este registro?" }),
+                WRender.Create({
+                    style: { textAlign: "center" },
+                    children: [
+                        WRender.Create({
+                            tagName: 'input', type: 'button', className: 'Btn', value: 'SI', onclick: async () => {
+                                const response = await WAjaxTools.PostRequest(this.ObjectOptions.Url, ObjectF);
+                                console.log(response);
+                                if (this.SaveFunction != undefined) {
+                                    this.SaveFunction(ObjectF);
+                                } else if (this.ObjectOptions.SaveFunction != undefined) {
+                                    this.ObjectOptions.SaveFunction(ObjectF);
+                                }
+                            }
+                        }),
+                        WRender.Create({
+                            tagName: 'input', type: 'button', className: 'Btn', value: 'NO', onclick: async () => {
+                                ModalCheck.close();
+                            }
+                        })
+                    ]
+                })
+            ]
+        });
+    }
+
     async SelectedFile(value, multiple = false) {
         if (multiple) {
             for (const file in value) {
@@ -430,8 +466,7 @@ class WForm extends HTMLElement {
             props: {
                 ClassList: [
                     new WCssClass(" .ContainerFormWModal", {
-                        height: "100%",
-                        overflow: "hidden"
+                        overflow: "hidden",
                     }), new WCssClass(".divForm", {
                         display: "grid",
                         "grid-template-columns": this.DivColumns,// "calc(50% - 10px) calc(50% - 10px)",
@@ -528,7 +563,6 @@ class WForm extends HTMLElement {
                 ], MediaQuery: [{
                     condicion: "(max-width: 800px)",
                     ClassList: [new WCssClass(".divForm", {
-                        padding: "20px",
                         "display": "grid",
                         "grid-gap": "1rem",
                         "grid-template-columns": "calc(100% - 20px) !important",
@@ -536,9 +570,9 @@ class WForm extends HTMLElement {
                         "justify-content": "center"
                     }), new WCssClass(" .ContainerFormWModal", {
                         "margin-top": "0px",
-                        "width": "100%",
-                        "max-height": "calc(100vh - 0px)",
-                        "height": "calc(100vh - 0px)",
+                        //"width": "100%",
+                        //"max-height": "calc(100vh - 0px)",
+                        //"height": "calc(100vh - 0px)",
                         "border-radius": "0cm",
                     }), new WCssClass("", {
                         "padding-bottom": "0px",

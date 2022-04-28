@@ -15,8 +15,9 @@ class AgendaView extends HTMLElement {
         this.shadowRoot.append(this.WStyle, WRender.createElement(StylesControlsV2));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
+        this.DrawAgendaView(); 
     }
-    connectedCallback() { this.DrawAgendaView(); }
+    connectedCallback() {}
     DrawAgendaView = async () => {
         const response = await WAjaxTools.PostRequest("./api/Calendar/TakeData");
         this.TabAgenda = new WAppNavigator({
@@ -26,23 +27,22 @@ class AgendaView extends HTMLElement {
                 return {
                     name: dependencia.descripcion, url: "#",
                     action: async (ev) => {
-                        const DataPost = await WAjaxTools.PostRequest("./api/Calendar/TakeCalendar", dependencia);
+                        const DataPost = await WAjaxTools.PostRequest("./api/Calendar/AgendaUsuarioDependencia", dependencia);
                         this.NavAgenda("Tab-" + dependencia.descripcion, DataPost, dependencia.idDependencia);
                     }
                 };
             })
         });
         this.shadowRoot.append(this.TabAgenda, this.TabContainer);
-
     }
     NavAgenda = async (TabId, DataPost, IdDependencia) => {
         const Table = new WTableComponent({
-            Dataset: DataPost.Agenda,
-            DisplayData: ['Dia', "Hora_Inicial", "Hora_Final", "Fecha_Caducidad"],
+            Dataset: DataPost,
+            DisplayData: ['dia', "hora_Inicial", "hora_Final", "fecha_Caducidad"],
             ModelObject: new AgendaModel({ IdUsuario: 1, IdDependencia: IdDependencia }),
             Options: {
-                Add: true, UrlAdd: 'api_route',
-                Edit: true, UrlEdit: undefined,
+                Add: true, UrlAdd: 'api/Calendar/SaveAgendaUsuarioDependencia',
+                Edit: true, UrlUpdate: 'api/Calendar/SaveAgendaUsuarioDependencia',
             }
         });
         this.TabManager.NavigateFunction(TabId, [Table]);

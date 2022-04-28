@@ -1,13 +1,13 @@
 export default class AgendaModel {
     constructor(Inst = { IdUsuario: 1, IdDependencia: 1 }) {
-        this.IdUsuario = Inst.IdUsuario;
-        this.IdDependencia = Inst.IdDependencia;
+        this.idUsuario = Inst.IdUsuario;
+        this.idDependencia = Inst.IdDependencia;
     }
-    IdUsuario = "";
-    IdDependencia = "";
-    Dia = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
-    Hora_Inicial = { type: "HORA", defaultValue: "08:00" };
-    Hora_Final = {
+    idUsuario = "";
+    idDependencia = "";
+    dia = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+    hora_Inicial = { type: "HORA", defaultValue: "08:00" };
+    hora_Final = {
         type: "HORA", defaultValue: "17:00",
         validateFunction: (ModelObject, Hora_Final) => {
             console.log(ModelObject);
@@ -26,5 +26,5 @@ export default class AgendaModel {
             return { success: false };
         }
     };
-    Fecha_Caducidad = { type: "FECHA" , defaultValue: "2022-12-30" };
+    fecha_Caducidad = { type: "FECHA" , defaultValue: "2022-12-30" };
 }

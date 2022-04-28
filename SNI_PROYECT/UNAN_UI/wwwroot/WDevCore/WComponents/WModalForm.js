@@ -1,6 +1,6 @@
 import { WRender, WAjaxTools, ComponentsManager } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
-import { StyleScrolls } from "../StyleModules/WStyleComponents.JS";
+import { StyleScrolls,StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
 class ModalConfig {
     ObjectModal = null;
@@ -44,6 +44,7 @@ class WModalForm extends HTMLElement {
         if (this.ShadowRoot) {
             this.attachShadow({ mode: "open" });
             this.shadowRoot.append(WRender.createElement(StyleScrolls));
+            this.shadowRoot.append(WRender.createElement(StylesControlsV2));
             this.shadowRoot.append(WRender.createElement(this.FormStyle()));
         } else {
             this.append(WRender.createElement(this.FormStyle()));
@@ -119,7 +120,7 @@ class WModalForm extends HTMLElement {
                 this.ObjectOptions.SaveFunction(ObjectF);
                 this.close();
             }
-            this.Modal.children.push(new WForm(this.Config));
+            this.Modal.children.push( { type: "div", props:{ class: "ModalContent"}, children: [new WForm(this.Config)]} );
         }
         if (this.ShadowRoot) {
             this.shadowRoot.append(WRender.createElement(this.Modal));
@@ -204,6 +205,11 @@ class WModalForm extends HTMLElement {
                         padding: "10px",
                         "text-align": "center",
                         font: "400 13.3333px !important"
+                    }), new WCssClass( `.ModalContent`, {
+                        height: 'calc(100% - 60px)',
+                        overflow: "hidden",
+                        "overflow-y": "auto",
+                        display: "block"
                     }),
                     //encabezado
                     new WCssClass(` .ModalHeader`, {
@@ -224,14 +230,11 @@ class WModalForm extends HTMLElement {
                         "color": "#b9b2b3",
                         "cursor": "pointer",
                         "width": "30px",
-                        //"height": "35px",
                         "border-radius": "10px",
                         "display": "flex",
                         "justify-content": "center",
                         "align-items": "center",
-                        //"transform": "translateY(-5px)",
                         border: "none",
-                        //float: "right",
                         "background-color": "rgba(0,0,0,0.2)"
                     }), new WCssClass(` .HeaderIcon`, {
                         "height": "50px",

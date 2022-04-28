@@ -76,10 +76,8 @@ class HomeView extends HTMLElement {
                 Add: true, UrlAdd: 'api_route',
                 UserActions: [{
                     name: 'Ver Detalle', Function: async (TableElement) => {
-                        console.log(TableElement);
-                        const Dataset = await WAjaxTools.PostRequest("./api/Calendar/TakeActividad", TableElement);
                         this.append(new WModalForm({
-                            ObjectModal: new ViewActivityComponent(Dataset, ),
+                            ObjectModal: new ViewActivityComponent(TableElement),
                             ShadowRoot: false,
                             title: Dataset.titulo,
                             StyleForm: "FullScreen"

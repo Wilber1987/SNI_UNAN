@@ -57,6 +57,22 @@ namespace UNAN_UI.Controllers
         {
             return Act.SolicitarActividades();
         }
+        //Agenda por usuario
+        public Object AgendaUsuarioDependencia(CatDependencias Act)
+        {
+            TblAgenda ag = new TblAgenda();
+            ag.IdDependencia = Act.IdDependencia;
+            ag.IdUsuario = AuthNetCore.User().UserId;
+            return ag.Get();
+        }
+        public Object SaveAgendaUsuarioDependencia(TblAgenda Act)
+        {
+            if (Act.IdAgenda != null)
+            {
+                return Act.Update("IdAgenda");
+            }
+            return Act.Save();
+        }
     }
     public class Calendar
     {

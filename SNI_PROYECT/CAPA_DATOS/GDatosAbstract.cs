@@ -34,6 +34,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
+                SQLMCon.Close();
                 throw;
             }
         }
@@ -89,7 +90,7 @@ namespace CAPA_DATOS
                 else if (AtributeValue.GetType() == typeof(DateTime))
                 {
                     ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd HH:mm:ss") + "',";
+                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/dd/MM HH:mm:ss") + "',";
                 }
                 else if (IsNumeric(AtributeValue))
                 {
@@ -112,10 +113,11 @@ namespace CAPA_DATOS
                                 || AtributeValue.GetType() == typeof(int?);
         }
 
-        public Object UpdateObject(string TableName, Object Inst, string IdObject)
+        public Object UpdateObject(Object Inst, string IdObject)
         {
             try
             {
+                string TableName = Inst.GetType().Name;
                 string Values = "";
                 Type _type = Inst.GetType();
                 PropertyInfo[] lst = _type.GetProperties();
@@ -136,22 +138,21 @@ namespace CAPA_DATOS
                         }
                         else if (AtributeValue.GetType() == typeof(DateTime)) 
                         {
-                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";                           
+                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/dd/MM") + "',";                           
                         }
                         else
                         {
                             Values = Values + AtributeName + "=" + AtributeValue.ToString() + ",";
                         }
-                    } else
+                    } else if (AtributeName == IdObject)
                     {
                         prop = oProperty;
                     }
                    
                 }              
                 Values = Values.TrimEnd(',');
-                string strQuery = "UPDATE  " + 
-                    TableName + " SET " +
-                    Values + " WHERE " + IdObject + " = " + prop.GetValue(Inst).ToString();
+                string strQuery = "UPDATE  " + TableName + " SET " + Values + 
+                    " WHERE " + IdObject + " = " + prop.GetValue(Inst).ToString();
                 return ExcuteSqlQuery(strQuery);
             }
             catch (Exception)
@@ -209,6 +210,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
+                SQLMCon.Close();
                 throw;
             }
         }
@@ -283,6 +285,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
+                SQLMCon.Close();
                 throw;
             }
         }
@@ -335,11 +338,6 @@ namespace CAPA_DATOS
                 return Convert.ChangeType(obj, type);
             }
         }
-
-
-
-
-
         private static List<T> ConvertDataTable<T>(DataTable dt, Object Inst)
         {
             List<T> data = new List<T>();

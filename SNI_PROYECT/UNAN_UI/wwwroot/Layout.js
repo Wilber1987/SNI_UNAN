@@ -6,6 +6,7 @@ import "./WDevCore/WComponents/WLoginTemplate.js";
 import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 import { WModalForm } from "./WDevCore/WComponents/WModalForm.js";
 import { AgendaView } from "./Views/AgendaView.js";
+import { HomeView } from "./Views/HomeView.js";
 const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({ SPAManage: true });
 class MainClass extends HTMLElement {
@@ -13,7 +14,7 @@ class MainClass extends HTMLElement {
         super();
         this.id = "AppMain";
         this.className = "AppMain";
-        this.Component = new AgendaView()//Component;
+        this.Component = Component;
         this.append(this.Component);
     }
 }
@@ -37,12 +38,12 @@ class headerClass extends HTMLElement {
                     {
                         name: "Home", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/";
+                            DOMManager.NavigateFunction("HomeView", new HomeView());
                         }
                     }, {
                         name: "Agenda", url: "#",
                         action: (ev) => {
-                            DOMManager.NavigateFunction("AgendaView", new AgendaView())
+                            DOMManager.NavigateFunction("AgendaView", new AgendaView());
                         }
                     }, {
                         name: "Eventos", url: "#",
@@ -251,12 +252,13 @@ class Layout extends (ComponentsManager, HTMLElement) {
                     "justify-self": "center",
                 }), new WCssClass(".AppAside", {
                     "background-color": "#fff",
-                    height: 750,
+                    "min-height": 400,
                     "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
                     margin: "0px 10px",
                     "border-radius": "0.3cm",
                     "text-align": "center",
-                    "text-align": "-webkit-center"
+                    "text-align": "-webkit-center",
+                    "margin-bottom": 10
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
                     "justify-self": "center",

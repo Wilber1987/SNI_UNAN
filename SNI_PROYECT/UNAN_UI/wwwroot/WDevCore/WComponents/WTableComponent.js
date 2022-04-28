@@ -771,14 +771,14 @@ class WTableComponent extends HTMLElement {
                         width: "100%",
                         "border-collapse": "collapse",
                         "font-size": "12px",
-                        "box-shadow": "0 0 2px 0 rgba(0,0,0,0.5)",
-                        border: "1px rgba(10, 10, 10, 0.3) solid",
+                        //"box-shadow": "0 0 2px 0 rgba(0,0,0,0.5)",
+                        border: "1px rgba(10, 10, 10, 0.2) solid",
                         position: "relative",
                         //overflow: "hidden",
                         //"border-radius": 10
                     }), new WCssClass(`.WTable th`, {
                         "text-align": "left",
-                        border: "1px rgba(10, 10, 10, 0.3) solid",
+                        //border: "1px rgba(10, 10, 10, 0.3) solid",
                     }), new WCssClass(`.WTable td`, {
                         padding: "0.25rem 0.8rem",
                         "text-align": "left",
@@ -788,7 +788,7 @@ class WTableComponent extends HTMLElement {
                         "text-align": "center",
                         "width": "120px",
                     }), new WCssClass(`.WTable tbody tr:nth-child(odd)`, {
-                        "background-color": "rgba(0,0,0,0.1)"
+                        "background-color": "rgba(0,0,0,0.05)"
                     }), new WCssClass(`.icon`, {
                         height: "16px", width: "16px", filter: "invert(1)",
                     }), new WCssClass(`.orderBtn`, {
@@ -903,7 +903,7 @@ class WTableComponent extends HTMLElement {
                         "text-align": "center",
                     }), new WCssClass(`.tfooter`, {
                         display: "flex",
-                        border: "1px rgba(10, 10, 10, 0.5) solid",
+                        border: "1px rgba(10, 10, 10, 0.2) solid",
                         "border-top": "none",
                         "justify-content": "flex-end",
                         "padding-left": "20px",

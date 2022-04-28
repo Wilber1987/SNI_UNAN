@@ -64,5 +64,10 @@ namespace CAPA_MODEL
             SqlADOConexion.SQLM.InsertObject(this);
             return true;
         }
+        public bool Update(string Id)
+        {
+            SqlADOConexion.SQLM.UpdateObject(this, Id);
+            return true;
+        }
     }
 }

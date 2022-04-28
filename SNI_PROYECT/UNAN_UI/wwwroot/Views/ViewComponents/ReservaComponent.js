@@ -94,7 +94,7 @@ class ReservarComponent extends HTMLElement {
 
                     }]
                 }
-                const FunctionName = this.TypeReserva == "New"? "": "SaveActividad";
+                const FunctionName = this.TypeReserva == "New" ? "SaveActividad": "SaveActividad";
                 const response = await WAjaxTools.PostRequest(
                     "./api/Calendar/" + FunctionName , PostData
                 );
