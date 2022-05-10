@@ -1,60 +1,60 @@
 {
 	"WObject": {
 		"prefix": ["wobj", "WObject"],
-		"body": ["{ type:'div', props: { id: '', class: 'className'}, children:[]}"],
+		"body": ["{ tagName:'div', class: 'className', children:[]}"],
 		"description": "Objeto para WREnder."
 	},
 	"WInput": {
 		"prefix": ["winp", "winput"],
-		"body": ["{ type:'input', props: { id: '', type:'text', class: 'className'}}"],
+		"body": ["{ tagName:'input',  type:'text', className: 'className'"],
 		"description": "Objeto para WREnder."
 	},"WHeader": {
 		"prefix": ["wh", "WHeader"],
-		"body": ["{ type:'h1', props: { innerText: 'header'}}"],
+		"body": ["{ tagName:'h1',  innerText: 'header'}"],
 		"description": "Objeto para WREnder."
 	},"WLink": {
 		"prefix": ["wlink", "WLink"],
-		"body": ["{ type:'a', props: { innerText: 'header', href: '#'}}"],
+		"body": ["{ tagName:'a',  innerText: 'header', href: '#'}"],
 		"description": "Objeto para WREnder."
 	},"WImg": {
 		"prefix": ["wimg", "Wimg"],
-		"body": ["{ type:'img', props: { src: 'img', class: 'className'}}"],
+		"body": ["{ tagName:'img',  src: 'imgUrl', class: 'className'}"],
 		"description": "Objeto para WREnder."
 	},"WImgBtn": {
 		"prefix": ["wimgbtn", "WimgBtn"],
-		"body": ["{ type:'img', props: { src: 'img', class: 'className',onclick: async ()=>{",
-			"\t//code.....","}}}"],
+		"body": ["{ tagName:'img',  src: 'imgUrl', class: 'className',onclick: async ()=>{",
+			"\t//code.....","}}"],
 		"description": "Objeto para WREnder."
 	},
 	"WBTN": {
 		"prefix": ["wbtn", "wbtn"],
-		"body": ["{ type:'input', props: { id: '', type:'button', class: 'className', value: 'Ok', onclick: async ()=>{",
-			"\t//code.....","}}}"],
+		"body": ["{ tagName:'input',  type:'button', className: 'className', value: 'Ok', onclick: async ()=>{",
+			"\t//code.....","}}"],
 		"description": "Objeto para WREnder."
 	},"WSelect": {
 		"prefix": ["wsel", "wselect"],
-		"body": ["{ type:'select', props: { id: '', class: 'className'}, children:[",
-			"\t{type:'option', props: {innerText:'Select Option', value: 'Select Option'}}",
+		"body": ["{ tagName:'select', class: 'className', children:[",
+			"\t{tagName:'option', innerText:'Select Option', value: 'Select Option'}}",
 			"]}"],
 		"description": "Objeto para WREnder."
 	},"WStyle": {
 		"prefix": ["wsty", "wstyle"],
-		"body": ["{ type:'w-style', props: {id: '', ClassList: [",
+		"body": ["{ tagName:'w-style, ClassList: [",
 			"\tnew WCssClass(`selector`, {",
 			"\t\tcssprop: 'css value',",
 			"\t}),",
-			"]}}"],
+			"]}"],
 		"description": "Objeto para WREnder."
 	},"WStyleFull": {
 		"prefix": ["wstyfull", "wstylefull"],
-		"body": ["const style = { type: 'w-style', props: {id: '', ClassList: [",
+		"body": ["new WStyledRender({ ClassList: [",
 			"\t\tnew WCssClass( `selector`, {",
 			"\t\t\tprop: 'value',",
 			"\t\t}),",
 			"\t], MediaQuery: [ {condicion: '(max-width: 600px)',",
 			"\t\tClassList: []},",
-			"\t]}",
-			"};"],
+			"\t]",
+			"});"],
 		"description": "Objeto para WREnder."
 	},"WStyleClass": {
 		"prefix": ["wstyclass", "wstyleClass"],
@@ -98,7 +98,7 @@
 	}, "WTableBasic": {
 		"prefix": ["WTableBasic", "WTableBasic"],
 		"body": [
-			"new WBTableComponent({",
+			"new WTableComponent({",
                 "\tDataset: dataTestFact,",
                 "\tDisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],",
                 "\tOptions: {",
@@ -112,7 +112,7 @@
 	}, "WTableBasicFull": {
 		"prefix": ["WTableBasicFull", "WTableBasicFull"],
 		"body": [
-			"new WBTableComponent({",
+			"new WTableComponent({",
                 "\tDataset: dataTestFact,",
                 "\tDisplayData: ['prop', 'prop', 'prop', 'prop', 'prop'],",
                 "\tmaxElementByPage: 5,",

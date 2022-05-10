@@ -262,4 +262,4 @@ class WStyledRender extends HTMLElement {
     }
 }
 customElements.define("w-style", WStyledRender);
-export { WCssClass, WStyledRender };
+export { WCssClass, WStyledRender }; 

@@ -57,8 +57,7 @@ namespace CAPA_MODEL
             }
             condition = condition.TrimEnd(',');
             return condition;
-        }
-       
+        }       
         public bool Save()
         {
             SqlADOConexion.SQLM.InsertObject(this);

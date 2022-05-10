@@ -89,7 +89,20 @@ const StylesControlsV2 = {
     type: 'w-style', props: {
         id: '', ClassList: [
             //BOTONES
-            new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
+            new WCssClass(`.Btn-Mini`, {
+                width: 120,
+                "background-color": "#5995fd",
+                border: "none",
+                outline: "none",
+                "border-radius": "10px",
+                color: "#fff",
+                "font-weight": "600",
+                margin: "10px 0",
+                cursor: "pointer",
+                transition: "0.5s",
+                "font-size": 11,
+                padding: 8
+            }), new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
                 width: "150px",
                 "background-color": "#5995fd",
                 border: "none",

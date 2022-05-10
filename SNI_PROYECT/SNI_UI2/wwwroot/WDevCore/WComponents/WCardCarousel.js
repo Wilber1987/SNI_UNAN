@@ -74,6 +74,7 @@ class WCardCarousel extends HTMLElement {
                     "height": "480px",
                     "display": "flex",
                     "align-items": "center",
+                    "justify-content": "center",
                     "overflow": "hidden",
                 }), new WCssClass(".beforeLink, .afterLink", {
                     "cursor": "pointer",
