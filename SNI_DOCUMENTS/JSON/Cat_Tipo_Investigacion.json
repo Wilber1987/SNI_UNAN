@@ -1,0 +1,19 @@
+{
+    "RECORDS": [
+        {
+            "Id_Tipo_Investigacion": "1",
+            "Descripcion": "Doctorado",
+            "Estado": "act"
+        },
+        {
+            "Id_Tipo_Investigacion": "2",
+            "Descripcion": "Master",
+            "Estado": "act"
+        },
+        {
+            "Id_Tipo_Investigacion": "3",
+            "Descripcion": "Grado",
+            "Estado": "act"
+        }
+    ]
+}

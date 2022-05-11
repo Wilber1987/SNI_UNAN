@@ -5,7 +5,7 @@ using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Tbl_InvestigatorProfile
+    public class Tbl_InvestigatorProfile: EntityClass
     {
         public int? Id_Investigador { get; set; }
         public string Nombres {get; set;}
@@ -29,6 +29,13 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> Eventos { get; set; }
         public List<Object> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
+        public List<ProyectoTableDependencias_Usuarios> Dependencias { get; set; }
+        public List<Object> TakeDepCoordinaciones()
+        {
+            ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
+            DU.Id_Investigador = this.Id_Investigador;
+            return DU.Get_WhereIN("IdCargo", new string[] { "1", "2" });
+        }
         public Object TakeProfile()
         {
             try

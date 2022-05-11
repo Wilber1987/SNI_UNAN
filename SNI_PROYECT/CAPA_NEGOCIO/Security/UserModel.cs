@@ -8,11 +8,12 @@ namespace CAPA_NEGOCIO.Security
     public class UserModel
     {
         public string user { get; set; }
+        public int UserId { get; set; }
         public string password { get; set; }
         public bool success { get; set; }
         public void LoginIn()
         {
-           if( SqlADOConexion.IniciarConexion(user, password))
+           if( SqlADOConexion.IniciarConexionSNIBD(user, password))
            {
                 password = "protected";
                 success = true;

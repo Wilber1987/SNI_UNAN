@@ -210,7 +210,7 @@
           "dependencies": {
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
-              "version": "[5.2.7, )"
+              "version": "[5.2.8, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

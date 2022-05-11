@@ -149,12 +149,12 @@ class headerClass extends HTMLElement {
                             window.location = location.origin + "/Views/MProyects/ViewMP_Proyects.html";
                         }
                     }, {
-                        name: "Eventos", url: "#",
+                        name: "Perfil", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/";
+                            window.location = location.origin + "/Views/Perfil.html";
                         }
                     }, {
-                        name: "Perfil", url: "#",
+                        name: "Opciones", url: "#",
                         action: (ev) => {
                             const ModalPerfil = new WModalForm({
                                 title: "Eliminar",

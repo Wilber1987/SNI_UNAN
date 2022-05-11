@@ -5,8 +5,10 @@ import { WSecurity } from "./WDevCore/WModules/WSecurity.js";
 import "./WDevCore/WComponents/WLoginTemplate.js";
 import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 import { WModalForm } from "./WDevCore/WComponents/WModalForm.js";
+import { AgendaView } from "./Views/AgendaView.js";
+import { HomeView } from "./Views/HomeView.js";
 const Auth = new WSecurity();
-const DOMManager = new ComponentsManager({ SPAManage: true, ContainerName: "AppMain" });
+const DOMManager = new ComponentsManager({ SPAManage: true });
 class MainClass extends HTMLElement {
     constructor(Component) {
         super();
@@ -23,7 +25,7 @@ class headerClass extends HTMLElement {
         this.className = "AppHeader";
         this.append(WRender.createElement(this.Style), WRender.createElement({
             type: 'div', props: { style: 'display:flex' }, children: [
-                { type: 'img', props: { src: Icons.SNI, class: 'className' } },
+                { type: 'img', props: { src: Icons.SNI, class: 'className' } }
             ]
         }));
         this.append(WRender.createElement({
@@ -34,14 +36,14 @@ class headerClass extends HTMLElement {
                 DisplayMode: "right",
                 Elements: [
                     {
-                        name: "Investigaciones", url: "#",
+                        name: "Home", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/";
+                            DOMManager.NavigateFunction("HomeView", new HomeView());
                         }
                     }, {
-                        name: "Proyectos", url: "#",
+                        name: "Agenda", url: "#",
                         action: (ev) => {
-
+                            DOMManager.NavigateFunction("AgendaView", new AgendaView());
                         }
                     }, {
                         name: "Eventos", url: "#",
@@ -62,7 +64,7 @@ class headerClass extends HTMLElement {
                                             }
                                         }, {
                                             name: "Agenda", url: "#",
-                                            action: (ev) => {
+                                            action: (ev) => {                                            
                                             }
                                         }, {
                                             name: "Cerrar Sesión", url: "#",
@@ -120,7 +122,6 @@ customElements.define('w-header', headerClass);
 class AsideClass extends HTMLElement {
     constructor(AsideComponent = null) {
         super();
-        console.log(this.style);
         if (AsideComponent != null) {
             this.append(AsideComponent);
         } 
@@ -155,7 +156,6 @@ class FooterNavigator extends HTMLElement {
     constructor() {
         super();
         this.className = "FooterNav";
-        console.log(this);
         this.append(this.StyleC);
         this.Options.forEach(element => {
             this.append(WRender.Create(element));
@@ -215,10 +215,11 @@ class Layout extends (ComponentsManager, HTMLElement) {
     constructor(MainComponent) {
         super();
         this.className = "App" ;
+        DOMManager.MainContainer = new MainClass(MainComponent);
         this.append(
             WRender.Create({ tagName: "style", innerHTML: '@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");' }),
             new headerClass(),
-            new MainClass(MainComponent),
+            DOMManager.MainContainer,
             new AsideClass(),
             new FooterNavigator(),
             WRender.createElement(this.MasterStyle),
@@ -251,12 +252,13 @@ class Layout extends (ComponentsManager, HTMLElement) {
                     "justify-self": "center",
                 }), new WCssClass(".AppAside", {
                     "background-color": "#fff",
-                    height: 750,
+                    "min-height": 400,
                     "box-shadow": "0 0px 2px 0 rgba(0,0,0,0.4)",
                     margin: "0px 10px",
                     "border-radius": "0.3cm",
                     "text-align": "center",
-                    "text-align": "-webkit-center"
+                    "text-align": "-webkit-center",
+                    "margin-bottom": 10
                 }), new WCssClass(".AppMain", {
                     overflow: "auto",
                     "justify-self": "center",

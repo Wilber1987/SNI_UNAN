@@ -21,7 +21,7 @@ namespace CAPA_NEGOCIO
                     return SqlADOConexion.SQLM.InsertObject(TableName, Inst);
                 } else
                 {
-                    return SqlADOConexion.SQLM.UpdateObject(TableName, Inst, "Id_Pais");
+                    return SqlADOConexion.SQLM.UpdateObject(Inst, "Id_Pais");
                 }               
             }
             catch (Exception)

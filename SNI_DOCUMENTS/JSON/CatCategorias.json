@@ -1,0 +1,70 @@
+{
+    "RECORDS": [
+        {
+            "IdCategoria": "1",
+            "NombreSubcategoria": "Diseño",
+            "IdCategoriaPadre": "6",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "2",
+            "NombreSubcategoria": "Economía",
+            "IdCategoriaPadre": "4",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "3",
+            "NombreSubcategoria": "Division Pólitica",
+            "IdCategoriaPadre": "8",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "4",
+            "NombreSubcategoria": "Investigación",
+            "IdCategoriaPadre": "4",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "5",
+            "NombreSubcategoria": "Analisis y Diseño",
+            "IdCategoriaPadre": "9",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "6",
+            "NombreSubcategoria": "Programación",
+            "IdCategoriaPadre": "9",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "7",
+            "NombreSubcategoria": "Edicion de Videos",
+            "IdCategoriaPadre": "9",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "8",
+            "NombreSubcategoria": "Proyectos",
+            "IdCategoriaPadre": "1",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "9",
+            "NombreSubcategoria": "Educación",
+            "IdCategoriaPadre": "1",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "10",
+            "NombreSubcategoria": "Oferta Académica",
+            "IdCategoriaPadre": "1",
+            "Estado": "1"
+        },
+        {
+            "IdCategoria": "11",
+            "NombreSubcategoria": "Fundaciones",
+            "IdCategoriaPadre": "8",
+            "Estado": "1"
+        }
+    ]
+}

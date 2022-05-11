@@ -1,0 +1,12 @@
+{
+    "RECORDS": [
+        {
+            "IdTipoParticipacion": "1",
+            "Descripcion": "Colaborador"
+        },
+        {
+            "IdTipoParticipacion": "2",
+            "Descripcion": "Coordinador"
+        }
+    ]
+}

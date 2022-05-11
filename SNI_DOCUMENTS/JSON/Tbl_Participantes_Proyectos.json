@@ -1,0 +1,39 @@
+{
+    "RECORDS": [
+        {
+            "Id_Proyecto": "1",
+            "Id_Investigador": "1",
+            "Id_Cargo_Proyecto": "1",
+            "Fecha_Ingreso": "12/1/2021",
+            "Estado_Participante": "act"
+        },
+        {
+            "Id_Proyecto": "1",
+            "Id_Investigador": "2",
+            "Id_Cargo_Proyecto": "2",
+            "Fecha_Ingreso": "12/1/2021",
+            "Estado_Participante": "act"
+        },
+        {
+            "Id_Proyecto": "2",
+            "Id_Investigador": "1",
+            "Id_Cargo_Proyecto": "1",
+            "Fecha_Ingreso": "12/1/2021",
+            "Estado_Participante": "act"
+        },
+        {
+            "Id_Proyecto": "2",
+            "Id_Investigador": "2",
+            "Id_Cargo_Proyecto": "2",
+            "Fecha_Ingreso": "12/1/2021",
+            "Estado_Participante": "act"
+        },
+        {
+            "Id_Proyecto": "2",
+            "Id_Investigador": "3",
+            "Id_Cargo_Proyecto": "2",
+            "Fecha_Ingreso": "12/1/2021",
+            "Estado_Participante": "act"
+        }
+    ]
+}

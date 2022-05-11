@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAPA_MODEL
+namespace CAPA_DATOS
 {
     public abstract class EntityClass
     {
@@ -61,6 +61,11 @@ namespace CAPA_MODEL
         public bool Save()
         {
             SqlADOConexion.SQLM.InsertObject(this);
+            return true;
+        }
+        public bool Update(string Id)
+        {
+            SqlADOConexion.SQLM.UpdateObject(this, Id);
             return true;
         }
     }

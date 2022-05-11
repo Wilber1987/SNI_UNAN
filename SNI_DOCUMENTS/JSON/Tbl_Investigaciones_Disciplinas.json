@@ -1,0 +1,204 @@
+{
+    "RECORDS": [
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "4"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "6"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "7"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "8"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "11"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "13"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "16"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "23"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "25"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "31"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "37"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "40"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "50"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "55"
+        },
+        {
+            "Id_Disciplina": "1",
+            "Id_Investigacion": "59"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "4"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "5"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "7"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "9"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "14"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "15"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "16"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "17"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "34"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "38"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "46"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "52"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "57"
+        },
+        {
+            "Id_Disciplina": "2",
+            "Id_Investigacion": "61"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "9"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "10"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "12"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "18"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "20"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "26"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "29"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "35"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "44"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "49"
+        },
+        {
+            "Id_Disciplina": "3",
+            "Id_Investigacion": "53"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "10"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "12"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "19"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "22"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "28"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "32"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "41"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "43"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "47"
+        },
+        {
+            "Id_Disciplina": "4",
+            "Id_Investigacion": "63"
+        }
+    ]
+}

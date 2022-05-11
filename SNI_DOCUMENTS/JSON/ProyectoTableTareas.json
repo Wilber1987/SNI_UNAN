@@ -1,0 +1,116 @@
+{
+    "RECORDS": [
+        {
+            "IdTarea": "1",
+            "Titulo": "Ejecución",
+            "IdTareaPadre": "",
+            "IdActividad": "1",
+            "Descripcion": "Tarea principal",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "2",
+            "Titulo": "dsf",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "zdf",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "3",
+            "Titulo": "fg",
+            "IdTareaPadre": "2",
+            "IdActividad": "1",
+            "Descripcion": "vh",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "4",
+            "Titulo": "as",
+            "IdTareaPadre": "2",
+            "IdActividad": "1",
+            "Descripcion": "sa",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "5",
+            "Titulo": "qwe",
+            "IdTareaPadre": "2",
+            "IdActividad": "1",
+            "Descripcion": "qwe",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "6",
+            "Titulo": "qwe",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "qwe",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "7",
+            "Titulo": "wqe",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "qw",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "8",
+            "Titulo": "aw1111",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "we",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "9",
+            "Titulo": "awe",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "qwe",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "10",
+            "Titulo": "sa",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "as",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "11",
+            "Titulo": "s",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "as",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "12",
+            "Titulo": "aw",
+            "IdTareaPadre": "1",
+            "IdActividad": "1",
+            "Descripcion": "awe",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "13",
+            "Titulo": "Ejecución",
+            "IdTareaPadre": "",
+            "IdActividad": "2",
+            "Descripcion": "Tarea principal",
+            "Estado": "Activa"
+        },
+        {
+            "IdTarea": "14",
+            "Titulo": "Ejecución",
+            "IdTareaPadre": "",
+            "IdActividad": "3",
+            "Descripcion": "Tarea principal",
+            "Estado": "Activa"
+        }
+    ]
+}

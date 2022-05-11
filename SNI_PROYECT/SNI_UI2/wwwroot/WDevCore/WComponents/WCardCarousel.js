@@ -115,7 +115,7 @@ class WCard extends HTMLElement {
         });
         this.ActionFunction = ActionFunction;
         switch (CardType) {
-            case 2:
+            case 2:               
                 this.append(StyleCard2);
                 break;
             default:

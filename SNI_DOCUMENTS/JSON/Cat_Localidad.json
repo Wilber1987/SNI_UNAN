@@ -1,0 +1,67 @@
+{
+    "RECORDS": [
+        {
+            "Id_Localidad": "1",
+            "Nombre_Localidad": "Jinotepe",
+            "Id_Tipo_Localidad": "2",
+            "Id_LocalidadPadre": "5",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "2",
+            "Nombre_Localidad": "Diriamba",
+            "Id_Tipo_Localidad": "2",
+            "Id_LocalidadPadre": "5",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "3",
+            "Nombre_Localidad": "Managua",
+            "Id_Tipo_Localidad": "2",
+            "Id_LocalidadPadre": "6",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "4",
+            "Nombre_Localidad": "Leon",
+            "Id_Tipo_Localidad": "2",
+            "Id_LocalidadPadre": "7",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "5",
+            "Nombre_Localidad": "Carazo",
+            "Id_Tipo_Localidad": "1",
+            "Id_LocalidadPadre": "",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "6",
+            "Nombre_Localidad": "Leon",
+            "Id_Tipo_Localidad": "1",
+            "Id_LocalidadPadre": "",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        },
+        {
+            "Id_Localidad": "7",
+            "Nombre_Localidad": "Managua",
+            "Id_Tipo_Localidad": "1",
+            "Id_LocalidadPadre": "",
+            "Id_Pais": "10",
+            "Latitud": "",
+            "Longitud": ""
+        }
+    ]
+}

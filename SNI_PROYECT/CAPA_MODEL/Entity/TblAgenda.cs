@@ -15,9 +15,7 @@ namespace CAPA_MODEL
         public string Dia { get; set; }
         public string Hora_Inicial { get; set; }
         public string Hora_Final { get; set; }
-        public DateTime? Fecha_Caducidad { get; set; }
-
-       
+        public DateTime? Fecha_Caducidad { get; set; }      
 
     }
 }

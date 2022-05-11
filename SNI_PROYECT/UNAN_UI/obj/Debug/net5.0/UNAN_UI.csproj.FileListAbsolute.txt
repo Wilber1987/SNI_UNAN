@@ -1,3 +1,54 @@
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\appsettings.json
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.exe
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.deps.json
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.runtimeconfig.json
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.runtimeconfig.dev.json
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.Views.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.Views.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\System.Data.SqlClient.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.AssemblyReference.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.AssemblyInfoInputs.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.AssemblyInfo.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.CoreCompileInputs.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorAssemblyInfo.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorAssemblyInfo.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\scopedcss\bundle\UNAN_UI.styles.css
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\staticwebassets\UNAN_UI.StaticWebAssets.Manifest.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.TagHelpers.input.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.TagHelpers.output.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorCoreGenerate.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorTargetAssemblyInfo.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorTargetAssemblyInfo.cs
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.Views.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.CopyComplete
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\refint\UNAN_UI.dll
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.pdb
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.genruntimeconfig.cache
+C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\ref\UNAN_UI.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\appsettings.Development.json
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\appsettings.json
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.exe
@@ -9,6 +60,19 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\ref\UNAN_UI.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.Views.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\UNAN_UI.Views.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\System.Data.SqlClient.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.dll
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.AssemblyReference.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.GeneratedMSBuildEditorConfig.editorconfig
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.AssemblyInfoInputs.cache
@@ -31,21 +95,8 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\Razor\Pages\_ViewS
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorTargetAssemblyInfo.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.RazorTargetAssemblyInfo.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.Views.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.CopyComplete
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\ref\UNAN_UI.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.genruntimeconfig.cache
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\obj\Debug\net5.0\UNAN_UI.csproj.CopyComplete
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\Newtonsoft.Json.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\System.Data.SqlClient.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.dll
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_MODEL.pdb
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\SECURITY.pdb
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\UNAN_UI\bin\Debug\net5.0\CAPA_DATOS.pdb
