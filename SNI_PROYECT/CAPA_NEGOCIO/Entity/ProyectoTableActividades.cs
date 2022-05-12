@@ -20,6 +20,7 @@ namespace CAPA_NEGOCIO
         public DateTime? Fecha_Final { get; set; }
         public int? Id_Investigador { get; set; }
         public int? IdDependencia { get; set; }
+        public int? Id_Proyecto { get; set; }
         public List<ProyectoTableTareas> Tareas { get; set; }
         public bool SaveActividades()
         {

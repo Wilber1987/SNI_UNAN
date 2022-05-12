@@ -4,7 +4,9 @@ using System.Text;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    class Cat_TipoEstudio
+    public class Cat_TipoEstudio
     {
+        public int? Id_TipoEstudio { get; set; }
+        public string Descripcion { get;set; }
     }
 }

@@ -7,6 +7,8 @@ namespace CAPA_NEGOCIO.MAPEO
 {
     public class Tbl_InvestigatorProfile: EntityClass
     {
+        private List<Tbl_Distinciones> distinciones;
+
         public int? Id_Investigador { get; set; }
         public string Nombres {get; set;}
         public string Apellidos {get; set;}
@@ -30,6 +32,11 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
         public List<ProyectoTableDependencias_Usuarios> Dependencias { get; set; }
+        public List<Tbl_Formacion_Academica> FormacionAcademica { get; set; }
+        public List<Tbl_Patentes> patentes { get;  set; }
+        public List<Tbl_Datos_Laborales> datosLaborales { get;  set; }
+        public List<Tbl_Evento> eventosIN { get;  set; }
+
         public List<Object> TakeDepCoordinaciones()
         {
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
@@ -76,6 +83,28 @@ namespace CAPA_NEGOCIO.MAPEO
                 CatRedesSociales ModelRedes = new CatRedesSociales();
                 ModelRedes.Id_Investigador = this.Id_Investigador;
                 Investigador.RedesSociales = ModelRedes.TakeRedesInv();
+
+                //Formacion Academica
+                Tbl_Formacion_Academica Fa = new Tbl_Formacion_Academica();
+                Fa.Id_Investigador = this.Id_Investigador;
+                Investigador.FormacionAcademica = Fa.Get<Tbl_Formacion_Academica>();
+
+                Tbl_Patentes tbl_Patentes = new Tbl_Patentes();
+                tbl_Patentes.Id_Investigador = this.Id_Investigador;
+                Investigador.patentes = tbl_Patentes.Get<Tbl_Patentes>();
+
+                Tbl_Datos_Laborales dl = new Tbl_Datos_Laborales();
+                dl.Id_Investigador = this.Id_Investigador;
+                Investigador.datosLaborales = dl.Get<Tbl_Datos_Laborales>();
+
+                Tbl_Evento tbl_Evento = new Tbl_Evento();
+                tbl_Evento.Id_Investigador = this.Id_Investigador;
+                Investigador.eventosIN = tbl_Evento.Get<Tbl_Evento>();
+
+                Tbl_Distinciones tbl_Distinciones = new Tbl_Distinciones();
+                tbl_Distinciones.Id_Investigador = this.Id_Investigador;
+                Investigador.distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
+
                 return Investigador;
             }
             catch (Exception)
