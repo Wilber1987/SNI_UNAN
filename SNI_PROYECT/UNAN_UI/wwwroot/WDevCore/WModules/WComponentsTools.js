@@ -625,7 +625,7 @@ class WArrayF {
         let flag = true
         if (DisplayData != undefined &&
             DisplayData.__proto__ == Array.prototype) {
-            const findProp = DisplayData.find(x => x == prop);
+            const findProp = DisplayData.find(x => x.toUpperCase() == prop.toUpperCase());
             if (!findProp) {
                 flag = false;
             }

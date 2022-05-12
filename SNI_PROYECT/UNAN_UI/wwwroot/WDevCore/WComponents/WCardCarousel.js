@@ -115,11 +115,11 @@ class WCard extends HTMLElement {
         });
         this.ActionFunction = ActionFunction;
         switch (CardType) {
-            case 2:
-                this.append(StyleCard2);
+            case 2:               
+                this.append(this.StyleCard2);
                 break;
             default:
-                this.append(StyleCard);
+                this.append(this.StyleCard);
                 break;
         }
         const cardC = WRender.createElement({
@@ -155,128 +155,128 @@ class WCard extends HTMLElement {
     disconnectedCallback() {
         this.style.opacity = 0;
     }
+    StyleCard = WRender.createElement({
+        type: 'w-style', props: {
+            id: '', ClassList: [
+                new WCssClass(`.CardElement`, {
+                    width: 220,
+                    height: 330,
+                    "min-width": 220,
+                    margin: "10px !important",
+                    overflow: "hidden",
+                    position: "relative",
+                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
+                    "border-radius": "0.3cm",
+                    display: "flex",
+                    "flex-direction": "column",
+                    "align-items": "center",
+                    padding: 20,
+                }), new WCssClass(`.Details .aLabel`, {
+                    color: "#09f !important",
+                    padding: 10,
+                    margin: 0,
+                    "font-weight": "bold",
+                    "font-size": 20,
+                }), new WCssClass(`.Details`, {
+                    display: "flex",
+                    "flex-direction": "column",
+                    "justify-content": "center",
+                    "align-items": "center",
+                    "margin-top": 10
+                }), new WCssClass(`.CardElement .Details p`, {
+                    height: 75,
+                    overflow: "hidden",
+                    "text-overflow": "ellipsis",
+                    "display": "-webkit-box",
+                    " display": "-moz-box",
+                    "  display": "box",
+                    "-webkit-box-orient": "vertical",
+                    "-moz-box-orient": "vertical",
+                    "box-orient": "vertical",
+                    "-webkit-line-clamp": "3",
+                    "line-clamp": "3",
+                }), new WCssClass(`.CardElement .Details label`, {
+                    padding: 5,
+                    // background: "rgba(0,0,0,0.5)",
+                    "font-size": 14,
+                    "border-radius": "0.2cm",
+                    //heigth: "100%",
+                }), new WCssClass(".fotoColaborador", {
+                    "object-fit": "cover",
+                    "height": "180px",
+                    "max-height": "180px",
+                    "width": "180px",
+                    "max-width": "180px",
+                    "border-radius": "50%",
+                    "box-shadow": "0 0 6px 0 rgb(0,0,0,50%)",
+                    //"filter": "grayscale(100%)",
+                })
+            ]
+        }
+    });
+    StyleCard2 = WRender.createElement({
+        type: 'w-style', props: {
+            id: '', ClassList: [
+                new WCssClass(`.CardElement`, {
+                    width: 250,//"calc(100% - 20px)",
+                    height: "auto",
+                    "min-width": 220,
+                    margin: "10px !important",
+                    overflow: "hidden",
+                    position: "relative",
+                    "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
+                    "border-radius": "0.3cm",
+                    display: "flex",
+                    "flex-direction": "column",
+                    //"justify-content": "space-between",
+                    "align-items": "center",
+                    "padding-bottom": 10,
+                }), new WCssClass(`.Details .aLabel`, {
+                    color: "#09f !important",
+                    padding: 5,
+                    margin: 0,
+                    "font-weight": "bold",
+                    "font-size": 18,
+                }), new WCssClass(`.Details`, {
+                    display: "flex",
+                    "flex-direction": "column",
+                    "justify-content": "center",
+                    "align-items": "center",
+                    "margin-top": 10
+                }), new WCssClass(`.CardElement .Details p`, {
+                    height: 75,
+                    overflow: "hidden",
+                    "text-overflow": "ellipsis",
+                    "display": "-webkit-box",
+                    " display": "-moz-box",
+                    "  display": "box",
+                    "-webkit-box-orient": "vertical",
+                    "-moz-box-orient": "vertical",
+                    "box-orient": "vertical",
+                    "-webkit-line-clamp": "3",
+                    "line-clamp": "3",
+                }), new WCssClass(`.CardElement .Details label`, {
+                    padding: 5,
+                    // background: "rgba(0,0,0,0.5)",
+                    "font-size": 14,
+                    "border-radius": "0.2cm",
+                    //heigth: "100%",
+                   // margin: 5
+                }), new WCssClass(".fotoColaborador", {
+                    "object-fit": "cover",
+                    "object-position": "top",
+                    "height": "250px",
+                    "max-height": "250px",
+                    "width": "100%",
+                    //"border-radius": "50%",
+                    "box-shadow": "0 0 6px 0 rgb(0,0,0,50%)",
+                    //"filter": "grayscale(100%)",
+                })
+            ]
+        }
+    });
 }
 
 customElements.define('w-card', WCard);
 export { WCardCarousel, WCard }
 //CARDSSSSS STYLES
-const StyleCard = WRender.createElement({
-    type: 'w-style', props: {
-        id: '', ClassList: [
-            new WCssClass(`.CardElement`, {
-                width: 220,
-                height: 330,
-                "min-width": 220,
-                margin: "10px !important",
-                overflow: "hidden",
-                position: "relative",
-                "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
-                "border-radius": "0.3cm",
-                display: "flex",
-                "flex-direction": "column",
-                "align-items": "center",
-                padding: 20,
-            }), new WCssClass(`.Details .aLabel`, {
-                color: "#09f !important",
-                padding: 10,
-                margin: 0,
-                "font-weight": "bold",
-                "font-size": 20,
-            }), new WCssClass(`.Details`, {
-                display: "flex",
-                "flex-direction": "column",
-                "justify-content": "center",
-                "align-items": "center",
-                "margin-top": 10
-            }), new WCssClass(`.CardElement .Details p`, {
-                height: 75,
-                overflow: "hidden",
-                "text-overflow": "ellipsis",
-                "display": "-webkit-box",
-                " display": "-moz-box",
-                "  display": "box",
-                "-webkit-box-orient": "vertical",
-                "-moz-box-orient": "vertical",
-                "box-orient": "vertical",
-                "-webkit-line-clamp": "3",
-                "line-clamp": "3",
-            }), new WCssClass(`.CardElement .Details label`, {
-                padding: 5,
-                // background: "rgba(0,0,0,0.5)",
-                "font-size": 14,
-                "border-radius": "0.2cm",
-                //heigth: "100%",
-            }), new WCssClass(".fotoColaborador", {
-                "object-fit": "cover",
-                "height": "180px",
-                "max-height": "180px",
-                "width": "180px",
-                "max-width": "180px",
-                "border-radius": "50%",
-                "box-shadow": "0 0 6px 0 rgb(0,0,0,50%)",
-                //"filter": "grayscale(100%)",
-            })
-        ]
-    }
-});
-const StyleCard2 = WRender.createElement({
-    type: 'w-style', props: {
-        id: '', ClassList: [
-            new WCssClass(`.CardElement`, {
-                width: 250,//"calc(100% - 20px)",
-                height: "auto",
-                "min-width": 220,
-                margin: "10px !important",
-                overflow: "hidden",
-                position: "relative",
-                "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
-                "border-radius": "0.3cm",
-                display: "flex",
-                "flex-direction": "column",
-                //"justify-content": "space-between",
-                "align-items": "center",
-                "padding-bottom": 10,
-            }), new WCssClass(`.Details .aLabel`, {
-                color: "#09f !important",
-                padding: 5,
-                margin: 0,
-                "font-weight": "bold",
-                "font-size": 18,
-            }), new WCssClass(`.Details`, {
-                display: "flex",
-                "flex-direction": "column",
-                "justify-content": "center",
-                "align-items": "center",
-                "margin-top": 10
-            }), new WCssClass(`.CardElement .Details p`, {
-                height: 75,
-                overflow: "hidden",
-                "text-overflow": "ellipsis",
-                "display": "-webkit-box",
-                " display": "-moz-box",
-                "  display": "box",
-                "-webkit-box-orient": "vertical",
-                "-moz-box-orient": "vertical",
-                "box-orient": "vertical",
-                "-webkit-line-clamp": "3",
-                "line-clamp": "3",
-            }), new WCssClass(`.CardElement .Details label`, {
-                padding: 5,
-                // background: "rgba(0,0,0,0.5)",
-                "font-size": 14,
-                "border-radius": "0.2cm",
-                //heigth: "100%",
-               // margin: 5
-            }), new WCssClass(".fotoColaborador", {
-                "object-fit": "cover",
-                "object-position": "top",
-                "height": "250px",
-                "max-height": "250px",
-                "width": "100%",
-                //"border-radius": "50%",
-                "box-shadow": "0 0 6px 0 rgb(0,0,0,50%)",
-                //"filter": "grayscale(100%)",
-            })
-        ]
-    }
-});

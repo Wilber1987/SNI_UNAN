@@ -45,14 +45,17 @@ class WForm extends HTMLElement {
         } else {
             this.DivColumns = this.Config.DivColumns = "calc(50%) calc(50%)";
         }
+        this.DivForm = WRender.Create({ class: "ContainerFormWModal" });
         this.shadowRoot.append(WRender.createElement(StyleScrolls));
         this.shadowRoot.append(WRender.createElement(StylesControlsV2));
         this.shadowRoot.append(WRender.createElement(this.FormStyle()));
+        this.shadowRoot.append(this.DivForm);
     }
-    connectedCallback() { this.DrawComponent(); }
+    connectedCallback() {     
+        this.DrawComponent(); }
     DrawComponent = async () => {
         this.DarkMode = this.DarkMode ?? false;
-        this.DivForm = WRender.Create({ class: "ContainerFormWModal" });
+        this.DivForm.innerHTML = "";
         if (this.ObjectDetail) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
             this.DivForm.append(this.ShowFormDetail());
             if (this.UserActions != undefined) {
@@ -86,8 +89,7 @@ class WForm extends HTMLElement {
             const ObjectProxy = new Proxy(this.FormObject, ObjHandler);
             this.DivForm.append(await this.CrudForm(ObjectProxy, this.ObjectOptions));
             this.DivForm.append(await this.SaveOptions(ObjectProxy));
-        }
-        this.shadowRoot.append(this.DivForm);
+        }        
     }
     checkDisplay(prop) {
         let flag = true
@@ -152,7 +154,7 @@ class WForm extends HTMLElement {
         }
         return Form;
     }
-    CrudForm = async (ObjectF = {}, ObjectOptions) => {
+    CrudForm = async (ObjectF = {}, ObjectOptions) => {        
         if (this.AddItemsFromApi != undefined) {
             var Config = {
                 MasterDetailTable: true,
@@ -174,11 +176,13 @@ class WForm extends HTMLElement {
         //verifica que el modelo exista,
         //sino es asi le asigna el valor de un objeto existente        
         const Model = this.ObjectModel ?? this.EditObject;
+        console.log(Model);
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
             const flag = WArrayF.checkDisplay(this.DisplayData, prop);
             let val = ObjectF[prop] == undefined ? Model[prop] : ObjectF[prop];
-            ObjectF[prop] = ObjectF[prop] ?? Model[prop];            
+            ObjectF[prop] = ObjectF[prop] ?? Model[prop];  
+            Model[prop] = Model[prop] != null ? Model[prop] : "";          
             if (!flag) {
                 continue;
             }
@@ -193,8 +197,8 @@ class WForm extends HTMLElement {
                 let validateFunction = undefined;
                 let InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text" });;
                 if (Model[prop].__proto__ == Object.prototype) {
-                    validateFunction = Model[prop].validateFunction;
-                    val = Model[prop].defaultValue;
+                    validateFunction = Model[prop].validateFunction;                   
+                    val = Model[prop].defaultValue ?? "";
                     switch (Model[prop].type.toUpperCase()) {
                         case "IMAGE": case "IMAGES":
                             const Multiple = Model[prop].type.toUpperCase() == "IMAGES" ? true : false;
@@ -202,6 +206,7 @@ class WForm extends HTMLElement {
                             if (Multiple) {
                                 ObjectF[prop] = ImageArray;
                             }
+                            ControlContainer.className += " imgPhoto"; 
                             break;
                         case "FECHA": case "HORA": case "PASSWORD":
                             let type = "date";
@@ -228,8 +233,9 @@ class WForm extends HTMLElement {
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
                         case "TABLE":
-                            break;
+                            break;                            
                         default:
+                            InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: Model[prop].type, placeholder: prop });
                             break;
                     }
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
@@ -487,16 +493,18 @@ class WForm extends HTMLElement {
                         "margin-bottom": "10px",
                         "text-align": "center",
                         //height: 100
-                    }), new WCssClass(` .imgPhotoWModal`, {
-                        "grid-column": "1/2",
+                    }), new WCssClass(`.imgPhoto`, {
                         "grid-row": "1/5",
-                        height: "200px",
+                    }), new WCssClass(` .imgPhotoWModal`, {
+                        "max-height": "250px",
+                        "min-height": "250px",
                         display: "block",
                         width: "100%",
                         "object-fit": "cover",
-                        "border-radius": "0.3cm",
                         "box-shadow": "0 0px 2px 0px #000",
-                    }), new WCssClass(` .LabelFile`, {
+                        "object-position": "top",
+                        "border-radius": ".5cm"
+                    }),  new WCssClass(` .LabelFile`, {
                         padding: "5px",
                         cursor: "pointer",
                         "background-color": "#4894aa",
