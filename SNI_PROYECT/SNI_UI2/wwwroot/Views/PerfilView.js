@@ -12,10 +12,11 @@ import { ProfileCard, ProfileTab, WProfileInvestigador } from "./ViewProfile.js"
 import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
 import { WForm } from "../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../Model/InvestigadorProfile.js";
+import { Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes  } from "../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones");
-    const BodyComponents = new MasterDomDetaills(new PerfilClass(response[0]), new AsideV1(response[1]));
+    const BodyComponents = new MasterDomDetaills(new PerfilClass(response[0]));
     App.appendChild(WRender.createElement(BodyComponents));
 
 }
@@ -55,29 +56,33 @@ class PerfilClass extends HTMLElement {
             ]
         });
         this.TabActividades = new WAppNavigator({
-            NavStyle: "tab",
+            //NavStyle: "tab",
+            Direction: "column",
             Inicialize: true,
             Elements: [
                 {
                     name: "Datos Generales", url: "#",
                     action: async (ev) => {
-                        const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
+                        this.response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
                             { Id_Investigador: this.Id_Investigador }
                         );
-                        this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(response));
+                        this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
+                        console.log(this.TabManager.DomComponents);
                     }
                 }, {
                     name: "Editar", url: "#",
                     action: async (ev) => {
-                        const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
-                            { Id_Investigador: this.Id_Investigador }
-                        );
-                        console.log(response);
                         const EditForm = WRender.Create({
-                            className: "FormContainer", children: [
+                            className: "FormContainer", style: {
+                                padding: "10px",
+                                borderRadius: ".3cm",
+                                boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
+                                margin: "10px"
+                            },
+                            children: [
                                 new WForm({
                                     ObjectModel: new InvestigadorProfile(),
-                                    EditObject: response,
+                                    EditObject: this.response,
                                     DisplayData: [
                                         "apellidos",
                                         "correo_institucional",
@@ -99,51 +104,125 @@ class PerfilClass extends HTMLElement {
                                 })
                             ]
                         });
-
                         this.TabManager.NavigateFunction("Tab-Editar", EditForm);
+
+                        console.log(this.TabManager.DomComponents);
+                    }
+                }, {
+                    name: "Datos Académicos", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-Académicos", { add:"SaveFormacionAcademica" }, this.response.formacionAcademica, new Tbl_Formacion_Academica());
+                    }
+                }, {
+                    name: "Patentes", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-Patentes", { add:"SavePatente" }, this.response.patentes, new Tbl_Patentes());
+                    }
+                }, {
+                    name: "Datos Laborales", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-Laborales", { add:"SaveDatoLaboral" }, this.response.datosLaborales, new Tbl_Datos_Laborales());
+                    }
+                }, {
+                    name: "Redes Sociales", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-RedesS", { add:"SaveRedSocialP" }, this.response.redesSociales, new Tbl_Invest_RedS);
                     }
                 }, {
                     name: "Proyectos", url: "#",
                     action: async (ev) => {
-                        const DataPost = {};
-                        this.NavActividad("Tab-Ejecutadas", DataPost);
+                        this.NavActividad("Tab-TareasProyectos");
+                    }
+                }, {
+                    name: "Eventos", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-Eventos", { add:"SaveEvento" }, this.response.eventos, new Tbl_Evento());
+                    }
+                }, {
+                    name: "Procesos editoriales científicos", url: "#",
+                    action: async (ev) => {
+                        //this.NavSaveCatalogo("Tab-editoriales", { add:"SaveFormacionAcademica" }, this.response.formacionAcademica, {});
+                    }
+                }, {
+                    name: "Premios, Distinciones, Reconocimientos, Becas", url: "#",
+                    action: async (ev) => {
+                        this.NavSaveCatalogo("Tab-Distinciones", { add:"SaveDistincion" }, this.response.distinciones, new Tbl_Distinciones());
                     }
                 }
             ]
         });
+        WRender.SetStyle(this.TabActividades, {
+            padding: "10px",
+            backgroundColor: "#fff",
+            borderRadius: "0.3cm",
+            boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
+            margin: "10px"
+        })
         this.DrawComponent();
     }
-    NavActividad = async (TabId, DataPost) => {
+    NavActividad = async (TabId) => {
+        const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
+        const DataPost = { id_Investigador: this.Id_Investigador };
         const Dataset = await WAjaxTools.PostRequest("../api/Calendar/TakeActividades", DataPost);
-        this.TabManager.NavigateFunction(TabId, new WTableComponent({
-            Dataset: Dataset,
-            DisplayData: ['titulo', 'estado'],
-            Options: {
-                Search: true, UrlSearch: 'api_route',
-                Add: true, UrlAdd: 'api_route',
-                UserActions: [{
-                    name: 'Ver Detalle', Function: async (TableElement) => {
-                        this.append(new WModalForm({
-                            ObjectModal: new ViewActivityComponent(TableElement),
-                            ShadowRoot: false,
-                            title: TableElement.titulo,
-                            StyleForm: "FullScreen"
-                        }))
+        this.response.proyectos.forEach(proy => {
+            Tab.append(WRender.Create({
+                className: "DivProy", children: [
+                    { tagName: "h3", innerText: proy.nombre_Proyecto },
+                    new WTableComponent({
+                        Dataset: Dataset.filter(x => x.id_Proyecto == proy.id_Proyecto),
+                        DisplayData: ['titulo', 'estado'],
+                        Options: {
+                            Search: true, UrlSearch: 'api_route',
+                            Add: true, UrlAdd: 'api_route',
+                            UserActions: [{
+                                name: 'Ver Detalle', Function: async (TableElement) => {
+                                    this.append(new WModalForm({
+                                        ObjectModal: new ViewActivityComponent(TableElement),
+                                        ShadowRoot: false,
+                                        title: TableElement.titulo,
+                                        StyleForm: "FullScreen"
+                                    }))
 
+                                }
+                            }]
+                        }
+                    })
+                ]
+            }))
+        });
+        this.TabManager.NavigateFunction(TabId, Tab);
+    }
+    NavSaveCatalogo = async (TabId, ApiName = {add: ""}, Dataset = [], Model = {}) => {
+        console.log(Model);
+        const Tab = WRender.Create({ className: "Tab-TareasProyectos" });       
+        Tab.append(WRender.Create({
+            className: "DivProy", children: [
+                //{ tagName: "h3", innerText:  },
+                new WTableComponent({
+                    Dataset: Dataset,
+                    ModelObject: Model,
+                    //DisplayData: ['titulo', 'estado'],
+                    Options: {
+                        Search: true, UrlSearch: undefined,
+                        Add: true, UrlAdd:  "../api/Profile/" + ApiName.add,
+                        Edit: true, UrlUpdate:  "../api/Profile/" + ApiName.add,
+                        UserActions: []
                     }
-                }]
-            }
-        }));
+                })
+            ]
+        }))
+        this.TabManager.NavigateFunction(TabId, Tab);
     }
     connectedCallback() { }
     DrawComponent = async () => {
-        this.append(this.OptionContainer, this.TabActividades, this.TabContainer);
+        this.append(this.TabActividades, this.TabContainer);
     }
     WStyle = new WStyledRender({
         ClassList: [
             new WCssClass(`.PerfilClass`, {
-                display: 'flex',
-                "flex-direction": "column"
+                display: 'grid',
+                "flex-direction": "column",
+                "grid-template-columns": "240px calc(100% - 240px)"
             }), new WCssClass(`.OptionContainer`, {
                 display: 'flex',
                 "justify-content": "center",
@@ -153,10 +232,10 @@ class PerfilClass extends HTMLElement {
                 width: 100,
                 margin: 10
             }), new WCssClass(`.TabContainer`, {
-                "min-height": 500,
+                //"min-height": 500,
                 overflow: "hidden",
                 "overflow-y": "auto"
-            }), new WCssClass( `.FormContainer`, {
+            }), new WCssClass(`.FormContainer`, {
                 "background-color": '#fff',
             })
         ], MediaQuery: [{

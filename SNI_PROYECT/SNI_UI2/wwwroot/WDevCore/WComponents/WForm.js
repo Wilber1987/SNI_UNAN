@@ -176,6 +176,7 @@ class WForm extends HTMLElement {
         //verifica que el modelo exista,
         //sino es asi le asigna el valor de un objeto existente        
         const Model = this.ObjectModel ?? this.EditObject;
+        console.log(Model);
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
             const flag = WArrayF.checkDisplay(this.DisplayData, prop);
@@ -197,7 +198,7 @@ class WForm extends HTMLElement {
                 let InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text" });;
                 if (Model[prop].__proto__ == Object.prototype) {
                     validateFunction = Model[prop].validateFunction;                   
-                    val = Model[prop].defaultValue ?? val;
+                    val = Model[prop].defaultValue ?? "";
                     switch (Model[prop].type.toUpperCase()) {
                         case "IMAGE": case "IMAGES":
                             const Multiple = Model[prop].type.toUpperCase() == "IMAGES" ? true : false;
@@ -232,8 +233,9 @@ class WForm extends HTMLElement {
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
                         case "TABLE":
-                            break;
+                            break;                            
                         default:
+                            InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: Model[prop].type, placeholder: prop });
                             break;
                     }
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
