@@ -186,7 +186,13 @@ class WForm extends HTMLElement {
             if (!flag) {
                 continue;
             }
-            if (Model[prop].__proto__ == Object.prototype && Model[prop].type.toUpperCase() == "OPERATION") {
+            if (Model[prop].__proto__ == Object.prototype && Model[prop].primary) {
+                if (ObjectOptions.AddObject == true) {
+                    ObjectF[prop] = -1;
+                } else {
+                    ObjectF[prop] = ObjectF[prop] ?? Model[prop];
+                }
+            } else if (Model[prop].__proto__ == Object.prototype && Model[prop].type.toUpperCase() == "OPERATION") {
                 //---------------------------------------->
             } else if (!prop.includes("_hidden")) {
                 const ControlContainer = WRender.Create({
@@ -197,8 +203,7 @@ class WForm extends HTMLElement {
                 let validateFunction = undefined;
                 let InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: "text" });;
                 if (Model[prop].__proto__ == Object.prototype) {
-                    validateFunction = Model[prop].validateFunction;                   
-                    val = Model[prop].defaultValue ?? "";
+                    validateFunction = Model[prop].validateFunction;   
                     switch (Model[prop].type.toUpperCase()) {
                         case "IMAGE": case "IMAGES":
                             const Multiple = Model[prop].type.toUpperCase() == "IMAGES" ? true : false;
@@ -235,6 +240,7 @@ class WForm extends HTMLElement {
                         case "TABLE":
                             break;                            
                         default:
+                            val = Model[prop].defaultValue ?? "";
                             InputControl = WRender.Create({ tagName: "input", className: prop, value: val, type: Model[prop].type, placeholder: prop });
                             break;
                     }
@@ -282,7 +288,7 @@ class WForm extends HTMLElement {
                 Form.append(ControlContainer);
             } else {
                 if (ObjectOptions.AddObject == true) {
-                    ObjectF[prop] = Model[prop];
+                    ObjectF[prop] =  ObjectF[prop] ?? Model[prop];
                 }
             }
         }
