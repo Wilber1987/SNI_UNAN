@@ -11,6 +11,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Investigador { get; set; }
         public int? Id_TipoEstudio { get; set; }
         public int? Id_Institucion { get; set; }
+        public string Titulo { get; set; }
         public string Disciplina { get; set; }
         public DateTime? Fecha_Inicio { get; set; }
         public DateTime? Fecha_Finalizacion { get; set; }

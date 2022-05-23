@@ -5,7 +5,7 @@ using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Cat_instituciones
+    public class Cat_instituciones : EntityClass
     {
         public int? Id_Institucion { get; set; }
         public string Estado { get; set; }

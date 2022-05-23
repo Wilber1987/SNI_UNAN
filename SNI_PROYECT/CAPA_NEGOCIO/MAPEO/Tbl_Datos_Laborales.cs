@@ -12,7 +12,7 @@ namespace CAPA_NEGOCIO.MAPEO
 		public int? Id_Cargo { get; set; }
 		public DateTime? Fecha_Inicio { get; set; }
 		public DateTime? Fecha_Finalizacion { get; set; }
-		public string Facultad { get; set; }
+		public string Institucion { get; set; }
 		public string Unidad { get; set; }
 
 	}

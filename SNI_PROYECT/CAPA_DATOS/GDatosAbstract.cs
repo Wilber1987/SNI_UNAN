@@ -90,7 +90,7 @@ namespace CAPA_DATOS
                 else if (AtributeValue.GetType() == typeof(DateTime))
                 {
                     ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/dd/MM HH:mm:ss") + "',";
+                    Values = Values + "'" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd HH:mm:ss") + "',";
                 }
                 else if (IsNumeric(AtributeValue))
                 {
