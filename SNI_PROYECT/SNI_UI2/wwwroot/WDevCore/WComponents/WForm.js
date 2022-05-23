@@ -176,7 +176,6 @@ class WForm extends HTMLElement {
         //verifica que el modelo exista,
         //sino es asi le asigna el valor de un objeto existente        
         const Model = this.ObjectModel ?? this.EditObject;
-        console.log(Model);
         const Form = WRender.Create({ className: 'divForm' });
         for (const prop in Model) {
             const flag = WArrayF.checkDisplay(this.DisplayData, prop);
@@ -186,7 +185,7 @@ class WForm extends HTMLElement {
             if (!flag) {
                 continue;
             }
-            if (Model[prop].__proto__ == Object.prototype && Model[prop].primary) {
+            if (Model[prop].__proto__ == Object.prototype && (Model[prop].primary || Model[prop].hidden)) {
                 if (ObjectOptions.AddObject == true) {
                     ObjectF[prop] = -1;
                 } else {
@@ -229,7 +228,7 @@ class WForm extends HTMLElement {
                             ObjectF[prop] = InputControl.value = ObjectOptions.AddObject == true ? date_val : ObjectF[prop];
                             break;
                         case "SELECT":
-                            InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
+                            InputControl = this.CreateSelect(InputControl, Model[prop].Dataset, prop, ObjectF);
                             ObjectF[prop] = InputControl.value;
                             break;
                         case "MULTISELECT":
@@ -245,7 +244,7 @@ class WForm extends HTMLElement {
                             break;
                     }
                 } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
-                    InputControl = this.CreateSelect(InputControl, Model, prop, ObjectF);
+                    InputControl = this.CreateSelect(InputControl,  Model[prop], prop, ObjectF);
                     ObjectF[prop] = InputControl.value
                 } else {
                     val = Model[prop] != undefined && Model[prop] != "" && Model[prop] != null ? Model[prop] : "";
@@ -294,10 +293,10 @@ class WForm extends HTMLElement {
         }
         return Form;
     }
-    CreateSelect(InputControl, Model, prop, ObjectF) {
+    CreateSelect(InputControl, Dataset, prop, ObjectF) {
         InputControl = WRender.Create({
             tagName: "select", value: null, className: prop,
-            children: Model[prop].map(option => {
+            children: Dataset.map(option => {
                 let OValue, ODisplay;
                 if (option.__proto__ == Object.prototype) {
                     OValue = option["id"];
@@ -390,7 +389,7 @@ class WForm extends HTMLElement {
                         }
                     }
                     if (this.ObjectOptions.Url != undefined) {
-                        const ModalCheck = this.ModalCheck(ObjectF, ModalCheck);
+                        const ModalCheck = this.ModalCheck(ObjectF);
                         this.shadowRoot.append(ModalCheck)
                     } else {
                         if (this.SaveFunction != undefined) {
@@ -424,8 +423,8 @@ class WForm extends HTMLElement {
     Save = async () => {
 
     }
-    ModalCheck(ObjectF, ModalCheck) {
-        return new WModalForm({
+    ModalCheck(ObjectF) {
+        const ModalCheck =  new WModalForm({
             ObjectModal: [
                 WRender.Create({ tagName: "h3", innerText: "¿Esta seguro que desea guardar este registro?" }),
                 WRender.Create({
@@ -451,6 +450,7 @@ class WForm extends HTMLElement {
                 })
             ]
         });
+        return ModalCheck;
     }
 
     async SelectedFile(value, multiple = false) {
