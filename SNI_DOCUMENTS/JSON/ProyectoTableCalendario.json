@@ -1,0 +1,123 @@
+{
+    "RECORDS": [
+        {
+            "IdCalendario": "1",
+            "IdTarea": "1",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 08:00:00",
+            "Fecha_Final": "28/4/2022 08:59:00"
+        },
+        {
+            "IdCalendario": "2",
+            "IdTarea": "1",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 09:00:00",
+            "Fecha_Final": "28/4/2022 09:59:00"
+        },
+        {
+            "IdCalendario": "3",
+            "IdTarea": "2",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 08:00:00",
+            "Fecha_Final": "29/4/2022 08:59:00"
+        },
+        {
+            "IdCalendario": "4",
+            "IdTarea": "3",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 09:00:00",
+            "Fecha_Final": "29/4/2022 09:59:00"
+        },
+        {
+            "IdCalendario": "5",
+            "IdTarea": "4",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 12:00:00",
+            "Fecha_Final": "28/4/2022 12:59:00"
+        },
+        {
+            "IdCalendario": "6",
+            "IdTarea": "7",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 10:00:00",
+            "Fecha_Final": "29/4/2022 10:59:00"
+        },
+        {
+            "IdCalendario": "7",
+            "IdTarea": "8",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 10:00:00",
+            "Fecha_Final": "29/4/2022 10:59:00"
+        },
+        {
+            "IdCalendario": "8",
+            "IdTarea": "8",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 11:00:00",
+            "Fecha_Final": "28/4/2022 11:59:00"
+        },
+        {
+            "IdCalendario": "9",
+            "IdTarea": "9",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 10:00:00",
+            "Fecha_Final": "29/4/2022 10:59:00"
+        },
+        {
+            "IdCalendario": "10",
+            "IdTarea": "9",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 11:00:00",
+            "Fecha_Final": "28/4/2022 11:59:00"
+        },
+        {
+            "IdCalendario": "11",
+            "IdTarea": "9",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 10:00:00",
+            "Fecha_Final": "28/4/2022 10:59:00"
+        },
+        {
+            "IdCalendario": "12",
+            "IdTarea": "10",
+            "Estado": "",
+            "Fecha_Inicial": "28/4/2022 13:00:00",
+            "Fecha_Final": "28/4/2022 13:59:00"
+        },
+        {
+            "IdCalendario": "13",
+            "IdTarea": "11",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 11:00:00",
+            "Fecha_Final": "29/4/2022 11:59:00"
+        },
+        {
+            "IdCalendario": "14",
+            "IdTarea": "12",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 12:00:00",
+            "Fecha_Final": "29/4/2022 12:59:00"
+        },
+        {
+            "IdCalendario": "15",
+            "IdTarea": "13",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 13:00:00",
+            "Fecha_Final": "29/4/2022 13:59:00"
+        },
+        {
+            "IdCalendario": "16",
+            "IdTarea": "13",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 14:00:00",
+            "Fecha_Final": "29/4/2022 14:59:00"
+        },
+        {
+            "IdCalendario": "17",
+            "IdTarea": "14",
+            "Estado": "",
+            "Fecha_Inicial": "29/4/2022 15:00:00",
+            "Fecha_Final": "29/4/2022 15:59:00"
+        }
+    ]
+}

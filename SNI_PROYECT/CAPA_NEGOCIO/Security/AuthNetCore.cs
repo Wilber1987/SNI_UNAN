@@ -22,7 +22,7 @@ namespace CAPA_NEGOCIO.Security
         static public bool loginIN(string user, string password) {
             try
             {
-                SqlADOConexion.IniciarConexion(user, password);
+                SqlADOConexion.IniciarConexionSNIBD(user, password);
                 return true;
             }
             catch (Exception)
@@ -34,6 +34,13 @@ namespace CAPA_NEGOCIO.Security
         {
             SqlADOConexion.SQLM = null;
             return true;
+
+        }
+        static public UserModel User()
+        {
+            UserModel Model = new UserModel();
+            Model.UserId = 1;
+            return Model;
 
         }
     }

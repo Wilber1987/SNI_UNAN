@@ -1,0 +1,14 @@
+{
+    "RECORDS": [
+        {
+            "Id_Cargo_Proyecto": "1",
+            "Descripcion": "Gerente",
+            "Estado": "act"
+        },
+        {
+            "Id_Cargo_Proyecto": "2",
+            "Descripcion": "Asistente",
+            "Estado": "act"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "RECORDS": [
+        {
+            "IdDependencia": "1",
+            "Descripcion": "USAV",
+            "IdDependenciaP": "3",
+            "IdInstitucion": ""
+        },
+        {
+            "IdDependencia": "2",
+            "Descripcion": "CTS",
+            "IdDependenciaP": "",
+            "IdInstitucion": ""
+        },
+        {
+            "IdDependencia": "3",
+            "Descripcion": "TIC",
+            "IdDependenciaP": "",
+            "IdInstitucion": ""
+        }
+    ]
+}

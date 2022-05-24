@@ -1,0 +1,64 @@
+{
+    "RECORDS": [
+        {
+            "IdTipoContenido": "1",
+            "Nombre": "Cursos",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "2",
+            "Nombre": "Conferencias",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "3",
+            "Nombre": "Eventos",
+            "Estado": "0"
+        },
+        {
+            "IdTipoContenido": "4",
+            "Nombre": "Noticias",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "5",
+            "Nombre": "Spot Publicitarios",
+            "Estado": "0"
+        },
+        {
+            "IdTipoContenido": "6",
+            "Nombre": "Micropildoras",
+            "Estado": "0"
+        },
+        {
+            "IdTipoContenido": "7",
+            "Nombre": "Congresos",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "8",
+            "Nombre": "Docencia",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "9",
+            "Nombre": "Proyectos",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "10",
+            "Nombre": "Oferta Académica",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "11",
+            "Nombre": "Colaboraciones",
+            "Estado": "1"
+        },
+        {
+            "IdTipoContenido": "12",
+            "Nombre": "Documentales",
+            "Estado": "1"
+        }
+    ]
+}

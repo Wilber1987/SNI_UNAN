@@ -1,10 +1,10 @@
 ﻿import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
+import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import "../WDevCore/WComponents/WTableComponent.js";
 import { AsideV1 } from "../AppComponents/AsideV1.js";
-const DOMManager = new ComponentsManager();
+
 const OnLoad = async () => {
     const Id_Investigador = new URLSearchParams(window.location.search).get('param');
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
@@ -12,19 +12,11 @@ const OnLoad = async () => {
     );
     const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
     const modules = await import("../MasterDomDetaills.js");
-   
-    const Card = new WCard({
-        titulo: `${response.nombres} ${response.apellidos}`,        
-        picture: response.foto,
-        subtitulo: "Autor",
-        descripcion: response.nombreInstitucion,
-        id_Investigador: response.id_Investigador
-    }, 2);
     const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
     const cadenaB64 = "data:image/png;base64,";
     response.redesSociales.forEach(element => {
-        divRedes.append(WRender.createElement([{ type:'img', props: { src: cadenaB64 + element.icon, class: 'RedsIcon'}}, 
-        { type:'a', props: { innerText: element.descripcion, href:element.url_red_inv, target:"_blank" }} ]));
+        divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.icon, class: 'RedsIcon' } },
+        { type: 'a', props: { innerText: element.descripcion, href: element.url_red_inv, target: "_blank" } }]));
     });
     divRedes.append(WRender.CreateStringNode("<hr style='margin-top: 30px'>"))
     const dataResume = WRender.createElement({
@@ -34,46 +26,35 @@ const OnLoad = async () => {
             "Proyectos: " + response.proyectos.length,
             "Colaboraciones: " + response.colaboraciones.length,
             WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
-            divRedes            
+            divRedes
         ]
     });
-    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");    
-    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response, Card), [dataResume, new AsideV1(Disciplinas)]);
+    const Disciplinas = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");
+    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response), [dataResume, new AsideV1(Disciplinas)]);
     App.appendChild(WRender.createElement(BodyComponents));
 }
 class WProfileInvestigador extends HTMLElement {
-    constructor(response, Card) {
+    constructor(response) {
         super();
+        const Card = new WCard({
+            titulo: `${response.nombres} ${response.apellidos}`,
+            picture: response.foto,
+            subtitulo: "Autor",
+            descripcion: response.nombreInstitucion,
+            id_Investigador: response.id_Investigador
+        }, 2);
         this.response = response;
         this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' } });
         this.ProfileContainer.append(Card);
-        const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
-        response.idiomas.forEach(element => {
-            divIdiomas.append(WRender.createElement(element.descripcion));
-        });
-        this.ProfileContainer.append(WRender.createElement({
-            type: 'div', props: { id: '', class: 'DataContainer' }, children: [
-                WRender.CreateStringNode("<h3>Datos Generales</h3>"),
-                "Estado: " + response.estado,
-                "Sexo: " + response.sexo,
-                "Indice H: " + response.indice_H,
-                "Correo: " + response.correo_institucional,
-                WRender.CreateStringNode("<h3>Idiomas</h3>"),
-                divIdiomas
-            ]
-        }));
+        this.ProfileContainer.append(new ProfileCard(response));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
-        this.appendChild(WRender.createElement(StylesControlsV1));
+        this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });
+        this.appendChild(WRender.createElement(StylesControlsV2));
         this.append(WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
     }
     connectedCallback() {
-        if (this.ProfileContainer.innerHTML != "") {
-            return;
-        }
-        this.DrawComponent();
     }
     DrawComponent = async () => {
-        console.log("connected");
     }
     ComponentTab = WRender.createElement({
         type: "w-app-navigator",
@@ -86,7 +67,7 @@ class WProfileInvestigador extends HTMLElement {
                 {
                     name: "Investigaciones", url: "#",
                     action: async (ev) => {
-                        DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
+                        this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
                             this.response.investigaciones,
                             ["titulo", "fecha_ejecucion", "estado"], "Investigaciones"
                         ), "TabContainer");
@@ -94,7 +75,7 @@ class WProfileInvestigador extends HTMLElement {
                 }, {
                     name: "Colaboraciones", url: "#",
                     action: async (ev) => {
-                        DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
+                        this.DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
                             this.response.colaboraciones,
                             ["titulo", "tipoColaboracion", "fecha_ejecucion"], "Colaboraciones"
                         ), "TabContainer");
@@ -102,7 +83,7 @@ class WProfileInvestigador extends HTMLElement {
                 }, {
                     name: "Proyectos", url: "#",
                     action: async (ev) => {
-                        DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
+                        this.DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
                             this.response.proyectos,
                             ["nombre_Proyecto", "cargo", "estado_Proyecto"], "Proyectos"
                         ), "TabContainer");
@@ -114,7 +95,7 @@ class WProfileInvestigador extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass( `w-view`, {
+                new WCssClass(`w-view`, {
                     "background-color": '#fff',
                     display: "block",
                     "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
@@ -140,17 +121,16 @@ class WProfileInvestigador extends HTMLElement {
                     padding: 20,
                     //"box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
                     display: "flex",
-                    "flex-direction": "column",
-
+                    "flex-direction": "column"
                 }), new WCssClass(`.ResumenContainer label`, {
                     "background-color": '#eee',
                     padding: 10,
                     margin: 5,
                     "border-radius": "0.3cm"
-                }), new WCssClass( `.divIdiomas`, {
+                }), new WCssClass(`.divIdiomas`, {
                     display: 'flex',
                     "flex-wrap": "wrap"
-                }), new WCssClass( `.divIdiomas label`, {
+                }), new WCssClass(`.divIdiomas label`, {
                     padding: 8,
                     margin: "5px 2px",
                     "background-color": "#5964a7",
@@ -158,16 +138,16 @@ class WProfileInvestigador extends HTMLElement {
                     "font-weight": "bold",
                     "border-radius": "0.4cm",
                     "font-size": 12
-                }),new WCssClass( `.divRedes img`, {
+                }), new WCssClass(`.divRedes img`, {
                     height: 35,
                     width: 35,
                     "margin-right": 10
-                }),new WCssClass( `.divRedes div`, {
+                }), new WCssClass(`.divRedes div`, {
                     display: "flex",
                     "align-items": "center",
                     "justify-content": "left",
                     margin: 5
-                }),new WCssClass( `.divRedes a`, {
+                }), new WCssClass(`.divRedes a`, {
                     "text-decoration": "none",
                     "font-weight": "bold",
                     color: "#09f"
@@ -255,5 +235,35 @@ class ProfileTab {
         }
     };
 }
+class ProfileCard extends HTMLElement {
+    constructor(response) {
+        super();
+        this.container = WRender.Create({ className: "cont" });
+        this.DraProfileCard(response);
+        this.append(this.container);
+    }
+    connectedCallback() { }
+    DraProfileCard = async (response) => {
+        this.container.innerHTML = "";
+        const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
+        response.idiomas.forEach(element => {
+            divIdiomas.append(WRender.createElement(element.descripcion));
+        });
+        this.container.append(WRender.Create({
+            tagName: 'div', class: 'DataContainer', children: [
+                WRender.CreateStringNode("<h3>Datos Generales</h3>"),
+                "Estado: " + response.estado,
+                "Sexo: " + response.sexo,
+                "Indice H: " + response.indice_H,
+                "Correo: " + response.correo_institucional,
+                WRender.CreateStringNode("<h3>Idiomas</h3>"),
+                divIdiomas
+            ]
+        }));
+    }
+}
+customElements.define('w-profile-card', ProfileCard);
+
 customElements.define('w-view', WProfileInvestigador);
 window.onload = OnLoad;
+export { WProfileInvestigador, ProfileTab, ProfileCard }

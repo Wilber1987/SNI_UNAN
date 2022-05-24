@@ -4,7 +4,6 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\ref\SECURITY.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\CAPA_DATOS.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\CAPA_DATOS.pdb
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.AssemblyReference.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.GeneratedMSBuildEditorConfig.editorconfig
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.AssemblyInfoInputs.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.AssemblyInfo.cs
@@ -13,6 +12,7 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.C
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\ref\SECURITY.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.pdb
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SECURITY\obj\Debug\net5.0\SECURITY.csproj.AssemblyReference.cache
 C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.deps.json
 C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.dll
 C:\Users\wilbe\source\repos\NET CORE\SNI_UNAN\SNI_PROYECT\SECURITY\bin\Debug\net5.0\SECURITY.pdb

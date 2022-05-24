@@ -1,0 +1,32 @@
+{
+    "RECORDS": [
+        {
+            "Id_Investigacion": "4",
+            "Id_Investigador": "2",
+            "Estado": "act",
+            "Fecha_ingreso": "20/6/2011",
+            "Id_Tipo_Colaboracion": "1"
+        },
+        {
+            "Id_Investigacion": "4",
+            "Id_Investigador": "3",
+            "Estado": "act",
+            "Fecha_ingreso": "20/6/2011",
+            "Id_Tipo_Colaboracion": "2"
+        },
+        {
+            "Id_Investigacion": "5",
+            "Id_Investigador": "1",
+            "Estado": "act",
+            "Fecha_ingreso": "20/6/2011",
+            "Id_Tipo_Colaboracion": "2"
+        },
+        {
+            "Id_Investigacion": "6",
+            "Id_Investigador": "1",
+            "Estado": "act",
+            "Fecha_ingreso": "20/6/2011",
+            "Id_Tipo_Colaboracion": "2"
+        }
+    ]
+}

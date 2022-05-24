@@ -1,0 +1,284 @@
+{
+    "RECORDS": [
+        {
+            "IdMatricula": "1",
+            "IdCurso": "5",
+            "Carnet": "11575",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:33:41.667",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "2",
+            "IdCurso": "5",
+            "Carnet": "11298",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:38:33.207",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "3",
+            "IdCurso": "5",
+            "Carnet": "11395",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:39:19.6",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "4",
+            "IdCurso": "5",
+            "Carnet": "11327",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:39:40.933",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "5",
+            "IdCurso": "5",
+            "Carnet": "11445",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:40:37.683",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "6",
+            "IdCurso": "5",
+            "Carnet": "11296",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:42:04.113",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "7",
+            "IdCurso": "5",
+            "Carnet": "11389",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:42:15.553",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "8",
+            "IdCurso": "5",
+            "Carnet": "11634",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:42:49.157",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "9",
+            "IdCurso": "5",
+            "Carnet": "11449",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:43:05.877",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "10",
+            "IdCurso": "5",
+            "Carnet": "11735",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:44:08.023",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "11",
+            "IdCurso": "5",
+            "Carnet": "11624",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:44:20.8",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "12",
+            "IdCurso": "5",
+            "Carnet": "10390",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:44:37.467",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "13",
+            "IdCurso": "5",
+            "Carnet": "11366",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:44:52.557",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "14",
+            "IdCurso": "5",
+            "Carnet": "11588",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:45:00.757",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "15",
+            "IdCurso": "5",
+            "Carnet": "10262",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:45:10.68",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "16",
+            "IdCurso": "5",
+            "Carnet": "10267",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:45:24.56",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "17",
+            "IdCurso": "5",
+            "Carnet": "10274",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:45:35.48",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "18",
+            "IdCurso": "5",
+            "Carnet": "10461",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:46:50.533",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "19",
+            "IdCurso": "5",
+            "Carnet": "10324",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:47:15.307",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "20",
+            "IdCurso": "5",
+            "Carnet": "10744",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:47:31.647",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "21",
+            "IdCurso": "5",
+            "Carnet": "11341",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:47:40.32",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "22",
+            "IdCurso": "5",
+            "Carnet": "10401",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:48:00.403",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "23",
+            "IdCurso": "5",
+            "Carnet": "11284",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:48:12.083",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "24",
+            "IdCurso": "5",
+            "Carnet": "11420",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:48:22.077",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "25",
+            "IdCurso": "5",
+            "Carnet": "10724",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:48:34.34",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "26",
+            "IdCurso": "5",
+            "Carnet": "11681",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:48:50.48",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "27",
+            "IdCurso": "5",
+            "Carnet": "10311",
+            "Activo": "1",
+            "FechaMatricula": "20/8/2015 10:50:25.223",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "28",
+            "IdCurso": "5",
+            "Carnet": "10700",
+            "Activo": "1",
+            "FechaMatricula": "23/9/2015 12:10:16.73",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "30",
+            "IdCurso": "5",
+            "Carnet": "11942",
+            "Activo": "1",
+            "FechaMatricula": "25/9/2015 08:58:04.503",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "31",
+            "IdCurso": "5",
+            "Carnet": "10153",
+            "Activo": "1",
+            "FechaMatricula": "25/9/2015 14:12:34.633",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "32",
+            "IdCurso": "5",
+            "Carnet": "10085",
+            "Activo": "1",
+            "FechaMatricula": "5/10/2015 07:50:23.997",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "33",
+            "IdCurso": "5",
+            "Carnet": "11295",
+            "Activo": "1",
+            "FechaMatricula": "5/10/2015 09:04:21.887",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "34",
+            "IdCurso": "5",
+            "Carnet": "10031",
+            "Activo": "1",
+            "FechaMatricula": "12/10/2015 16:48:39.517",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "35",
+            "IdCurso": "5",
+            "Carnet": "10027",
+            "Activo": "1",
+            "FechaMatricula": "20/10/2015 16:37:56.083",
+            "UltimoAcceso": ""
+        },
+        {
+            "IdMatricula": "36",
+            "IdCurso": "5",
+            "Carnet": "10497",
+            "Activo": "1",
+            "FechaMatricula": "26/10/2015 08:04:07.96",
+            "UltimoAcceso": ""
+        }
+    ]
+}

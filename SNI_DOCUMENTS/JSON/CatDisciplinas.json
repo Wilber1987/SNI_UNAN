@@ -1,0 +1,28 @@
+{
+    "RECORDS": [
+        {
+            "Id_Disciplina": "1",
+            "DescripcionDisciplina": "Social",
+            "Color": "#70db70",
+            "Icono": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAewAAAHsBR0tLmwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADySURBVDiNzdExSkNBEMbxXyJE0wYMqYwhViqCEbS0EEVJINiJ3sHCwlt4hWjpHbyD2KmFoGBlsBZtnoXzcAkPEwTBgQ92Z//fzO4s/z2amPuNsYQLZKHzyE0cO4k513YRWE7WmzjCDBoFbAMVHGBr9LCfdLpEHcMkN8QsBknuML3BalJsDS/YwFloPYp0Eq4DU7F5xB6qOMU9eljAdDS6i8K7eMYJXtNntLGCVsCjQ7zFfDDt1FjDVUDHuCkw57oOJgtPje///sD+D+Zc/WAzDMroxk0esGh8LAULvRKWY1BvMaTmmAJPvr65ivcJGv5xfALYlUYKw+IFRAAAAABJRU5ErkJggg=="
+        },
+        {
+            "Id_Disciplina": "2",
+            "DescripcionDisciplina": "Didáctica",
+            "Color": "#9966ff",
+            "Icono": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADbSURBVDiNtdM9SkNBFAXgLy/BBFGwE1xANhBQsEkKd6BmA4Iuwjo70DXEHdiZzkJIJ2ijQkDU2jYQi3fFRzIRM+CFwzDDOef+zAz/HM3AylHgGE+Y4BSNvwhrIXzEbA4vYVRfJj7AOCGcx30kqX1n7GGA/YrZB+7wGvsd7GG7wrnFeYE1P4O6CcMOhngOXMVZNzgi4Ua19yPs4hLTROlTXASnj3e0UrMY/dL/qMJ7Q6tIOawSuQZ1Zfnrqcdxhs0lws9YD7GFk8wCXCtn8pBr0FZeby/XgMxPthBfWi0148GsgHEAAAAASUVORK5CYII="
+        },
+        {
+            "Id_Disciplina": "3",
+            "DescripcionDisciplina": "Robótica",
+            "Color": " #ff3333",
+            "Icono": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAbwAAAG8B8aLcQwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFSSURBVDiNpdMxS5ZhFAbg69YUi4aClE8oMFoiGsSgBmlSaPAPBDm1ukRQUDRE/YKgobnam4JIjOoHBNIUQRTREA0WuJmdhl7j9e37TPDAgcNz7nM/9znneVJV9mJDOyWTHElyO8mpJL0kN5IM75oAz3Aa5zCCm7izK4IkJ/ETLzCGcTzBdJK/dRk0gyQTmMF7jOIbTuAQlqvqF6iqvo7DWMcDXMM0PmKljRvYQlWt4QqO4y2+oHB9m9L/rTFJDz8w3BCvt/NDLeBMkltJRpIsJTmaZLFRsYSNbvGWXfVnymt4hzMtqfeauDDbmdElLMJ3TLWAC5jFAZzHRcy32t2PRw32E8x1CAqreI35zq1TeNNgPuMsLPchaPtTjDUEj5uzV5jYWsAH9HYgeIkLeI5J3MW+lioHm+AhNvsQ3MdlfMWx7oPb9g6SjPr3f2xW1YYB9hsJ0rLCz6V3IwAAAABJRU5ErkJggg=="
+        },
+        {
+            "Id_Disciplina": "4",
+            "DescripcionDisciplina": "Salud",
+            "Color": "#668cff",
+            "Icono": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAD+SURBVDiNhdG/L0NRGMbxT9V/UbvJLMEskUr/CDEx2Uz2kvCvsNoIaWsXkwmz6oAOdQ3e25x7nbZP8uacPOf7vOdX02wto4NVPONnDjtVE1s4xSuKqBd0sYmlXLCLW4yS0Kwa4SYyGtGgyDTtoxfzDaxnmDJf2eEdOxm4jWGNnSo10/BRVKndRQ16qvoHYpD69Re9j/G4FizCg7s0UDb4irFhsUrmMzWfYpd+Dc5d4SG8x9Q8S+B24p9EleokXDdtsIJxLAz9vXZdHXwE841WHdhX/aIBznGRHLusvcwG4DA5Sa7GOJgVLrWGK0yS4ASXsVbRvG9rYTvm13jLQb+fOWNV7zNQxwAAAABJRU5ErkJggg=="
+        }
+    ]
+}

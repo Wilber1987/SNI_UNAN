@@ -1,0 +1,19 @@
+{
+    "RECORDS": [
+        {
+            "Id_Tipo_Asociacion": "1",
+            "Descripcion": "Financiante",
+            "EstadoAsociacion": "act"
+        },
+        {
+            "Id_Tipo_Asociacion": "2",
+            "Descripcion": "Colaboradora",
+            "EstadoAsociacion": "act"
+        },
+        {
+            "Id_Tipo_Asociacion": "3",
+            "Descripcion": "Ejecutora",
+            "EstadoAsociacion": "act"
+        }
+    ]
+}

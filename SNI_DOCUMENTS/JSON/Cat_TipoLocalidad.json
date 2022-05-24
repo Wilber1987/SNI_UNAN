@@ -1,0 +1,16 @@
+{
+    "RECORDS": [
+        {
+            "Id_Tipo_Localidad": "1",
+            "Nombre_TipoLocalidad": "Departamento"
+        },
+        {
+            "Id_Tipo_Localidad": "2",
+            "Nombre_TipoLocalidad": "Municipio"
+        },
+        {
+            "Id_Tipo_Localidad": "3",
+            "Nombre_TipoLocalidad": "Provincia"
+        }
+    ]
+}

@@ -11,12 +11,18 @@ const DOMManager = new ComponentsManager({ SPAManage: true });
 class MasterDomDetaills extends ComponentsManager {
     constructor(MainComponent, AsideComponent = null) {
         super();
+        const Main = WRender.createElement(new MainClass(MainComponent));
+        if (AsideComponent == null) {
+            WRender.SetStyle(Main, {
+                gridColumn: "1/3"
+            })
+        }
         this.props = { className: "App" }
         this.children = [
             WRender.Create({ tagName: "style", innerHTML: '@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");' }),
             new headerClass(),
-            new MainClass(MainComponent),
-            new AsideClass("SecondAside", AsideComponent),
+            Main,
+            ( AsideComponent != null ? new AsideClass("SecondAside", AsideComponent): ""),
             new FooterNavigator(),
             this.MasterStyle,
             StyleScrolls
@@ -149,12 +155,12 @@ class headerClass extends HTMLElement {
                             window.location = location.origin + "/Views/MProyects/ViewMP_Proyects.html";
                         }
                     }, {
-                        name: "Eventos", url: "#",
+                        name: "Perfil", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/";
+                            window.location = location.origin + "/Views/Perfil.html";
                         }
                     }, {
-                        name: "Perfil", url: "#",
+                        name: "Opciones", url: "#",
                         action: (ev) => {
                             const ModalPerfil = new WModalForm({
                                 title: "Eliminar",

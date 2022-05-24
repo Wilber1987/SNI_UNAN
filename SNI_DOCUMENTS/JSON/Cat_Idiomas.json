@@ -1,0 +1,16 @@
+{
+    "RECORDS": [
+        {
+            "Id_Idioma": "1",
+            "Descripcion": "Español"
+        },
+        {
+            "Id_Idioma": "2",
+            "Descripcion": "Ingles"
+        },
+        {
+            "Id_Idioma": "3",
+            "Descripcion": "Portugues"
+        }
+    ]
+}

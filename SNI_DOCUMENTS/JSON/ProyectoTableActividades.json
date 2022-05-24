@@ -1,0 +1,37 @@
+{
+    "RECORDS": [
+        {
+            "IdActividad": "1",
+            "Titulo": "act 1",
+            "Descripcion": "test de des",
+            "IdInvestigador": "1",
+            "Estado": "Activa",
+            "IdDependencia": "1",
+            "Fecha_Inicial": "",
+            "Fecha_Final": "",
+            "Id_Proyecto": ""
+        },
+        {
+            "IdActividad": "2",
+            "Titulo": "efwer",
+            "Descripcion": "werwe",
+            "IdInvestigador": "1",
+            "Estado": "Activa",
+            "IdDependencia": "1",
+            "Fecha_Inicial": "",
+            "Fecha_Final": "",
+            "Id_Proyecto": ""
+        },
+        {
+            "IdActividad": "3",
+            "Titulo": "qwe",
+            "Descripcion": "qwe",
+            "IdInvestigador": "1",
+            "Estado": "Activa",
+            "IdDependencia": "1",
+            "Fecha_Inicial": "",
+            "Fecha_Final": "",
+            "Id_Proyecto": ""
+        }
+    ]
+}

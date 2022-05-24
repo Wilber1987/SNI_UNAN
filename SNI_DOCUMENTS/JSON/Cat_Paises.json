@@ -1,0 +1,24 @@
+{
+    "RECORDS": [
+        {
+            "Id_Pais": "10",
+            "Estado": "ACT",
+            "Descripcion": "Nicaragua"
+        },
+        {
+            "Id_Pais": "11",
+            "Estado": "ACT",
+            "Descripcion": "Brazil"
+        },
+        {
+            "Id_Pais": "12",
+            "Estado": "ACT",
+            "Descripcion": "Costa Rica 3"
+        },
+        {
+            "Id_Pais": "13",
+            "Estado": "ACT",
+            "Descripcion": "EEUU"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "RECORDS": [
+        {
+            "Id_Investigador": "1",
+            "Id_Idioma": "1"
+        },
+        {
+            "Id_Investigador": "1",
+            "Id_Idioma": "2"
+        },
+        {
+            "Id_Investigador": "1",
+            "Id_Idioma": "3"
+        },
+        {
+            "Id_Investigador": "45",
+            "Id_Idioma": "1"
+        },
+        {
+            "Id_Investigador": "45",
+            "Id_Idioma": "2"
+        },
+        {
+            "Id_Investigador": "45",
+            "Id_Idioma": "3"
+        }
+    ]
+}

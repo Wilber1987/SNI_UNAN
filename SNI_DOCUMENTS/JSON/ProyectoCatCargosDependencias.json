@@ -1,0 +1,16 @@
+{
+    "RECORDS": [
+        {
+            "IdCargo": "1",
+            "Descripcion": "Encargado"
+        },
+        {
+            "IdCargo": "2",
+            "Descripcion": "Coordinador"
+        },
+        {
+            "IdCargo": "3",
+            "Descripcion": "Tecnico"
+        }
+    ]
+}

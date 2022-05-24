@@ -1,0 +1,49 @@
+{
+    "RECORDS": [
+        {
+            "IdAgenda": "4",
+            "IdInvestigador": "1",
+            "IdDependencia": "1",
+            "Dia": "Lunes",
+            "Hora_Inicial": "08:00",
+            "Hora_Final": "17:00",
+            "Fecha_Caducidad": "12/12/2022 00:00:00"
+        },
+        {
+            "IdAgenda": "5",
+            "IdInvestigador": "1",
+            "IdDependencia": "1",
+            "Dia": "Martes",
+            "Hora_Inicial": "08:00",
+            "Hora_Final": "17:00",
+            "Fecha_Caducidad": "30/12/2022 00:00:00"
+        },
+        {
+            "IdAgenda": "8",
+            "IdInvestigador": "1",
+            "IdDependencia": "1",
+            "Dia": "Miercoles",
+            "Hora_Inicial": "08:00",
+            "Hora_Final": "17:00",
+            "Fecha_Caducidad": "30/12/2022 00:00:00"
+        },
+        {
+            "IdAgenda": "9",
+            "IdInvestigador": "1",
+            "IdDependencia": "1",
+            "Dia": "Jueves",
+            "Hora_Inicial": "08:00",
+            "Hora_Final": "17:00",
+            "Fecha_Caducidad": "30/12/2022 00:00:00"
+        },
+        {
+            "IdAgenda": "10",
+            "IdInvestigador": "1",
+            "IdDependencia": "1",
+            "Dia": "Viernes",
+            "Hora_Inicial": "08:00",
+            "Hora_Final": "17:00",
+            "Fecha_Caducidad": "30/12/2022 00:00:00"
+        }
+    ]
+}

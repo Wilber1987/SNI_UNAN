@@ -68,7 +68,7 @@ const StylesControlsV1 = {
             new WCssClass(`input[type=text], 
             input[type=string], 
             input[type=number],
-            input[type=date], select, textarea`, {
+            input[type=date],  input[type=time], select, textarea`, {
                 padding: 10,
                 border: "none",
                 border: "2px solid #dddada",
@@ -77,7 +77,8 @@ const StylesControlsV1 = {
                 "font-size": "15px",
                 "border-radius": "0.2cm",
                 "box-sizing": "border-box",
-                "border-radius": 10
+                "border-radius": 10,
+                cursor: "pointer"
             }), new WCssClass(`input:active, input:focus, select:active, select:focus`, {
                 "border-bottom": "2px solid #0099cc",
                 outline: "none",
@@ -89,7 +90,20 @@ const StylesControlsV2 = {
     type: 'w-style', props: {
         id: '', ClassList: [
             //BOTONES
-            new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
+            new WCssClass(`.Btn-Mini`, {
+                width: 120,
+                "background-color": "#5995fd",
+                border: "none",
+                outline: "none",
+                "border-radius": "10px",
+                color: "#fff",
+                "font-weight": "600",
+                margin: "10px 0",
+                cursor: "pointer",
+                transition: "0.5s",
+                "font-size": 11,
+                padding: 8
+            }), new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
                 width: "150px",
                 "background-color": "#5995fd",
                 border: "none",
@@ -124,7 +138,7 @@ const StylesControlsV2 = {
             input[type=string], 
             input[type=password], 
             input[type=number],
-            input[type=date], select, textarea,
+            input[type=date],  input[type=time],select, textarea,
             input:-internal-autofill-selected`, {
                 width: "100%",
                 "background-color": "#f0f0f0 !important",
@@ -136,14 +150,15 @@ const StylesControlsV2 = {
                 "font-weight": "600 !important",
                 "font-size": "1.1rem !important",
                 color: "#333 !important",
-                "box-sizing": "border-box"
+                "box-sizing": "border-box",
+                cursor: "pointer"
             }), new WCssClass(`input:active, 
                 input:focus, 
                 select:active, 
                 select:focus,
                 textarea:focus,textarea:focus`, {
                 "box-shadow": "0 0 5px #4894aa",
-               // outline: "none",
+                // outline: "none",
             })
         ]
     }

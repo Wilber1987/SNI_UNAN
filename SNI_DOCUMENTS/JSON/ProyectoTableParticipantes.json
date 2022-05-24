@@ -1,0 +1,64 @@
+{
+    "RECORDS": [
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "2",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "3",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "4",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "5",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "10",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "12",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "13",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "1",
+            "IdTarea": "14",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "2",
+            "IdTarea": "6",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "2",
+            "IdTarea": "7",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "2",
+            "IdTarea": "8",
+            "IdTipoParticipacion": "1"
+        },
+        {
+            "IdInvestigador": "3",
+            "IdTarea": "9",
+            "IdTipoParticipacion": "1"
+        }
+    ]
+}

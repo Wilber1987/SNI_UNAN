@@ -1,0 +1,14 @@
+{
+    "RECORDS": [
+        {
+            "Id_Tipo_Colaboracion": "1",
+            "Descripcion": "Tutor",
+            "Estado": "act"
+        },
+        {
+            "Id_Tipo_Colaboracion": "2",
+            "Descripcion": "Acesor",
+            "Estado": "act"
+        }
+    ]
+}

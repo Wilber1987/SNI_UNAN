@@ -1,0 +1,25 @@
+{
+    "RECORDS": [
+        {
+            "Id_Institucion": "1",
+            "Id_Proyecto": "1",
+            "Id_Tipo_Asociacion": "1",
+            "Fecha_Ingreso": "20/10/2020",
+            "Estado": "act"
+        },
+        {
+            "Id_Institucion": "2",
+            "Id_Proyecto": "1",
+            "Id_Tipo_Asociacion": "2",
+            "Fecha_Ingreso": "20/10/2020",
+            "Estado": "act"
+        },
+        {
+            "Id_Institucion": "3",
+            "Id_Proyecto": "1",
+            "Id_Tipo_Asociacion": "3",
+            "Fecha_Ingreso": "20/10/2020",
+            "Estado": "act"
+        }
+    ]
+}

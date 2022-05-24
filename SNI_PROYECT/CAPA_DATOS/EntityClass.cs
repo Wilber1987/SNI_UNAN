@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAPA_MODEL
+namespace CAPA_DATOS
 {
     public abstract class EntityClass
     {
@@ -17,6 +17,11 @@ namespace CAPA_MODEL
         public List<Object> Get(string condition)
         {
             var Data = SqlADOConexion.SQLM.TakeList(this, condition);
+            return Data;
+        }
+        public List<T> Get<T>()
+        {
+            var Data = SqlADOConexion.SQLM.TakeList<T>(this);
             return Data;
         }
         public List<T> Get<T>(string condition)
@@ -57,8 +62,7 @@ namespace CAPA_MODEL
             }
             condition = condition.TrimEnd(',');
             return condition;
-        }
-       
+        }       
         public bool Save()
         {
             SqlADOConexion.SQLM.InsertObject(this);
