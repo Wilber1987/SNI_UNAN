@@ -72,8 +72,15 @@ declare @Primary varchar(200) = ''
 		--PRINT '	[MaxLength(' +  convert(varchar(4),@maxLen) + ')]'
 	--if (@sType = 'datetime')
 		--PRINT '	[Column(TypeName = "datetime")]'
-	SELECT @sProperty = '	' + @columnName + ' = { type: "'+ @sType +'" '+@Primary+' };'
-	PRINT @sProperty
+	
+	IF @columnName = 'Estado' BEGIN
+		SELECT @sProperty = '	' + @columnName + ' = { type: "Select", Dataset: ["Activo","Inactivo"] };'
+		PRINT @sProperty
+	END
+	ELSE BEGIN
+		SELECT @sProperty = '	' + @columnName + ' = { type: "'+ @sType +'" '+@Primary+' };'
+		PRINT @sProperty
+	END
 
 	--print ''
 	FETCH NEXT FROM column_cursor INTO @columnName, @nullable, @datatype, @maxlen, @pos, @isNullable
