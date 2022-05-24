@@ -921,4 +921,5 @@ class CatTipoDistincion {
 	Descripcion = { type: "text"  };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 }
+
 export{CatTipoDistincion}
