@@ -17,7 +17,8 @@ class WOrtograficValidation {
         return valReturn;
     }
     static spanish = [
-        { error: ["INSTITUCION", "INSTITUSION"], value: "Institución" }
+        { error: ["INSTITUCION", "INSTITUSION"], value: "Institución" },
+        { error: ["FINALIZACION"], value: "Finalización" }
     ]
 }
 export { WOrtograficValidation }

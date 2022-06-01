@@ -5,7 +5,7 @@ class Tbl_Distinciones {
 		}
 	}
 	Id_Distincion = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Id_Tipo_Distincion = { type: "number"  };
 	Descripcion = { type: "text"  };
 	fecha = { type: "date"  };
@@ -30,7 +30,7 @@ class Tbl_Evento {
 	Modalidad_Ponencia = { type: "text"  };
 	Link = { type: "text"  };
 	Datos_Adicionales = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 }
 export{Tbl_Evento}
 class Tbl_Formacion_Academica {
@@ -46,7 +46,7 @@ class Tbl_Formacion_Academica {
 	Disciplina = { type: "text"  };
 	Fecha_Inicio = { type: "date"  };
 	Fecha_Finalizacion = { type: "date"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 }
 export{Tbl_Formacion_Academica}
 class Tbl_Grupos {
@@ -81,7 +81,7 @@ class Tbl_InvestigadoresAsociados {
 		}
 	}
 	Id_Grupo = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Fecha_Incorporacion = { type: "date"  };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 	Id_TipoMiembro = { type: "number"  };
@@ -94,7 +94,7 @@ class Tbl_Invitaciones {
 		}
 	}
 	Id_Invitacion = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Id_Evento = { type: "number"  };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 	Fecha_Invitacion = { type: "date"  };
@@ -109,7 +109,7 @@ class Tbl_Patentes {
 	Id_Patente = { type: "number" , primary: true  };
 	fecha = { type: "date"  };
 	Id_Institucion = { type: "number"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 }
 export{Tbl_Patentes}
@@ -134,7 +134,7 @@ class Tbl_Datos_Laborales {
 		}
 	}
 	Id_DatoL = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Id_Cargo = { type: "number"  };
 	Fecha_Inicio = { type: "date"  };
 	Fecha_Finalizacion = { type: "date"  };
@@ -274,7 +274,7 @@ class Tbl_Investigaciones {
 	Referencias = { type: "text"  };
 	url_publicacion = { type: "text"  };
 	Fecha_ejecucion = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Photo = { type: "text"  };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 	Id_Localidad = { type: "number"  };
@@ -297,7 +297,7 @@ class ViewInvestigacionesPhoto {
 	Abstract = { type: "text"  };
 	NombreInstitucion = { type: "text"  };
 	Nombres = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Nombre_TipoLocalidad = { type: "text"  };
 	Nombre_Localidad = { type: "text"  };
 	País = { type: "text"  };
@@ -323,7 +323,7 @@ class ViewInvestigacionesPorDisciplinas {
 	NombreInstitucion = { type: "text"  };
 	Nombres = { type: "text"  };
 	Apellidos = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Nombre_TipoLocalidad = { type: "text"  };
 	Nombre_Localidad = { type: "text"  };
 	País = { type: "text"  };
@@ -350,7 +350,7 @@ class ViewInvestigaciones {
 	Abstract = { type: "text"  };
 	NombreInstitucion = { type: "text"  };
 	Nombres = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Nombre_TipoLocalidad = { type: "text"  };
 	Nombre_Localidad = { type: "text"  };
 	País = { type: "text"  };
@@ -429,7 +429,7 @@ class Tbl_Colaboradores {
 		}
 	}
 	Id_Investigacion = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 	Fecha_ingreso = { type: "date"  };
 	Id_Tipo_Colaboracion = { type: "number"  };
@@ -505,7 +505,7 @@ class Tbl_Participantes_Proyectos {
 		}
 	}
 	Id_Proyecto = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Id_Cargo_Proyecto = { type: "number"  };
 	Fecha_Ingreso = { type: "date"  };
 	Estado_Participante = { type: "text"  };
@@ -566,7 +566,7 @@ class ViewRedesInvestigadores {
 	url = { type: "text"  };
 	Icon = { type: "text"  };
 	url_red_inv = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 }
 export{ViewRedesInvestigadores}
 class ProyectoTableActividades {
@@ -578,7 +578,7 @@ class ProyectoTableActividades {
 	IdActividad = { type: "number" , primary: true  };
 	Titulo = { type: "text"  };
 	Descripcion = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo","Inactivo"] };
 	IdDependencia = { type: "number"  };
 	Fecha_Inicial = { type: "date"  };
@@ -641,7 +641,7 @@ class ViewIdiomasInvestigadores {
 	}
 	Id_Idioma = { type: "number" , primary: true  };
 	Descripcion = { type: "text"  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 }
 export{ViewIdiomasInvestigadores}
 class __EFMigrationsHistory {
@@ -791,7 +791,7 @@ class ProyectoTableAgenda {
 		}
 	}
 	IdAgenda = { type: "number" , primary: true  };
-	Id_Investigador = { type: "number"  };
+	Id_Investigador = { type: "number" , hidden: true };
 	IdDependencia = { type: "number"  };
 	Dia = { type: "text"  };
 	Hora_Inicial = { type: "text"  };

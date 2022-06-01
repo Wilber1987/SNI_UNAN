@@ -10,6 +10,7 @@ namespace CAPA_DATOS
         public static SqlServerGDatos SQLM;
         public static string DataBaseNameSNIBD = "SNIBD";
         public static string DataBaseNameSIAC_BD = "SIAC_BD";
+        public static bool Anonimo = true;
         //static string SQLServer = ".";
         //static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
         static string SQLServer = ".";
@@ -17,6 +18,7 @@ namespace CAPA_DATOS
         {
             try
             {
+                Anonimo = false;
                 UserSQLConexion = "Data Source="+ SQLServer + 
                     "; Initial Catalog="+ DataBaseNameSNIBD + "; User ID=" 
                     + user + ";Password=" + password;
@@ -25,6 +27,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
+                Anonimo = true;
                 return false;
                 throw;
             }
@@ -33,9 +36,27 @@ namespace CAPA_DATOS
         {
             try
             {
+                Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
                     "; Initial Catalog=" + DataBaseNameSIAC_BD + "; User ID="
                     + user + ";Password=" + password;
+                SQLM = new SqlServerGDatos(UserSQLConexion);
+                return true;
+            }
+            catch (Exception)
+            {
+                Anonimo = true;
+                return false;
+                throw;
+            }
+        }
+        static public bool IniciarConexionAnonima()
+        {
+            try
+            {
+                Anonimo = false;
+                UserSQLConexion = "Data Source=" + SQLServer +
+                    "; Initial Catalog=" + DataBaseNameSNIBD + "; User ID=sa;Password=zaxscd";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;
             }

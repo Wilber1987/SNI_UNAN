@@ -85,7 +85,8 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("Id_Evento");
             }
         }
-
+      
+        [AuthAnonymous]
         //Get
         public object GetTipoEstudio()
         {

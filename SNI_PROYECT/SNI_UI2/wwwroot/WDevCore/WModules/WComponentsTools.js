@@ -621,7 +621,14 @@ class WArrayF {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     //verifica que un objeto este dentro de un array
-    static checkDisplay(DisplayData, prop) {
+    static checkDisplay(DisplayData, prop, element = {}) {
+        if (element[prop] != undefined 
+            && element[prop].__proto__ == Object.prototype
+            && (element[prop].primary || element[prop].hidden)) {
+                
+        console.log(element);
+            return false;
+        }
         let flag = true
         if (DisplayData != undefined &&
             DisplayData.__proto__ == Array.prototype) {

@@ -1,4 +1,5 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WComponentsTools.js";
+import { WOrtograficValidation } from "../WModules/WOrtograficValidation.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
 import { WModalForm } from "./WModalForm.js";
 class WTableComponent extends HTMLElement {
@@ -324,13 +325,19 @@ class WTableComponent extends HTMLElement {
         let tr = { type: "tr", children: [] }
 
         for (const prop in element) {
-            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop, this.ModelObject);
             if (flag) {
                 if (!prop.includes("_hidden")) {
                     const th = {
                         type: "th",
                         children: [
-                            prop.replaceAll("_operationValue", "").replaceAll("_", " ")
+                            WOrtograficValidation.es(
+                                prop.replaceAll("_id", "")
+                                    .replaceAll("id_", "")
+                                    .replaceAll("Id_", "")
+                                    .replaceAll("_Id", "")
+                                    .replaceAll("_operationValue", "")
+                                    .replaceAll("_", " "))
                         ]
                     };
                     tr.children.push(th);
@@ -392,9 +399,8 @@ class WTableComponent extends HTMLElement {
     DrawTRow = (tr, element) => {
         tr.innerHTML = "";
         for (const prop in element) {
-            const flag = WArrayF.checkDisplay(this.DisplayData, prop);
+            const flag = WArrayF.checkDisplay(this.DisplayData, prop, this.ModelObject);
             if (flag) {
-
                 if (!prop.includes("_hidden")) {
                     let value = "";
                     if (element[prop] != null) {

@@ -12,12 +12,18 @@ namespace CAPA_NEGOCIO.Security
         static public bool AuthAttribute = false;
         static public bool Authenticate()
         {
-            if (SqlADOConexion.SQLM == null)
+            if (SqlADOConexion.SQLM == null || SqlADOConexion.Anonimo)
             {
+                SqlADOConexion.SQLM = null;
                 return false;
             }
             return true;
 
+        }
+        static public bool AnonymousAuthenticate()
+        {
+            SqlADOConexion.IniciarConexionAnonima();
+            return true;
         }
         static public bool loginIN(string user, string password) {
             try
