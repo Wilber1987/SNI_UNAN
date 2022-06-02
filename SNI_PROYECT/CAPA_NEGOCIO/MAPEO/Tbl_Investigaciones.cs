@@ -5,7 +5,7 @@ using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Tbl_Investigaciones
+    public class Tbl_Investigaciones:EntityClass
     {
         public int? Id_Investigacion { get; set; }
         public string Visibilidad { get; set; }

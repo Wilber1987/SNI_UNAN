@@ -14,17 +14,17 @@ const OnLoad = async () => {
     const modules = await import("../MasterDomDetaills.js");
     const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
     const cadenaB64 = "data:image/png;base64,";
-    response.redesSociales.forEach(element => {
-        divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.icon, class: 'RedsIcon' } },
-        { type: 'a', props: { innerText: element.descripcion, href: element.url_red_inv, target: "_blank" } }]));
+    response.RedesSociales.forEach(element => {
+        divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.Icon, class: 'RedsIcon' } },
+        { type: 'a', props: { innerText: element.Descripcion, href: element.Url_red_inv, target: "_blank" } }]));
     });
     divRedes.append(WRender.CreateStringNode("<hr style='margin-top: 30px'>"))
     const dataResume = WRender.createElement({
         type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
             WRender.CreateStringNode("<h3>Logros</h3>"),
-            "Investigaciones: " + response.investigaciones.length,
-            "Proyectos: " + response.proyectos.length,
-            "Colaboraciones: " + response.colaboraciones.length,
+            "Investigaciones: " + response.Investigaciones.length,
+            "Proyectos: " + response.Proyectos.length,
+            "Colaboraciones: " + response.Colaboraciones.length,
             WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
             divRedes
         ]
@@ -37,11 +37,11 @@ class WProfileInvestigador extends HTMLElement {
     constructor(response) {
         super();
         const Card = new WCard({
-            titulo: `${response.nombres} ${response.apellidos}`,
-            picture: response.foto,
+            titulo: `${response.Nombres} ${response.Apellidos}`,
+            picture: response.Foto,
             subtitulo: "Autor",
-            descripcion: response.nombreInstitucion,
-            id_Investigador: response.id_Investigador
+            descripcion: response.NombreInstitucion,
+            id_Investigador: response.Id_Investigador
         }, 2);
         this.response = response;
         this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' } });
@@ -68,24 +68,24 @@ class WProfileInvestigador extends HTMLElement {
                     name: "Investigaciones", url: "#",
                     action: async (ev) => {
                         this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
-                            this.response.investigaciones,
-                            ["titulo", "fecha_ejecucion", "estado"], "Investigaciones"
+                            this.response.Investigaciones,
+                            ["Titulo", "Fecha_ejecucion", "Estado"], "Investigaciones"
                         ), "TabContainer");
                     }
                 }, {
                     name: "Colaboraciones", url: "#",
                     action: async (ev) => {
                         this.DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
-                            this.response.colaboraciones,
-                            ["titulo", "tipoColaboracion", "fecha_ejecucion"], "Colaboraciones"
+                            this.response.Colaboraciones,
+                            ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones"
                         ), "TabContainer");
                     }
                 }, {
                     name: "Proyectos", url: "#",
                     action: async (ev) => {
                         this.DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
-                            this.response.proyectos,
-                            ["nombre_Proyecto", "cargo", "estado_Proyecto"], "Proyectos"
+                            this.response.Proyectos,
+                            ["Nombre_Proyecto", "Cargo", "Estado_Proyecto"], "Proyectos"
                         ), "TabContainer");
                     }
                 }
@@ -211,7 +211,7 @@ class ProfileTab {
             });
             this.children.push(WTableReport);
         } else {
-            this.children.push("No guides registered!");
+            this.children.push("No Data!");
         }
         this.ModalContainer = WRender.createElement({ type: 'div', props: { id: '', class: 'className' } })
         this.children.push(this.ModalContainer)
@@ -246,16 +246,15 @@ class ProfileCard extends HTMLElement {
     DraProfileCard = async (response) => {
         this.container.innerHTML = "";
         const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
-        response.idiomas.forEach(element => {
-            divIdiomas.append(WRender.createElement(element.descripcion));
+        response.Idiomas.forEach(element => {
+            divIdiomas.append(WRender.createElement(element.Descripcion));
         });
         this.container.append(WRender.Create({
             tagName: 'div', class: 'DataContainer', children: [
                 WRender.CreateStringNode("<h3>Datos Generales</h3>"),
-                "Estado: " + response.estado,
-                "Sexo: " + response.sexo,
-                "Indice H: " + response.indice_H,
-                "Correo: " + response.correo_institucional,
+                "Estado: " + response.Estado,
+                "Sexo: " + response.Sexo,
+                "Correo: " + response.Correo_institucional,
                 WRender.CreateStringNode("<h3>Idiomas</h3>"),
                 divIdiomas
             ]

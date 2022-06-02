@@ -1,8 +1,8 @@
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
-import { WCalendar } from '../../WDevCore/WComponents/WCalendar.js';
-import { WForm } from '../../WDevCore/WComponents/WForm.js';
-import { WModalForm } from '../../WDevCore/WComponents/WModalForm.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass, WStyledRender } from '../../../WDevCore/WModules/WStyledRender.js';
+import { WCalendar } from '../../../WDevCore/WComponents/WCalendar.js';
+import { WForm } from '../../../WDevCore/WComponents/WForm.js';
+import { WModalForm } from '../../../WDevCore/WComponents/WModalForm.js';
 const Reservaciones = [];
 const CompM = new ComponentsManager();
 class ReservarComponent extends HTMLElement {

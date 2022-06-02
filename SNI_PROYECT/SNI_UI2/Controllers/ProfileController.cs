@@ -86,31 +86,6 @@ namespace SNI_UI2.Controllers
             }
         }
       
-        [AuthAnonymous]
-        //Get
-        public object GetTipoEstudio()
-        {
-            return (new Cat_TipoEstudio()).Get();
-        }
-        public object GetInstitucion()
-        {
-            return (new Cat_instituciones()).Get();
-        }
-        public object GetCargos()
-        {
-            return (new Cat_Cargos()).Get();
-        }
-        public object GetTipoEventos()
-        {
-            return (new Cat_Tipo_Evento()).Get();
-        }
-        public object GetPaises()
-        {
-            return (new Cat_Paises()).Get();
-        }
-        public object GetTipoDistincion()
-        {
-            return (new CatTipoDistincion()).Get();
-        }
+        
     }
 }

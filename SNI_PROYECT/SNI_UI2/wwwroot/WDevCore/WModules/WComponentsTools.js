@@ -77,7 +77,7 @@ class WAjaxTools {
         } catch (error) {
             console.log(error);
             //if (error == "TypeError: Failed to fetch" ) {
-                return this.LocalData(Url);
+            return this.LocalData(Url);
             //}
         }
     }
@@ -279,7 +279,7 @@ class WRender {
 
 }
 class ComponentsManager {
-    constructor(Config = {SPAManage: false, MainContainer: undefined, ContainerName: undefined}) {
+    constructor(Config = { SPAManage: false, MainContainer: undefined, ContainerName: undefined }) {
         this.DomComponents = [];
         this.type = "div";
         this.props = {
@@ -622,21 +622,19 @@ class WArrayF {
     }
     //verifica que un objeto este dentro de un array
     static checkDisplay(DisplayData, prop, element = {}) {
-        if (element[prop] != undefined 
+        let flag = true;
+        if (element[prop] != undefined
             && element[prop].__proto__ == Object.prototype
             && (element[prop].primary || element[prop].hidden)) {
-                
-        console.log(element);
-            return false;
+            flag = false;
         }
-        let flag = true
-        if (DisplayData != undefined &&
-            DisplayData.__proto__ == Array.prototype) {
+        if (DisplayData != undefined && DisplayData.__proto__ == Array.prototype) {
             const findProp = DisplayData.find(x => x.toUpperCase() == prop.toUpperCase());
             if (!findProp) {
                 flag = false;
             }
         }
+        //console.log(prop, flag);
         return flag;
     }
 }

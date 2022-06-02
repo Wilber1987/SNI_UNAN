@@ -15,17 +15,17 @@ class AsideV1 extends HTMLElement {
         }));
         DisplinesList.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Disciplinas</h3>"));
         Data.forEach(element => {
-            if (element.icono == null) {
+            if (element.Icono == null) {
                 return;
             }
             DisplinesList.appendChild(WRender.createElement({
                 type: 'div', props: {
-                    style: 'background:' + element.color, onclick: async () => {
+                    style: 'background:' + element.Color, onclick: async () => {
                         console.log(element)
                     }
                 }, children: [
-                    element.descripcionDisciplina,
-                    { type: 'img', props: { src: 'data:image/png;base64,' + element.icono, class: 'img' } }
+                    element.DescripcionDisciplina,
+                    { type: 'img', props: { src: 'data:image/png;base64,' + element.Icono, class: 'img' } }
                 ]
             }));
         });

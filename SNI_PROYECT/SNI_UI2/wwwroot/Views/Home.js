@@ -24,8 +24,8 @@ class HomeClass extends HTMLElement {
             type: 'w-articles',
             props: {
                 id: "Artcles",
-                ArticleHeader : ["foto", "nombres", "apellidos",  "fecha_ejecucion"],
-                ArticleBody  : ["titulo","photo", "resumen"],
+                ArticleHeader : ["Foto", "Nombres", "Apellidos",  "Fecha_ejecucion"],
+                ArticleBody  : ["Titulo","Photo", "Resumen"],
                 Dataset: this.response, Options: {
                     Search: true,
                     //Show: true,
@@ -33,7 +33,7 @@ class HomeClass extends HTMLElement {
                     UserActions: [{
                         name: "Leer...", Function: async (Article)=>{
                             console.log(Article);
-                            window.location = location.origin + "/Views/ViewRead.html?param=" + Article.id_Investigacion
+                            window.location = location.origin + "/Views/ViewRead.html?param=" + Article.Id_Investigacion
                         }
                     }]
                 }

@@ -15,11 +15,11 @@ const OnLoad = async () => {
         window.location = location.origin + "/Views/ViewProfile.html?param=" + Object.id_Investigador;
     }
     const Card = new WCard({
-        titulo: `${response.nombres}`,
-        picture: response.foto,
+        titulo: `${response.Nombres}`,
+        picture: response.Foto,
         subtitulo: "Autor",
-        descripcion: response.nombreInstitucion,
-        id_Investigador: response.id_Investigador
+        descripcion: response.NombreInstitucion,
+        id_Investigador: response.Id_Investigador
     }, 2, ActionFunction);
     const Disciplinas = await WAjaxTools.PostRequest("../api/Investigaciones/TakeDisciplinas");
     const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), [Card, new AsideV1(Disciplinas)]);
@@ -47,11 +47,11 @@ class WReadInvestigacion extends HTMLElement {
                     type: 'div', props: { id: '', class: 'Details' }, children: [
                         {
                             type: 'a', props: {
-                                onclick: () => { }, innerText: (`${this.response.titulo}`).toUpperCase()
+                                onclick: () => { }, innerText: (`${this.response.Titulo}`).toUpperCase()
                             }
                         },
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Tipo: " + this.response.descripcion],
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Fecha: " + this.response.fecha_ejecucion],
+                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Tipo: " + this.response.Descripcion],
+                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Fecha: " + this.response.Fecha_ejecucion],
                         [{
                             type: 'input', props: {
                                 type: 'button', class: 'BtnPrimary', value: 'Leer...', onclick: async () => {
@@ -69,31 +69,31 @@ class WReadInvestigacion extends HTMLElement {
                 {
                     type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
                         WRender.CreateStringNode("<h4>Resumen</h4>"),
-                        this.response.resumen
+                        this.response.Resumen
                     ]
                 },
                 {
                     type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
                         WRender.CreateStringNode("<h4>Abstract</h4>"),
-                        this.response.abstract
+                        this.response.Abstract
                     ]
                 }
             ]
         });
-        this.response.colaboradores.forEach(element => {
-            element.titulo = `${element.nombres} ${element.apellidos}`;
-            element.picture = element.foto;
-            element.subtitulo = element.tipoColaboracion;
-            element.descripcion = element.nombreInstitucion;
+        this.response.Colaboradores.forEach(element => {
+            element.titulo = `${element.Nombres} ${element.Apellidos}`;
+            element.picture = element.Foto;
+            element.subtitulo = element.TipoColaboracion;
+            element.descripcion = element.NombreInstitucion;
         });
 
-        if (this.response.photo == null) {
-            this.response.photo = ""
+        if (this.response.Photo == null) {
+            this.response.Photo = ""
         }
-        if (this.response.photo) {
+        if (this.response.Photo) {
             this.InvestigacionContainer.append(WRender.createElement({
                 type: 'img',
-                props: { src: "data:image/png;base64," + this.response.photo, class: 'photoBaner' }
+                props: { src: "data:image/png;base64," + this.response.Photo, class: 'photoBaner' }
             }));
         }
         const DisplinesList = WRender.createElement({ type: 'div', props: { class: 'DisciplineClass' } });
@@ -127,7 +127,7 @@ class WReadInvestigacion extends HTMLElement {
                 ]
             }
         }));
-        this.response.disciplinas.forEach(element => {
+        this.response.Disciplinas.forEach(element => {
             if (element.icono == null) {
                 return;
             }
@@ -146,10 +146,10 @@ class WReadInvestigacion extends HTMLElement {
         this.InvestigacionContainer.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Disciplinas</h3>"));
         this.InvestigacionContainer.append(WRender.createElement(DisplinesList));
         this.InvestigacionContainer.append(WRender.createElement(Detaills));
-        if (this.response.colaboradores.length > 0) {
-            const Colaboradores = new WCardCarousel(this.response.colaboradores);
+        if (this.response.Colaboradores.length > 0) {
+            const Colaboradores = new WCardCarousel(this.response.Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
-                window.location = location.origin + "/Views/ViewProfile.html?param=" + Object.id_Investigador;
+                window.location = location.origin + "/Views/ViewProfile.html?param=" + Object.Id_Investigador;
             }
             this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
             this.InvestigacionContainer.append(WRender.createElement(Colaboradores));

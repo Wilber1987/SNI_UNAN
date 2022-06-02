@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +25,9 @@ namespace SNI_UI2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllers();
+            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest)
+            .AddJsonOptions(JsonOptions =>
+                    JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddControllersWithViews();
         }
 

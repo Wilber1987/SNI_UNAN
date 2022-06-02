@@ -1,41 +1,43 @@
-﻿using System;
+﻿using CAPA_DATOS;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Tbl_InvestigatorProfile: EntityClass
+    public class Tbl_InvestigatorProfile : EntityClass
     {
         private List<Tbl_Distinciones> distinciones;
 
         public int? Id_Investigador { get; set; }
-        public string Nombres {get; set;}
-        public string Apellidos {get; set;}
-        public DateTime? FechaNac {get; set;}
-        public int? IdUser {get; set;}
-        public string Sexo {get; set;}
-        public string Foto {get; set;}
-        public string DNI {get; set;}
-        public string Correo_institucional {get; set;}
-        public int? Id_Pais_Origen {get; set;}
-        public int? Id_Institucion {get; set;}
-        public string Indice_H {get; set;}
-        public string Estado {get; set;}
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public DateTime? FechaNac { get; set; }
+        public int? IdUser { get; set; }
+        public string Sexo { get; set; }
+        public string Foto { get; set; }
+        public string DNI { get; set; }
+        public string Correo_institucional { get; set; }
+        public int? Id_Pais_Origen { get; set; }
+        public int? Id_Institucion { get; set; }
+        public string Indice_H { get; set; }
+        public string Estado { get; set; }
         public string NombreInstitucion { get; set; }
 
-        public List<Object> Investigaciones { get; set; }
+        public List<Tbl_Investigaciones> Investigaciones { get; set; }
         public List<Object> Colaboraciones { get; set; }
         public List<Object> Grupos { get; set; }
         public List<Object> Proyectos { get; set; }
-        public List<Object> Eventos { get; set; }
-        public List<Object> RedesSociales { get; set; }
+        public List<CatRedesSociales> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
+        public List<Tbl_IdiomasInv> Idiomas_Investigador { get; set; }
         public List<ProyectoTableDependencias_Usuarios> Dependencias { get; set; }
         public List<Tbl_Formacion_Academica> FormacionAcademica { get; set; }
-        public List<Tbl_Patentes> patentes { get;  set; }
-        public List<Tbl_Datos_Laborales> datosLaborales { get;  set; }
-        public List<Tbl_Evento> eventosIN { get;  set; }
+        public List<Tbl_Patentes> Patentes { get; set; }
+        public List<Tbl_Datos_Laborales> DatosLaborales { get; set; }
+        public List<Tbl_Evento> Eventos { get; set; }
+
 
         public List<Object> TakeDepCoordinaciones()
         {
@@ -66,7 +68,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 //Investigaciones
                 Tbl_Investigaciones ModelInvestigacion = new Tbl_Investigaciones();
                 ModelInvestigacion.Id_Investigador = this.Id_Investigador;
-                Investigador.Investigaciones = ModelInvestigacion.TakeInvestigaciones();
+                Investigador.Investigaciones = ModelInvestigacion.Get<Tbl_Investigaciones>();
                 //Colaboraciones
                 Tbl_Colaboradores ModelCol = new Tbl_Colaboradores();
                 ModelCol.Id_Investigador = this.Id_Investigador;
@@ -91,15 +93,15 @@ namespace CAPA_NEGOCIO.MAPEO
 
                 Tbl_Patentes tbl_Patentes = new Tbl_Patentes();
                 tbl_Patentes.Id_Investigador = this.Id_Investigador;
-                Investigador.patentes = tbl_Patentes.Get<Tbl_Patentes>();
+                Investigador.Patentes = tbl_Patentes.Get<Tbl_Patentes>();
 
                 Tbl_Datos_Laborales dl = new Tbl_Datos_Laborales();
                 dl.Id_Investigador = this.Id_Investigador;
-                Investigador.datosLaborales = dl.Get<Tbl_Datos_Laborales>();
+                Investigador.DatosLaborales = dl.Get<Tbl_Datos_Laborales>();
 
                 Tbl_Evento tbl_Evento = new Tbl_Evento();
                 tbl_Evento.Id_Investigador = this.Id_Investigador;
-                Investigador.eventosIN = tbl_Evento.Get<Tbl_Evento>();
+                Investigador.Eventos = tbl_Evento.Get<Tbl_Evento>();
 
                 Tbl_Distinciones tbl_Distinciones = new Tbl_Distinciones();
                 tbl_Distinciones.Id_Investigador = this.Id_Investigador;
@@ -111,6 +113,68 @@ namespace CAPA_NEGOCIO.MAPEO
             {
 
                 throw;
+            }
+        }
+        public Object Postularse()
+        {
+            try
+            {
+                this.Estado = "Postulante";
+                SaveProfile();
+                return true;
+            }
+            catch (Exception) { return false; }
+
+        }
+
+        private void SaveProfile()
+        {
+            this.Id_Investigador = (Int32)this.Save();
+            if (this.Idiomas_Investigador != null)
+            {
+                foreach (Tbl_IdiomasInv obj in this.Idiomas_Investigador)
+                {
+                    obj.Id_Investigador = this.Id_Investigador;
+                    obj.Save();
+                }
+            }
+            if (this.FormacionAcademica != null)
+            {
+                foreach (Tbl_Formacion_Academica obj in this.FormacionAcademica)
+                {
+                    obj.Id_Investigador = this.Id_Investigador;
+                    obj.Save();
+                }
+            }
+            if (this.DatosLaborales != null)
+            {
+                foreach (Tbl_Datos_Laborales obj in this.DatosLaborales)
+                {
+                    obj.Id_Investigador = this.Id_Investigador;
+                    obj.Save();
+                }
+            }
+            if (this.RedesSociales != null)
+            {
+                foreach (CatRedesSociales obj in this.RedesSociales)
+                {
+                    obj.Id_Investigador = this.Id_Investigador;
+                    obj.Save();
+                }
+            }
+            if (this.Investigaciones != null)
+            {
+                foreach (Tbl_Investigaciones obj in this.Investigaciones)
+                {
+                    obj.Id_Investigador = this.Id_Investigador;
+                    obj.Save();
+                }
+            }
+            if (this.Idiomas_Investigador != null)
+            {
+            }
+            if (this.Idiomas_Investigador != null)
+            {
             }
         }
     }

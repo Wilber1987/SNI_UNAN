@@ -1,21 +1,21 @@
-import { AsideV1 } from "../AppComponents/AsideV1.js";
-import { MasterDomDetaills } from "../MasterDomDetaills.js";
-import { WAppNavigator } from '../WDevCore/WComponents/WAppNavigator.js';
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass, WStyledRender } from '../WDevCore/WModules/WStyledRender.js';
-import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
-import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
+import { AsideV1 } from "../../../AppComponents/AsideV1.js";
+import { MasterDomDetaills } from "../../../MasterDomDetaills.js";
+import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass, WStyledRender } from '../../../WDevCore/WModules/WStyledRender.js';
+import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.js";
+import { StylesControlsV2 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
+import { WModalForm } from "../../../WDevCore/WComponents/WModalForm.js";
 import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
-import { ProfileCard, ProfileTab, WProfileInvestigador } from "./ViewProfile.js";
-import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
-import { WForm } from "../WDevCore/WComponents/WForm.js";
-import { InvestigadorProfile } from "../Model/InvestigadorProfile.js";
-import { Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../Model/ModelDatabase.js";
+import { ProfileCard, ProfileTab, WProfileInvestigador } from "../ViewProfile.js";
+import { WSecurity } from "../../../WDevCore/WModules/WSecurity.js";
+import { WForm } from "../../../WDevCore/WComponents/WForm.js";
+import { InvestigadorProfile } from "../../../Model/InvestigadorProfile.js";
+import { Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
-    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones");
+    const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
     const BodyComponents = new MasterDomDetaills(new PerfilClass(response[0]));
     App.appendChild(WRender.createElement(BodyComponents));
 
@@ -63,7 +63,7 @@ class PerfilClass extends HTMLElement {
                 {
                     name: "Datos Generales", url: "#",
                     action: async (ev) => {
-                        this.response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
+                        this.response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
                             { Id_Investigador: this.Id_Investigador }
                         );
                         this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
@@ -83,22 +83,21 @@ class PerfilClass extends HTMLElement {
                                     ObjectModel: new InvestigadorProfile(),
                                     EditObject: this.response,
                                     DisplayData: [
-                                        "apellidos",
-                                        "correo_institucional",
-                                        "dependencias",
-                                        "dni",
-                                        "eventos",
-                                        "fechaNac",
-                                        "foto",
-                                        "grupos",
-                                        "id_Institucion",
-                                        "id_Pais_Origen",
-                                        "idiomas",
-                                        "indice_H",
-                                        "nombreInstitucion",
-                                        "nombres",
-                                        "redesSociales",
-                                        "sexo"
+                                        "Apellidos",
+                                        "Correo_institucional",
+                                        "Dependencias",
+                                        "Dni",
+                                        "Eventos",
+                                        "FechaNac",
+                                        "Foto",
+                                        "Grupos",
+                                        "Id_Institucion",
+                                        "Id_Pais_Origen",
+                                        "Idiomas",
+                                        "NombreInstitucion",
+                                        "Nombres",
+                                        "RedesSociales",
+                                        "Sexo"
                                     ]
                                 })
                             ]
@@ -110,49 +109,49 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Datos Académicos", url: "#",
                     action: async (ev) => {
-                        const Id_TipoEstudio = await WAjaxTools.PostRequest("../api/Profile/GetTipoEstudio");
-                        const Id_Institucion = await WAjaxTools.PostRequest("../api/Profile/GetInstitucion");
+                        const Id_TipoEstudio = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEstudio");
+                        const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
                         const Model = new Tbl_Formacion_Academica({
                             Id_TipoEstudio: {
                                 type: "Select",
-                                Dataset: Id_TipoEstudio.map(x => ({ id: x.id_TipoEstudio, desc: x.descripcion }))
+                                Dataset: Id_TipoEstudio.map(x => ({ id: x.Id_TipoEstudio, desc: x.Descripcion }))
                             },
                             Id_Institucion: {
                                 type: "Select",
-                                Dataset: Id_Institucion.map(x => ({ id: x.id_Institucion, desc: x.nombre }))
+                                Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
                             }
                         });
-                        this.NavSaveCatalogo("Tab-Académicos", { add: "SaveFormacionAcademica" }, this.response.formacionAcademica, Model);
+                        this.NavSaveCatalogo("Tab-Académicos", { add: "SaveFormacionAcademica" }, this.response.FormacionAcademica, Model);
                     }
                 }, {
                     name: "Patentes", url: "#",
                     action: async (ev) => {
-                        const Id_Institucion = await WAjaxTools.PostRequest("../api/Profile/GetInstitucion");
+                        const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
                         const Model = new Tbl_Patentes({
                             Id_Institucion: {
                                 type: "Select",
-                                Dataset: Id_Institucion.map(x => ({ id: x.id_Institucion, desc: x.nombre }))
+                                Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
                             }
                         });
-                        this.NavSaveCatalogo("Tab-Patentes", { add: "SavePatente" }, this.response.patentes, Model);
+                        this.NavSaveCatalogo("Tab-Patentes", { add: "SavePatente" }, this.response.Patentes, Model);
                     }
                 }, {
                     name: "Datos Laborales", url: "#",
                     action: async (ev) => {
-                        const Id_Cargo = await WAjaxTools.PostRequest("../api/Profile/GetCargos");
+                        const Id_Cargo = await WAjaxTools.PostRequest("../../api/PublicCat/GetCargos");
                         const Model = new Tbl_Datos_Laborales({
                             Id_Cargo: {
                                 type: "Select",
-                                Dataset: Id_Cargo.map(x => ({ id: x.id_Cargo, desc: x.descripcion }))
+                                Dataset: Id_Cargo.map(x => ({ id: x.Id_Cargo, desc: x.Descripcion }))
                             }
                         });
-                        this.NavSaveCatalogo("Tab-Laborales", { add: "SaveDatoLaboral" }, this.response.datosLaborales, Model);
+                        this.NavSaveCatalogo("Tab-Laborales", { add: "SaveDatoLaboral" }, this.response.DatosLaborales, Model);
                     }
                 }, {
                     name: "Redes Sociales", url: "#",
                     action: async (ev) => {
                         const Model = new Tbl_Invest_RedS();
-                        this.NavSaveCatalogo("Tab-RedesS", { add: "SaveRedSocialP" }, this.response.redesSociales, Model);
+                        this.NavSaveCatalogo("Tab-RedesS", { add: "SaveRedSocialP" }, this.response.RedesSociales, Model);
                     }
                 }, {
                     name: "Proyectos", url: "#",
@@ -162,18 +161,18 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Eventos", url: "#",
                     action: async (ev) => {
-                        const Id_Tipo_Evento = await WAjaxTools.PostRequest("../api/Profile/GetTipoEventos");
-                        const Id_Pais = await WAjaxTools.PostRequest("../api/Profile/GetPaises");
+                        const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
+                        const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
                         const Model = new Tbl_Evento({
                             Id_Tipo_Evento: {
                                 type: "Select",
-                                Dataset: Id_Tipo_Evento.map(x => ({ id: x.id_Tipo_Evento, desc: x.descripcion }))
+                                Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, desc: x.Descripcion }))
                             }, Id_Pais: {
                                 type: "Select",
-                                Dataset: Id_Pais.map(x => ({ id: x.id_Pais, desc: x.descripcion }))
+                                Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, desc: x.Descripcion }))
                             }
                         });
-                        this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, this.response.eventos, Model);
+                        this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, this.response.Eventos, Model);
                     }
                 }, {
                     name: "Procesos editoriales científicos", url: "#",
@@ -183,19 +182,19 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Premios, Distinciones, Reconocimientos, Becas", url: "#",
                     action: async (ev) => {
-                        const Id_Institucion = await WAjaxTools.PostRequest("../api/Profile/GetInstitucion");
-                        const Id_Tipo_Distincion = await WAjaxTools.PostRequest("../api/Profile/GetTipoDistincion");
+                        const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
+                        const Id_Tipo_Distincion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoDistincion");
                         const Model = new Tbl_Distinciones({
                             Id_Tipo_Distincion: {
                                 type: "Select",
-                                Dataset: Id_Tipo_Distincion.map(x => ({ id: x.id_Tipo_Distincion, desc: x.descripcion }))
+                                Dataset: Id_Tipo_Distincion.map(x => ({ id: x.Id_Tipo_Distincion, desc: x.Descripcion }))
                             },
                             Id_Institucion: {
                                 type: "Select",
-                                Dataset: Id_Institucion.map(x => ({ id: x.id_Institucion, desc: x.nombre }))
+                                Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
                             }
                         });
-                        this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.distinciones, Model);
+                        this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.Distinciones, Model);
                     }
                 }
             ]
@@ -211,9 +210,9 @@ class PerfilClass extends HTMLElement {
     }
     NavActividad = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        const DataPost = { id_Investigador: this.Id_Investigador };
-        const Dataset = await WAjaxTools.PostRequest("../api/Calendar/TakeActividades", DataPost);
-        this.response.proyectos.forEach(proy => {
+        const DataPost = { Id_Investigador: this.Id_Investigador };
+        const Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividades", DataPost);
+        this.response.Proyectos.forEach(proy => {
             Tab.append(WRender.Create({
                 className: "DivProy", children: [
                     { tagName: "h3", innerText: proy.nombre_Proyecto },
@@ -252,8 +251,8 @@ class PerfilClass extends HTMLElement {
                     //DisplayData: ['titulo', 'estado'],
                     Options: {
                         Search: true, UrlSearch: undefined,
-                        Add: true, UrlAdd: "../api/Profile/" + ApiName.add,
-                        Edit: true, UrlUpdate: "../api/Profile/" + ApiName.add,
+                        Add: true, UrlAdd: "../../api/Profile/" + ApiName.add,
+                        Edit: true, UrlUpdate: "../../api/Profile/" + ApiName.add,
                         UserActions: []
                     }
                 })

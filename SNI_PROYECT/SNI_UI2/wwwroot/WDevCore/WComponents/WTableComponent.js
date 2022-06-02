@@ -399,17 +399,45 @@ class WTableComponent extends HTMLElement {
     DrawTRow = (tr, element) => {
         tr.innerHTML = "";
         for (const prop in element) {
-            const flag = WArrayF.checkDisplay(this.DisplayData, prop, this.ModelObject);
-            if (flag) {
+            if (WArrayF.checkDisplay(this.DisplayData, prop, this.ModelObject)) {
                 if (!prop.includes("_hidden")) {
                     let value = "";
                     if (element[prop] != null) {
                         value = element[prop];
                     }
+                    const Model = this.ModelObject;
+                    let IsImage = this.IsImage(prop);
+                    if (Model != undefined &&  Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {                        
+                        switch (Model[prop].type.toUpperCase()) {
+                            case "IMAGE": case "IMAGES":
+                                IsImage = true;
+                                break;
+                            case "SELECT":
+                                const element = Model[prop].Dataset.find(e => {
+                                    let flag = false;
+                                    if (e == value) {
+                                        flag = true;
+                                    } else if (e.__proto__ == Object.prototype && e.id == value) {
+                                        flag = true;
+                                    }
+                                    return flag;
+                                });
+                                
+                                value = element && element.__proto__ == Object.prototype ? element.desc : element;
+                                break;
+                            case "MULTISELECT":                                
+                                break;
+                            case "TABLE":
+                                break;
+                            default:
+                                break;
+                        }
+                    } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
+                        InputControl = this.CreateSelect(InputControl, Model[prop], prop, ObjectF);
+                        ObjectF[prop] = InputControl.value
+                    }
                     //DEFINICION DE VALORES-------------
-                    if (prop.includes("img") || prop.includes("pict") ||
-                        prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
-                        prop.includes("Photo")) {
+                    if (IsImage) {
                         let cadenaB64 = "";
                         //console.log(this.TableConfig)
                         var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
@@ -419,8 +447,7 @@ class WTableComponent extends HTMLElement {
                             cadenaB64 = this.TableConfig.ImageUrlPath + "/";
                         }
                         tr.append(WRender.createElement({
-                            type: "td",
-                            props: { class: "tdImage" },
+                            type: "td", props: { class: "tdImage" },
                             children: [{
                                 type: "img",
                                 props: {
@@ -431,16 +458,7 @@ class WTableComponent extends HTMLElement {
                                 }
                             }]
                         }));
-                    } else if (prop.toUpperCase().includes("TOTAL")
-                        || prop.toUpperCase().includes("MONTO")
-                        || prop.toUpperCase().includes("SUBTOTAL")
-                        || prop.toUpperCase().includes("SUB-TOTAL")
-                        || prop.toUpperCase().includes("SUB TOTAL")
-                        || prop.toUpperCase().includes("IMPUESTO")
-                        || prop.toUpperCase().includes("IVA")
-                        || prop.toUpperCase().includes("TAXT")
-                        || prop.toUpperCase().includes("P/U")
-                        || prop.toUpperCase().includes("P-U")) {
+                    } else if (this.IsMoney(prop)) {
                         tr.append(WRender.createElement({
                             type: "td", props: {
                                 style: "text-align: right",
@@ -630,6 +648,25 @@ class WTableComponent extends HTMLElement {
         this.shadowRoot.append(WRender.createElement(this.MediaStyleResponsive()));
         return tbody;
     }
+    IsMoney(prop) {
+        return prop.toUpperCase().includes("TOTAL")
+            || prop.toUpperCase().includes("MONTO")
+            || prop.toUpperCase().includes("SUBTOTAL")
+            || prop.toUpperCase().includes("SUB-TOTAL")
+            || prop.toUpperCase().includes("SUB TOTAL")
+            || prop.toUpperCase().includes("IMPUESTO")
+            || prop.toUpperCase().includes("IVA")
+            || prop.toUpperCase().includes("TAXT")
+            || prop.toUpperCase().includes("P/U")
+            || prop.toUpperCase().includes("P-U");
+    }
+
+    IsImage(prop) {
+        return prop.includes("img") || prop.includes("pict") ||
+            prop.includes("Pict") || prop.includes("image") || prop.includes("Image") ||
+            prop.includes("Photo");
+    }
+
     DrawTFooter(tbody) {
         let tfooter = [];
         this.ActualPage = 0;

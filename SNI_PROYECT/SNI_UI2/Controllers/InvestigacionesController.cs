@@ -25,10 +25,8 @@ namespace SNI_UI.Controllers
         }
         [HttpPost]
         [AuthController]
-        public object TakeInvestigaciones(Object ObjInst)
-        {
-            
-            var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
+        public object TakeInvestigaciones(InvestigacionesClass Inst)
+        {            
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();
             Data.Add(Inst.TakeInvestigaciones());

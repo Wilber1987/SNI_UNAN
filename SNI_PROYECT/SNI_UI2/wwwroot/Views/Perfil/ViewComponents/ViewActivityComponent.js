@@ -1,10 +1,10 @@
-import { WRender, ComponentsManager, WAjaxTools } from "../../WDevCore/WModules/WComponentsTools.js";
-import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
-import { WForm } from '../../WDevCore/WComponents/WForm.js';
-import { WModalForm } from '../../WDevCore/WComponents/WModalForm.js';
-import { ReservarComponent } from "../../WDevCore/WComponents/WCalendar.js";
-import { StyleScrolls, StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.JS";
-import { TareaModel } from "../../Model/TareaModel.js";
+import { WRender, ComponentsManager, WAjaxTools } from "../../../WDevCore/WModules/WComponentsTools.js";
+import { WCssClass, WStyledRender } from '../../../WDevCore/WModules/WStyledRender.js';
+import { WForm } from '../../../WDevCore/WComponents/WForm.js';
+import { WModalForm } from '../../../WDevCore/WComponents/WModalForm.js';
+import { ReservarComponent } from "../../../WDevCore/WComponents/WCalendar.js";
+import { StyleScrolls, StylesControlsV2 } from "../../../WDevCore/StyleModules/WStyleComponents.JS";
+import { TareaModel } from "../../../Model/TareaModel.js";
 class ViewActivityComponent extends HTMLElement {
     constructor(Activity) {
         super();
@@ -26,7 +26,7 @@ class ViewActivityComponent extends HTMLElement {
         this.Draw();
     }
     async NewTarea() {
-        const response = await WAjaxTools.PostRequest("../api/Calendar/TakeData");
+        const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeData");
         const tareaModel = new TareaModel({Participantes: response[1], Tareas: this.Dataset.tareas });
         console.log(tareaModel);
         const ReservaComp = new ReservarComponent({
@@ -51,7 +51,7 @@ class ViewActivityComponent extends HTMLElement {
                     }
                 }
             }), CalendarFunction: async () => {
-                const response = await WAjaxTools.PostRequest("./api/Calendar/TakeCalendar", this.Dataset);
+                const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeCalendar", this.Dataset);
                 return response;
             }
         });
@@ -65,7 +65,7 @@ class ViewActivityComponent extends HTMLElement {
 
     connectedCallback() { }
     Draw = async () => {
-        this.Dataset = await WAjaxTools.PostRequest("../api/Calendar/TakeActividad", this.Activity);
+        this.Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividad", this.Activity);
         this.TareasContainer.innerHTML = "";
         this.Dataset.tareas.forEach(tarea => {
             this.CreateTareaContainer(tarea);

@@ -4,20 +4,7 @@ import "../../WDevCore/WComponents/WTableComponent.js";
 import { WArticlesComponent } from "../../WDevCore/WComponents/WArticlesComponent.js";
 import { AsideV1 } from "../../AppComponents/AsideV1.js";
 
-const DivAside = WRender.createElement({
-    type: 'div', props: { id: '', class: 'DivAside' }, children: [
-        { type: 'div', props: { class: 'DivAsideInvestigations' }, children: [] }
-    ]
-});
 const DOMManager = new ComponentsManager();
-const OnLoad = async () => {
-    const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeTypeProyects");
-    const modules = await import("../../MasterDomDetaills.js");
-    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");    
-    DivAside.append(new AsideV1(Disciplinas));
-    const BodyComponents = new modules.MasterDomDetaills(new ViewProyects(response), DivAside);
-    App.appendChild(WRender.createElement(BodyComponents));
-}
 class ViewProyects extends HTMLElement {
     constructor(TipoProyecto) {
         super();
@@ -27,7 +14,7 @@ class ViewProyects extends HTMLElement {
         this.TabContainer = WRender.createElement({ type: 'div', props: { id: 'TabContainer', class: 'TabContainer' } });
         this.TipoProyecto.forEach(element => {
             this.ComponentTab.Elements.push({
-                name: element.descripcion_Tipo_Proyecto, url: "#", icon: element.icon,
+                name: element.Descripcion_Tipo_Proyecto, url: "#", icon: element.icon,
                 action: async (ev) => {
                     const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyects", {
                         id_Tipo_Proyecto: element.id_Tipo_Proyecto
@@ -119,7 +106,7 @@ class ViewProyectsTab {
                 type: 'w-articles',
                 props: {
                     //ArticleHeader : ["nombre_Proyecto"],
-                    ArticleBody  : ["nombre_Proyecto", "descripcionProyecto"],
+                    ArticleBody  : ["Nombre_Proyecto", "DescripcionProyecto"],
                     Dataset: Dataset, Options: {
                         Search: true,
                         ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
@@ -155,4 +142,4 @@ class ViewProyectsTab {
     };
 }
 customElements.define('w-view', ViewProyects);
-window.onload = OnLoad;
+export {ViewProyects}

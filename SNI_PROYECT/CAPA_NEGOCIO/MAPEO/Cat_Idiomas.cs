@@ -5,7 +5,7 @@ using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Cat_Idiomas
+    public class Cat_Idiomas: EntityClass
     {
         public int? Id_Idioma { get; set; }
         public string Descripcion { get; set; }

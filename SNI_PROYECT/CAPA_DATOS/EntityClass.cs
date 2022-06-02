@@ -63,10 +63,9 @@ namespace CAPA_DATOS
             condition = condition.TrimEnd(',');
             return condition;
         }       
-        public bool Save()
+        public object Save()
         {
-            SqlADOConexion.SQLM.InsertObject(this);
-            return true;
+            return SqlADOConexion.SQLM.InsertObject(this);
         }
         public bool Update(string Id)
         {

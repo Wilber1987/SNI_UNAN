@@ -1,5 +1,10 @@
 class WOrtograficValidation {
     static es = (val = "") => {
+        val = val.replaceAll("_id", "")
+            .replaceAll("id_", "")
+            .replaceAll("Id_", "")
+            .replaceAll("_Id", "")
+            .replaceAll("_", " ");
         const words = val.split(" ");
         let valReturn = "";
         words.forEach((word, index) => {

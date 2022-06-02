@@ -17,10 +17,10 @@ const OnLoad = async () => {
         
     }, 2, ActionFunction);
     const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");      
-    const BodyComponents = new modules.MasterDomDetaills(new WViewProyect(response), [ new AsideV1(Disciplinas)] );
+    const BodyComponents = new modules.MasterDomDetaills(new ViewProyectDetail(response), [ new AsideV1(Disciplinas)] );
     App.appendChild(WRender.createElement(BodyComponents));
 }
-class WViewProyect extends HTMLElement {
+class ViewProyectDetail extends HTMLElement {
     constructor(response) {
         super();
         this.response = response;
@@ -143,5 +143,6 @@ class WViewProyect extends HTMLElement {
         }
     };
 }
-customElements.define('w-view', WViewProyect);
+customElements.define('w-view', ViewProyectDetail);
+export {ViewProyectDetail}
 window.onload = OnLoad;

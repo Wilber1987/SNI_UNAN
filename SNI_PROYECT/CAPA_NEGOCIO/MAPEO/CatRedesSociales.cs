@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    class CatRedesSociales
+   public class CatRedesSociales: EntityClass
     {
         public int? Id_RedSocial { get; set; }
         public string Descripcion { get; set; }
@@ -26,11 +27,12 @@ namespace CAPA_NEGOCIO.MAPEO
                 throw;
             }
         }
-        public List<Object> TakeRedesInv()
+        public List<CatRedesSociales> TakeRedesInv()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("ViewRedesInvestigadores", this);
+                return SqlADOConexion.SQLM.TakeList("ViewRedesInvestigadores", this)
+                    .Select(x => (CatRedesSociales)x).ToList();
             }
             catch (Exception)
             {
