@@ -56,7 +56,7 @@ class ReservarComponent extends HTMLElement {
         const RForm = new WForm({
             StyleForm: "columnX1",
             className: "Form",
-            ObjectModel: {
+            ModelObject: {
                 Titulo: "",
                 Descripcion: "",
                 Participantes: {

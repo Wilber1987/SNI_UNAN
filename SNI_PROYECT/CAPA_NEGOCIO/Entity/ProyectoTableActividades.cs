@@ -19,7 +19,7 @@ namespace CAPA_NEGOCIO
         public DateTime? Fecha_Inicial { get; set; }
         public DateTime? Fecha_Final { get; set; }
         public int? Id_Investigador { get; set; }
-        public int? IdDependencia { get; set; }
+        public int? Id_Dependencia { get; set; }
         public int? Id_Proyecto { get; set; }
         public List<ProyectoTableTareas> Tareas { get; set; }
         public bool SaveActividades()
@@ -42,7 +42,7 @@ namespace CAPA_NEGOCIO
         {
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
-            DU.IdDependencia = this.IdDependencia;
+            DU.Id_Dependencia = this.Id_Dependencia;
             if (DU.Get_WhereIN("IdCargo", new string[]{ "1", "2"}).Count == 0)
             {
                 return false;

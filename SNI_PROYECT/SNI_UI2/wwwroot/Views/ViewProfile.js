@@ -3,36 +3,7 @@ import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import "../WDevCore/WComponents/WTableComponent.js";
-import { AsideV1 } from "../AppComponents/AsideV1.js";
 
-const OnLoad = async () => {
-    const Id_Investigador = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
-        { Id_Investigador: Id_Investigador }
-    );
-    const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
-    const modules = await import("../MasterDomDetaills.js");
-    const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
-    const cadenaB64 = "data:image/png;base64,";
-    response.RedesSociales.forEach(element => {
-        divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.Icon, class: 'RedsIcon' } },
-        { type: 'a', props: { innerText: element.Descripcion, href: element.Url_red_inv, target: "_blank" } }]));
-    });
-    divRedes.append(WRender.CreateStringNode("<hr style='margin-top: 30px'>"))
-    const dataResume = WRender.createElement({
-        type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
-            WRender.CreateStringNode("<h3>Logros</h3>"),
-            "Investigaciones: " + response.Investigaciones.length,
-            "Proyectos: " + response.Proyectos.length,
-            "Colaboraciones: " + response.Colaboraciones.length,
-            WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
-            divRedes
-        ]
-    });
-    const Disciplinas = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");
-    const BodyComponents = new modules.MasterDomDetaills(new WProfileInvestigador(response), [dataResume, new AsideV1(Disciplinas)]);
-    App.appendChild(WRender.createElement(BodyComponents));
-}
 class WProfileInvestigador extends HTMLElement {
     constructor(response) {
         super();
@@ -95,7 +66,7 @@ class WProfileInvestigador extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`w-view`, {
+                new WCssClass(`w-view-profile`, {
                     "background-color": '#fff',
                     display: "block",
                     "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
@@ -262,7 +233,5 @@ class ProfileCard extends HTMLElement {
     }
 }
 customElements.define('w-profile-card', ProfileCard);
-
-customElements.define('w-view', WProfileInvestigador);
-window.onload = OnLoad;
+customElements.define('w-view-profile', WProfileInvestigador);
 export { WProfileInvestigador, ProfileTab, ProfileCard }

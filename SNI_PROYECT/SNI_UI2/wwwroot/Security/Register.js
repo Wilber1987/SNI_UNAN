@@ -29,7 +29,7 @@ const OnLoad = async () => {
     });
     const Form = new WForm({
         className: "LoginForm",
-        ObjectModel: InvestigadorModel,
+        ModelObject: InvestigadorModel,
         StyleForm: "columnX3",
         //EditObject: this.response,
         ValidateFunction: (TObject) => {

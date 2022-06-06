@@ -15,7 +15,7 @@ namespace SNI_UI2.Controllers
         //Save
         public object SaveProfile(Tbl_InvestigatorProfile Inst)
         {
-            if (Inst.Id_Investigador == -1)
+            if (Inst.Id_Investigador == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();
@@ -27,7 +27,7 @@ namespace SNI_UI2.Controllers
         }
         public object SaveFormacionAcademica(Tbl_Formacion_Academica Inst)
         {
-            if (Inst.IdFormacion == -1)
+            if (Inst.IdFormacion == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();
@@ -39,7 +39,7 @@ namespace SNI_UI2.Controllers
         }
         public object SavePatente(Tbl_Patentes Inst)
         {
-            if (Inst.Id_Patente == -1)
+            if (Inst.Id_Patente == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();
@@ -51,7 +51,7 @@ namespace SNI_UI2.Controllers
         }
         public object SaveDistincion(Tbl_Distinciones Inst)
         {
-            if (Inst.Id_Distincion == -1)
+            if (Inst.Id_Distincion == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();
@@ -63,7 +63,7 @@ namespace SNI_UI2.Controllers
         }
         public object SaveDatoLaboral(Tbl_Datos_Laborales Inst)
         {
-            if (Inst.Id_DatoL == -1)
+            if (Inst.Id_DatoL == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();
@@ -75,7 +75,7 @@ namespace SNI_UI2.Controllers
         }
         public object SaveEvento(Tbl_Evento Inst)
         {
-            if (Inst.Id_Evento == -1)
+            if (Inst.Id_Evento == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
                 return Inst.Save();

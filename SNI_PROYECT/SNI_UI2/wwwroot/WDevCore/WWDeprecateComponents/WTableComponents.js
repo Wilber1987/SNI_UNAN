@@ -178,7 +178,7 @@ class WTableComponent extends HTMLElement {
     }
     //BASIC TABLE-----------------------------------------------------------------------
     //#region tabla basica --------------------------------------------------------------
-    DefineObjectModel(Dataset = this.Dataset) {
+    DefineModelObject(Dataset = this.Dataset) {
         if (this.TableConfig.ModelObject == undefined) {
             for (const prop in Dataset[0]) {
                 this.ModelObject[prop] = Dataset[0][prop];
@@ -192,7 +192,7 @@ class WTableComponent extends HTMLElement {
         if (ChartContainer) {
             ChartContainer.innerHTML = "";
         }
-        this.DefineObjectModel(Dataset);
+        this.DefineModelObject(Dataset);
         let table = this.shadowRoot.querySelector("#MainTable" + this.id);
         const TOptions = this.DrawHeadOptions();
         if (TOptions != null) {
@@ -308,7 +308,7 @@ class WTableComponent extends HTMLElement {
                                 this.shadowRoot.append(WRender.createElement({
                                     type: "w-modal-form",
                                     props: {
-                                        ObjectModel: this.ModelObject,
+                                        ModelObject: this.ModelObject,
                                         AddItemsFromApi: this.AddItemsFromApi,
                                         Dataset: this.Dataset,
                                         icon: this.TableConfig.icon,
@@ -570,7 +570,7 @@ class WTableComponent extends HTMLElement {
                                     this.shadowRoot.append(WRender.createElement({
                                         type: "w-modal-form",
                                         props: {
-                                            ObjectModel: this.ModelObject,
+                                            ModelObject: this.ModelObject,
                                             EditObject: element,
                                             icon: this.TableConfig.icon,
                                             ImageUrlPath: this.TableConfig.ImageUrlPath,

@@ -26,7 +26,7 @@ class WArticlesComponent extends HTMLElement {
     }
     //BASIC Articles-----------------------------------------------------------------------
     //#region tabla basica --------------------------------------------------------------
-    DefineObjectModel(Dataset = this.Dataset) {
+    DefineModelObject(Dataset = this.Dataset) {
         if (this.ModelObject == undefined) {
             this.ModelObject = { };
             for (const prop in Dataset[0]) {
@@ -35,7 +35,7 @@ class WArticlesComponent extends HTMLElement {
         }
     }
     DrawArticles(Dataset = this.Dataset) {
-        this.DefineObjectModel(Dataset);
+        this.DefineModelObject(Dataset);
         let Articles = this.shadowRoot.querySelector("#MainArticles" + this.id);
         const TOptions = this.DrawHeadOptions();
         if (TOptions != null) {
@@ -152,7 +152,7 @@ class WArticlesComponent extends HTMLElement {
                                 this.shadowRoot.append(WRender.createElement({
                                     type: "w-modal-form",
                                     props: {
-                                        ObjectModel: this.ModelObject,
+                                        ModelObject: this.ModelObject,
                                         AddItemsFromApi: this.AddItemsFromApi,
                                         Dataset: this.Dataset,
                                         icon: this.icon,

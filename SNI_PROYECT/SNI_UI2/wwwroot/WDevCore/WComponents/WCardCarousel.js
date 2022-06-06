@@ -1,6 +1,7 @@
 ﻿import { WCssClass } from "../WModules/WStyledRender.js";
 import { WRender } from "../WModules/WComponentsTools.js";
 import { StylesControlsV1 } from "../StyleModules/WStyleComponents.js";
+import { WIcons } from "../WModules/WIcons.js";
 
 class CardModel {
     picture = "image url/image base64";
@@ -106,9 +107,7 @@ class WCard extends HTMLElement {
         this.className = "CardElement";
         let cadenaB64 = "data:image/png;base64,";
         if (!element.picture) {
-            cadenaB64 = "data:image/svg+xml;base64,";
-            element.picture =  "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDE1LjMxIDE0LjA3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxNS4zMSAxNC4wNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGw6I0ZGRkZGRjtzdHJva2U6IzAwMDAwMDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPGNpcmNsZSBjbGFzcz0ic3QwIiBjeD0iNy42NSIgY3k9IjQuNjkiIHI9IjQuMDMiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xLjE1LDEzLjgyYzAsMCwwLTQuNjgsNi00LjVsMS40NiwwYzAsMCw1LjQzLTAuMDQsNS42OSw0LjVIMS4xNXoiLz4NCjwvc3ZnPg0K";
-        }
+            element.picture =  WIcons.UserIcon}
         const Figure = WRender.createElement({
             type: 'img',
             props: { class: 'fotoColaborador', src: cadenaB64 + element.picture }
@@ -219,7 +218,7 @@ class WCard extends HTMLElement {
             id: '', ClassList: [
                 new WCssClass(`.CardElement`, {
                     width: 250,//"calc(100% - 20px)",
-                    height: "auto",
+                    height: 330,
                     "min-width": 220,
                     margin: "10px !important",
                     overflow: "hidden",

@@ -162,7 +162,7 @@ class WTableComponent extends HTMLElement {
     }
     //BASIC TABLE-----------------------------------------------------------------------
     //#region tabla basica --------------------------------------------------------------
-    DefineObjectModel(Dataset = this.Dataset) {
+    DefineModelObject(Dataset = this.Dataset) {
         if (this.TableConfig.ModelObject == undefined) {
             for (const prop in Dataset[0]) {
                 this.ModelObject[prop] = Dataset[0][prop];
@@ -176,7 +176,7 @@ class WTableComponent extends HTMLElement {
         if (ChartContainer) {
             ChartContainer.innerHTML = "";
         }
-        this.DefineObjectModel(Dataset);
+        this.DefineModelObject(Dataset);
         let table = this.shadowRoot.querySelector("#MainTable" + this.id);
         const TOptions = this.DrawHeadOptions();
         if (TOptions != null) {
@@ -241,39 +241,7 @@ class WTableComponent extends HTMLElement {
                             type: "text",
                             placeholder: "Buscar...",
                             onchange: async (ev) => {
-                                if (this.SearchItemsFromApi != undefined) {
-                                    if (this.SearchItemsFromApi.Function != undefined) {
-                                        const Dataset = await this.SearchItemsFromApi.Function(ev.target.value);
-                                        this.DrawTable(Dataset);
-                                    } else {
-                                        const Dataset = await WAjaxTools.PostRequest(
-                                            this.SearchItemsFromApi.ApiUrl, { Param: ev.target.value }
-                                        );
-                                        this.DrawTable(Dataset.data);
-                                    }
-                                } else {
-                                    const Dataset = this.Dataset.filter((element) => {
-                                        for (const prop in element) {
-                                            try {
-                                                if (element[prop] != null) {
-                                                    if (element[prop].toString().includes(ev.target.value)) {
-                                                        return element;
-                                                    }
-                                                }
-                                            } catch (error) {
-                                                console.log(element);
-                                            }
-                                        }
-                                    })
-                                    if (Dataset.length == 0 && this.Options.UrlSearch != undefined) {
-                                        const DataUrlSearch = await WAjaxTools.PostRequest(
-                                            this.Options.UrlSearch, { Param: ev.target.value }
-                                        );
-                                        this.DrawTable(DataUrlSearch);
-                                        return;
-                                    }
-                                    this.DrawTable(Dataset);
-                                }
+                                this.SearchFunction(ev);
                             }
                         }
                     }
@@ -287,27 +255,9 @@ class WTableComponent extends HTMLElement {
                             type: "button",
                             innerText: "Add+",
                             onclick: async () => {
-                                this.shadowRoot.append(
-                                    new WModalForm({
-                                        ObjectModel: this.ModelObject,
-                                        AddItemsFromApi: this.AddItemsFromApi,
-                                        Dataset: this.Dataset,
-                                        icon: this.TableConfig.icon,
-                                        title: "Nuevo",
-                                        ValidateFunction: this.TableConfig.ValidateFunction,
-                                        DisplayData: this.DisplayData,
-                                        ObjectOptions: {
-                                            Url: this.Options.UrlAdd,
-                                            AddObject: true,
-                                            SaveFunction: (NewObject) => {
-                                                if (this.AddItemsFromApi == null) {
-                                                    this.Dataset.push(NewObject);
-                                                }
-                                                this.DrawTable();
-                                            }
-                                        }
-                                    })
-                                );
+                                if (this.Options.AddFunction)
+                                    this.Options.AddFunction();
+                                else this.ModalCRUD();
                             }
                         }
                     }
@@ -330,15 +280,7 @@ class WTableComponent extends HTMLElement {
                 if (!prop.includes("_hidden")) {
                     const th = {
                         type: "th",
-                        children: [
-                            WOrtograficValidation.es(
-                                prop.replaceAll("_id", "")
-                                    .replaceAll("id_", "")
-                                    .replaceAll("Id_", "")
-                                    .replaceAll("_Id", "")
-                                    .replaceAll("_operationValue", "")
-                                    .replaceAll("_", " "))
-                        ]
+                        children: [WOrtograficValidation.es(prop)]
                     };
                     tr.children.push(th);
                     const BtnU = {
@@ -384,11 +326,7 @@ class WTableComponent extends HTMLElement {
 
         }
         if (this.Options != undefined) {
-            if (this.Options.Select != undefined ||
-                this.Options.Show != undefined ||
-                this.Options.Edit != undefined ||
-                this.Options.Delete != undefined ||
-                this.Options.UserActions != undefined) {
+            if (this.TrueOptions()) {
                 const Options = { type: "th", props: { class: "" }, children: ["Options"] };
                 tr.children.push(Options);
             }
@@ -407,7 +345,7 @@ class WTableComponent extends HTMLElement {
                     }
                     const Model = this.ModelObject;
                     let IsImage = this.IsImage(prop);
-                    if (Model != undefined &&  Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {                        
+                    if (Model != undefined && Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {
                         switch (Model[prop].type.toUpperCase()) {
                             case "IMAGE": case "IMAGES":
                                 IsImage = true;
@@ -422,10 +360,10 @@ class WTableComponent extends HTMLElement {
                                     }
                                     return flag;
                                 });
-                                
+
                                 value = element && element.__proto__ == Object.prototype ? element.desc : element;
                                 break;
-                            case "MULTISELECT":                                
+                            case "MULTISELECT":
                                 break;
                             case "TABLE":
                                 break;
@@ -474,11 +412,7 @@ class WTableComponent extends HTMLElement {
             }
         }
         if (this.Options != undefined) {
-            if (this.Options.Select != undefined ||
-                this.Options.Show != undefined ||
-                this.Options.Edit != undefined ||
-                this.Options.Delete != undefined ||
-                this.Options.UserActions != undefined) {
+            if (this.TrueOptions()) {
                 const Options = { type: "td", props: { class: "tdAction" }, children: [] };
                 if (this.Options.Select != undefined && this.Options.Select == true) {
                     let Checked = WArrayF.FindInArray(element, this.selectedItems);
@@ -531,24 +465,7 @@ class WTableComponent extends HTMLElement {
                         props: {
                             class: "BtnTableS",
                             type: "button",
-                            onclick: async () => {
-                                this.shadowRoot.append(
-                                    new WModalForm({
-                                        ObjectModel: this.ModelObject,
-                                        EditObject: element,
-                                        DisplayData: this.DisplayData,
-                                        icon: this.TableConfig.icon,
-                                        ImageUrlPath: this.TableConfig.ImageUrlPath,
-                                        title: "Editar",
-                                        ValidateFunction: this.TableConfig.ValidateFunction,
-                                        ObjectOptions: {
-                                            Url: this.Options.UrlUpdate,
-                                            SaveFunction: () => {
-                                                this.DrawTRow(tr, element);
-                                            }
-                                        }
-                                    }));
-                            }
+                            onclick: async () => { this.ModalCRUD(element, tr); }
                         }
                     })
                 }
@@ -648,6 +565,76 @@ class WTableComponent extends HTMLElement {
         this.shadowRoot.append(WRender.createElement(this.MediaStyleResponsive()));
         return tbody;
     }
+    ModalCRUD(element, tr) {
+        this.shadowRoot.append(
+            new WModalForm({
+                ModelObject: this.ModelObject,
+                EditObject: element,
+                DisplayData: this.DisplayData,
+                icon: this.TableConfig.icon,
+                ImageUrlPath: this.TableConfig.ImageUrlPath,
+                title: element ? "Editar" : "Nuevo",
+                ValidateFunction: this.TableConfig.ValidateFunction,
+                AddItemsFromApi: this.AddItemsFromApi,
+                ObjectOptions: {
+                    Url: element ? this.Options.UrlUpdate : this.Options.UrlAdd,
+                    AddObject: element ? false : true,
+                    SaveFunction: (NewObject) => {
+                        if (element == undefined) {
+                            if (this.AddItemsFromApi == null) {
+                                this.Dataset.push(NewObject);
+                            }
+                            this.DrawTable();
+                        } else {
+                            this.DrawTRow(tr, element);
+                        }
+                    }
+                }
+            }));
+    }
+    SearchFunction = async (ev) => {
+        if (this.SearchItemsFromApi != undefined) {
+            if (this.SearchItemsFromApi.Function != undefined) {
+                const Dataset = await this.SearchItemsFromApi.Function(ev.target.value);
+                this.DrawTable(Dataset);
+            } else {
+                const Dataset = await WAjaxTools.PostRequest(
+                    this.SearchItemsFromApi.ApiUrl, { Param: ev.target.value }
+                );
+                this.DrawTable(Dataset.data);
+            }
+        } else {
+            const Dataset = this.Dataset.filter((element) => {
+                for (const prop in element) {
+                    try {
+                        if (element[prop] != null) {
+                            if (element[prop].toString().includes(ev.target.value)) {
+                                return element;
+                            }
+                        }
+                    } catch (error) {
+                        console.log(element);
+                    }
+                }
+            })
+            if (Dataset.length == 0 && this.Options.UrlSearch != undefined) {
+                const DataUrlSearch = await WAjaxTools.PostRequest(
+                    this.Options.UrlSearch, { Param: ev.target.value }
+                );
+                this.DrawTable(DataUrlSearch);
+                return;
+            }
+            this.DrawTable(Dataset);
+        }
+    }
+    TrueOptions() {
+        return this.Options.Select != undefined ||
+            this.Options.Show != undefined ||
+            this.Options.Edit != undefined ||
+            this.Options.Delete != undefined ||
+            this.Options.UserActions != undefined;
+    }
+
     IsMoney(prop) {
         return prop.toUpperCase().includes("TOTAL")
             || prop.toUpperCase().includes("MONTO")

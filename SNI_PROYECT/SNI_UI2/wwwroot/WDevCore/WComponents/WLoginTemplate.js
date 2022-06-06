@@ -46,7 +46,7 @@ class WLoginTemplate extends HTMLElement {
                             type: "w-modal-form",
                             props: {
                                 StyleForm: "columnX1",
-                                ObjectModel: this.LoginModel,
+                                ModelObject: this.LoginModel,
                                 ObjectOptions: {
                                     AddObject: true,
                                     SaveFunction: async (LoginObject) => {
@@ -83,7 +83,7 @@ class WLoginTemplate extends HTMLElement {
                             type: "w-modal-form",
                             props: {
                                 StyleForm: "columnX1",
-                                ObjectModel: this.RegisterModel,
+                                ModelObject: this.RegisterModel,
                                 ObjectOptions: {
                                     AddObject: true,
                                     SaveFunction: async (LoginObject) => {

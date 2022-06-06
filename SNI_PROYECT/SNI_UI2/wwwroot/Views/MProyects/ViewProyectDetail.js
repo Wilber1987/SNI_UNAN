@@ -2,24 +2,9 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/
 import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
-import { AsideV1 } from "../../AppComponents/AsideV1.js";
-const OnLoad = async () => {
-    const id_Proyecto = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
-        { id_Proyecto: id_Proyecto }
-    );
-    const { WRender } = await import("../../WDevCore/WModules/WComponentsTools.js");
-    const modules = await import("../../MasterDomDetaills.js");
-    const ActionFunction = (Object) => {
-        window.location = "./ViewProfile.html?param=" + Object.id_Investigador;
-    }
-    const Card = new WCard({
-        
-    }, 2, ActionFunction);
-    const Disciplinas =  await WAjaxTools.PostRequest("../../api/Investigaciones/TakeDisciplinas");      
-    const BodyComponents = new modules.MasterDomDetaills(new ViewProyectDetail(response), [ new AsideV1(Disciplinas)] );
-    App.appendChild(WRender.createElement(BodyComponents));
-}
+import { ActionFunction } from '../Home.js';
+
+
 class ViewProyectDetail extends HTMLElement {
     constructor(response) {
         super();
@@ -40,19 +25,19 @@ class ViewProyectDetail extends HTMLElement {
             props: { class: 'PropiedadDetails' }, children: [
                 {
                     type: 'div', props: { id: '', class: 'DetailsDiv' }, children: [
-                        WRender.CreateStringNode(`<h3 class="headerTitle">Proyecto ${this.response.nombre_Proyecto}</h3>`),
+                        WRender.CreateStringNode(`<h3 class="headerTitle">Proyecto ${this.response.Nombre_Proyecto}</h3>`),
                         WRender.CreateStringNode("<h4>Descripción del Proyecto <hr></h4>"),
-                        this.response.descripcionProyecto,
-                        WRender.CreateStringNode(`<label class="labelDetail">Tipo de Proyecto: ${this.response.descripcion_Tipo_Proyecto}</label>`),
-                        WRender.CreateStringNode(`<label class="labelDetail">Estado: ${this.response.estado_Proyecto}</label>`),
-                        WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.fecha_Inicio}</label>`),
+                        this.response.DescripcionProyecto,
+                        WRender.CreateStringNode(`<label class="labelDetail">Tipo de Proyecto: ${this.response.Descripcion_Tipo_Proyecto}</label>`),
+                        WRender.CreateStringNode(`<label class="labelDetail">Estado: ${this.response.Estado_Proyecto}</label>`),
+                        WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.Fecha_Inicio}</label>`),
                         WRender.CreateStringNode("<h4>Instituciones<hr></h4>"),
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
-                            this.response.instituciones.map(x=>{
+                            this.response.Instituciones.map(x=>{
                                 return `<div class="InstitucionDiv">
-                                    <img src="${x.logo}"/>
-                                    <label>${x.nombre}</label>
-                                    <label>${x.descripcion}</label>
+                                    <img src="${x.Logo}"/>
+                                    <label>${x.Nombre}</label>
+                                    <label>${x.Descripcion}</label>
                                 </div>`;
                             }).join('')
                         }</div>`)
@@ -62,15 +47,15 @@ class ViewProyectDetail extends HTMLElement {
         });
         this.ProyectContainer.append(WRender.createElement(Detaills));
         this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes<hr></h4>"));
-        this.response.participantes.forEach(element => {
-            element.titulo = `${element.perfil.nombres} ${element.perfil.apellidos}`;
-            element.picture = element.perfil.foto;
-            element.subtitulo = element.cargo;
+        this.response.Participantes.forEach(element => {
+            element.titulo = `${element.Perfil.Nombres} ${element.Perfil.Apellidos}`;
+            element.picture = element.Perfil.Foto;
+            element.subtitulo = element.Cargo;
             element.descripcion = "";
         });
-        const Colaboradores = new WCardCarousel(this.response.participantes);
+        const Colaboradores = new WCardCarousel(this.response.Participantes);
         Colaboradores.ActionFunction = (Object) => {
-            window.location = location.origin + "/ViewProfile.html?param=" + Object.id_Investigador;
+            ActionFunction(Object.Id_Investigador);
         }
         this.ProyectContainer.append(WRender.createElement(Colaboradores));
     }
@@ -145,4 +130,3 @@ class ViewProyectDetail extends HTMLElement {
 }
 customElements.define('w-view', ViewProyectDetail);
 export {ViewProyectDetail}
-window.onload = OnLoad;

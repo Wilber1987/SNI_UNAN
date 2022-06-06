@@ -1,6 +1,10 @@
 import { ComponentsManager, WAjaxTools, WRender, WArrayF } from "../WDevCore/WModules/WComponentsTools.js";
 import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
 import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.js";
+import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
+import { WReadInvestigacion } from "./ViewRead.js";
+import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
+import { WProfileInvestigador } from "./ViewProfile.js";
 
 class HomeClass extends HTMLElement {
     constructor(response) {
@@ -19,27 +23,40 @@ class HomeClass extends HTMLElement {
         this.DrawComponent();
     }
     DrawComponent = async () => {
-        
         this.append(WRender.createElement({
             type: 'w-articles',
             props: {
                 id: "Artcles",
-                ArticleHeader : ["Foto", "Nombres", "Apellidos",  "Fecha_ejecucion"],
-                ArticleBody  : ["Titulo","Photo", "Resumen"],
+                ArticleHeader: ["Foto", "Nombres", "Apellidos", "Fecha_ejecucion"],
+                ArticleBody: ["Titulo", "Photo", "Resumen"],
                 Dataset: this.response, Options: {
                     Search: true,
-                    //Show: true,
                     ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                     UserActions: [{
-                        name: "Leer...", Function: async (Article)=>{
-                            console.log(Article);
-                            window.location = location.origin + "/Views/ViewRead.html?param=" + Article.Id_Investigacion
+                        name: "Leer...", Function: async (Article) => {
+                            //const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
+                            const Id_Investigacion = Article.Id_Investigacion;
+                            const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
+                                { Id_Investigacion: Id_Investigacion }
+                            );
+                            const Card = new WCard({
+                                titulo: `${response.Nombres}`,
+                                picture: response.Foto,
+                                subtitulo: "Autor",
+                                descripcion: response.NombreInstitucion,
+                                id_Investigador: response.Id_Investigador
+                            }, 2, () => {
+                                ActionFunction(response.Id_Investigador, this);
+                            });
+                            const Reader = new WReadInvestigacion(response);                          
+                            const Modal = ModalComp(Reader, Card);
+                            this.append(Modal)
                         }
                     }]
                 }
             }
-        }))       
-    }
+        }))
+    }    
     Style = {
         type: "w-style",
         props: {
@@ -79,4 +96,45 @@ class HomeClass extends HTMLElement {
     };
 }
 customElements.define("app-home", HomeClass);
-export { HomeClass }
+const ActionFunction = async (Id_Investigador, Container) => {
+    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
+        { Id_Investigador: Id_Investigador }
+    );
+    const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
+    const cadenaB64 = "data:image/png;base64,";
+    response.RedesSociales.forEach(element => {
+        divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.Icon, class: 'RedsIcon' } },
+        { type: 'a', props: { innerText: element.Descripcion, href: element.Url_red_inv, target: "_blank" } }]));
+    });
+    divRedes.append(WRender.CreateStringNode("<hr style='margin-top: 30px'>"))
+    const dataResume = WRender.createElement({
+        type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
+            WRender.CreateStringNode("<h3>Logros</h3>"),
+            "Investigaciones: " + response.Investigaciones.length,
+            "Proyectos: " + response.Proyectos.length,
+            "Colaboraciones: " + response.Colaboraciones.length,
+            WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
+            divRedes
+        ]
+    });
+    const BodyComponents = new WProfileInvestigador(response);
+    const Modal = ModalComp(BodyComponents, dataResume);
+    Container.appendChild(WRender.createElement(Modal));
+}
+
+function ModalComp(BodyComponents, dataResume) {
+    return new WModalForm({
+        title: "Perfil",
+        StyleForm: "FullScreen",
+        ObjectModal: WRender.Create({
+            style: {
+                display: "grid",
+                gridTemplateColumns: "calc(98% - 270px) 250px",
+                justifyContent: "center",
+                margin: "5px"
+            }, children: [BodyComponents, dataResume]
+        })
+    });
+}
+
+export { HomeClass, ActionFunction, ModalComp }

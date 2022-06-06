@@ -1,18 +1,18 @@
-import { AsideV1 } from "../../../AppComponents/AsideV1.js";
-import { MasterDomDetaills } from "../../../MasterDomDetaills.js";
-import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass, WStyledRender } from '../../../WDevCore/WModules/WStyledRender.js';
-import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.js";
-import { StylesControlsV2 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
-import { WModalForm } from "../../../WDevCore/WComponents/WModalForm.js";
+import { AsideV1 } from "../../AppComponents/AsideV1.js";
+import { MasterDomDetaills } from "../../MasterDomDetaills.js";
+import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
+import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
+import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
 import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
 import { ProfileCard, ProfileTab, WProfileInvestigador } from "../ViewProfile.js";
-import { WSecurity } from "../../../WDevCore/WModules/WSecurity.js";
-import { WForm } from "../../../WDevCore/WComponents/WForm.js";
-import { InvestigadorProfile } from "../../../Model/InvestigadorProfile.js";
-import { Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { WSecurity } from "../../WDevCore/WModules/WSecurity.js";
+import { WForm } from "../../WDevCore/WComponents/WForm.js";
+import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
+import { ProyectoTableActividades, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
@@ -71,40 +71,7 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Editar", url: "#",
                     action: async (ev) => {
-                        const EditForm = WRender.Create({
-                            className: "FormContainer", style: {
-                                padding: "10px",
-                                borderRadius: ".3cm",
-                                boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
-                                margin: "10px"
-                            },
-                            children: [
-                                new WForm({
-                                    ObjectModel: new InvestigadorProfile(),
-                                    EditObject: this.response,
-                                    DisplayData: [
-                                        "Apellidos",
-                                        "Correo_institucional",
-                                        "Dependencias",
-                                        "Dni",
-                                        "Eventos",
-                                        "FechaNac",
-                                        "Foto",
-                                        "Grupos",
-                                        "Id_Institucion",
-                                        "Id_Pais_Origen",
-                                        "Idiomas",
-                                        "NombreInstitucion",
-                                        "Nombres",
-                                        "RedesSociales",
-                                        "Sexo"
-                                    ]
-                                })
-                            ]
-                        });
-                        this.TabManager.NavigateFunction("Tab-Editar", EditForm);
-
-                        console.log(this.TabManager.DomComponents);
+                        this.EditProfile();
                     }
                 }, {
                     name: "Datos Académicos", url: "#",
@@ -215,10 +182,11 @@ class PerfilClass extends HTMLElement {
         this.response.Proyectos.forEach(proy => {
             Tab.append(WRender.Create({
                 className: "DivProy", children: [
-                    { tagName: "h3", innerText: proy.nombre_Proyecto },
+                    { tagName: "h3", innerText: proy.Nombre_Proyecto },
                     new WTableComponent({
-                        Dataset: Dataset.filter(x => x.id_Proyecto == proy.id_Proyecto),
-                        DisplayData: ['titulo', 'estado'],
+                        Dataset: Dataset.filter(x => x.Id_Proyecto == proy.Id_Proyecto),
+                        ModelObject: new ProyectoTableActividades(),
+                        //DisplayData: ['Titulo', 'Estado'],
                         Options: {
                             Search: true, UrlSearch: 'api_route',
                             Add: true, UrlAdd: 'api_route',
@@ -260,6 +228,48 @@ class PerfilClass extends HTMLElement {
         }))
         this.TabManager.NavigateFunction(TabId, Tab);
     }
+    EditProfile = async ()=> {
+        const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
+        const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
+        const InvestigadorModel = new InvestigadorProfile({
+            Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),           
+            Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
+        });
+        const EditForm = WRender.Create({
+            className: "FormContainer", style: {
+                padding: "10px",
+                borderRadius: ".3cm",
+                boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
+                margin: "10px"
+            },
+            children: [
+                new WForm({
+                    ModelObject: InvestigadorModel,
+                    EditObject: this.response,
+                    ObjectOptions: { Url: "../../api/Profile/SaveProfile" },
+                    DisplayData: [
+                        "Apellidos",
+                        "Correo_institucional",
+                        "Dependencias",
+                        "DNI",
+                        "Eventos",
+                        "FechaNac",
+                        "Foto",
+                        "Grupos",
+                        "Id_Institucion",
+                        "Id_Pais_Origen",
+                        "Idiomas",
+                        "NombreInstitucion",
+                        "Nombres",
+                        "RedesSociales",
+                        "Sexo"
+                    ]
+                })
+            ]
+        });
+        this.TabManager.NavigateFunction("Tab-Editar", EditForm);
+    }
+
     connectedCallback() { }
     DrawComponent = async () => {
         this.append(this.TabActividades, this.TabContainer);

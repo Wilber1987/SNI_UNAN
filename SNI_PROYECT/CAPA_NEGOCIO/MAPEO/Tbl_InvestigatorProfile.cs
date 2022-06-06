@@ -126,7 +126,6 @@ namespace CAPA_NEGOCIO.MAPEO
             catch (Exception) { return false; }
 
         }
-
         private void SaveProfile()
         {
             this.Id_Investigador = (Int32)this.Save();

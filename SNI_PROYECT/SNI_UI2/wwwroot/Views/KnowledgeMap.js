@@ -103,7 +103,7 @@ class KnowledgeMap extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`w-view`, {
+                new WCssClass(`w-view-map`, {
                     display: 'block',
                     "background-color": "#fff",
                     padding: 20,
@@ -317,5 +317,5 @@ class KnowledgeMapTab {
         }
     };
 }
-customElements.define('w-view', KnowledgeMap);
+customElements.define('w-view-map', KnowledgeMap);
 window.onload = OnLoad;

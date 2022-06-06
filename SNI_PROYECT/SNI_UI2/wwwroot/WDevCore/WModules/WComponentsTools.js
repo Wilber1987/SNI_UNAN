@@ -621,11 +621,14 @@ class WArrayF {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     //verifica que un objeto este dentro de un array
-    static checkDisplay(DisplayData, prop, element = {}) {
+    static checkDisplay(DisplayData, prop, Model = {}) {
         let flag = true;
-        if (element[prop] != undefined
-            && element[prop].__proto__ == Object.prototype
-            && (element[prop].primary || element[prop].hidden)) {
+        if (Model[prop] == undefined  && Model[prop] == null) {
+            flag = false;
+        }
+        if (Model[prop] != undefined && Model[prop] != null
+            && Model[prop].__proto__ == Object.prototype
+            && (Model[prop].primary || Model[prop].hidden)) {
             flag = false;
         }
         if (DisplayData != undefined && DisplayData.__proto__ == Array.prototype) {
@@ -634,7 +637,6 @@ class WArrayF {
                 flag = false;
             }
         }
-        //console.log(prop, flag);
         return flag;
     }
 }

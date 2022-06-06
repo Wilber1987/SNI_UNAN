@@ -3,6 +3,9 @@ import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import "../../WDevCore/WComponents/WTableComponent.js";
 import { WArticlesComponent } from "../../WDevCore/WComponents/WArticlesComponent.js";
 import { AsideV1 } from "../../AppComponents/AsideV1.js";
+import { WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
+import { ViewProyectDetail } from './ViewProyectDetail.js';
+import { ActionFunction, ModalComp } from '../Home.js';
 
 const DOMManager = new ComponentsManager();
 class ViewProyects extends HTMLElement {
@@ -17,10 +20,10 @@ class ViewProyects extends HTMLElement {
                 name: element.Descripcion_Tipo_Proyecto, url: "#", icon: element.icon,
                 action: async (ev) => {
                     const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyects", {
-                        id_Tipo_Proyecto: element.id_Tipo_Proyecto
+                        Id_Tipo_Proyecto: element.Id_Tipo_Proyecto
                     });
                     DOMManager.NavigateFunction(
-                        "Tab-" + element.descripcion_Tipo_Proyecto,
+                        "Tab-" + element.Descripcion_Tipo_Proyecto,
                         new ViewProyectsTab(element, response), "TabContainer"
                     );
                 }
@@ -56,7 +59,7 @@ class ViewProyects extends HTMLElement {
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
-                new WCssClass(`w-view`, {
+                new WCssClass(`w-view-proyect`, {
                     display: 'block',
                     "background-color": "#fff",
                     padding: 20,
@@ -95,30 +98,37 @@ class ViewProyects extends HTMLElement {
         }
     };
 }
-class ViewProyectsTab {
+class ViewProyectsTab extends HTMLElement {
     constructor(TipeProyect = {}, Dataset = []) {
-        this.type = "div"
-        this.props = {
-            className: "Tab",
-        }
-        this.children = [
-            {
-                type: 'w-articles',
-                props: {
-                    //ArticleHeader : ["nombre_Proyecto"],
-                    ArticleBody  : ["Nombre_Proyecto", "DescripcionProyecto"],
-                    Dataset: Dataset, Options: {
-                        Search: true,
-                        ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
-                        UserActions: [{
-                            name: "Detalles", Function: async (Article)=>{
-                                window.location = location.origin + "/Views/MProyects/ViewProyect.html?param=" + Article.id_Proyecto
-                            }
-                        }]
+        super();
+        this.className = "Tab";
+        this.append(WRender.createElement(this.style));
+        this.append(WRender.Create({
+            tagName: 'w-articles',
+            //ArticleHeader : ["nombre_Proyecto"],
+            ArticleBody: ["Nombre_Proyecto", "DescripcionProyecto"],
+            Dataset: Dataset, 
+            Options: {
+                Search: true,
+                ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
+                UserActions: [{
+                    name: "Detalles", Function: async (Article) => {
+                        this.LoadProyect(Article.Id_Proyecto);
                     }
-                }
-            }           
-        ]
+                }]
+            }
+        }))
+    }
+    connectedCallback() { this.DraViewProyectsTab(); }
+    DraViewProyectsTab = async () => { }
+    LoadProyect = async (Id_Proyecto) => {
+        const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
+            { Id_Proyecto: Id_Proyecto }
+        );
+        const ProyectMap = WRender.Create({});       
+        
+        const BodyComponents = new ViewProyectDetail(response);
+        this.appendChild(WRender.createElement(ModalComp(BodyComponents, ProyectMap)));
     }
     Style = {
         type: "w-style",
@@ -141,5 +151,7 @@ class ViewProyectsTab {
         }
     };
 }
-customElements.define('w-view', ViewProyects);
-export {ViewProyects}
+customElements.define('w-tab-proy', ViewProyectsTab);
+export { ViewProyectsTab }
+customElements.define('w-view-proyect', ViewProyects);
+export { ViewProyects }

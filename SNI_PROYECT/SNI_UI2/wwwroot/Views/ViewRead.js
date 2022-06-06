@@ -2,29 +2,8 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WMo
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import { AsideV1 } from "../AppComponents/AsideV1.js";
 
-const OnLoad = async () => {
-    const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
-    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
-        { Id_Investigacion: Id_Investigacion }
-    );
-    const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
-    const modules = await import("../MasterDomDetaills.js");
-    const ActionFunction = (Object) => {
-        window.location = location.origin + "/Views/ViewProfile.html?param=" + Object.id_Investigador;
-    }
-    const Card = new WCard({
-        titulo: `${response.Nombres}`,
-        picture: response.Foto,
-        subtitulo: "Autor",
-        descripcion: response.NombreInstitucion,
-        id_Investigador: response.Id_Investigador
-    }, 2, ActionFunction);
-    const Disciplinas = await WAjaxTools.PostRequest("../api/Investigaciones/TakeDisciplinas");
-    const BodyComponents = new modules.MasterDomDetaills(new WReadInvestigacion(response), [Card, new AsideV1(Disciplinas)]);
-    App.appendChild(WRender.createElement(BodyComponents));
-}
+
 class WReadInvestigacion extends HTMLElement {
     constructor(response) {
         super();
@@ -157,7 +136,7 @@ class WReadInvestigacion extends HTMLElement {
     }
     styleComponent = {
         type: 'w-style', props: {
-            ClassList: [new WCssClass(`w-view`, {
+            ClassList: [new WCssClass(`w-view-read`, {
                 "background-color": '#fff',
                 display: "block",
                 "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
@@ -255,5 +234,5 @@ class WReadInvestigacion extends HTMLElement {
         }
     };
 }
-customElements.define('w-view', WReadInvestigacion);
-window.onload = OnLoad;
+customElements.define('w-view-read', WReadInvestigacion);
+export {WReadInvestigacion}

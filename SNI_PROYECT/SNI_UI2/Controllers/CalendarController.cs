@@ -62,8 +62,8 @@ namespace SNI_UI2.Controllers
         public Object AgendaUsuarioDependencia(ProyectoCatDependencias Act)
         {
             ProyectoTableAgenda ag = new ProyectoTableAgenda();
-            ag.IdDependencia = Act.IdDependencia;
-            ag.IdUsuario = AuthNetCore.User().UserId;
+            ag.Id_Dependencia = Act.Id_Dependencia;
+            ag.Id_Investigador = AuthNetCore.User().UserId;
             return ag.Get();
         }
         public Object SaveAgendaUsuarioDependencia(ProyectoTableAgenda Act)
@@ -86,7 +86,7 @@ namespace SNI_UI2.Controllers
         public void TakeAgenda()
         {
             ProyectoTableAgenda ag = new ProyectoTableAgenda();
-            ag.IdDependencia = this.IdDependencia;
+            ag.Id_Dependencia = this.IdDependencia;
             this.Agenda = ag.Get();
         }
         public void TakeActividades()

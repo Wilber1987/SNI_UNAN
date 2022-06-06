@@ -11,8 +11,8 @@ namespace CAPA_NEGOCIO
     public class ProyectoTableDependencias_Usuarios : EntityClass
     {
         public int? Id_Investigador { get; set; }
-        public int? IdDependencia { get; set; }
-        public int? IdCargo { get; set; }
+        public int? Id_Dependencia { get; set; }
+        public int? Id_Cargo { get; set; }
         public Tbl_InvestigatorProfile Usuario { get; set; }
         public ProyectoCatDependencias Dependencia { get; set; }
         public ProyectoCatCargosDepenedencias CargoDependencia { get; set; }

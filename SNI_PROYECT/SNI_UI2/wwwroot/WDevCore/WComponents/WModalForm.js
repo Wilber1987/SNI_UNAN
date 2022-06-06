@@ -114,7 +114,7 @@ class WModalForm extends HTMLElement {
                     //this.Modal.children.push(this.SaveOptions());
                 }
             }
-        } else if (this.ObjectDetail || this.ObjectModel) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
+        } else if (this.ObjectDetail || this.ModelObject) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
             const { WForm } = await import("./WForm.js");
             this.Config.SaveFunction = (ObjectF)=>{
                 this.ObjectOptions.SaveFunction(ObjectF);

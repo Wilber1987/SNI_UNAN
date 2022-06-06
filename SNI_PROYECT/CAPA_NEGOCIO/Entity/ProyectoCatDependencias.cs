@@ -9,10 +9,10 @@ namespace CAPA_NEGOCIO
 {
     public class ProyectoCatDependencias : EntityClass
     {
-        public int? IdDependencia { get; set; }
+        public int? Id_Dependencia { get; set; }
         public string Descripcion { get;  set; }
-        public int? IdDependenciaP { get; set; }
-        public int? IdInstitucion { get; set; }
+        public int? Id_Dependencia_Padre { get; set; }
+        public int? Id_Institucion { get; set; }
 
     }
 }

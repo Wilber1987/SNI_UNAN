@@ -138,14 +138,14 @@ namespace CAPA_DATOS
                         }
                         else if (AtributeValue.GetType() == typeof(DateTime)) 
                         {
-                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/dd/MM") + "',";                           
+                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";                           
                         }
-                        else
+                        else if (IsNumeric(AtributeValue))
                         {
-                            Values = Values + AtributeName + "=" + AtributeValue.ToString() + ",";
+                            Values = Values + AtributeName + "= " + AtributeValue.ToString() + ",";                            
                         }
                     } else if (AtributeName == IdObject)
-                    {
+                    {  
                         prop = oProperty;
                     }
                    

@@ -1,22 +1,22 @@
 class TareaModel {
     constructor(Config){
-        this.idTareaPadre = Config.Tareas.map(x => {
-            return { id: x.idTarea, desc: x.titulo };
+        this.IdTareaPadre = Config.Tareas.map(x => {
+            return { id: x.IdTarea, desc: x.Titulo };
         });
-        this.participantes.Dataset = Config.Participantes.map(x => {
-            x.id_ = x.idUsuario;
-            x.IdUsuario = x.idUsuario;
-            x.Descripcion = `${x.nombres} ${x.apellidos} - ${x.mail}`;
+        this.Participantes.Dataset = Config.Participantes.map(x => {
+            x.id_ = x.IdUsuario;
+            x.IdUsuario = x.IdUsuario;
+            x.Descripcion = `${x.Nombres} ${x.Apellidos} - ${x.Mail}`;
             return x;
         })
     }
-    titulo = "";
-    descripcion = "";
-    estado = ["Activa", "Finalizada"];
-    idTareaPadre = [];
-    participantes = {
+    Titulo = "";
+    Descripcion = "";
+    Estado = ["Activa", "Finalizada"];
+    IdTareaPadre = [];
+    Participantes = {
         type: "MULTISELECT", Dataset: []
     };
-    evidencias = { type: "IMAGES" };
+    Evidencias = { type: "IMAGES" };
 }
 export { TareaModel }
