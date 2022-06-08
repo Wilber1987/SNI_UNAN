@@ -1,6 +1,7 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WComponentsTools.js";
 import { WCssClass, WStyledRender } from "../WModules/WStyledRender.js";
 import { StyleScrolls, StylesControlsV1 } from "../StyleModules/WStyleComponents.JS";
+import { WModalForm } from "./WModalForm.js";
 class ConfigMS {
     Dataset = ["Option1", "Option2", "Option3"];
 }
@@ -22,13 +23,7 @@ class MultiSelect extends HTMLElement {
             fontSize: "12px"
         });
         this.LabelMultiselect = WRender.Create({
-            className: "LabelMultiselect", innerText: "MultiSelect", onclick: () => {
-                // if (this.OptionsContainer.className.includes("MenuActive")) {
-                //     this.OptionsContainer.className = "OptionsContainer MenuInactive";
-                // } else {
-                //     this.OptionsContainer.className = "OptionsContainer MenuActive";
-                // }
-            }
+            className: "LabelMultiselect", innerText: "MultiSelect"
         });
         this.OptionsContainer = WRender.Create({ className: "OptionsContainer MenuInactive" });
         const SearchControl = WRender.Create({
@@ -54,39 +49,43 @@ class MultiSelect extends HTMLElement {
         });
         this.shadowRoot.append(
             this.LabelMultiselect,
-            SearchControl,
-            this.OptionsContainer,
-            new WStyledRender(MainMenu),
-            WRender.createElement(StyleScrolls)
+            WRender.createElement(StyleScrolls),
+            new WStyledRender(MainMenu)
         );
+        this.Modal = new WModalForm({
+            title: "Seleccionar",
+            ShadowRoot: false,
+            ObjectModal: [
+                SearchControl,
+                this.OptionsContainer
+            ]
+        });       
         if (Style != null && Style.__proto__ == WStyledRender.prototype) {
             this.shadowRoot.append(Style);
         }
     }
     connectedCallback() {
         this.LabelMultiselect.innerHTML = "";
-
         this.Draw();
         this.DrawLabel();
     }
     Draw = (Dataset = this.Dataset) => {
         this.OptionsContainer.innerHTML = "";
         this.MultiSelect = this.Config.MultiSelect ?? true;
-        Dataset.forEach(element => {
+        Dataset.forEach((element, index) => {
             //console.log(element);
             const OType = this.MultiSelect == true ? "checkbox" : "radio";
             const OptionLabel = WRender.Create({
-                tagName: "label", htmlFor: "OType" + element.id_,
-                innerText: element.Descripcion, className: "OptionLabel"
+                tagName: "label", htmlFor: "OType" + (element.id_ ?? "ElementIndex_" + index),
+                innerText: element.Descripcion ?? "Element" + index, className: "OptionLabel"
             });
             const Option = WRender.Create({
                 tagName: "input",
-                id: "OType" + element.id_,
+                id: "OType" + (element.id_ ?? "ElementIndex_" + index),
                 type: OType,
                 name: element.name,
                 checked: WArrayF.FindInArray(element, this.selectedItems),
                 className: "Option", onchange: (ev) => {
-                    //console.log(ev);
                     this.selectedItems = OType == "checkbox" ? this.selectedItems : [];
                     const control = ev.target;
                     const index = this.selectedItems.indexOf(element);
@@ -126,7 +125,7 @@ class MultiSelect extends HTMLElement {
                 className: "OContainer",
                 children: [OptionLabel, Option, SubContainer]
             }));
-        });
+        });       
     }
     DrawLabel = () => {
         this.LabelMultiselect.innerHTML = "Selecteds: "
@@ -152,6 +151,12 @@ class MultiSelect extends HTMLElement {
                 }));
             }
         });
+        this.LabelMultiselect.append(WRender.Create({
+            tagName: "spam", className: "btnSelect", innerText: "+",
+            onclick: () => {
+                this.shadowRoot.append(this.Modal);
+            }
+        }))
     }
 }
 customElements.define("w-multi-select", MultiSelect);
@@ -168,10 +173,10 @@ const MainMenu = {
             "border-bottom": "#c3c3c3 solid 1px",
             cursor: "pointer",
             height: "100%",
-        }),new WCssClass(`.LabelMultiselect:hover ~ .OptionsContainer,
+        }), new WCssClass(`.LabelMultiselect:hover ~ .OptionsContainer,
          .OptionsContainer:hover, .txtControl:focus ~ .OptionsContainer`, {
             "max-height": 500
-        }),  new WCssClass(`.LabelMultiselect label`, {
+        }), new WCssClass(`.LabelMultiselect label`, {
             padding: "5px 10px",
             "border-radius": "0.3cm",
             "background-color": "#009f97",
@@ -187,12 +192,12 @@ const MainMenu = {
             "border-left": "solid 2px #062e2c",
             "background": "none",
         }), new WCssClass(`.OptionsContainer`, {
-            "max-height": 0,
+            "max-height": 500,
             "overflow-y": "auto",
             transition: "all .6s",
-            "z-index": "100",
+           // "z-index": "100",
             width: "100%",
-            position: "absolute",
+            position: "relative",
             "box-shadow": "0 0 4px 0 rgb(0,0,0,50%)",
         }), new WCssClass(`.MenuActive`, {
             "max-height": 500,

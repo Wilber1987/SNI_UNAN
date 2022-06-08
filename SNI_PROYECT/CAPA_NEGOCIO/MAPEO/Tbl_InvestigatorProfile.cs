@@ -31,7 +31,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> Proyectos { get; set; }
         public List<CatRedesSociales> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
-        public List<Tbl_IdiomasInv> Idiomas_Investigador { get; set; }
+        public List<Tbl_IdiomasInv> Id_Idiomas { get; set; }
         public List<ProyectoTableDependencias_Usuarios> Dependencias { get; set; }
         public List<Tbl_Formacion_Academica> FormacionAcademica { get; set; }
         public List<Tbl_Patentes> Patentes { get; set; }
@@ -129,9 +129,9 @@ namespace CAPA_NEGOCIO.MAPEO
         private void SaveProfile()
         {
             this.Id_Investigador = (Int32)this.Save();
-            if (this.Idiomas_Investigador != null)
+            if (this.Id_Idiomas != null)
             {
-                foreach (Tbl_IdiomasInv obj in this.Idiomas_Investigador)
+                foreach (Tbl_IdiomasInv obj in this.Id_Idiomas)
                 {
                     obj.Id_Investigador = this.Id_Investigador;
                     obj.Save();
@@ -169,10 +169,10 @@ namespace CAPA_NEGOCIO.MAPEO
                     obj.Save();
                 }
             }
-            if (this.Idiomas_Investigador != null)
+            if (this.Id_Idiomas != null)
             {
             }
-            if (this.Idiomas_Investigador != null)
+            if (this.Id_Idiomas != null)
             {
             }
         }

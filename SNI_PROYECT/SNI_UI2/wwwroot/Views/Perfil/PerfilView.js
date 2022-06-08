@@ -21,7 +21,6 @@ const OnLoad = async () => {
 
 }
 window.onload = OnLoad;
-
 class PerfilClass extends HTMLElement {
     constructor() {
         super();
@@ -69,10 +68,7 @@ class PerfilClass extends HTMLElement {
                         this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
                     }
                 }, {
-                    name: "Editar", url: "#",
-                    action: async (ev) => {
-                        this.EditProfile();
-                    }
+                    name: "Editar", url: "#", action: async (ev) => { this.EditProfile(); }
                 }, {
                     name: "Datos Académicos", url: "#",
                     action: async (ev) => {
@@ -121,10 +117,7 @@ class PerfilClass extends HTMLElement {
                         this.NavSaveCatalogo("Tab-RedesS", { add: "SaveRedSocialP" }, this.response.RedesSociales, Model);
                     }
                 }, {
-                    name: "Proyectos", url: "#",
-                    action: async (ev) => {
-                        this.NavActividad("Tab-TareasProyectos");
-                    }
+                    name: "Proyectos", url: "#", action: async (ev) => { this.NavActividad("Tab-TareasProyectos"); }
                 }, {
                     name: "Eventos", url: "#",
                     action: async (ev) => {
@@ -228,12 +221,14 @@ class PerfilClass extends HTMLElement {
         }))
         this.TabManager.NavigateFunction(TabId, Tab);
     }
-    EditProfile = async ()=> {
+    EditProfile = async () => {
         const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
+        const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");
         const InvestigadorModel = new InvestigadorProfile({
-            Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),           
+            Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
             Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
+            Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
         });
         const EditForm = WRender.Create({
             className: "FormContainer", style: {
@@ -241,8 +236,7 @@ class PerfilClass extends HTMLElement {
                 borderRadius: ".3cm",
                 boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
                 margin: "10px"
-            },
-            children: [
+            }, children: [
                 new WForm({
                     ModelObject: InvestigadorModel,
                     EditObject: this.response,
@@ -289,7 +283,6 @@ class PerfilClass extends HTMLElement {
                 width: 100,
                 margin: 10
             }), new WCssClass(`.TabContainer`, {
-                //"min-height": 500,
                 overflow: "hidden",
                 "overflow-y": "auto"
             }), new WCssClass(`.FormContainer`, {

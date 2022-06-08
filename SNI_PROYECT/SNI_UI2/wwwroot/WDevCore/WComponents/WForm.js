@@ -75,7 +75,6 @@ class WForm extends HTMLElement {
             }
             this.FormObject = this.EditObject ?? {};
             const Model = this.ModelObject ?? this.EditObject;
-            console.log(Model);
             const ObjHandler = {
                 get: function (target, property) {
                     return target[property];
@@ -235,7 +234,26 @@ class WForm extends HTMLElement {
                             break;
                         case "MULTISELECT":
                             const { MultiSelect } = await import("./WMultiSelect.js");
-                            InputControl = new MultiSelect({ Dataset: Model[prop].Dataset });
+                            InputControl = new MultiSelect({
+                                Dataset: Model[prop].Dataset.map(item => {
+                                    const MapObject = {};
+                                    for (const key in item) {
+                                        const element = item[key];
+                                        if (element != null && element != undefined) {
+                                            MapObject[key] = element;
+                                        }
+                                    }
+                                    return MapObject;
+                                })
+                            });
+                            if (val != null && val != undefined && val.__proto__ == Array.prototype) {
+                                val.forEach((item) => {
+                                    const FindItem = InputControl.Dataset.find(i => WArrayF.compareObj(i, item));
+                                    if (FindItem) {
+                                        InputControl.selectedItems.push(FindItem);
+                                    }
+                                });
+                            }
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
                         case "TABLE":

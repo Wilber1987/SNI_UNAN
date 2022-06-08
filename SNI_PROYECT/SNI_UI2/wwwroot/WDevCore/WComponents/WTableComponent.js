@@ -345,35 +345,7 @@ class WTableComponent extends HTMLElement {
                     }
                     const Model = this.ModelObject;
                     let IsImage = this.IsImage(prop);
-                    if (Model != undefined && Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {
-                        switch (Model[prop].type.toUpperCase()) {
-                            case "IMAGE": case "IMAGES":
-                                IsImage = true;
-                                break;
-                            case "SELECT":
-                                const element = Model[prop].Dataset.find(e => {
-                                    let flag = false;
-                                    if (e == value) {
-                                        flag = true;
-                                    } else if (e.__proto__ == Object.prototype && e.id == value) {
-                                        flag = true;
-                                    }
-                                    return flag;
-                                });
-
-                                value = element && element.__proto__ == Object.prototype ? element.desc : element;
-                                break;
-                            case "MULTISELECT":
-                                break;
-                            case "TABLE":
-                                break;
-                            default:
-                                break;
-                        }
-                    } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
-                        InputControl = this.CreateSelect(InputControl, Model[prop], prop, ObjectF);
-                        ObjectF[prop] = InputControl.value
-                    }
+                    ({ IsImage, value } = this.EvalModelPrototype(Model, prop, IsImage, value));
                     //DEFINICION DE VALORES-------------
                     if (IsImage) {
                         let cadenaB64 = "";
@@ -414,90 +386,10 @@ class WTableComponent extends HTMLElement {
         if (this.Options != undefined) {
             if (this.TrueOptions()) {
                 const Options = { type: "td", props: { class: "tdAction" }, children: [] };
-                if (this.Options.Select != undefined && this.Options.Select == true) {
-                    let Checked = WArrayF.FindInArray(element, this.selectedItems);
-                    Options.children.push({
-                        type: "input",
-                        props: {
-                            class: "Btn",
-                            type: "checkbox",
-                            innerText: "Select",
-                            checked: Checked,
-                            onclick: async (ev) => {
-                                const control = ev.target;
-                                const index = this.selectedItems.indexOf(element);
-                                if (index == -1 && control.checked == true) {
-                                    if (WArrayF.FindInArray(element, this.selectedItems) == false) {
-                                        this.selectedItems.push(element)
-                                    } else {
-                                        console.log("Item Existente")
-                                    }
-                                } else {
-                                    this.selectedItems.splice(index, 1)
-                                }
-                            }
-                        }
-                    })
-                }
-                if (this.Options.Show != undefined && this.Options.Show == true) {
-                    Options.children.push({
-                        type: "button",
-                        children: [{ type: 'img', props: { class: "icon", src: WIcons["show2"] } }],
-                        props: {
-                            class: "BtnTable",
-                            type: "button",
-                            onclick: async () => {
-                                this.shadowRoot.append(
-                                    new WModalForm({
-                                        icon: this.TableConfig.icon,
-                                        ImageUrlPath: this.TableConfig.ImageUrlPath,
-                                        title: "Detalle",
-                                        ObjectDetail: element,
-                                    }));
-                            }
-                        }
-                    })
-                }
-                if (this.Options.Edit != undefined && this.Options.Edit == true) {
-                    Options.children.push({
-                        type: "button",
-                        children: [{ type: 'img', props: { class: "icon", src: WIcons["edit"] } }],
-                        props: {
-                            class: "BtnTableS",
-                            type: "button",
-                            onclick: async () => { this.ModalCRUD(element, tr); }
-                        }
-                    })
-                }
-                if (this.Options.Delete != undefined && this.Options.Delete == true) {
-                    Options.children.push({
-                        type: "button",
-                        children: [{ type: 'img', props: { class: "icon", src: WIcons["delete"] } }],
-                        props: {
-                            class: "BtnTableA",
-                            type: "button",
-                            onclick: async () => {
-                                this.shadowRoot.append(
-                                    new WModalForm({
-                                        icon: this.TableConfig.icon,
-                                        title: "Eliminar",
-                                        id: "Alert" + this.id,
-                                        ObjectModal: { type: "h5", children: ["¿Esta seguro de eliminar este elemento?"] },
-                                        ObjectOptions: {
-                                            Url: this.Options.UrlDelete,
-                                            SaveFunction: () => {
-                                                const index = Dataset.indexOf(element);
-                                                if (WArrayF.FindInArray(element, Dataset) == true) {
-                                                    Dataset.splice(index, 1);
-                                                    tr.parentNode.removeChild(tr);
-                                                } else { console.log("No Object") }
-                                            }
-                                        }
-                                    }));
-                            }
-                        }
-                    })
-                }
+                this.SelectBTN(element, Options);
+                this.ShowBTN(Options, element);
+                this.EditBTN(Options, element, tr);
+                this.DeleteBTN(Options, element, tr);
                 if (this.Options.UserActions != undefined) {
                     this.Options.UserActions.forEach(Action => {
                         Options.children.push({
@@ -565,6 +457,135 @@ class WTableComponent extends HTMLElement {
         this.shadowRoot.append(WRender.createElement(this.MediaStyleResponsive()));
         return tbody;
     }
+    EvalModelPrototype(Model, prop, IsImage, value) {
+        if (Model != undefined && Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {
+            switch (Model[prop].type.toUpperCase()) {
+                case "IMAGE": case "IMAGES":
+                    IsImage = true;
+                    break;
+                case "SELECT":
+                    const element = Model[prop].Dataset.find(e => {
+                        let flag = false;
+                        if (e == value) {
+                            flag = true;
+                        } else if (e.__proto__ == Object.prototype && e.id == value) {
+                            flag = true;
+                        }
+                        return flag;
+                    });
+
+                    value = element && element.__proto__ == Object.prototype ? element.desc : element;
+                    break;
+                case "MULTISELECT":
+                    break;
+                case "TABLE":
+                    break;
+                default:
+                    break;
+            }
+        } else if (Model[prop] != null && Model[prop].__proto__ == Array.prototype) {
+            InputControl = this.CreateSelect(InputControl, Model[prop], prop, ObjectF);
+            ObjectF[prop] = InputControl.value;
+        }
+        return { IsImage, value };
+    }
+
+    DeleteBTN(Options, element, tr) {
+        if (this.Options.Delete != undefined && this.Options.Delete == true) {
+            Options.children.push({
+                type: "button",
+                children: [{ type: 'img', props: { class: "icon", src: WIcons["delete"] } }],
+                props: {
+                    class: "BtnTableA",
+                    type: "button",
+                    onclick: async () => {
+                        this.shadowRoot.append(
+                            new WModalForm({
+                                icon: this.TableConfig.icon,
+                                title: "Eliminar",
+                                id: "Alert" + this.id,
+                                ObjectModal: { type: "h5", children: ["¿Esta seguro de eliminar este elemento?"] },
+                                ObjectOptions: {
+                                    Url: this.Options.UrlDelete,
+                                    SaveFunction: () => {
+                                        const index = Dataset.indexOf(element);
+                                        if (WArrayF.FindInArray(element, Dataset) == true) {
+                                            Dataset.splice(index, 1);
+                                            tr.parentNode.removeChild(tr);
+                                        } else { console.log("No Object"); }
+                                    }
+                                }
+                            }));
+                    }
+                }
+            });
+        }
+    }
+
+    EditBTN(Options, element, tr) {
+        if (this.Options.Edit != undefined && this.Options.Edit == true) {
+            Options.children.push({
+                type: "button",
+                children: [{ type: 'img', props: { class: "icon", src: WIcons["edit"] } }],
+                props: {
+                    class: "BtnTableS",
+                    type: "button",
+                    onclick: async () => { this.ModalCRUD(element, tr); }
+                }
+            });
+        }
+    }
+
+    ShowBTN(Options, element) {
+        if (this.Options.Show != undefined && this.Options.Show == true) {
+            Options.children.push({
+                type: "button",
+                children: [{ type: 'img', props: { class: "icon", src: WIcons["show2"] } }],
+                props: {
+                    class: "BtnTable",
+                    type: "button",
+                    onclick: async () => {
+                        this.shadowRoot.append(
+                            new WModalForm({
+                                icon: this.TableConfig.icon,
+                                ImageUrlPath: this.TableConfig.ImageUrlPath,
+                                title: "Detalle",
+                                ObjectDetail: element,
+                            }));
+                    }
+                }
+            });
+        }
+    }
+
+    SelectBTN(element, Options) {
+        if (this.Options.Select != undefined && this.Options.Select == true) {
+            let Checked = WArrayF.FindInArray(element, this.selectedItems);
+            Options.children.push({
+                type: "input",
+                props: {
+                    class: "Btn",
+                    type: "checkbox",
+                    innerText: "Select",
+                    checked: Checked,
+                    onclick: async (ev) => {
+                        const control = ev.target;
+                        const index = this.selectedItems.indexOf(element);
+                        if (index == -1 && control.checked == true) {
+                            if (WArrayF.FindInArray(element, this.selectedItems) == false) {
+                                this.selectedItems.push(element);
+                            } else {
+                                console.log("Item Existente");
+                            }
+                        } else {
+                            this.selectedItems.splice(index, 1);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     ModalCRUD(element, tr) {
         this.shadowRoot.append(
             new WModalForm({
