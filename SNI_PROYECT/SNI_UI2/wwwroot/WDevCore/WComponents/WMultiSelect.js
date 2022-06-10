@@ -2,6 +2,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WCo
 import { WCssClass, WStyledRender } from "../WModules/WStyledRender.js";
 import { StyleScrolls, StylesControlsV1 } from "../StyleModules/WStyleComponents.JS";
 import { WModalForm } from "./WModalForm.js";
+import { WIcons } from "../WModules/WIcons.js";
 class ConfigMS {
     Dataset = ["Option1", "Option2", "Option3"];
 }
@@ -26,7 +27,7 @@ class MultiSelect extends HTMLElement {
             className: "LabelMultiselect", innerText: "MultiSelect"
         });
         this.OptionsContainer = WRender.Create({ className: "OptionsContainer MenuInactive" });
-        const SearchControl = WRender.Create({
+        this.SearchControl = WRender.Create({
             tagName: "input",
             class: "txtControl",
             placeholder: "Buscar...",
@@ -51,15 +52,7 @@ class MultiSelect extends HTMLElement {
             this.LabelMultiselect,
             WRender.createElement(StyleScrolls),
             new WStyledRender(MainMenu)
-        );
-        this.Modal = new WModalForm({
-            title: "Seleccionar",
-            ShadowRoot: false,
-            ObjectModal: [
-                SearchControl,
-                this.OptionsContainer
-            ]
-        });       
+        );        
         if (Style != null && Style.__proto__ == WStyledRender.prototype) {
             this.shadowRoot.append(Style);
         }
@@ -125,7 +118,18 @@ class MultiSelect extends HTMLElement {
                 className: "OContainer",
                 children: [OptionLabel, Option, SubContainer]
             }));
-        });       
+        });
+    }
+    SelectModal = ()=>{
+        this.Modal = new WModalForm({
+            title: "Seleccionar",
+            ShadowRoot: false,
+            ObjectModal: [
+                this.SearchControl,
+                this.OptionsContainer
+            ]
+        });
+        return this.Modal
     }
     DrawLabel = () => {
         this.LabelMultiselect.innerHTML = "Selecteds: "
@@ -146,15 +150,15 @@ class MultiSelect extends HTMLElement {
                             this.SubOptionsFieldName = "";
                         }
                         this.DrawLabel();
-                        this.shadowRoot.querySelector("#OType" + element.id_).checked = false;
+                        this.Draw();
                     }
                 }));
             }
         });
         this.LabelMultiselect.append(WRender.Create({
-            tagName: "spam", className: "btnSelect", innerText: "+",
+            tagName: "spam", className: "btnSelect",
             onclick: () => {
-                this.shadowRoot.append(this.Modal);
+                this.shadowRoot.append(this.SelectModal());
             }
         }))
     }
@@ -195,7 +199,7 @@ const MainMenu = {
             "max-height": 500,
             "overflow-y": "auto",
             transition: "all .6s",
-           // "z-index": "100",
+            // "z-index": "100",
             width: "100%",
             position: "relative",
             "box-shadow": "0 0 4px 0 rgb(0,0,0,50%)",
@@ -237,7 +241,18 @@ const MainMenu = {
             border: "none",
             outline: "none",
             "box-shadow": "0 0 5px #4894aa",
-        }),
+        }), new WCssClass(`.btnSelect`, {
+            height: 20, width: 20,
+            "border-radius": "50%",
+            position: "absolute",
+            right: 0,
+            "margin-right": 5,
+            "background-image": `url("${WIcons.RowDown}")`,
+            "background-repeat": "no-repeat",
+            "background-size": "70%",
+            "background-position-x": "center",
+            "background-position-y": "center"
+        })
     ]
 }
 const SubMenu = {

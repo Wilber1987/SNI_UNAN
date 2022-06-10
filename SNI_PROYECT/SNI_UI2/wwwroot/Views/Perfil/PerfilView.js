@@ -18,7 +18,6 @@ const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
     const BodyComponents = new MasterDomDetaills(new PerfilClass(response[0]));
     App.appendChild(WRender.createElement(BodyComponents));
-
 }
 window.onload = OnLoad;
 class PerfilClass extends HTMLElement {
@@ -191,7 +190,6 @@ class PerfilClass extends HTMLElement {
                                         title: TableElement.titulo,
                                         StyleForm: "FullScreen"
                                     }))
-
                                 }
                             }]
                         }
@@ -222,13 +220,14 @@ class PerfilClass extends HTMLElement {
         this.TabManager.NavigateFunction(TabId, Tab);
     }
     EditProfile = async () => {
+        this.response.Id_Idiomas = this.response.Idiomas;
         const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
         const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");
         const InvestigadorModel = new InvestigadorProfile({
             Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
             Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
-            Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
+            Id_Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
         });
         const EditForm = WRender.Create({
             className: "FormContainer", style: {
@@ -252,7 +251,7 @@ class PerfilClass extends HTMLElement {
                         "Grupos",
                         "Id_Institucion",
                         "Id_Pais_Origen",
-                        "Idiomas",
+                        "Id_Idiomas",
                         "NombreInstitucion",
                         "Nombres",
                         "RedesSociales",

@@ -126,11 +126,21 @@ namespace CAPA_NEGOCIO.MAPEO
             catch (Exception) { return false; }
 
         }
-        private void SaveProfile()
+        public Object SaveProfile()
         {
-            this.Id_Investigador = (Int32)this.Save();
+            if (this.Id_Investigador == null)
+            {
+                this.Id_Investigador = (Int32)this.Save();
+            }
+            else
+            {
+                this.Update("Id_Investigador");
+            }            
             if (this.Id_Idiomas != null)
             {
+                Tbl_IdiomasInv IdI = new Tbl_IdiomasInv();
+                IdI.Id_Investigador = this.Id_Investigador;
+                IdI.Delete();
                 foreach (Tbl_IdiomasInv obj in this.Id_Idiomas)
                 {
                     obj.Id_Investigador = this.Id_Investigador;
@@ -152,15 +162,7 @@ namespace CAPA_NEGOCIO.MAPEO
                     obj.Id_Investigador = this.Id_Investigador;
                     obj.Save();
                 }
-            }
-            if (this.RedesSociales != null)
-            {
-                foreach (CatRedesSociales obj in this.RedesSociales)
-                {
-                    obj.Id_Investigador = this.Id_Investigador;
-                    obj.Save();
-                }
-            }
+            }           
             if (this.Investigaciones != null)
             {
                 foreach (Tbl_Investigaciones obj in this.Investigaciones)
@@ -175,6 +177,7 @@ namespace CAPA_NEGOCIO.MAPEO
             if (this.Id_Idiomas != null)
             {
             }
+            return this;
         }
     }
 }

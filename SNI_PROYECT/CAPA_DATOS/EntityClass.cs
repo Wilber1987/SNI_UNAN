@@ -72,5 +72,10 @@ namespace CAPA_DATOS
             SqlADOConexion.SQLM.UpdateObject(this, Id);
             return true;
         }
+        public bool Delete()
+        {
+            SqlADOConexion.SQLM.Delete(this);
+            return true;
+        }
     }
 }

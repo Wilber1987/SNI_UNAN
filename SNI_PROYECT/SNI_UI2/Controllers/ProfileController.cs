@@ -15,15 +15,8 @@ namespace SNI_UI2.Controllers
         //Save
         public object SaveProfile(Tbl_InvestigatorProfile Inst)
         {
-            if (Inst.Id_Investigador == null)
-            {
-                Inst.Id_Investigador = AuthNetCore.User().UserId;
-                return Inst.Save();
-            }else
-            {
-                return Inst.Update("Id_Investigador");
-            }
-            
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.SaveProfile();
         }
         public object SaveFormacionAcademica(Tbl_Formacion_Academica Inst)
         {
@@ -85,7 +78,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("Id_Evento");
             }
         }
-      
-        
+
+
     }
 }

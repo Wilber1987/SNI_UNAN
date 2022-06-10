@@ -45,7 +45,7 @@ namespace CAPA_DATOS
                 string ColumnNames = "";
                 string Values = "";
                 BuildInsertQueryByObject(Inst, ref ColumnNames, ref Values);
-                string strQuery = "INSERT INTO " + TableName   + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+                string strQuery = "INSERT INTO " + TableName + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
                 return ExcuteSqlQuery(strQuery);
             }
             catch (Exception)
@@ -57,6 +57,10 @@ namespace CAPA_DATOS
         {
             try
             {
+                if (TakeList(Inst).Count > 0)
+                {
+                    return false;
+                }
                 string ColumnNames = "";
                 string Values = "";
                 string TableName = Inst.GetType().Name;
@@ -136,22 +140,23 @@ namespace CAPA_DATOS
                         {
                             Values = Values + AtributeName + "= '" + AtributeValue.ToString() + "',";
                         }
-                        else if (AtributeValue.GetType() == typeof(DateTime)) 
+                        else if (AtributeValue.GetType() == typeof(DateTime))
                         {
-                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";                           
+                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
                         }
                         else if (IsNumeric(AtributeValue))
                         {
-                            Values = Values + AtributeName + "= " + AtributeValue.ToString() + ",";                            
+                            Values = Values + AtributeName + "= " + AtributeValue.ToString() + ",";
                         }
-                    } else if (AtributeName == IdObject)
-                    {  
+                    }
+                    else if (AtributeName == IdObject)
+                    {
                         prop = oProperty;
                     }
-                   
-                }              
+
+                }
                 Values = Values.TrimEnd(',');
-                string strQuery = "UPDATE  " + TableName + " SET " + Values + 
+                string strQuery = "UPDATE  " + TableName + " SET " + Values +
                     " WHERE " + IdObject + " = " + prop.GetValue(Inst).ToString();
                 return ExcuteSqlQuery(strQuery);
             }
@@ -160,18 +165,75 @@ namespace CAPA_DATOS
                 throw;
             }
         }
+
+        public Object Delete(Object Inst)
+        {
+            string TableName = Inst.GetType().Name;
+            string CondicionString = "";
+            Type _type = Inst.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            int index = 0;
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(Inst);
+                if (AtributeValue != null)
+                {
+                    WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
+                }
+
+            }
+            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
+            string strQuery = "DELETE FROM  " + TableName + CondicionString; 
+            return ExcuteSqlQuery(strQuery);
+        }
+
+        private static void WhereConstruction(ref string CondicionString, ref int index, string AtributeName, object AtributeValue)
+        {
+            
+            if (AtributeValue.GetType() == typeof(string) && AtributeValue.ToString().Length < 200)
+            {
+                WhereOrAnd(ref CondicionString, ref index);
+                CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
+            }
+            else if (AtributeValue.GetType() == typeof(DateTime))
+            {
+                WhereOrAnd(ref CondicionString, ref index);
+                CondicionString = CondicionString + AtributeName
+                    + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "' ";
+            }
+            else if (IsNumeric(AtributeValue))
+            {
+                WhereOrAnd(ref CondicionString, ref index);
+                CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
+            }
+        }
+
+        private static void WhereOrAnd(ref string CondicionString, ref int index)
+        {
+            if (index == 0)
+            {
+                CondicionString = " WHERE ";
+                index++;
+            }
+            else
+            {
+                CondicionString = CondicionString + " AND ";
+            }
+        }
+
         public DataTable TraerDatosSQL(string queryString)
         {
             DataSet ObjDS = new DataSet();
             CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
-        } 
+        }
         public DataTable TraerDatosSQL(IDbCommand Command)
         {
             DataSet ObjDS = new DataSet();
             CrearDataAdapterSql(Command).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
-        }        
+        }
         public List<Object> TakeList(Object Inst, string CondSQL = "")
         {
             try
@@ -205,7 +267,7 @@ namespace CAPA_DATOS
             {
                 string TableName = Inst.GetType().Name;
                 DataTable Table = BuildTable(Inst, TableName, ref CondSQL);
-                List<T> ListD = ConvertDataTable<T> (Table, Inst);
+                List<T> ListD = ConvertDataTable<T>(Table, Inst);
                 return ListD;
             }
             catch (Exception)
@@ -227,23 +289,7 @@ namespace CAPA_DATOS
                 var AtributeValue = oProperty.GetValue(Inst);
                 if (AtributeValue != null)
                 {
-                    if (index == 0)
-                    {
-                        CondicionString = " WHERE ";
-                        index++;
-                    }
-                    else
-                    {
-                        CondicionString = CondicionString + " AND ";
-                    }
-                    if (AtributeValue.GetType() == typeof(string) || AtributeValue.GetType() == typeof(DateTime))
-                    {
-                        CondicionString = CondicionString + AtributeName + " LIKE '%" + AtributeValue.ToString() + "%' ";
-                    }
-                    else
-                    {
-                        CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
-                    }
+                    WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
                 }
 
             }
@@ -251,7 +297,8 @@ namespace CAPA_DATOS
             if (CondicionString == "" && CondSQL != "")
             {
                 CondicionString = " WHERE ";
-            }else if(CondicionString != "" && CondSQL != "")
+            }
+            else if (CondicionString != "" && CondSQL != "")
             {
                 CondicionString = CondicionString + " AND ";
             }
@@ -265,7 +312,7 @@ namespace CAPA_DATOS
             {
                 SQLMCon.Open();
                 var Command = ComandoSql(ProcedureName, SQLMCon);
-                Command.CommandType = CommandType.StoredProcedure; 
+                Command.CommandType = CommandType.StoredProcedure;
                 //REPARAR
                 SqlCommandBuilder.DeriveParameters((SqlCommand)Command);
                 SQLMCon.Close();
@@ -289,7 +336,8 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        private static List<Object> ConvertDataTable(DataTable dt, Object Inst) {
+        private static List<Object> ConvertDataTable(DataTable dt, Object Inst)
+        {
             List<Object> data = new List<Object>();
             foreach (DataRow row in dt.Rows)
             {
@@ -297,7 +345,7 @@ namespace CAPA_DATOS
                 data.Add(item);
             }
             return data;
-        }      
+        }
         private static Object GetItem(DataRow dr, Object Inst)
         {
             Type temp = Inst.GetType();
@@ -315,7 +363,7 @@ namespace CAPA_DATOS
                         if (pro.Name == column.ColumnName)
                         {
                             pro.SetValue(obj, GetValue(dr[column.ColumnName], pro.PropertyType));
-                        }                          
+                        }
                         else
                             continue;
                     }
@@ -327,7 +375,7 @@ namespace CAPA_DATOS
         {
             string Literal = DefaultValue.ToString();
             if (Literal == null || Literal == "" || Literal == string.Empty) return DefaultValue;
-            IConvertible obj = Literal;            
+            IConvertible obj = Literal;
             Type u = Nullable.GetUnderlyingType(type);
             if (u != null)
             {
@@ -369,6 +417,6 @@ namespace CAPA_DATOS
             }
             return data;
         }
-       
+
     }
 }

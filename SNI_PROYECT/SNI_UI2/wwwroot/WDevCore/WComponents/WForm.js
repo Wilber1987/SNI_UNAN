@@ -253,7 +253,7 @@ class WForm extends HTMLElement {
                                         InputControl.selectedItems.push(FindItem);
                                     }
                                 });
-                            }
+                            }                          
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
                         case "TABLE":

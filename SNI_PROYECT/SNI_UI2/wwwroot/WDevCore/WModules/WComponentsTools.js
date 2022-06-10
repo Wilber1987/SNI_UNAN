@@ -622,16 +622,13 @@ class WArrayF {
     }
     //verifica que un objeto este dentro de un array
     static checkDisplay(DisplayData, prop, Model = {}) {
-        let flag = true;
-        console.log(Model[prop]);
+        let flag = true;        
         if (Model[prop] == undefined  && Model[prop] == null) {
-            console.log(undefined, prop);
             flag = false;
         }
         if (Model[prop] != undefined && Model[prop] != null
             && Model[prop].__proto__ == Object.prototype
             && (Model[prop].primary || Model[prop].hidden)) {
-                console.log(null, prop);
             flag = false;
         }
         if (DisplayData != undefined && DisplayData.__proto__ == Array.prototype) {
