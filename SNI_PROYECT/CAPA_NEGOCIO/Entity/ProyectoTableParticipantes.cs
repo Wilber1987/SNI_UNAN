@@ -10,7 +10,7 @@ namespace CAPA_NEGOCIO
     public class ProyectoTableParticipantes : EntityClass
     {
         public int? IdTarea { get; set; }
-        public int? IdUsuario { get; set; }
+        public int? Id_Investigador { get; set; }
         public int? IdTipoParticipacion { get; set; }
 
     }

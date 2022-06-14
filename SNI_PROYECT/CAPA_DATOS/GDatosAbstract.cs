@@ -184,13 +184,13 @@ namespace CAPA_DATOS
 
             }
             CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-            string strQuery = "DELETE FROM  " + TableName + CondicionString; 
+            string strQuery = "DELETE FROM  " + TableName + CondicionString;
             return ExcuteSqlQuery(strQuery);
         }
 
         private static void WhereConstruction(ref string CondicionString, ref int index, string AtributeName, object AtributeValue)
         {
-            
+
             if (AtributeValue.GetType() == typeof(string) && AtributeValue.ToString().Length < 200)
             {
                 WhereOrAnd(ref CondicionString, ref index);
@@ -224,15 +224,33 @@ namespace CAPA_DATOS
 
         public DataTable TraerDatosSQL(string queryString)
         {
-            DataSet ObjDS = new DataSet();
-            CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
-            return ObjDS.Tables[0].Copy();
+            try
+            {
+                DataSet ObjDS = new DataSet();
+                CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
+                return ObjDS.Tables[0].Copy();
+            }
+            catch (Exception)
+            {
+                SQLMCon.Close();
+                throw;
+            }
+
         }
         public DataTable TraerDatosSQL(IDbCommand Command)
         {
-            DataSet ObjDS = new DataSet();
-            CrearDataAdapterSql(Command).Fill(ObjDS);
-            return ObjDS.Tables[0].Copy();
+            try
+            {
+                DataSet ObjDS = new DataSet();
+                CrearDataAdapterSql(Command).Fill(ObjDS);
+                return ObjDS.Tables[0].Copy();
+            }
+            catch (Exception)
+            {
+                SQLMCon.Close();
+                throw;
+            }
+
         }
         public List<Object> TakeList(Object Inst, string CondSQL = "")
         {

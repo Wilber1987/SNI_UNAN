@@ -9,7 +9,7 @@ namespace CAPA_NEGOCIO.Views
 {
     public class ViewCalendarioByDependencia : EntityClass
     {
-        public int? IdDependencia { get; set; }
+        public int? Id_Dependencia { get; set; }
         public int? IdCalendario { get; set; }
         public int? IdActividad { get; set; }
         public int? IdTarea { get; set; }

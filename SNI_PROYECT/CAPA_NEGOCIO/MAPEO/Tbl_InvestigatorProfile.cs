@@ -43,7 +43,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
-            return DU.Get_WhereIN("IdCargo", new string[] { "1", "2" });
+            return DU.Get_WhereIN("Id_Cargo", new string[] { "1", "2" });
         }
         public Object TakeProfile()
         {
