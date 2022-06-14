@@ -107,10 +107,9 @@ class WForm extends HTMLElement {
         return flag;
     }
     ShowFormDetail(ObjectF = this.ObjectDetail) {
-        const Form = {
-            type: 'divForm',
-            children: []
-        };
+        const FormDivForm = WRender.Create({
+            tagName: 'divForm'
+        });
         for (const prop in ObjectF) {
             const flag = this.checkDisplay(prop);
             if (flag) {
@@ -129,34 +128,26 @@ class WForm extends HTMLElement {
                         && this.ImageUrlPath.__proto__ == String.prototype) {
                         cadenaB64 = this.ImageUrlPath + "/";
                     }
-                    FormDivForm.append({
-                        type: "img",
-                        props: {
-                            src: cadenaB64 + ObjectF[prop],
-                            class: "imgPhotoWModal",
-                            id: "imgControl" + prop + this.id,
-                        }
-                    })
+                    FormDivForm.append(WRender.Create({
+                        tagName: "img",
+                        src: cadenaB64 + ObjectF[prop],
+                        class: "imgPhotoWModal",
+                        id: "imgControl" + prop + this.id
+                    }))
+
                 } else {
                     let value = ObjectF[prop];
                     if (typeof value === "number") {
                         value = value.toFixed(2)
                     }
-                    FormDivForm.append({
-                        type: "div",
-                        props: {
-                            class: "ModalDetailElement"
-                        }, children: [{
-                            type: "label",
-                            props: {
-                                innerText: prop + ": " + value
-                            }
-                        }]
-                    });
+                    FormDivForm.append(WRender.Create({
+                        class: "ModalDetailElement", children: [{ tagName: "label", innerText:  WOrtograficValidation.es(prop) + ": " + value }]
+                    }));
                 }
             }
         }
-        return Form;
+
+        return FormDivForm;
     }
     CrudForm = async (ObjectF = {}, ObjectOptions) => {
         if (this.AddItemsFromApi != undefined) {
@@ -253,7 +244,7 @@ class WForm extends HTMLElement {
                                         InputControl.selectedItems.push(FindItem);
                                     }
                                 });
-                            }                          
+                            }
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
                         case "TABLE":
@@ -439,9 +430,6 @@ class WForm extends HTMLElement {
             });
         }
         return DivOptions;
-    }
-    Save = async () => {
-
     }
     ModalCheck(ObjectF) {
         const ModalCheck = new WModalForm({

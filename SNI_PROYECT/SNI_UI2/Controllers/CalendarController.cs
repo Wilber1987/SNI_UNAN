@@ -77,7 +77,7 @@ namespace SNI_UI2.Controllers
     }
     public class Calendar
     {
-        public int IdDependencia { get; set; }
+        public int Id_Dependencia { get; set; }
         public int IdUsuario { get; set; }
         public List<Object> Actividades { get; set; }
         public List<Object> Agenda { get; set; }
@@ -86,7 +86,7 @@ namespace SNI_UI2.Controllers
         public void TakeAgenda()
         {
             ProyectoTableAgenda ag = new ProyectoTableAgenda();
-            ag.Id_Dependencia = this.IdDependencia;
+            ag.Id_Dependencia = this.Id_Dependencia;
             this.Agenda = ag.Get();
         }
         public void TakeActividades()
@@ -97,7 +97,7 @@ namespace SNI_UI2.Controllers
         public void TakeCalendario()
         {
             ViewCalendarioByDependencia ag = new ViewCalendarioByDependencia();
-            ag.IdDependencia = this.IdDependencia;
+            ag.Id_Dependencia = this.Id_Dependencia;
             this.Calendario = ag.Get();
         }
     }

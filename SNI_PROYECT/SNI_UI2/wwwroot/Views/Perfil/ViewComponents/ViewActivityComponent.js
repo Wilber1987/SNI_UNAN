@@ -27,22 +27,18 @@ class ViewActivityComponent extends HTMLElement {
     }
     async NewTarea() {
         const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeData");
-        console.log(response);
-        console.log(this.Dataset);
-        const tareaModel = new TareaModel({Participantes: response[1], Tareas: this.Dataset.Tareas });
-        console.log(tareaModel);
+        const tareaModel = new TareaModel({ Participantes: response[1], Tareas: this.Dataset.Tareas });
         const ReservaComp = new ReservarComponent({
             Form: new WForm({
                 StyleForm: "columnX1",
                 className: "Form",
-                ModelObject: tareaModel ,
+                ModelObject: tareaModel,
                 SaveFunction: async (Object, Reservaciones = []) => {
                     Object.Calendarios = ReservaComp.Reservaciones;
                     Object.IdActividad = this.Dataset.IdActividad;
                     const FunctionName = this.TypeReserva == "New" ? "" : "SaveActividad";
-                    const response = await WAjaxTools.PostRequest(
-                        "./api/Calendar/SaveTarea", Object
-                    );
+                    Object.Evidencias = Object.Evidencias.map(e => ({IdTipo: 1, Data: e}));
+                    const response = await WAjaxTools.PostRequest( "../../api/Calendar/SaveTarea", Object);
                     if (response) {
                         modal.close();
                         this.Dataset.tareas.push(Object);
@@ -64,7 +60,6 @@ class ViewActivityComponent extends HTMLElement {
         });
         this.append(modal);
     }
-
     connectedCallback() { }
     Draw = async () => {
         this.Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividad", this.Activity);
@@ -106,14 +101,14 @@ class ViewActivityComponent extends HTMLElement {
             }),
         ]
     });
-
     CreateTareaContainer(tarea) {
         this.TareasContainer.append(WRender.Create({
             className: "DivTarea",
             children: [
                 tarea.Titulo,
-                WRender.Create({ tagName: "label", innerText: tarea.Estado, className: tarea.Estado }), 
-                { tagName: 'button', className: 'Btn-Mini', innerText: 'Agregar Evidencias',
+                WRender.Create({ tagName: "label", innerText: tarea.Estado, className: tarea.Estado }),
+                {
+                    tagName: 'button', className: 'Btn-Mini', innerText: 'Agregar Evidencias',
                     onclick: async () => {
                         const modal = new WModalForm({
                             title: "Agregar Evidencias",

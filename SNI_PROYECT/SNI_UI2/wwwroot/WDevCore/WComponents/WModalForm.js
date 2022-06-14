@@ -3,12 +3,22 @@ import { WCssClass } from "../WModules/WStyledRender.js";
 import { StyleScrolls,StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
 class ModalConfig {
-    ObjectModal = null;
     ShadowRoot = null;
     icon = null;
     title = null;
     HeadOptions = null;
     StyleForm = null;
+    ObjectDetail = undefined;
+    EditObject = undefined;
+    UserActions = undefined;
+    ModelObject = {
+        property: undefined,
+        Operation: {
+            type: "OPERATION", Function: (obj) => {
+                return obj.value1 + obj.value2;
+            }
+        }
+    };
 }
 class WModalForm extends HTMLElement {
     constructor(Config = (new ModalConfig())) {
@@ -108,18 +118,18 @@ class WModalForm extends HTMLElement {
         };
         this.Modal.children.push(this.DrawModalHead());
         if (this.ObjectModal) { //AGREGA UN OBJETO AL MODAL ENVIDO DESDE LA CONFIGURACION
-            this.Modal.children.push({ type: "div", props: { class: "ObjectModalContainer" }, children: [this.ObjectModal] });
-            if (this.ObjectOptions != undefined) {
-                if (this.ObjectOptions.SaveFunction != undefined || this.UserActions != undefined) {
-                    //this.Modal.children.push(this.SaveOptions());
-                }
-            }
-        } else if (this.ObjectDetail || this.ModelObject) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
+            this.Modal.children.push({ type: "div", props: { class: "ObjectModalContainer" }, children: [this.ObjectModal] });            
+        } else if (this.ObjectDetail || this.ModelObject || this.EditObject) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
             const { WForm } = await import("./WForm.js");
-            this.Config.SaveFunction = (ObjectF)=>{
-                this.ObjectOptions.SaveFunction(ObjectF);
+            this.Config.SaveFunction = (ObjectF)=>{                
+                if (this.ObjectOptions != undefined) {
+                    if (this.ObjectOptions.SaveFunction != undefined) {
+                        this.ObjectOptions.SaveFunction(ObjectF);
+                    }
+                }
                 this.close();
             }
+           
             this.Modal.children.push( { type: "div", props:{ class: "ModalContent"}, children: [new WForm(this.Config)]} );
         }
         if (this.ShadowRoot) {

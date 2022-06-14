@@ -188,6 +188,7 @@ class WTableDynamicComp extends HTMLElement {
             }, children: [{ type: "label", props: { innerText: "Parametros", class: "titleParam" } }]
         });
         let model = this.Dataset[0];
+        console.log(model);
         let divEvalAttib = WRender.createElement({
             type: "div",
             props: {
@@ -226,7 +227,7 @@ class WTableDynamicComp extends HTMLElement {
             }, children: [select]
         });
         for (const props in model) {
-            if (!WArrayF.checkDisplay(this.ParamsForOptions, props)) {
+            if (!WArrayF.checkDisplay(this.ParamsForOptions, props, model)) {
                 continue;
             }
             const LabelP = WRender.createElement({

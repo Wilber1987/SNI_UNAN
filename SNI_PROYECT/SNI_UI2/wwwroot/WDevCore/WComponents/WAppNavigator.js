@@ -247,11 +247,10 @@ class WAppNavigator extends HTMLElement {
                         padding: 10,
                         "margin-bottom": 10,
                         "border-radius": 5,
-                        "background-color": "rgb(0,0,0,50%)",//this.DarkMode ? "#d3d3d3" : "#444444",
+                        "background-color": this.DarkMode ? "rgb(0,0,0,50%)" : "rgb(0,0,0,10%)",
                         color: this.DarkMode ? "#d3d3d3" : "#444444",
                         //padding: "10px",
-                    }),
-                    //ocultacion. 
+                    }), //ocultacion. 
                     new WCssClass(`.DisplayBtn`, {
                         margin: "10px",
                         display: "none",

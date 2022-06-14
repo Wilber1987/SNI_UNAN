@@ -353,7 +353,7 @@ class DetailDayClass extends HTMLElement {
         ];
         hours.forEach((element, index) => {
             const hour = WRender.Create({ className: "hourDetail" });
-            const horarioAtencion = agenda.filter(obj => obj.dia == ListDays[DateParam.day]);
+            const horarioAtencion = agenda.filter(obj => obj.Dia == ListDays[DateParam.day]);
             let fecha1 = new Date(`${DateParam.date} ${element}`);
             let fecha2 = new Date(`${DateParam.date} ${element.replace(":00", ":59")}`);
             if (fecha2.toString() == "Invalid Date") {
@@ -361,8 +361,8 @@ class DetailDayClass extends HTMLElement {
             }
             let DayState = false;
             horarioAtencion.forEach(horario => {
-                const fecha1A = new Date(`${DateParam.date} ${horario.hora_Inicial}`);
-                const fecha2A = new Date(`${DateParam.date} ${horario.hora_Final}`);
+                const fecha1A = new Date(`${DateParam.date} ${horario.Hora_Inicial}`);
+                const fecha2A = new Date(`${DateParam.date} ${horario.Hora_Final}`);
                 if (fecha1 >= fecha1A && fecha2 <= fecha2A) {
                     DayState = true;
                 }
@@ -371,8 +371,8 @@ class DetailDayClass extends HTMLElement {
                 hour.className = "hourDetail hourH";
                 let Reservable = true;
                 reservaciones.forEach(reserva => {
-                    const fecha1R = new Date(reserva.fecha_Inicial);
-                    const fecha2R = new Date(reserva.fecha_Final);
+                    const fecha1R = new Date(reserva.Fecha_Inicial);
+                    const fecha2R = new Date(reserva.Fecha_Final);
                     if (fecha1.toString() == fecha1R.toString()
                         && fecha2.toString() == fecha2R.toString()) {
                         hour.className = "hourDetail hourR";
@@ -393,9 +393,6 @@ class DetailDayClass extends HTMLElement {
                             Reservaciones.splice(filtObject, 1);
                             return;
                         }
-                        //console.log(`${DateParam.date} ${element}`, `${DateParam.date} ${element.replace(":00", ":59")}`)
-                        //console.log(new Date())
-                        //console.log(new Date(new Date(`${DateParam.date} ${element}`)), new Date(`${DateParam.date} ${element.replace(":00", ":59")}`))
                         const dataPost = {
                             id: `${DateParam.date} ${element}`,
                             Fecha_Inicial: `${DateParam.date}T${element}:00.000Z`,
@@ -509,7 +506,7 @@ class ReservarComponent extends HTMLElement {
                     IdDetailDay,
                     new DetailDayClass({
                         id: IdDetailDay
-                    }, DateParam, response.agenda, response.calendario));
+                    }, DateParam, response.Agenda, response.Calendario));
             }
         });
         const DetailDay = WRender.Create({

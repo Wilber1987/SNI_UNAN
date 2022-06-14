@@ -15,6 +15,7 @@ class WTableComponent extends HTMLElement {
         this.TableConfig = TableConfig;
     }
     connectedCallback() {
+        this.DarkMode = this.DarkMode ?? false;
         if (this.shadowRoot.innerHTML != "") {
             return;
         }
@@ -82,84 +83,8 @@ class WTableComponent extends HTMLElement {
         if (this.TableConfig.TableClass) {
             this.TableClass = this.TableConfig.TableClass + " WScroll";
         }
-        this.RunTable();
     }
-    RunTable() {
-        this.DarkMode = this.DarkMode ?? false;
-        this.GroupsData = [];
-        this.ProcessData = [];
-        this.EvalArray = WArrayF.ArrayUnique(this.TableConfig.Dataset, this.AttNameEval);
-        if (this.TableConfig.Dinamic == true) {
-            this.className = "DinamicContainer";
-            this.append(WRender.createElement({
-                type: 'w-style', props: {
-                    id: '', ClassList: [
-                        new WCssClass(`.DinamicContainer`, {
-                            overflow: "hidden",
-                            height: "700px",
-                            display: "grid",
-                            border: "solid 1px #d1cfcf",
-                            "border-radius": "0.2cm",
-                            "grid-template-columns": "calc(100% - 250px) 250px",
-                            "grid-template-rows": "280px 40px calc(100% - 320px)",
-                            "font-size": "12px",
-                            "grid-gap": "5px",
-                            padding: "10px"
-                        }),
-                    ]
-                }
-            }))
-            this.AttNameEval = null;
-            this.EvalValue = null;
-            this.groupParams = [];
-            this.EvalArray = [];
-            this.shadowRoot.append(WRender.createElement(this.TableStyleDinamic()));
-            this.shadowRoot.append(WRender.createElement(this.TableOptions()));
-            this.DrawTable();
-            if (this.TableConfig.AddChart == true) {
-                if (this.shadowRoot.querySelector("#Chart" + this.id)) {
-                    let ChartContainer = this.shadowRoot.querySelector("#Chart" + this.id);
-                    ChartContainer.innerHTML = "";
-                    ChartContainer.append(WRender.createElement(this.DrawChart()));
-                } else {
-                    let ChartContainer = {
-                        type: "div",
-                        props: { id: "Chart" + this.id, className: "CharttableReport" }, children: [this.DrawChart()]
-                    }
-                    this.shadowRoot.append(WRender.createElement(ChartContainer));
-                }
-            }
-            return;
-        }
-        if (!this.groupParams || typeof this.groupParams !== "object") {
-            this.groupParams = [];
-            if (this.AttNameG1) {
-                this.groupParams.push(this.AttNameG1)
-            }
-            if (this.AttNameG2) {
-                this.groupParams.push(this.AttNameG2)
-            }
-            if (this.AttNameG3) {
-                this.groupParams.push(this.AttNameG3)
-            }
-            if (this.groupParams.length > 0 && this.AttNameEval !== undefined && this.EvalValue !== undefined) {
-                this.DrawGroupTable();
-                if (this.TableConfig.AddChart == true) {
-                    if (this.shadowRoot.querySelector("#Chart" + this.id)) {
-                        let ChartContainer = this.shadowRoot.querySelector("#Chart" + this.id);
-                        ChartContainer.innerHTML = "";
-                        ChartContainer.append(WRender.createElement(this.DrawChart()));
-                    } else {
-                        let ChartContainer = { type: "div", props: { id: "Chart" + this.id }, children: [this.DrawChart()] }
-                        this.shadowRoot.append(WRender.createElement(ChartContainer));
-                    }
-                }
-            } else {
-                this.DrawTable();
-            }
-            return;
-        }
-    }
+
     //BASIC TABLE-----------------------------------------------------------------------
     //#region tabla basica --------------------------------------------------------------
     DefineModelObject(Dataset = this.Dataset) {
@@ -172,10 +97,6 @@ class WTableComponent extends HTMLElement {
         }
     }
     DrawTable(Dataset = this.Dataset) {
-        let ChartContainer = this.shadowRoot.querySelector("#Chart" + this.id);
-        if (ChartContainer) {
-            ChartContainer.innerHTML = "";
-        }
         this.DefineModelObject(Dataset);
         let table = this.shadowRoot.querySelector("#MainTable" + this.id);
         const TOptions = this.DrawHeadOptions();
@@ -383,30 +304,28 @@ class WTableComponent extends HTMLElement {
                 }
             }
         }
-        if (this.Options != undefined) {
-            if (this.TrueOptions()) {
-                const Options = { type: "td", props: { class: "tdAction" }, children: [] };
-                this.SelectBTN(element, Options);
-                this.ShowBTN(Options, element);
-                this.EditBTN(Options, element, tr);
-                this.DeleteBTN(Options, element, tr);
-                if (this.Options.UserActions != undefined) {
-                    this.Options.UserActions.forEach(Action => {
-                        Options.children.push({
+        if (this.TrueOptions()) {
+            const Options = { type: "td", props: { class: "tdAction" }, children: [] };
+            this.SelectBTN(element, Options);
+            this.ShowBTN(Options, element);
+            this.EditBTN(Options, element, tr);
+            this.DeleteBTN(Options, element, tr);
+            if (this.Options.UserActions != undefined) {
+                this.Options.UserActions.forEach(Action => {
+                    Options.children.push({
+                        type: "button",
+                        props: {
+                            class: "BtnTableSR",
                             type: "button",
-                            props: {
-                                class: "BtnTableSR",
-                                type: "button",
-                                innerText: Action.name,
-                                onclick: async (ev) => {
-                                    Action.Function(element, ev.target);
-                                }
+                            innerText: Action.name,
+                            onclick: async (ev) => {
+                                Action.Function(element, ev.target);
                             }
-                        })
-                    });
-                }
-                tr.append(WRender.createElement(Options));
+                        }
+                    })
+                });
             }
+            tr.append(WRender.createElement(Options));
         }
     }
     DrawTBody = (Dataset = this.Dataset) => {

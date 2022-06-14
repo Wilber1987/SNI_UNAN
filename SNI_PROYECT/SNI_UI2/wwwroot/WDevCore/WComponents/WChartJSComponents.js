@@ -178,7 +178,7 @@ class ColumChart extends HTMLElement {
         //console.log(value)
         var countLine = 8;
         var val  = parseFloat((value + 10 - this.MinVal) / countLine);
-        console.log( value, this.MinVal);
+        //console.log( value, this.MinVal);
         //%
         //countLine = 7
         if (ValP == 1) {
@@ -492,7 +492,7 @@ const GenerateColor = () => {
     return color_aleatorio
 }
 const WChartStyle = (ChartInstance) => {
-    console.log(ChartInstance);
+    //console.log(ChartInstance);
     return {
         type: "w-style",
         props: {
