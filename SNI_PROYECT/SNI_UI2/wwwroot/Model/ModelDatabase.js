@@ -10,7 +10,7 @@ class Tbl_Distinciones {
 	Descripcion = { type: "text" };
 	fecha = { type: "date" };
 	Id_Institucion = { type: "number" };
-	Montos = { type: "string" };
+	Montos = { type: "number" };
 }
 export { Tbl_Distinciones }
 class Tbl_Evento {
@@ -109,6 +109,7 @@ class Tbl_Patentes {
 	Id_Patente = { type: "number", primary: true };
 	fecha = { type: "date" };
 	Id_Institucion = { type: "number" };
+	Descripcion = { type: "text" };
 	Id_Investigador = { type: "number", hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
@@ -923,3 +924,18 @@ class CatTipoDistincion {
 }
 
 export { CatTipoDistincion }
+
+
+class TblProcesosEditoriales {
+	constructor(props) {
+		for (const prop in props) {
+			this[prop] = props[prop];
+		}
+	}
+	Id_Proceso_Editorial = { type: "number", primary: true };
+	Id_Investigador = { type: "number", primary: true };
+	Descripcion = { type: "text" };
+	Fecha = { type: "date" };
+}
+
+export { TblProcesosEditoriales }

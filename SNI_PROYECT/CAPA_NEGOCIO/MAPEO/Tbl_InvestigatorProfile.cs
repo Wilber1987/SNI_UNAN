@@ -8,8 +8,7 @@ namespace CAPA_NEGOCIO.MAPEO
 {
     public class Tbl_InvestigatorProfile : EntityClass
     {
-        private List<Tbl_Distinciones> distinciones;
-
+       
         public int? Id_Investigador { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
@@ -37,6 +36,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Tbl_Patentes> Patentes { get; set; }
         public List<Tbl_Datos_Laborales> DatosLaborales { get; set; }
         public List<Tbl_Evento> Eventos { get; set; }
+        public List<Tbl_Distinciones> Distinciones { get; set; }
 
 
         public List<Object> TakeDepCoordinaciones()
@@ -105,7 +105,7 @@ namespace CAPA_NEGOCIO.MAPEO
 
                 Tbl_Distinciones tbl_Distinciones = new Tbl_Distinciones();
                 tbl_Distinciones.Id_Investigador = this.Id_Investigador;
-                Investigador.distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
+                Investigador.Distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
 
                 return Investigador;
             }

@@ -112,7 +112,13 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Redes Sociales", url: "#",
                     action: async (ev) => {
-                        const Model = new Tbl_Invest_RedS();
+                        const Id_RedSocial = await WAjaxTools.PostRequest("../../api/PublicCat/GetRedesSociales");
+                        const Model = new Tbl_Invest_RedS({
+                            Id_RedSocial: {
+                                type: "Select",
+                                Dataset: Id_RedSocial.map(x => ({ id: x.Id_RedSocial, desc: x.Descripcion }))
+                            }
+                        });
                         this.NavSaveCatalogo("Tab-RedesS", { add: "SaveRedSocialP" }, this.response.RedesSociales, Model);
                     }
                 }, {

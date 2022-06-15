@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Globalization;
+using System.Linq;
 
 namespace CAPA_DATOS
 {
@@ -98,11 +99,8 @@ namespace CAPA_DATOS
                 }
                 else if (IsNumeric(AtributeValue))
                 {
-                    if ((Int32)AtributeValue != -1)
-                    {
-                        ColumnNames = ColumnNames + AtributeName.ToString() + ",";
-                        Values = Values + AtributeValue.ToString() + ",";
-                    }
+                    ColumnNames = ColumnNames + AtributeName.ToString() + ",";
+                    Values = Values + AtributeValue.ToString() + ",";
                 }
             }
             ColumnNames = ColumnNames.TrimEnd(',');
@@ -117,6 +115,72 @@ namespace CAPA_DATOS
                                 || AtributeValue.GetType() == typeof(int?);
         }
 
+        public Object UpdateObject(Object Inst, string[] IdObject)
+        {
+            try
+            {
+                string TableName = Inst.GetType().Name;
+                string Values = "";
+                string Conditions = "";
+                Type _type = Inst.GetType();
+                PropertyInfo[] lst = _type.GetProperties();
+                foreach (PropertyInfo oProperty in lst)
+                {
+                    string AtributeName = oProperty.Name;
+                    var AtributeValue = oProperty.GetValue(Inst);
+                    if ((from O in IdObject where O == AtributeName select O).ToList().Count == 0)
+                    {
+                        if (AtributeValue == null)
+                        {
+                            continue;
+                        }
+                        else if (AtributeValue.GetType() == typeof(string))
+                        {
+                            Values = Values + AtributeName + "= '" + AtributeValue.ToString() + "',";
+                        }
+                        else if (AtributeValue.GetType() == typeof(DateTime))
+                        {
+                            Values = Values + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "',";
+                        }
+                        else if (IsNumeric(AtributeValue))
+                        {
+                            Values = Values + AtributeName + "= " + AtributeValue.ToString() + ",";
+                        }
+                    }
+                    else
+                    {
+                        if (AtributeValue == null)
+                        {
+                            continue;
+                        }
+                        else if (AtributeValue.GetType() == typeof(string))
+                        {
+                            Conditions = Conditions + " " + AtributeName + "= '" + AtributeValue.ToString() + "' AND";
+                        }
+                        else if (AtributeValue.GetType() == typeof(DateTime))
+                        {
+                            Conditions = Conditions + " " + AtributeName + "= '" + ((DateTime)AtributeValue).ToString("yyyy/MM/dd") + "' AND";
+                        }
+                        else if (IsNumeric(AtributeValue))
+                        {
+                            Conditions = Conditions + " " + AtributeName + "= " + AtributeValue.ToString() + " AND";
+                        }
+                    }
+
+                }
+                Values = Values.TrimEnd(',');
+                Conditions = Conditions.TrimEnd('D');
+                Conditions = Conditions.TrimEnd('N');
+                Conditions = Conditions.TrimEnd('A');
+                string strQuery = "UPDATE  " + TableName + " SET " + Values +
+                    " WHERE " + Conditions;
+                return ExcuteSqlQuery(strQuery);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public Object UpdateObject(Object Inst, string IdObject)
         {
             try

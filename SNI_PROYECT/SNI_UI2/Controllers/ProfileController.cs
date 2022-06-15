@@ -79,6 +79,17 @@ namespace SNI_UI2.Controllers
             }
         }
 
-
+        public object SaveRedSocialP(Tbl_Invest_RedS Inst)
+        {
+            if (Inst.Id_Investigador == null)
+            {
+                Inst.Id_Investigador = AuthNetCore.User().UserId;
+                return Inst.Save();
+            }
+            else
+            {
+                return Inst.Update(new string[]{ "Id_Investigador", "Id_RedSocial"});
+            }
+        }
     }
 }

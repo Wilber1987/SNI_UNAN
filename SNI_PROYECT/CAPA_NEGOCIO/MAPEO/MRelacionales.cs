@@ -16,4 +16,12 @@ namespace CAPA_NEGOCIO.MAPEO
 		public int? Id_Investigador { get; set; }
 		public int? Id_Idioma { get; set; }
 	}
+	public class Tbl_Invest_RedS : EntityClass
+	{
+		public int Id_Investigador { get; set; }
+		public int Id_RedSocial { get; set; }
+		public string url_red_inv { get; set; }
+	}
+
+
 }

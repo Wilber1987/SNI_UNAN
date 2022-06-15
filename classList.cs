@@ -1,14 +1,3 @@
- 
-public class Tbl_Datos_Laborales: EntityClass {
-	public int Id_DatoL { get; set; }
-	public int? Id_Investigador { get; set; }
-	public int? Id_Cargo { get; set; }
-	public DateTime? Fecha_Inicio { get; set; }
-	public DateTime? Fecha_Finalizacion { get; set; }
-	public string Facultad { get; set; }
-	public string Unidad { get; set; }
-}
- 
 public class Tbl_Distinciones: EntityClass {
 	public int Id_Distincion { get; set; }
 	public int? Id_Investigador { get; set; }
@@ -16,7 +5,7 @@ public class Tbl_Distinciones: EntityClass {
 	public string Descripcion { get; set; }
 	public DateTime? fecha { get; set; }
 	public int? Id_Institucion { get; set; }
-	public string Montos { get; set; }
+	public string? Montos { get; set; }
 }
  
 public class Tbl_Evento: EntityClass {
@@ -82,6 +71,7 @@ public class Tbl_Patentes: EntityClass {
 	public int? Id_Institucion { get; set; }
 	public int? Id_Investigador { get; set; }
 	public string Estado { get; set; }
+	public string Descripcion { get; set; }
 }
  
 public class TblUser: EntityClass {
@@ -91,6 +81,33 @@ public class TblUser: EntityClass {
 	public string token { get; set; }
 	public string token_date { get; set; }
 	public string Nickname { get; set; }
+}
+ 
+public class Tbl_Datos_Laborales: EntityClass {
+	public int Id_DatoL { get; set; }
+	public int? Id_Investigador { get; set; }
+	public int? Id_Cargo { get; set; }
+	public DateTime? Fecha_Inicio { get; set; }
+	public DateTime? Fecha_Finalizacion { get; set; }
+	public string Unidad { get; set; }
+	public string Institucion { get; set; }
+}
+ 
+public class Tbl_Investigaciones: EntityClass {
+	public int Id_Investigacion { get; set; }
+	public string Visibilidad { get; set; }
+	public int? Id_Tipo_Investigacion { get; set; }
+	public string Titulo { get; set; }
+	public string Abstract { get; set; }
+	public string Resumen { get; set; }
+	public string? Repositorio { get; set; }
+	public string Referencias { get; set; }
+	public string url_publicacion { get; set; }
+	public DateTime? Fecha_ejecucion { get; set; }
+	public int? Id_Investigador { get; set; }
+	public string Photo { get; set; }
+	public string Estado { get; set; }
+	public int? Id_Localidad { get; set; }
 }
  
 public class Tbl_Investigaciones_Disciplinas: EntityClass {
@@ -142,6 +159,13 @@ public class Cat_instituciones: EntityClass {
 	public string Logo { get; set; }
 }
  
+public class TblProcesosEditoriales: EntityClass {
+	public int Id_Proceso_Editorial { get; set; }
+	public int? Id_Investigador { get; set; }
+	public string Descripcion { get; set; }
+	public DateTime? Fecha { get; set; }
+}
+ 
 public class Cat_Tipo_Investigacion: EntityClass {
 	public int Id_Tipo_Investigacion { get; set; }
 	public string Descripcion { get; set; }
@@ -164,28 +188,11 @@ public class Tbl_InvestigatorProfile: EntityClass {
 	public string Estado { get; set; }
 }
  
-public class Tbl_Investigaciones: EntityClass {
-	public int Id_Investigacion { get; set; }
-	public string Visibilidad { get; set; }
-	public int? Id_Tipo_Investigacion { get; set; }
-	public string Titulo { get; set; }
-	public string Abstract { get; set; }
-	public string Resumen { get; set; }
-	public string Repositorio { get; set; }
-	public string Referencias { get; set; }
-	public string url_publicacion { get; set; }
-	public DateTime? Fecha_ejecucion { get; set; }
-	public int? Id_Investigador { get; set; }
-	public string Photo { get; set; }
-	public string Estado { get; set; }
-	public int? Id_Localidad { get; set; }
-}
- 
 public class ViewInvestigacionesPhoto: EntityClass {
 	public string Titulo { get; set; }
-	public string Repositorio { get; set; }
+	public string? Repositorio { get; set; }
 	public string Descripcion { get; set; }
-	public DateTime? Fecha_ejecucion { get; set; }
+	public string Fecha_ejecucion { get; set; }
 	public int Id_Investigacion { get; set; }
 	public string Resumen { get; set; }
 	public string url_publicacion { get; set; }
@@ -204,9 +211,9 @@ public class ViewInvestigacionesPhoto: EntityClass {
  
 public class ViewInvestigacionesPorDisciplinas: EntityClass {
 	public string Titulo { get; set; }
-	public string Repositorio { get; set; }
+	public string? Repositorio { get; set; }
 	public string Descripcion { get; set; }
-	public DateTime? Fecha_ejecucion { get; set; }
+	public string Fecha_ejecucion { get; set; }
 	public int Id_Investigacion { get; set; }
 	public string Resumen { get; set; }
 	public string url_publicacion { get; set; }
@@ -226,9 +233,9 @@ public class ViewInvestigacionesPorDisciplinas: EntityClass {
  
 public class ViewInvestigaciones: EntityClass {
 	public string Titulo { get; set; }
-	public string Repositorio { get; set; }
+	public string? Repositorio { get; set; }
 	public string Descripcion { get; set; }
-	public DateTime? Fecha_ejecucion { get; set; }
+	public string Fecha_ejecucion { get; set; }
 	public int Id_Investigacion { get; set; }
 	public string Resumen { get; set; }
 	public string url_publicacion { get; set; }
@@ -274,7 +281,7 @@ public class sysdiagrams: EntityClass {
 	public int principal_id { get; set; }
 	public int diagram_id { get; set; }
 	public int? version { get; set; }
-	public string definition { get; set; }
+	public string? definition { get; set; }
 }
  
 public class Cat_Tipo_Colaborador: EntityClass {
@@ -307,7 +314,7 @@ public class ViewColaboradores: EntityClass {
 	public string TipoColaboracion { get; set; }
 	public string NombreInstitucion { get; set; }
 	public string Titulo { get; set; }
-	public DateTime? Fecha_ejecucion { get; set; }
+	public string Fecha_ejecucion { get; set; }
 }
  
 public class Cat_Tipo_Proyecto: EntityClass {
@@ -386,7 +393,7 @@ public class ProyectoTableActividades: EntityClass {
 	public string Descripcion { get; set; }
 	public int? Id_Investigador { get; set; }
 	public string Estado { get; set; }
-	public int? IdDependencia { get; set; }
+	public int? Id_Dependencia { get; set; }
 	public DateTime? Fecha_Inicial { get; set; }
 	public DateTime? Fecha_Final { get; set; }
 	public int? Id_Proyecto { get; set; }
@@ -431,7 +438,6 @@ public class __EFMigrationsHistory: EntityClass {
 }
  
 public class ViewCalendarioByDependencia: EntityClass {
-	public int? IdDependencia { get; set; }
 	public int? IdActividad { get; set; }
 	public int? IdTareaPadre { get; set; }
 	public DateTime? Fecha_Inicial { get; set; }
@@ -439,6 +445,7 @@ public class ViewCalendarioByDependencia: EntityClass {
 	public string Estado { get; set; }
 	public int IdCalendario { get; set; }
 	public int? IdTarea { get; set; }
+	public int? Id_Dependencia { get; set; }
 }
  
 public class ProyectoTableParticipantes: EntityClass {
@@ -459,7 +466,7 @@ public class ViewActividadesParticipantes: EntityClass {
 	public string Titulo { get; set; }
 	public string Descripcion { get; set; }
 	public string Estado { get; set; }
-	public int IdUsuario { get; set; }
+	public int? Id_Investigador { get; set; }
 }
  
 public class AspNetRoles: EntityClass {
@@ -482,10 +489,10 @@ public class AspNetUserClaims: EntityClass {
 }
  
 public class ProyectoCatDependencias: EntityClass {
-	public int IdDependencia { get; set; }
+	public int Id_Dependencia { get; set; }
 	public string Descripcion { get; set; }
-	public int? IdDependenciaP { get; set; }
-	public int? IdInstitucion { get; set; }
+	public int? Id_Dependencia_Padre { get; set; }
+	public int? Id_Institucion { get; set; }
 }
  
 public class AspNetUserLogins: EntityClass {
@@ -508,7 +515,7 @@ public class AspNetUserRoles: EntityClass {
 public class ProyectoTableAgenda: EntityClass {
 	public int IdAgenda { get; set; }
 	public int? Id_Investigador { get; set; }
-	public int? IdDependencia { get; set; }
+	public int? Id_Dependencia { get; set; }
 	public string Dia { get; set; }
 	public string Hora_Inicial { get; set; }
 	public string Hora_Final { get; set; }
@@ -528,15 +535,15 @@ public class AspNetUsers: EntityClass {
 	public string PhoneNumber { get; set; }
 	public bool PhoneNumberConfirmed { get; set; }
 	public bool TwoFactorEnabled { get; set; }
-	public string LockoutEnd { get; set; }
+	public string? LockoutEnd { get; set; }
 	public bool LockoutEnabled { get; set; }
 	public int AccessFailedCount { get; set; }
 }
  
 public class ProyectoTableDependencias_Usuarios: EntityClass {
 	public int Id_Investigador { get; set; }
-	public int IdDependencia { get; set; }
-	public int? IdCargo { get; set; }
+	public int Id_Dependencia { get; set; }
+	public int? Id_Cargo { get; set; }
 }
  
 public class AspNetUserTokens: EntityClass {

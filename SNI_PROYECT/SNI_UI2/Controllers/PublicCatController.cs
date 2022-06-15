@@ -39,6 +39,10 @@ namespace SNI_UI2.Controllers
         {
             return (new CatTipoDistincion()).Get();
         }
+        public object GetRedesSociales()
+        {
+            return (new CatRedesSociales()).Get();
+        }
         //Postularse
         public object Register(Tbl_InvestigatorProfile postulante)
         {
