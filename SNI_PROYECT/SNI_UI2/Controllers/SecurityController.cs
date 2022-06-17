@@ -35,6 +35,10 @@ namespace SNI_UI2.Controllers
         {
             return true;
         }
+        public static bool HavePermission(string permission)
+        {
+            return true;
+        }
 
     }
 }

@@ -1,21 +1,26 @@
-﻿<!DOCTYPE html>
+﻿@using SNI_UI2.Controllers
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] SNI ADMIN</title>
-    <link rel="stylesheet" href="~/css/AdminTemplate.css" />
+    <link rel="stylesheet" href="~/css/AdminTemplate.css" />    
 </head>
-<body>
+<body id="AdminTemplate">
+    <nav id="Nav">
+    </nav>
     <header id="Header">
     </header>
     <aside id="Aside">
     </aside>
-    <main role="main" id="Main">
-        @RenderBody()
-    </main>
-    <footer id="Footer">
-    </footer>
+    <div id="MainContainer">
+        <main role="main" id="Main">
+            @RenderBody()
+        </main>
+    </div>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
