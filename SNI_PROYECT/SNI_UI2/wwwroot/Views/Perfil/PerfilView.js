@@ -12,7 +12,7 @@ import { ProfileCard, ProfileTab, WProfileInvestigador } from "../ViewProfile.js
 import { WSecurity } from "../../WDevCore/WModules/WSecurity.js";
 import { WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { ProyectoTableActividades, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
@@ -142,7 +142,8 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Procesos editoriales científicos", url: "#",
                     action: async (ev) => {
-                        //this.NavSaveCatalogo("Tab-editoriales", { add:"SaveFormacionAcademica" }, this.response.formacionAcademica, {});
+                        const Model = new TblProcesosEditoriales();
+                        this.NavSaveCatalogo("Tab-editoriales", { add:"SaveProcesoEditorial" }, this.response.ProcesosEditoriales, Model);
                     }
                 }, {
                     name: "Premios, Distinciones, Reconocimientos, Becas", url: "#",
@@ -268,7 +269,6 @@ class PerfilClass extends HTMLElement {
         });
         this.TabManager.NavigateFunction("Tab-Editar", EditForm);
     }
-
     connectedCallback() { }
     DrawComponent = async () => {
         this.append(this.TabActividades, this.TabContainer);

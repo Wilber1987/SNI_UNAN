@@ -31,5 +31,10 @@ namespace SNI_UI2.Controllers
         {
             return AuthNetCore.Authenticate();
         }
+        public static bool HavePermission()
+        {
+            return true;
+        }
+
     }
 }

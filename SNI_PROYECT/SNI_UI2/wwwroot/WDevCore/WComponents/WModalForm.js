@@ -1,6 +1,6 @@
 import { WRender, WAjaxTools, ComponentsManager } from "../WModules/WComponentsTools.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
-import { StyleScrolls,StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
+import { StyleScrolls, StylesControlsV2 } from "../StyleModules/WStyleComponents.JS";
 let photoB64;
 class ModalConfig {
     ShadowRoot = null;
@@ -118,10 +118,10 @@ class WModalForm extends HTMLElement {
         };
         this.Modal.children.push(this.DrawModalHead());
         if (this.ObjectModal) { //AGREGA UN OBJETO AL MODAL ENVIDO DESDE LA CONFIGURACION
-            this.Modal.children.push({ type: "div", props: { class: "ObjectModalContainer" }, children: [this.ObjectModal] });            
+            this.Modal.children.push({ type: "div", props: { class: "ObjectModalContainer" }, children: [this.ObjectModal] });
         } else if (this.ObjectDetail || this.ModelObject || this.EditObject) { // MUESTRA EL DETALLE DE UN OBJETO EN UNA LISTA
             const { WForm } = await import("./WForm.js");
-            this.Config.SaveFunction = (ObjectF)=>{                
+            this.Config.SaveFunction = (ObjectF) => {
                 if (this.ObjectOptions != undefined) {
                     if (this.ObjectOptions.SaveFunction != undefined) {
                         this.ObjectOptions.SaveFunction(ObjectF);
@@ -129,8 +129,8 @@ class WModalForm extends HTMLElement {
                 }
                 this.close();
             }
-           
-            this.Modal.children.push( { type: "div", props:{ class: "ModalContent"}, children: [new WForm(this.Config)]} );
+
+            this.Modal.children.push({ type: "div", props: { class: "ModalContent" }, children: [new WForm(this.Config)] });
         }
         if (this.ShadowRoot) {
             this.shadowRoot.append(WRender.createElement(this.Modal));
@@ -163,18 +163,9 @@ class WModalForm extends HTMLElement {
         };
         const Section = {
             type: 'div',
-            props: {
-                className: "ModalHeader"
-            },
+            props: { className: "ModalHeader" },
             children: [
-                icon,
-                {
-                    type: "label",
-                    props: {
-                        innerText: this.title
-                    }
-                },
-                InputClose
+                icon, { type: "label", props: { innerText: this.title } }, InputClose
             ]
         };
         return Section;
@@ -215,7 +206,7 @@ class WModalForm extends HTMLElement {
                         padding: "10px",
                         "text-align": "center",
                         font: "400 13.3333px !important"
-                    }), new WCssClass( `.ModalContent`, {
+                    }), new WCssClass(`.ModalContent`, {
                         height: 'calc(100% - 60px)',
                         overflow: "hidden",
                         "overflow-y": "auto",
@@ -287,7 +278,7 @@ class WModalForm extends HTMLElement {
         }
         return Style;
     }
-    
+
 }
 customElements.define("w-modal-form", WModalForm);
 export { WModalForm }

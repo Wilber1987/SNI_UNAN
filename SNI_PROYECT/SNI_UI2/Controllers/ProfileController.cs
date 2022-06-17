@@ -91,5 +91,17 @@ namespace SNI_UI2.Controllers
                 return Inst.Update(new string[]{ "Id_Investigador", "Id_RedSocial"});
             }
         }
+        public object SaveProcesoEditorial(TblProcesosEditoriales Inst)
+        {
+            if (Inst.Id_Investigador == null)
+            {
+                Inst.Id_Investigador = AuthNetCore.User().UserId;
+                return Inst.Save();
+            }
+            else
+            {
+                return Inst.Update(new string[] { "Id_Proceso_Editorial"});
+            }
+        }
     }
 }

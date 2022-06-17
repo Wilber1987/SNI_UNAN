@@ -12,48 +12,23 @@ class WCalendar extends HTMLElement {
             this[p] = Config[p];
         }
         this.listOfAllDays = [
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-            'Sunday'
+            'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
         ];
         this.listOfAllDaysSpanish = [
-            'Lunes',
-            'Martes',
-            'Miércoles',
-            'Jueves',
-            'Viernes',
-            'Sábado',
-            'Domingo'
+            'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
         ];
         this.listOfAllDaysSpanish_mini = [
             'LUN', 'MAR', 'MI', 'JUE', 'VIE', 'SAB', 'DOM'
         ];
         this.listOfAllMonths = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
+            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
         ];
         this.now = new Date();
         this.year = this.now.getFullYear();
         this.attachShadow({ mode: "open" });
     }
     connectedCallback() {
-        if (this.shadowRoot.innerHTML != "") {
-            return;
-        }
+        if (this.shadowRoot.innerHTML != "") { return; }
         this.shadowRoot.append(WRender.createElement(this.StyleCalendar()));
         this.append(WRender.createElement({
             type: "w-style",
@@ -130,18 +105,13 @@ class WCalendar extends HTMLElement {
                     const day = (index + 1) < 10 ? "0" + (index + 1) : index + 1;
                     const monthIndex = (indexM + 1) < 10 ? "0" + (indexM + 1) : indexM + 1;
                     this.SelectedDay = `${this.year}-${monthIndex}-${day}`;
-                    //console.log("reservando...", this.SelectedDay);
                     const Days = ev.target.parentNode.parentNode.querySelectorAll("article");
                     Days.forEach(day => {
-                        if (day.className != "CalendarDayDisable") {
-                            day.className = "CalendarDay";
-                        }
+                        if (day.className != "CalendarDayDisable") day.className = "CalendarDay";
                     });
                     ev.target.className = "CalendarDayActive";
                     if (this.Function) {
-                        if (this.DetailDay) {
-
-                        } else {
+                        if (this.DetailDay) { } else {
                             const Result = this.Function({
                                 date: this.SelectedDay,
                                 day: date.getDay()
@@ -190,9 +160,7 @@ class WCalendar extends HTMLElement {
         const ContainerDays = {
             type: "div",
             props: { class: "GridCalendarMonth" },
-            children: [
-                Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,
-            ]
+            children: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
         };
         ContainerMonth.children.push(Title, DaysLabel, ContainerDays);
         return ContainerMonth;
@@ -206,18 +174,13 @@ class WCalendar extends HTMLElement {
         const SelectPage = (index) => {
             let Months = this.shadowRoot.querySelectorAll(".GridCalendarMonthContainer");
             Months.forEach((Month, indexMonth) => {
-                if (indexMonth == index) {
-                    Month.style.display = "grid";
-                } else {
-                    Month.style.display = "none";
-                }
+                if (indexMonth == index) Month.style.display = "grid";
+                else Month.style.display = "none";
             });
         }
         tfooter.push({
-            type: "label",
-            props: {
-                innerText: "<",
-                class: "pagBTN",
+            type: "label", props: {
+                innerText: "<", class: "pagBTN",
                 onclick: () => {
                     this.ActualPage = this.ActualPage - 1;
                     if (this.ActualPage < 0) {
@@ -228,10 +191,8 @@ class WCalendar extends HTMLElement {
             }
         });
         tfooter.push({
-            type: "label",
-            props: {
-                innerText: ">",
-                class: "pagBTN",
+            type: "label", props: {
+                innerText: ">", class: "pagBTN",
                 onclick: () => {
                     this.ActualPage = this.ActualPage + 1;
                     if (this.ActualPage > 11) {
@@ -532,12 +493,8 @@ class ReservarComponent extends HTMLElement {
                 padding: "10px",
                 "grid-row": "1/3",
             }), new WCssClass(`.DetailCalendar`, {
-                //"grid-row": "1/3",
-                //"grid-column": "2/3",
                 width: "100%",
-            }), new WCssClass(`#Calendar`, {
-                //"grid-row": "2/3",
-            }),
+            }), new WCssClass(`#Calendar`, { })
         ]
     });
 }
