@@ -136,8 +136,10 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\staticwebassets\SN
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.TagHelpers.input.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.TagHelpers.output.cache
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.RazorCoreGenerate.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Admin\Index.cshtml.g.cs
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Admin\Login.cshtml.g.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Login.cshtml.g.cs
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -151,4 +153,3 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\ref\SNI_UI2.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.genruntimeconfig.cache
-C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Admin\Index.cshtml.g.cs

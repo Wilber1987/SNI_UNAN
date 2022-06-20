@@ -27,7 +27,11 @@ namespace SNI_UI2.Controllers
         {
             return AuthNetCore.ClearSeason();
         }
-        public object Verification()
+        public bool Verification()
+        {
+            return AuthNetCore.Authenticate();
+        }
+        public static bool Auth()
         {
             return AuthNetCore.Authenticate();
         }

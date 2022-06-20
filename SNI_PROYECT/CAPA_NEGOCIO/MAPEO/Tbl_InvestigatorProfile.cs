@@ -8,7 +8,7 @@ namespace CAPA_NEGOCIO.MAPEO
 {
     public class Tbl_InvestigatorProfile : EntityClass
     {
-       
+
         public int? Id_Investigador { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
@@ -22,7 +22,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Institucion { get; set; }
         public string Indice_H { get; set; }
         public string Estado { get; set; }
-        public string NombreInstitucion { get; set; }
+        public string NombreInstitucion { get; set; }     
 
         public List<Tbl_Investigaciones> Investigaciones { get; set; }
         public List<Object> Colaboraciones { get; set; }
@@ -37,6 +37,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Tbl_Datos_Laborales> DatosLaborales { get; set; }
         public List<Tbl_Evento> Eventos { get; set; }
         public List<Tbl_Distinciones> Distinciones { get; set; }
+        public List<TblProcesosEditoriales> ProcesosEditoriales { get; set; }
 
 
         public List<Object> TakeDepCoordinaciones()
@@ -107,6 +108,10 @@ namespace CAPA_NEGOCIO.MAPEO
                 tbl_Distinciones.Id_Investigador = this.Id_Investigador;
                 Investigador.Distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
 
+                Investigador.ProcesosEditoriales =
+                    (new TblProcesosEditoriales()).Get_WhereIN<TblProcesosEditoriales>(
+                        "Id_Investigador", new string[] { this.Id_Investigador.ToString() }
+                        );
                 return Investigador;
             }
             catch (Exception)
@@ -119,7 +124,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                this.Estado = "Postulante";
+                this.Estado = "POSTULANTE";
                 SaveProfile();
                 return true;
             }
@@ -135,7 +140,7 @@ namespace CAPA_NEGOCIO.MAPEO
             else
             {
                 this.Update("Id_Investigador");
-            }            
+            }
             if (this.Id_Idiomas != null)
             {
                 Tbl_IdiomasInv IdI = new Tbl_IdiomasInv();
@@ -162,7 +167,7 @@ namespace CAPA_NEGOCIO.MAPEO
                     obj.Id_Investigador = this.Id_Investigador;
                     obj.Save();
                 }
-            }           
+            }
             if (this.Investigaciones != null)
             {
                 foreach (Tbl_Investigaciones obj in this.Investigaciones)

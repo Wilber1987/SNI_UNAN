@@ -41,11 +41,11 @@ class WSecurity {
         photo: "xx",
         //state: "xx",
     };
-    static Login = async (UserData) => {
+    static Login = async (UserData, url) => {
         const result = await WAjaxTools.PostRequest(WSecurity.urlLogIn, UserData)
         if (result.success == true) {
             this.UserData = result;
-            window.location = WSecurity.urlHomeView;
+            window.location = url ?? WSecurity.urlHomeView;
         } else {
             console.log("Fail to login");
         }

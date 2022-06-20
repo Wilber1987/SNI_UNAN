@@ -2,8 +2,22 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from "../WModules/WCo
 import { WOrtograficValidation } from "../WModules/WOrtograficValidation.js";
 import { WCssClass } from "../WModules/WStyledRender.js";
 import { WModalForm } from "./WModalForm.js";
+class TableConfig {
+    Dataset = [];
+    ModelObject = {};
+    paginate = true;
+    TypeMoney = "Dollar";
+    selectedItems = [];
+    DisplayData = [];
+    Options = {
+        UserActions: [{
+            name: "name",
+            Function: () => { }
+        }]
+    }
+}
 class WTableComponent extends HTMLElement {
-    constructor(TableConfig = {}) {
+    constructor(Config = (new TableConfig())) {
         super();
         this.TableClass = "WTable WScroll";
         this.Dataset = [];
@@ -12,7 +26,7 @@ class WTableComponent extends HTMLElement {
         this.paginate = true;
         this.attachShadow({ mode: "open" });
         this.TypeMoney = "Euro";
-        this.TableConfig = TableConfig;
+        this.TableConfig = Config;
     }
     connectedCallback() {
         this.DarkMode = this.DarkMode ?? false;
@@ -379,7 +393,7 @@ class WTableComponent extends HTMLElement {
     EvalModelPrototype(Model, prop, IsImage, value) {
         if (Model != undefined && Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {
             switch (Model[prop].type.toUpperCase()) {
-                case "IMAGE": case "IMAGES":
+                case "IMAGE": case "IMAGES": case "IMG":
                     IsImage = true;
                     break;
                 case "SELECT":
@@ -392,7 +406,6 @@ class WTableComponent extends HTMLElement {
                         }
                         return flag;
                     });
-
                     value = element && element.__proto__ == Object.prototype ? element.desc : element;
                     break;
                 case "MULTISELECT":

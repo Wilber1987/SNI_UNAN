@@ -250,13 +250,12 @@ class Tbl_InvestigatorProfile {
 	FechaNac = { type: "date" };
 	IdUser = { type: "number" };
 	Sexo = { type: "text" };
-	Foto = { type: "text" };
+	Foto = { type: "IMAGE"};
 	DNI = { type: "text" };
 	Correo_institucional = { type: "text" };
 	Id_Pais_Origen = { type: "number" };
 	Id_Institucion = { type: "number" };
-	Indice_H = { type: "text" };
-	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "Postulante"] };
 }
 export { Tbl_InvestigatorProfile }
 class Tbl_Investigaciones {

@@ -10,7 +10,7 @@ class WProfileInvestigador extends HTMLElement {
         const Card = new WCard({
             titulo: `${response.Nombres} ${response.Apellidos}`,
             picture: response.Foto,
-            subtitulo: "Autor",
+            subtitulo: "",
             descripcion: response.NombreInstitucion,
             id_Investigador: response.Id_Investigador
         }, 2);
@@ -36,6 +36,22 @@ class WProfileInvestigador extends HTMLElement {
             Inicialize: true,
             Elements: [
                 {
+                    name: "Formación Académica", url: "#",
+                    action: async (ev) => {
+                        this.DOMManager.NavigateFunction("Tab-Formacion", new ProfileTab(
+                            this.response.FormacionAcademica,
+                            ["Disciplina", "Id_Cargo", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
+                        ), "TabContainer");
+                    }
+                }, {
+                    name: "Datos Laborales", url: "#",
+                    action: async (ev) => {
+                        this.DOMManager.NavigateFunction("Tab-DatosLaborales", new ProfileTab(
+                            this.response.DatosLaborales,
+                            ["Unidad", "Institucion", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
+                        ), "TabContainer");
+                    }
+                }, {
                     name: "Investigaciones", url: "#",
                     action: async (ev) => {
                         this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
@@ -143,6 +159,7 @@ class ProfileTab {
         }
         let urlAction;
         let idAction;
+        let action = true;
         switch (name) {
             case "Investigaciones":
                 urlAction = location.origin + "/Views/ViewRead.html?param=";
@@ -156,6 +173,9 @@ class ProfileTab {
                 urlAction = location.origin + "/Views/ViewRead.html?param=";
                 idAction = "id_Investigacion";
                 break;
+            default:
+                action = false;
+                break;
         }
         this.children = [this.Style];
         if (Dataset.length != 0) {
@@ -166,13 +186,22 @@ class ProfileTab {
                 DisplayData: DisplayData,
                 Options: {
                     Search: true,
-                    UserActions: [{
-                        name: "Leer..", Function: (element) => {
-                            window.location = urlAction + element[idAction]
-                        }
-                    }]
+                    UserActions: []
                 }
             };
+            if (action) {
+                TableConfigG.Options.UserActions.push({
+                    name: "Leer..", Function: (element) => {
+                        window.location = urlAction + element[idAction]
+                    }
+                });
+            }else{
+                TableConfigG.Options.UserActions.push({
+                    name: "View", Function: (element) => {
+
+                    }
+                });
+            }
             const WTableReport = WRender.createElement({
                 type: "w-table",
                 props: {
