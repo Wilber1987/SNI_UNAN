@@ -1,7 +1,7 @@
 ﻿#AdminTemplate {
     display: grid;
     grid-template-rows: 70px calc(100vh - 70px);
-    grid-template-columns: 200px calc(100% - 200px);
+    grid-template-columns: 240px calc(100% - 240px);
     padding: 0px;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,6 +14,8 @@
 }
 #Aside {
     background-color: rgb(19, 19, 19);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 #MainContainer {
     background-color: #f1f3f7 ;
@@ -27,4 +29,5 @@
     min-height: 500px;
     box-shadow: 0 0 5px 0 #b3b3b3;
     margin: 0px;
+    padding: 20px;
 }

@@ -104,7 +104,7 @@ const StylesControlsV2 = {
                 "font-size": 11,
                 padding: 8
             }), new WCssClass(`.BtnAlert,.BtnPrimary, .BtnSuccess,.BtnSecundary,.Btn`, {
-                width: "150px",
+                "min-width": "150px",
                 "background-color": "#5995fd",
                 border: "none",
                 outline: "none",
@@ -113,7 +113,8 @@ const StylesControlsV2 = {
                 color: "#fff",
                 "text-transform": "uppercase",
                 "font-weight": "600",
-                margin: "10px 0",
+                margin: "10px 5px",
+                padding: "0 10px",
                 cursor: "pointer",
                 transition: "0.5s",
             }), new WCssClass(`.BtnPrimary`, {
@@ -138,6 +139,7 @@ const StylesControlsV2 = {
             input[type=string], 
             input[type=password], 
             input[type=number],
+            input[type=color],
             input[type=date],  input[type=time],select, textarea,
             input:-internal-autofill-selected`, {
                 width: "100%",
@@ -151,7 +153,8 @@ const StylesControlsV2 = {
                 "font-size": "1.1rem !important",
                 color: "#333 !important",
                 "box-sizing": "border-box",
-                cursor: "pointer"
+                cursor: "pointer",
+                height: 40
             }), new WCssClass(`input:active, 
                 input:focus, 
                 select:active, 

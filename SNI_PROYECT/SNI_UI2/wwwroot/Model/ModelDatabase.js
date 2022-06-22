@@ -161,8 +161,8 @@ class CatDisciplinas {
 	}
 	Id_Disciplina = { type: "number", primary: true };
 	DescripcionDisciplina = { type: "text" };
-	Color = { type: "text" };
-	Icono = { type: "text" };
+	Color = { type: "COLOR" };
+	Icono = { type: "IMAGE" };
 }
 export { CatDisciplinas }
 class ViewInvestigacionesDisciplinas {
@@ -174,7 +174,7 @@ class ViewInvestigacionesDisciplinas {
 	Id_Investigacion = { type: "number", primary: true };
 	Id_Disciplina = { type: "number" };
 	DescripcionDisciplina = { type: "text" };
-	Color = { type: "text" };
+	Color = { type: "COLOR" };
 	Icono = { type: "text" };
 }
 export { ViewInvestigacionesDisciplinas }
@@ -224,7 +224,7 @@ class Cat_instituciones {
 	Nombre = { type: "text" };
 	Direccion = { type: "text" };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-	Logo = { type: "text" };
+	Logo = { type: "IMAGE" };
 }
 export { Cat_instituciones }
 class Cat_Tipo_Investigacion {
@@ -468,7 +468,7 @@ class Cat_Tipo_Proyecto {
 	Id_Tipo_Proyecto = { type: "number", primary: true };
 	Descripcion_Tipo_Proyecto = { type: "text" };
 	Estado_Tipo_Proyecto = { type: "text" };
-	Icon = { type: "text" };
+	Icon = { type: "IMAGE" };
 }
 export { Cat_Tipo_Proyecto }
 class Tbl_Proyectos {
@@ -541,7 +541,7 @@ class CatRedesSociales {
 	Id_RedSocial = { type: "number", primary: true };
 	Descripcion = { type: "text" };
 	url = { type: "text" };
-	Icon = { type: "text" };
+	Icon = { type: "IMAGE" };
 }
 export { CatRedesSociales }
 class Tbl_Invest_RedS {

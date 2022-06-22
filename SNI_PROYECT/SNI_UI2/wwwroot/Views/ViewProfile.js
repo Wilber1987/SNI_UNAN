@@ -5,7 +5,7 @@ import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import "../WDevCore/WComponents/WTableComponent.js";
 
 class WProfileInvestigador extends HTMLElement {
-    constructor(response) {
+    constructor(response, Options = {}) {
         super();
         const Card = new WCard({
             titulo: `${response.Nombres} ${response.Apellidos}`,
@@ -14,6 +14,7 @@ class WProfileInvestigador extends HTMLElement {
             descripcion: response.NombreInstitucion,
             id_Investigador: response.Id_Investigador
         }, 2);
+        this.Options = Options;
         this.response = response;
         this.ProfileContainer = WRender.createElement({ type: 'div', props: { class: 'ProfileContainer' } });
         this.ProfileContainer.append(Card);
@@ -21,64 +22,74 @@ class WProfileInvestigador extends HTMLElement {
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.appendChild(WRender.createElement(StylesControlsV2));
+        this.ComponentTab = WRender.createElement({
+            type: "w-app-navigator",
+            props: {
+                NavStyle: "tab",
+                id: "GuidesNav",
+                title: "Menu",
+                Inicialize: true,
+                Elements: this.TabElements()
+            }
+        });
         this.append(WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
     }
     connectedCallback() {
     }
     DrawComponent = async () => {
-    }
-    ComponentTab = WRender.createElement({
-        type: "w-app-navigator",
-        props: {
-            NavStyle: "tab",
-            id: "GuidesNav",
-            title: "Menu",
-            Inicialize: true,
-            Elements: [
-                {
-                    name: "Formación Académica", url: "#",
-                    action: async (ev) => {
-                        this.DOMManager.NavigateFunction("Tab-Formacion", new ProfileTab(
-                            this.response.FormacionAcademica,
-                            ["Disciplina", "Id_Cargo", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
-                        ), "TabContainer");
-                    }
-                }, {
-                    name: "Datos Laborales", url: "#",
-                    action: async (ev) => {
-                        this.DOMManager.NavigateFunction("Tab-DatosLaborales", new ProfileTab(
-                            this.response.DatosLaborales,
-                            ["Unidad", "Institucion", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
-                        ), "TabContainer");
-                    }
-                }, {
-                    name: "Investigaciones", url: "#",
-                    action: async (ev) => {
-                        this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
-                            this.response.Investigaciones,
-                            ["Titulo", "Fecha_ejecucion", "Estado"], "Investigaciones"
-                        ), "TabContainer");
-                    }
-                }, {
-                    name: "Colaboraciones", url: "#",
-                    action: async (ev) => {
-                        this.DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
-                            this.response.Colaboraciones,
-                            ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones"
-                        ), "TabContainer");
-                    }
-                }, {
-                    name: "Proyectos", url: "#",
-                    action: async (ev) => {
-                        this.DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
-                            this.response.Proyectos,
-                            ["Nombre_Proyecto", "Cargo", "Estado_Proyecto"], "Proyectos"
-                        ), "TabContainer");
-                    }
+    }    
+    TabElements = ()=>{
+        const tabElements = [
+            {
+                name: "Investigaciones", url: "#",
+                action: async (ev) => {
+                    this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
+                        this.response.Investigaciones,
+                        ["Titulo", "Fecha_ejecucion", "Estado"], "Investigaciones"
+                    ), "TabContainer");
                 }
-            ]
+            }, {
+                name: "Colaboraciones", url: "#",
+                action: async (ev) => {
+                    this.DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
+                        this.response.Colaboraciones,
+                        ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones"
+                    ), "TabContainer");
+                }
+            }, {
+                name: "Proyectos", url: "#",
+                action: async (ev) => {
+                    this.DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
+                        this.response.Proyectos,
+                        ["Nombre_Proyecto", "Cargo", "Estado_Proyecto"], "Proyectos"
+                    ), "TabContainer");
+                }
+            }
+        ];
+        if (this.Options.DatosLaborales) {
+               tabElements.unshift({
+                name: "Datos Laborales", url: "#",
+                action: async (ev) => {
+                    this.DOMManager.NavigateFunction("Tab-DatosLaborales", new ProfileTab(
+                        this.response.DatosLaborales,
+                        ["Unidad", "Institucion", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
+                    ), "TabContainer");
+                }
+            });         
         }
-    });
+        if (this.Options.FormacionAcademica) {
+            tabElements.unshift( {
+                name: "Formación Académica", url: "#",
+                action: async (ev) => {
+                    this.DOMManager.NavigateFunction("Tab-Formacion", new ProfileTab(
+                        this.response.FormacionAcademica,
+                        ["Disciplina", "Id_Cargo", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
+                    ), "TabContainer");
+                }
+            });            
+        }
+        return  tabElements;
+    }
     styleComponent = {
         type: 'w-style', props: {
             ClassList: [
@@ -196,11 +207,7 @@ class ProfileTab {
                     }
                 });
             }else{
-                TableConfigG.Options.UserActions.push({
-                    name: "View", Function: (element) => {
-
-                    }
-                });
+                TableConfigG.Options = {}                
             }
             const WTableReport = WRender.createElement({
                 type: "w-table",

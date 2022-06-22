@@ -11,7 +11,16 @@
         Response.Redirect("../Admin/login");
     }
 }
-@if (SecurityController.HavePermission("ADMINISTRAR"))
-    { <script src="~/Admin/AdminPostulantes.js" type="module"></script> }  
 @if (SecurityController.HavePermission("ADMINISTRAR_POSTULANTES"))
-    { <script src="~/Admin/AdminNavigator.js" type="module"></script> }  
+{
+     <script src="~/Admin/AdminInvestigadores.js" type="module"></script>
+}
+
+@if (SecurityController.HavePermission("ADMINISTRAR_INVESTIGACIONES"))
+{
+     <script src="~/Admin/AdminInvestigaciones.js" type="module"></script>
+}
+@if (SecurityController.HavePermission("ADMINISTRAR_CATALOGOS"))
+{
+     <script src="~/Admin/AdminNavigator.js" type="module"></script>
+}

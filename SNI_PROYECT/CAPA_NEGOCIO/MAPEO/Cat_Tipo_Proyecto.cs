@@ -4,7 +4,7 @@ using System.Text;
 using CAPA_DATOS;
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Cat_Tipo_Proyecto
+    public class Cat_Tipo_Proyecto: EntityClass
     {
         public int? Id_Tipo_Proyecto { get; set; }
         public string Descripcion_Tipo_Proyecto { get; set; }

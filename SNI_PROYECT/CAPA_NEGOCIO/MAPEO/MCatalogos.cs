@@ -77,5 +77,22 @@ namespace CAPA_NEGOCIO.MAPEO
 		public string Latitud { get; set; }
 		public string Longitud { get; set; }
 	}
-
+	public class Cat_TipoLocalidad : EntityClass
+	{
+		public int? Id_Tipo_Localidad { get; set; }
+		public string Nombre_TipoLocalidad { get; set; }
+	}
+	public class CatDisciplinas : EntityClass
+	{
+		public int? Id_Disciplina { get; set; }
+		public string DescripcionDisciplina { get; set; }
+		public string Color { get; set; }
+		public string Icono { get; set; }
+	}
+	public class Cat_Tipo_Colaborador : EntityClass
+	{
+		public int? Id_Tipo_Colaboracion { get; set; }
+		public string Descripcion { get; set; }
+		public string Estado { get; set; }
+	}
 }
