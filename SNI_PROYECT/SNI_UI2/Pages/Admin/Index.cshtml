@@ -15,10 +15,13 @@
 {
      <script src="~/Admin/AdminInvestigadores.js" type="module"></script>
 }
-
 @if (SecurityController.HavePermission("ADMINISTRAR_INVESTIGACIONES"))
 {
      <script src="~/Admin/AdminInvestigaciones.js" type="module"></script>
+}
+@if (SecurityController.HavePermission("ADMINISTRAR_USUARIOS"))
+{
+     <script src="~/Admin/AdminSecurity.js" type="module"></script>
 }
 @if (SecurityController.HavePermission("ADMINISTRAR_CATALOGOS"))
 {

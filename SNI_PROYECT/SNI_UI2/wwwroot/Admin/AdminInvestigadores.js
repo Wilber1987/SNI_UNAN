@@ -9,7 +9,8 @@ import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
 window.onload = () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });
     Main.append(WRender.createElement(StylesControlsV2));
-    Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de Investigadores", style: {color: "#fff", padding: "10px"}}))
+    Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de Investigadores", 
+    style: {color: "#fff", padding: "10px", margin: "0px"}}))
     Aside.append(new WAppNavigator({
         DarkMode: true,
         Direction: "column",

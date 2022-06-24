@@ -18,7 +18,8 @@ window.addEventListener("load", async () => {
         Id_Tipo_Localidad: { type: "SELECT" , Dataset: tipoLocalidad.map(x => ({ id: x.Id_Tipo_Localidad, desc: x.Nombre_TipoLocalidad }))},
         Id_LocalidadPadre: { type: "SELECT" , Dataset: localidadPadre.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad }))}
     });
-    Aside.append(WRender.Create({tagName: "h3", innerText: "Mantenimiento de Catalogos", style: {color: "#fff", padding: "10px"}}));
+    Aside.append(WRender.Create({tagName: "h3", innerText: "Mantenimiento de Catalogos", 
+    style: {color: "#fff", padding: "10px", margin: "0px"}}));
     Aside.append(new WAppNavigator({
         DarkMode: true,
         Direction: "column",

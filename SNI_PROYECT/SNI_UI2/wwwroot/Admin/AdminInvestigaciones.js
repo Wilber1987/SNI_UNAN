@@ -12,7 +12,10 @@ import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
 import { ActionFunction, ModalComp } from "../Views/Home.js";
 window.addEventListener("load", async () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });
-    Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de Investigaciones", style: { color: "#fff", padding: "10px" } }));
+    Aside.append(WRender.Create({
+        tagName: "h3", innerText: "Administración de Investigaciones",
+        style: { color: "#fff", padding: "10px", margin: "0px" }
+    }));
     Aside.append(new WAppNavigator({
         DarkMode: true,
         Direction: "column",
