@@ -279,7 +279,8 @@ class WTableComponent extends HTMLElement {
                     const Model = this.ModelObject;
                     let IsImage = this.IsImage(prop);
                     let IsColor = false;
-                    ({ IsImage, value, IsColor } = this.EvalModelPrototype(Model, prop, IsImage, value, IsColor));
+                    let IsMultiSelect = false;
+                    ({ IsImage, value, IsColor,IsMultiSelect } = this.EvalModelPrototype(Model, prop, IsImage, value, IsColor, IsMultiSelect));
                     //DEFINICION DE VALORES-------------
                     if (IsImage) {
                         let cadenaB64 = "";
@@ -320,7 +321,14 @@ class WTableComponent extends HTMLElement {
                                 innerHTML: `${Money[this.TypeMoney]} ${value}`
                             }
                         }));
-                    } else if (typeof value === "number") {
+                    }else if (IsMultiSelect) {
+                        tr.append(WRender.createElement({
+                            type: "td", props: {
+                                style: "text-align: right",
+                                innerHTML: `${Model[prop].Dataset.map(x => `<label class="labelMultiselect">${x.Descripcion}</label>`).join()}`
+                            }
+                        }));
+                    }  else if (typeof value === "number") {
                         tr.append(WRender.createElement({ type: "td", props: { innerHTML: value.toFixed(2) } }));
                     } else {
                         tr.append(WRender.createElement({ type: "td", props: { innerHTML: value } }));
@@ -400,7 +408,7 @@ class WTableComponent extends HTMLElement {
         this.shadowRoot.append(WRender.createElement(this.MediaStyleResponsive()));
         return tbody;
     }
-    EvalModelPrototype(Model, prop, IsImage, value, IsColor) {
+    EvalModelPrototype(Model, prop, IsImage, value, IsColor, IsMultiSelect) {
         if (Model != undefined && Model[prop] != undefined && Model[prop].__proto__ == Object.prototype) {
             switch (Model[prop].type.toUpperCase()) {
                 case "IMAGE": case "IMAGES": case "IMG":
@@ -419,6 +427,7 @@ class WTableComponent extends HTMLElement {
                     value = element && element.__proto__ == Object.prototype ? element.desc : element;
                     break;
                 case "MULTISELECT":
+                    IsMultiSelect = true;
                     break;
                 case "COLOR":
                     IsColor = true;
@@ -432,7 +441,7 @@ class WTableComponent extends HTMLElement {
             InputControl = this.CreateSelect(InputControl, Model[prop], prop, ObjectF);
             ObjectF[prop] = InputControl.value;
         }
-        return { IsImage, value, IsColor };
+        return { IsImage, value, IsColor, IsMultiSelect };
     }
 
     DeleteBTN(Options, element, tr) {

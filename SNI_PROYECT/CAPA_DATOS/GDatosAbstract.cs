@@ -12,14 +12,46 @@ namespace CAPA_DATOS
     public abstract class GDatosAbstract
     {
         protected IDbConnection SQLMCon;
+        protected IDbTransaction MTransaccion;
+        protected bool EnTransaccion;
         protected abstract IDbConnection CrearConexion(string cadena);
         protected abstract IDbCommand ComandoSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(IDbCommand comandoSql);
-        public object ExcuteSqlQuery(string strQuery)
+        public void BeginTransaccion()
         {
             try
             {
+                MTransaccion = SQLMCon.BeginTransaction();
+                EnTransaccion = true;
+            }
+            finally
+            { EnTransaccion = false; }
+        }
+        public void EndTransaccion()
+        {
+            try
+            { MTransaccion.Commit(); }
+            finally
+            {
+                MTransaccion = null;
+                EnTransaccion = false;
+            }
+        }
+        public void RollbackTransaccion()
+        {
+            try
+            { MTransaccion.Rollback(); }
+            finally
+            {
+                MTransaccion = null;
+                EnTransaccion = false;
+            }
+        }
+        public object ExcuteSqlQuery(string strQuery)
+        {
+            try
+            {               
                 SQLMCon.Open();
                 var com = ComandoSql(strQuery, SQLMCon);
                 var scalar = com.ExecuteScalar();
@@ -285,14 +317,13 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + " AND ";
             }
         }
-
         public DataTable TraerDatosSQL(string queryString)
         {
             try
             {
                 DataSet ObjDS = new DataSet();
                 CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
-                return ObjDS.Tables[0].Copy();
+                return ObjDS.Tables[0].Copy();                
             }
             catch (Exception)
             {

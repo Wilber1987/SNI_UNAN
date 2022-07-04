@@ -43,7 +43,7 @@ class Security_Users_Roles {
 		}
 	}
 	Id_Role = { type: "number", primary: true };
-	IdUser = { type: "number", primary: true };
+	Id_User = { type: "number", primary: true };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Security_Users_Roles }
@@ -55,7 +55,7 @@ class Security_Users {
 			this[prop] = props[prop];
 		}
 	}
-	IdUser = { type: "number", primary: true };
+	Id_User = { type: "number", primary: true };
     Foto = { type: "IMAGE" };
     Nombres = { type: "text" };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };

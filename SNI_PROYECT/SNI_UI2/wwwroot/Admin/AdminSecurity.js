@@ -9,10 +9,7 @@ window.addEventListener("load", async () => {
     const Roles = await WAjaxTools.PostRequest("../api/Admin/TakeSecurity_Roles", {});
     const Permisos = await WAjaxTools.PostRequest("../api/Admin/TakeSecurity_Permissions", {});
     Main.append(WRender.createElement(StylesControlsV2));
-    Aside.append(WRender.Create({
-        tagName: "h3", innerText: "Mantenimiento de Usuarios",
-        style: { color: "#fff", padding: "10px", margin: "0px" }
-    }));
+    Aside.append(WRender.Create({tagName: "h3", innerText: "Mantenimiento de Usuarios"}));
     Aside.append(new WAppNavigator({
         DarkMode: true,
         Direction: "column",
@@ -37,7 +34,7 @@ function ElementTab(TabName = "Tab", DOMManager, Model) {
                 ModelObject: Model,
                 Options: {
                     Add: true, UrlAdd: "../api/Admin/Save" + Model.constructor.name,
-                    Edit: true, UrlUpdate: "../api/Admin/Update" + Model.constructor.name,
+                    Edit: true, UrlUpdate: "../api/Admin/Save" + Model.constructor.name,
                     Search: true, UrlSearch: "../api/Admin/Take" + Model.constructor.name,
                 }
             }));
