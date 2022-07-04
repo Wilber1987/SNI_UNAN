@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KcXH5t4j4SLIrJYDoItTO7gkEhgn5ggbrfY75WTJBUB985ybrVh2tU15pHQV7/d6BcGMLLFT2OTg8Z5ZEjz0OA==",
+  "success": true,
+  "projectFilePath": "C:\\xampp\\htdocs\\SNI_UNAN\\SNI_PROYECT\\UI_USAV\\UI_USAV.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
