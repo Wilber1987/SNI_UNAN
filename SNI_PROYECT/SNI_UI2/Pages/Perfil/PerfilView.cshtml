@@ -1,13 +1,12 @@
 ﻿@page
+@model SNI_UI2.Pages.Perfil.PerfilViewModel
 @using SNI_UI2.Controllers
-@model SNI_UI2.Pages.IndexModel
 @{
     Layout = null;
     if (!SecurityController.HavePermission())
     {
         Response.Redirect("../Security/Login");
     }
-
 }
 <!DOCTYPE html>
 <html>
@@ -15,8 +14,9 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./App.js" type="module"></script>
+    
+    <script src="../Views/Perfil/PerfilView.js" type="module"></script>
 </head>
-<body id="App">    
+<body id="App">
 </body>
 </html>

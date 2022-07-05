@@ -40,16 +40,15 @@ class WTableComponent extends HTMLElement {
                 break;
         }
         //PAGINACION
-        this.append(WRender.createElement(
-            {
-                type: 'w-style', props: {
-                    id: '', ClassList: [
-                        new WCssClass(`w-table`, {
-                            display: "block"
-                        }),
-                    ]
-                }
-            }));
+        this.append(WRender.createElement({
+            type: 'w-style', props: {
+                id: '', ClassList: [
+                    new WCssClass(`w-table`, {
+                        display: "block"
+                    }),
+                ]
+            }
+        }));
         if (this.TableConfig.maxElementByPage == undefined) {
             this.maxElementByPage = 10;
         } else {
@@ -280,7 +279,7 @@ class WTableComponent extends HTMLElement {
                     let IsImage = this.IsImage(prop);
                     let IsColor = false;
                     let IsMultiSelect = false;
-                    ({ IsImage, value, IsColor,IsMultiSelect } = this.EvalModelPrototype(Model, prop, IsImage, value, IsColor, IsMultiSelect));
+                    ({ IsImage, value, IsColor, IsMultiSelect } = this.EvalModelPrototype(Model, prop, IsImage, value, IsColor, IsMultiSelect));
                     //DEFINICION DE VALORES-------------
                     if (IsImage) {
                         let cadenaB64 = "";
@@ -305,14 +304,16 @@ class WTableComponent extends HTMLElement {
                         }));
                     } else if (IsColor) {
                         tr.append(WRender.Create({
-                            tagName: "td", children: [{ style: {
-                                background: value,
-                                width: "30px", 
-                                height: "30px", 
-                                borderRadius: "50%", 
-                                boxShadow: "0 0 3px 0 #888",
-                                margin: "auto"
-                            }}]
+                            tagName: "td", children: [{
+                                style: {
+                                    background: value,
+                                    width: "30px",
+                                    height: "30px",
+                                    borderRadius: "50%",
+                                    boxShadow: "0 0 3px 0 #888",
+                                    margin: "auto"
+                                }
+                            }]
                         }));
                     } else if (this.IsMoney(prop)) {
                         tr.append(WRender.createElement({
@@ -321,14 +322,37 @@ class WTableComponent extends HTMLElement {
                                 innerHTML: `${Money[this.TypeMoney]} ${value}`
                             }
                         }));
-                    }else if (IsMultiSelect) {
+                    } else if (IsMultiSelect) {
+                        element[prop] = value.map(object => {
+                            const NewObj = {};
+                            const FObject = Model[prop].Dataset.find(fobject => {
+                                let flag = false;
+                                for (const key in fobject) {
+                                    if (key.toUpperCase().includes("ID") && fobject[key] && object[key] == fobject[key]) {
+                                        flag = true;
+                                    }
+                                }
+                                return flag;
+                            });
+                            if (FObject) {
+                                for (const key in object) { NewObj[key] = object[key] }
+                                return FObject;
+                            }
+                            return undefined;
+                        });
                         tr.append(WRender.createElement({
                             type: "td", props: {
-                                style: "text-align: right",
-                                innerHTML: `${Model[prop].Dataset.map(x => `<label class="labelMultiselect">${x.Descripcion}</label>`).join()}`
+                                innerHTML: `${element[prop].map(object => {
+                                    const FObject = Model[prop].Dataset.find(i => WArrayF.compareObj(object, i));
+                                    if (FObject) {
+                                        return `<label class="labelMultiselect">${FObject.Descripcion}</label>`
+                                    } else {
+                                        return `<label class="labelMultiselect">${FObject}</label>`
+                                    }
+                                }).join('')}`
                             }
                         }));
-                    }  else if (typeof value === "number") {
+                    } else if (typeof value === "number") {
                         tr.append(WRender.createElement({ type: "td", props: { innerHTML: value.toFixed(2) } }));
                     } else {
                         tr.append(WRender.createElement({ type: "td", props: { innerHTML: value } }));
@@ -425,6 +449,7 @@ class WTableComponent extends HTMLElement {
                         return flag;
                     });
                     value = element && element.__proto__ == Object.prototype ? element.desc : element;
+                    value = value ?? "";
                     break;
                 case "MULTISELECT":
                     IsMultiSelect = true;
@@ -539,7 +564,6 @@ class WTableComponent extends HTMLElement {
             });
         }
     }
-
     ModalCRUD(element, tr) {
         this.shadowRoot.append(
             new WModalForm({
@@ -659,9 +683,6 @@ class WTableComponent extends HTMLElement {
                 }
             });
         }
-        /*if (tbody.length == 0) {
-            return tfooter;
-        }*/
         tfooter.push({
             type: "label",
             props: {
@@ -905,7 +926,7 @@ class WTableComponent extends HTMLElement {
                         "border-radius": "0.2cm",
                         "font-weight": "bold",
                         transition: "all 0.6s",
-                        "text-align": "center",
+                        "text-align": "center"
                     }), new WCssClass(`.tfooter`, {
                         display: "flex",
                         border: "1px rgba(10, 10, 10, 0.2) solid",
@@ -918,6 +939,14 @@ class WTableComponent extends HTMLElement {
                         "max-width": "390px",
                         "text-overflow": "ellipsis",
                         "white-space": "nowrap",
+                    }), new WCssClass(`.labelMultiselect`, {
+                        padding: "5px 10px",
+                        "border-radius": "0.3cm",
+                        "background-color": "#009f97",
+                        color: "#fff",
+                        "font-size": 11,
+                        overflow: "hidden",
+                        "margin-right": 5
                     }),
                     //BTN OPTIONS BOTONES               
                     new WCssClass(`.BtnTable, .BtnTableA, .BtnTableS, .BtnTableSR`, {

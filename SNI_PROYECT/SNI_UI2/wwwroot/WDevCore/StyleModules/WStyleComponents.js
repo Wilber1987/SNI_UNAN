@@ -14,15 +14,9 @@ const StyleScrolls = {
                 "border": "6px solid transparent",
                 "background-clip": "content-box",
             }), new WCssClass("*::-webkit-scrollbar-thumb:hover", {
-                "background": " #a8bbbf",
+                "background": " #646464",
                 "background-clip": "content-box",
-            }),/* 
-            
-            new WCssClass("*::-webkit-scrollbar-thumb:active ", {
-                "background-color": " #999999",
-            }),  new WCssClass("*::-webkit-scrollbar-track:active ,*::-webkit-scrollbar-track:hover", {
-                "background": " #d4d4d4",
-            })*/
+            })
         ]
     }
 };
@@ -68,8 +62,11 @@ const StylesControlsV1 = {
             //INPUTS
             new WCssClass(`input[type=text], 
             input[type=string], 
+            input[type=password], 
             input[type=number],
-            input[type=date],  input[type=time], select, textarea`, {
+            input[type=color], input[type=email], 
+            input[type=date],  input[type=time],select, textarea,
+            input:-internal-autofill-selected`, {
                 padding: 10,
                 border: "none",
                 border: "2px solid #dddada",
@@ -140,7 +137,7 @@ const StylesControlsV2 = {
             input[type=string], 
             input[type=password], 
             input[type=number],
-            input[type=color],
+            input[type=color], input[type=email], 
             input[type=date],  input[type=time],select, textarea,
             input:-internal-autofill-selected`, {
                 width: "100%",

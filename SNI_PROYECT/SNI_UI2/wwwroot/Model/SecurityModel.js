@@ -56,10 +56,10 @@ class Security_Users {
 		}
 	}
 	Id_User = { type: "number", primary: true };
-    Foto = { type: "IMAGE" };
     Nombres = { type: "text" };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     Descripcion = { type: "text" };
+	Mail = { type: "email" };
     Security_Users_Roles = {
         type: "MULTISELECT", Dataset: [{ Descripcion: "Role 1" }]
     };

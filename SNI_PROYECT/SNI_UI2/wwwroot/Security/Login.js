@@ -35,7 +35,7 @@ const OnLoad = async () => {
             }, {
                 children: [{
                     tagName: 'input', type: 'button', className: 'Btn', value: 'Postularse',
-                    onclick: async () => { window.location = "./Register.html"; }
+                    onclick: async () => { window.location = "./Register"; }
                 }]
             }
         ]
