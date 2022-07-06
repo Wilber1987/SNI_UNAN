@@ -336,4 +336,4 @@ class FooterNavigator extends ComponentsManager {
         }
     }];
 }
-export { MasterDomDetaills };
+export { MasterDomDetaills, headerClass };

@@ -441,11 +441,8 @@ class WTableComponent extends HTMLElement {
                 case "SELECT":
                     const element = Model[prop].Dataset.find(e => {
                         let flag = false;
-                        if (e == value) {
-                            flag = true;
-                        } else if (e.__proto__ == Object.prototype && e.id == value) {
-                            flag = true;
-                        }
+                        if (e == value) { flag = true; }
+                        else if (e.__proto__ == Object.prototype && e.id == value) { flag = true; }
                         return flag;
                     });
                     value = element && element.__proto__ == Object.prototype ? element.desc : element;
@@ -857,31 +854,27 @@ class WTableComponent extends HTMLElement {
                             width: "calc(100% - 10px)",
                             margin: "5px"
                         }), new WCssClass(`.WTable`, {
-                            display: "block ", //width: "100%"
+                            display: "block "
                         }), new WCssClass(`.WTable tbody`, {
-                            display: "block ", //width: "100%"
+                            display: "block "
                         }), new WCssClass(`.WTable thead`, {
-                            display: "none ", //width: "100%"
+                            display: "none "
                         }), new WCssClass(`.WTable tr`, {
                             display: "block ",
-                            //border: "1px solid #999",
                             margin: "10px",
                             "border-radius": "0.3cm",
                             overflow: "hidden",
-                            "box-shadow": "0 0 5px 2px rgba(0,0,0,0.4)"
+                            "box-shadow": "0 0 3px 0 rgba(0,0,0,0.5)"
                         }), new WCssClass(`.WTable td`, {
                             display: "flex ",
                             "border-bottom": "1px rgba(10, 10, 10, 0.3) solid",
                             padding: "10px"
-                            //width: "100%"
                         }), new WCssClass(`.WTable .tdAction`, {
                             display: "block ",
                             "justify-content": "center",
                             "align-items": "center",
                             width: "auto",
                             padding: "10px"
-                        }), new WCssClass(`.WTable tbody tr:nth-child(odd)`, {
-                            "background-color": "rgba(0,0,0,0.2)"
                         }), new WCssClass(`input[type=text], input[type=string], input[type=number], input[type=date]`, {
                             padding: "5px 10px",
                             width: "calc(100% - 20px)",
