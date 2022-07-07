@@ -157,3 +157,4 @@ C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\ref\SNI_UI2.dll
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.pdb
 C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\SNI_UI2.genruntimeconfig.cache
+C:\xampp\htdocs\SNI_UNAN\SNI_PROYECT\SNI_UI2\obj\Debug\net5.0\Razor\Pages\mail.cshtml.g.cs
