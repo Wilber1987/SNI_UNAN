@@ -1,6 +1,7 @@
 ﻿using CAPA_DATOS;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CAPA_NEGOCIO.MAPEO
@@ -37,16 +38,38 @@ namespace CAPA_NEGOCIO.MAPEO
             }
             return true;
         }
-        public Object GetGroup()
+        public Tbl_Grupos GetGroup()
         {
-            this.Instituciones_Asociadas = 
-                (new Tbl_InstitucionesAsociadasGrupos()).Get_WhereIN<Tbl_InstitucionesAsociadasGrupos>(
-                        "Id_Grupo", new string[] { this.Id_Grupo.ToString() });
+            this.ChargeGroupData(this);
+            return this;
+        }
+
+        private void ChargeGroupData(Tbl_Grupos grupo)
+        {
+            grupo.Instituciones_Asociadas =
+                            (new Tbl_InstitucionesAsociadasGrupos()).Get_WhereIN<Tbl_InstitucionesAsociadasGrupos>(
+                                    "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
             var Ives = new Tbl_InvestigadoresAsociados();
             Ives.Estado = "ACTIVO";
-            this.Investigadores_Asociados =  Ives.Get_WhereIN<Tbl_InvestigadoresAsociados>(
-                        "Id_Grupo", new string[] { this.Id_Grupo.ToString() });
-            return this;
+            grupo.Investigadores_Asociados = Ives.Get_WhereIN<Tbl_InvestigadoresAsociados>(
+                        "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
+        }
+
+        public List<Tbl_Grupos> GetGroups()
+        {
+            List<Tbl_Grupos> grupos = this.Get<Tbl_Grupos>();
+            foreach (Tbl_Grupos grupo in grupos)
+            {
+                this.ChargeGroupData(grupo);
+            }           
+            return grupos;
+        }
+        public List<Tbl_Grupos> GetGroupsByInvestigator(Tbl_InvestigatorProfile Inv)
+        {
+            var Ids = (new Tbl_InvestigadoresAsociados()).Get_WhereIN<Tbl_InvestigadoresAsociados>(
+                "Id_Investigador", new string[] { Inv.Id_Investigador.ToString() }
+                ).Select(g => g.Id_Grupo.ToString()).ToArray();
+            return this.Get_WhereIN<Tbl_Grupos>("Id_Grupo", Ids);
         }
         public Object SolicitarUnirse(Tbl_InvestigatorProfile Inv)
         {
