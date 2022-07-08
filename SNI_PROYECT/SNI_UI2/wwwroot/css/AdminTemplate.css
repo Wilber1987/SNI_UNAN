@@ -13,9 +13,16 @@
     background-color: #d3d4d6;
 }
 #Aside {
-    background-color: rgb(19, 19, 19);
+    background-color: rgb(27, 27, 27);
     overflow-y: auto;
     overflow-x: hidden;
+    font-size: 14px;
+}
+#Aside h3{
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    margin: 0px;
+    font-weight: 400;
 }
 #MainContainer {
     background-color: #f1f3f7 ;

@@ -46,7 +46,7 @@ const OnLoad = async () => {
                 "../api/PublicCat/Register", Object
             );
             if (response == true) {
-                window.location = "./Confirmacion_Registro.html"
+                window.location = "./Confirmacion_Registro"
             }else {
 
             }

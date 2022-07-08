@@ -161,7 +161,7 @@ class headerClass extends HTMLElement {
                     }, {
                         name: "Perfil", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/Views/Perfil/PerfilView.html";
+                            window.location = location.origin + "/Perfil/PerfilView";
                         }
                     }, {
                         name: "Opciones", url: "#",
@@ -336,4 +336,4 @@ class FooterNavigator extends ComponentsManager {
         }
     }];
 }
-export { MasterDomDetaills };
+export { MasterDomDetaills, headerClass };

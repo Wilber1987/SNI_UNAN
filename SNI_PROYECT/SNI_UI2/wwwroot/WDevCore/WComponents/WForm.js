@@ -141,7 +141,7 @@ class WForm extends HTMLElement {
                         value = value.toFixed(2)
                     }
                     FormDivForm.append(WRender.Create({
-                        class: "ModalDetailElement", children: [{ tagName: "label", innerText:  WOrtograficValidation.es(prop) + ": " + value }]
+                        class: "ModalDetailElement", children: [{ tagName: "label", innerText: WOrtograficValidation.es(prop) + ": " + value }]
                     }));
                 }
             }
@@ -247,6 +247,14 @@ class WForm extends HTMLElement {
                             }
                             ObjectF[prop] = InputControl.selectedItems;
                             break;
+                        case "EMAIL":
+                            InputControl = WRender.Create({
+                                tagName: "input",
+                                className: prop, value: val, type: Model[prop].type,
+                                placeholder: "me@email.com",
+                                pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            });
+                            break;
                         case "TABLE":
                             break;
                         default:
@@ -286,10 +294,31 @@ class WForm extends HTMLElement {
                             }, 1000);
                         }
                     } else {
-                        WRender.SetStyle(ev.target, {
-                            boxShadow: "none"
-                        });
                         ObjectF[prop] = ev.target.value;
+                        if (ev.target.pattern) {
+                            let regex = new RegExp(ev.target.pattern);
+                            if (regex.test(ObjectF[prop])) {
+                                const tool = ev.target.parentNode.querySelector(".ToolTip");
+                                if (tool) tool.remove();
+                                WRender.SetStyle(ev.target, {
+                                    boxShadow: "none"
+                                });
+                            } else {
+                                let regex = new RegExp(ev.target.pattern);
+                                if (!regex.test(ObjectF[prop])) {
+                                    if (!ev.target.parentNode.querySelector(".ToolTip")) {
+                                        ev.target.parentNode.append(WRender.Create({
+                                            tagName: "span",
+                                            innerHTML: `Ingresar formato correcto: ${ev.target.placeholder}`,
+                                            className: "ToolTip"
+                                        }));
+                                    }
+                                    WRender.SetStyle(ev.target, {
+                                        boxShadow: "0 0 3px #ef4d00"
+                                    });
+                                }
+                            }
+                        }
                     }
                 };
                 ControlContainer.append(InputControl);
@@ -378,38 +407,7 @@ class WForm extends HTMLElement {
                 type: "button",
                 innerText: 'Aceptar',
                 onclick: async () => {
-                    if (this.ValidateFunction != undefined &&
-                        this.ValidateFunction.__proto__ == Function.prototype) {
-                        const response = this.ValidateFunction(ObjectF);
-                        if (response.validate == false) {
-                            alert(response.message);
-                            return;
-                        }
-                    }
-                    if (this.DataRequire == true) {
-                        for (const prop in ObjectF) {
-                            if (!prop.includes("_hidden")) {
-                                const control = this.shadowRoot.querySelector("#ControlValue" + prop);
-                                if ((ObjectF[prop] == null || ObjectF[prop] == "")
-                                    && control != null) {
-                                    WRender.SetStyle(control, {
-                                        boxShadow: "0 0 3px #ef4d00"
-                                    });
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    if (this.ObjectOptions.Url != undefined) {
-                        const ModalCheck = this.ModalCheck(ObjectF);
-                        this.shadowRoot.append(ModalCheck)
-                    } else {
-                        if (this.SaveFunction != undefined) {
-                            this.SaveFunction(ObjectF);
-                        } else if (this.ObjectOptions.SaveFunction != undefined) {
-                            this.ObjectOptions.SaveFunction(ObjectF);
-                        }
-                    }
+                    await this.Save(ObjectF);
                 }
             });
             DivOptions.append(InputSave);
@@ -430,6 +428,54 @@ class WForm extends HTMLElement {
             });
         }
         return DivOptions;
+    }
+    Save = async (ObjectF) => {
+        if (this.ValidateFunction != undefined &&
+            this.ValidateFunction.__proto__ == Function.prototype) {
+            const response = this.ValidateFunction(ObjectF);
+            if (response.validate == false) {
+                alert(response.message);
+                return;
+            }
+        }
+        if (this.DataRequire == true) {
+            for (const prop in ObjectF) {
+                if (!prop.includes("_hidden")) {
+                    const control = this.shadowRoot.querySelector("#ControlValue" + prop);
+                    if ((ObjectF[prop] == null || ObjectF[prop] == "") && control != null) {
+                        WRender.SetStyle(control, {
+                            boxShadow: "0 0 3px #ef4d00"
+                        });
+                        return;
+                    } else if (control != null && control.pattern) {
+                        let regex = new RegExp(control.pattern);
+                        if (!regex.test(ObjectF[prop])) {
+                            if (!control.parentNode.querySelector(".ToolTip")) {
+                                control.parentNode.append(WRender.Create({
+                                    tagName: "span",
+                                    innerHTML: `Ingresar formato correcto: ${control.placeholder}`,
+                                    className: "ToolTip"
+                                }));
+                            }
+                            WRender.SetStyle(control, {
+                                boxShadow: "0 0 3px #ef4d00"
+                            });
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        if (this.ObjectOptions.Url != undefined) {
+            const ModalCheck = this.ModalCheck(ObjectF);
+            this.shadowRoot.append(ModalCheck)
+        } else {
+            if (this.SaveFunction != undefined) {
+                this.SaveFunction(ObjectF);
+            } else if (this.ObjectOptions.SaveFunction != undefined) {
+                this.ObjectOptions.SaveFunction(ObjectF);
+            }
+        }
     }
     ModalCheck(ObjectF) {
         const ModalCheck = new WModalForm({
@@ -536,6 +582,15 @@ class WForm extends HTMLElement {
                         "text-align": "center",
                         "font-weight": "bold",
                         "text-transform": "capitalize"
+                    }), new WCssClass(`.ToolTip`, {
+                        position: "absolute",
+                        color: "#fff",
+                        padding: 5,
+                        background: "rgba(0,0,0,.5)",
+                        "border-radius": "0.3cm",
+                        left: 10,
+                        bottom: -20,
+                        "font-size": 12
                     }),
                     //encabezado
                     new WCssClass(` .ModalHeader`, {
@@ -549,7 +604,8 @@ class WForm extends HTMLElement {
                         "margin-top": "10px"
                     }), new WCssClass(`.ModalElement`, {
                         padding: 10,
-                        "border-radius": 5
+                        "border-radius": 5,
+                        position: "relative"
                     }), new WCssClass(`.ModalDetailElement`, {
                         "background-color": "#4da6ff",
                         padding: 10,

@@ -16,7 +16,7 @@ class WSecurity {
     static Path = location.origin;
     static Authenticate = false;
     //VIEWS
-    static LoginInView = WSecurity.Path + "/security/login.html";
+    static LoginInView = WSecurity.Path + "/Security/Login";
     static urlHomeView = WSecurity.Path;
     //API
     static urlVerification = WSecurity.Path + "/api/Security/Verification";

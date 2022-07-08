@@ -128,7 +128,7 @@ class WReadInvestigacion extends HTMLElement {
         if (this.response.Colaboradores.length > 0) {
             const Colaboradores = new WCardCarousel(this.response.Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
-                window.location = location.origin + "/Views/ViewProfile.html?param=" + Object.Id_Investigador;
+                window.location = location.origin + "/Views/ViewProfile?param=" + Object.Id_Investigador;
             }
             this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
             this.InvestigacionContainer.append(WRender.createElement(Colaboradores));
