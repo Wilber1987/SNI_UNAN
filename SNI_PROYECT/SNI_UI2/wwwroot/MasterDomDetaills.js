@@ -7,6 +7,7 @@ import { StyleScrolls } from "./WDevCore/StyleModules/WStyleComponents.JS";
 import { HomeClass } from "./Views/Home.js";
 import { WModalForm } from "./WDevCore/WComponents/WModalForm.js";
 import { ViewProyects } from "./Views/MProyects/ViewProyects.js";
+import { GroupView } from "./Views/MGroups/GroupsView.js";
 const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({ SPAManage: true });
 class MasterDomDetaills extends ComponentsManager {
@@ -157,6 +158,11 @@ class headerClass extends HTMLElement {
                             const response = await WAjaxTools.PostRequest("../api/Proyect/TakeTypeProyects");
                             const BodyComponents = new ViewProyects(response);                           
                             DOMManager.NavigateFunction("Proyectos",BodyComponents);
+                        }
+                    },  {
+                        name: "Grupos", url: "#",
+                        action: async (ev) => {                                           
+                            DOMManager.NavigateFunction("Grupos",new GroupView());
                         }
                     }, {
                         name: "Perfil", url: "#",

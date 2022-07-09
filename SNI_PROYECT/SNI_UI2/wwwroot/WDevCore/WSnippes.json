@@ -67,25 +67,25 @@
 	}, "WWebComponent": {
 		"prefix": ["wcomp", "wcomponent"],
 		"body": [
-			"class WComponent  extends HTMLElement {",
+			"class Component  extends HTMLElement {",
 			"\tconstructor() { super(); }",
-			"\tconnectedCallback() { DrawComponent(); }",
+			"\tconnectedCallback() { this.DrawComponent(); }",
 			"\tDrawComponent = async () => {  }",
 			"}",
-			"customElements.define('w-component', WComponent);",
-			"export { WComponent }"
+			"customElements.define('w-component', Component);",
+			"export { Component }"
 			],
 		"description": "Objeto para WREnder."
 	}, "WWebComponentShadow": {
 		"prefix": ["wcompShadow", "wcomponentShadow"],
 		"body": [
-			"class WComponent  extends HTMLElement {",
+			"class Component  extends HTMLElement {",
 			"\tconstructor() { super(); this.attachShadow({ mode: 'open' }); }",
-			"\tconnectedCallback() { DrawComponent(); }",
+			"\tconnectedCallback() { this.DrawComponent(); }",
 			"\tDrawComponent = async () => {  }",
 			"}",
-			"customElements.define('w-component', WComponent);",
-			"export { WComponent }"
+			"customElements.define('w-component', Component);",
+			"export { Component }"
 			],
 		"description": "Objeto para WREnder."
 	}, "WImports": {
