@@ -153,7 +153,7 @@ class Tbl_Investigaciones_Disciplinas {
 	Id_Investigacion = { type: "number" };
 }
 export { Tbl_Investigaciones_Disciplinas }
-class CatDisciplinas {
+class Cat_Disciplinas {
 	constructor(props) {
 		for (const prop in props) {
 			this[prop] = props[prop];
@@ -164,7 +164,7 @@ class CatDisciplinas {
 	Color = { type: "COLOR" };
 	Icono = { type: "IMAGE" };
 }
-export { CatDisciplinas }
+export { Cat_Disciplinas }
 class ViewInvestigacionesDisciplinas {
 	constructor(props) {
 		for (const prop in props) {
@@ -176,6 +176,7 @@ class ViewInvestigacionesDisciplinas {
 	DescripcionDisciplina = { type: "text" };
 	Color = { type: "COLOR" };
 	Icono = { type: "text" };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { ViewInvestigacionesDisciplinas }
 class Cat_Paises {
@@ -212,6 +213,7 @@ class Cat_Localidad {
 	Id_Pais = { type: "number" };
 	Latitud = { type: "text" };
 	Longitud = { type: "text" };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Localidad }
 class Cat_instituciones {
@@ -250,7 +252,7 @@ class Tbl_InvestigatorProfile {
 	FechaNac = { type: "date" };
 	IdUser = { type: "number" };
 	Sexo = { type: "text" };
-	Foto = { type: "IMAGE"};
+	Foto = { type: "IMAGE" };
 	DNI = { type: "text" };
 	Correo_institucional = { type: "text" };
 	Id_Pais_Origen = { type: "number" };
@@ -264,8 +266,7 @@ class Tbl_Investigaciones {
 			this[prop] = props[prop];
 		}
 	}
-	Id_Investigacion = { type: "number", primary: true };
-	Visibilidad = { type: "text" };
+	Id_Investigacion = { type: "number", primary: true };	
 	Id_Tipo_Investigacion = { type: "number" };
 	Titulo = { type: "text" };
 	Abstract = { type: "text" };
@@ -273,10 +274,11 @@ class Tbl_Investigaciones {
 	Repositorio = { type: "string" };
 	Referencias = { type: "text" };
 	url_publicacion = { type: "text" };
-	Fecha_ejecucion = { type: "text" };
+	Fecha_ejecucion = { type: "date" };
 	Id_Investigador = { type: "number", hidden: true };
 	Photo = { type: "text" };
-	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+	Visibilidad = { type: "Select", Dataset: ["Pública", "Privada"]};
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "Finalizada", "En Proceso"] };
 	Id_Localidad = { type: "number" };
 }
 export { Tbl_Investigaciones }
@@ -828,7 +830,7 @@ class ProyectoTableDependencias_Usuarios {
 			this[prop] = props[prop];
 		}
 	}
-	Id_Investigador = { type: "number" };
+	Id_Investigador = { type: "number", hidden: true };
 	Id_Dependencia = { type: "number" };
 	Id_Cargo = { type: "number" };
 }
@@ -932,9 +934,22 @@ class TblProcesosEditoriales {
 		}
 	}
 	Id_Proceso_Editorial = { type: "number", primary: true };
-	Id_Investigador = { type: "number", primary: true };
+	Id_Investigador = { type: "number", hidden: true };
 	Descripcion = { type: "text" };
 	Fecha = { type: "date" };
+	Id_Tipo_Proceso_Editorial = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 
 export { TblProcesosEditoriales }
+
+class Cat_Tipo_Proceso_Editorial {
+	constructor(props) {
+		for (const prop in props) {
+			this[prop] = props[prop];
+		}
+	}
+	Id_Tipo_Proceso_Editorial = { type: "number", primary: true };
+	Descripcion = { type: "text" };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+}
+export { Cat_Tipo_Proceso_Editorial }

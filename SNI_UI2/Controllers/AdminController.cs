@@ -46,7 +46,7 @@ namespace SNI_UI2.Controllers
         #endregion
         #region INVESTIGACIONES
         public Object TakeInvestigaciones(Tbl_Investigaciones Inst)
-        {           
+        {
             return Inst.Get();
         }
         #endregion
@@ -61,7 +61,7 @@ namespace SNI_UI2.Controllers
         public Object TakeCatTipoDistincion(CatTipoDistincion inv) { return inv.Get(); }
         public Object TakeCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Get(); }
         public Object TakeCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Get(); }
-        public Object TakeCatDisciplinas(CatDisciplinas inv) { return inv.Get(); }
+        public Object TakeCat_Disciplinas(Cat_Disciplinas inv) { return inv.Get(); }
         public Object TakeCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Get(); }
         public Object TakeCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Get(); }
         public Object TakeCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Get(); }
@@ -69,6 +69,7 @@ namespace SNI_UI2.Controllers
         public Object TakeCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Get(); }
         public Object TakeCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Get(); }
         public Object TakeCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Get(); }
+        public Object TakeCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Get(); }
         //SAVESSS
         public Object SaveCat_instituciones(Cat_instituciones inv) { return inv.Save(); }
         public Object SaveCat_Paises(Cat_Paises inv) { return inv.Save(); }
@@ -80,7 +81,7 @@ namespace SNI_UI2.Controllers
         public Object SaveCatTipoDistincion(CatTipoDistincion inv) { return inv.Save(); }
         public Object SaveCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Save(); }
         public Object SaveCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Save(); }
-        public Object SaveCatDisciplinas(CatDisciplinas inv) { return inv.Save(); }
+        public Object SaveCat_Disciplinas(Cat_Disciplinas inv) { return inv.Save(); }
         public Object SaveCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Save(); }
         public Object SaveCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Save(); }
         public Object SaveCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Save(); }
@@ -88,6 +89,7 @@ namespace SNI_UI2.Controllers
         public Object SaveCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Save(); }
         public Object SaveCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Save(); }
         public Object SaveCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Save(); }
+        public Object SaveCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Save(); }
         //UPDATES
         public Object UpdateCat_instituciones(Cat_instituciones inv) { return inv.Update("Id_Institucion"); }
         public Object UpdateCat_Paises(Cat_Paises inv) { return inv.Update("Id_Pais"); }
@@ -99,7 +101,7 @@ namespace SNI_UI2.Controllers
         public Object UpdateCatTipoDistincion(CatTipoDistincion inv) { return inv.Update("Id_Tipo_Distincion"); }
         public Object UpdateCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Update("Id_Tipo_Investigacion"); }
         public Object UpdateCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Update("Id_TipoEstudio"); }
-        public Object UpdateCatDisciplinas(CatDisciplinas inv) { return inv.Update("Id_Disciplina"); }
+        public Object UpdateCat_Disciplinas(Cat_Disciplinas inv) { return inv.Update("Id_Disciplina"); }
         public Object UpdateCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Update("Id_Tipo_Colaboracion"); }
         public Object UpdateCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Update("Id_Cargo_Proyecto"); }
         public Object UpdateCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Update("Id_Tipo_Asociacion"); }
@@ -107,10 +109,11 @@ namespace SNI_UI2.Controllers
         public Object UpdateCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Update("Id_Tipo_Evento"); }
         public Object UpdateCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Update("Id_TipoGrupo"); }
         public Object UpdateCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Update("Id_TipoMiembro"); }
+        public Object UpdateCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Update("Id_Tipo_Proceso_Editorial"); }
         #endregion
 
         #region SECURITY
-        public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get();  }
+        public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get(); }
         public Object TakeSecurity_Roles(Security_Roles inv) { return inv.GetRoles(); }
         public Object TakeSecurity_Users(Security_Users inv) { return inv.GetUsers(); }
 

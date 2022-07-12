@@ -25,6 +25,23 @@ namespace SNI_UI.Controllers
         }
         [HttpPost]
         [AuthController]
+        public object GetInvestigaciones(Tbl_Investigaciones Inst)
+        {   
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.GetInvestigaciones();
+        }
+        public object SaveInvestigacion(Tbl_Investigaciones Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            Inst.Estado = "PENDIENTE";
+            return Inst.SaveInvestigacion();
+        }
+        public object UpdateInvestigacion(Tbl_Investigaciones Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            Inst.Estado = null;
+            return Inst.SaveInvestigacion();
+        }
         public object TakeInvestigaciones(InvestigacionesClass Inst)
         {            
             Cat_Disciplinas Dis = new Cat_Disciplinas();

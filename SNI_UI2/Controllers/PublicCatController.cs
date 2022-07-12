@@ -13,35 +13,75 @@ namespace SNI_UI2.Controllers
         //Get
         public object GetTipoEstudio()
         {
-            return (new Cat_TipoEstudio()).Get();
+            var inst = new Cat_TipoEstudio();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetIdiomas()
         {
-            return (new Cat_Idiomas()).Get();
+            var inst = new Cat_Idiomas();
+            inst.Estado = "Activo";
+            return inst.Get();
         }       
         public object GetInstitucion()
         {
-            return (new Cat_instituciones()).Get();
+            var inst = new Cat_instituciones();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetCargos()
         {
-            return (new Cat_Cargos()).Get();
+            var inst = new Cat_Cargos();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetTipoEventos()
         {
-            return (new Cat_Tipo_Evento()).Get();
+            var inst = new Cat_Tipo_Evento();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetPaises()
         {
-            return (new Cat_Paises()).Get();
+            var inst = new Cat_Paises();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetTipoDistincion()
         {
-            return (new CatTipoDistincion()).Get();
+            var inst = new CatTipoDistincion();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         public object GetRedesSociales()
         {
-            return (new CatRedesSociales()).Get();
+            var inst = new CatRedesSociales();
+            inst.Estado = "Activo";
+            return inst.Get();
+        }
+        public object GetLocalidades()
+        {
+            var inst = new Cat_Localidad();
+            inst.Estado = "Activo";
+            return inst.Get();
+        }
+        public object GetTipoInvestigaciones()
+        {
+            var inst = new Cat_Tipo_Investigacion();
+            inst.Estado = "Activo";
+            return inst.Get();
+        }
+        public object GetProcesosEditoriales()
+        {
+            var inst = new Cat_Tipo_Proceso_Editorial();
+            inst.Estado = "Activo";
+            return inst.Get();
+        }
+        public object GetDisciplinas()
+        {
+            var inst = new Cat_Disciplinas();
+            inst.Estado = "Activo";
+            return inst.Get();
         }
         //Postularse
         public object Register(Tbl_InvestigatorProfile postulante)
