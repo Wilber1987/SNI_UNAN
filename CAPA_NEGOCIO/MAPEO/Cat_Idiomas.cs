@@ -9,6 +9,7 @@ namespace CAPA_NEGOCIO.MAPEO
     {
         public int? Id_Idioma { get; set; }
         public string Descripcion { get; set; }
+        public string Estado { get; set; }
         //Idiomas Investigadores
         public int? Id_Investigador { get; set; }
         public List<Object> Take()

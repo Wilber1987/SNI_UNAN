@@ -12,6 +12,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Descripcion { get; set; }
         public string Icon { get; set; }
         public string url { get; set; }
+        public string Estado { get; set; }
         //investigadores redes
         public int? Id_Investigador { get; set; }
         public string url_red_inv { get; set; }

@@ -11,7 +11,15 @@ namespace CAPA_NEGOCIO.MAPEO
 		public int? Id_Investigador { get; set; }
 		public string Descripcion { get; set; }
 		public DateTime? Fecha { get; set; }
+		public int? Id_Tipo_Proceso_Editorial { get; set; }
 	}
+	public class Cat_Tipo_Proceso_Editorial : EntityClass
+	{
+		public int? Id_Tipo_Proceso_Editorial { get; set; }
+		public string Descripcion { get; set; }
+		public string Estado { get; set; }
+	}
+
 	public class Tbl_Patentes : EntityClass
 	{
 		public int? Id_Patente { get; set; }

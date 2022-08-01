@@ -97,7 +97,7 @@ class Tbl_Investigaciones_Disciplinas {
 	Id_Investigacion = { type: "number" }
 }
 export{Tbl_Investigaciones_Disciplinas}
-class CatDisciplinas {
+class Cat_Disciplinas {
 	Id_Disciplina = { type: "number" }
 	DescripcionDisciplina = { type: "text" }
 	Color = { type: "text" }

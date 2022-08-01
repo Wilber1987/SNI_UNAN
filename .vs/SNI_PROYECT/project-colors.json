@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3a1bd19d-5c38-4166-9a02-b94b79ec5717": {
+      "ProjectGuid": "3a1bd19d-5c38-4166-9a02-b94b79ec5717",
+      "DisplayName": "CAPA_NEGOCIO",
+      "ColorIndex": 0
+    },
+    "65064c0f-e1e2-4448-9f71-6581fa14b112": {
+      "ProjectGuid": "65064c0f-e1e2-4448-9f71-6581fa14b112",
+      "DisplayName": "SNI_UI2",
+      "ColorIndex": 1
+    },
+    "8ff1a6c7-4251-4041-a3ee-0a23ae39517d": {
+      "ProjectGuid": "8ff1a6c7-4251-4041-a3ee-0a23ae39517d",
+      "DisplayName": "CAPA_DATOS",
+      "ColorIndex": 2
+    },
+    "9eed8d73-2fe4-4f44-9f48-9e387b8a69fe": {
+      "ProjectGuid": "9eed8d73-2fe4-4f44-9f48-9e387b8a69fe",
+      "DisplayName": "UNAN_UI",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

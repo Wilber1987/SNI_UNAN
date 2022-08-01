@@ -15,7 +15,7 @@ namespace CAPA_NEGOCIO.MAPEO
 	{
 		public int? Id_Cargo { get; set; }
 		public string Descripcion { get; set; }
-		public int? Estado { get; set; }
+		public string Estado { get; set; }
 	}
     public class Cat_Paises : EntityClass
     {
@@ -34,6 +34,7 @@ namespace CAPA_NEGOCIO.MAPEO
 	{
 		public int? Id_TipoEstudio { get; set; }
 		public string Descripcion { get; set; }
+		public string Estado { get; set; }
 	}
 
 	public class Cat_TipoGrupo : EntityClass
@@ -75,20 +76,23 @@ namespace CAPA_NEGOCIO.MAPEO
 		public int? Id_LocalidadPadre { get; set; }
 		public int? Id_Pais { get; set; }
 		public string Latitud { get; set; }
-		public string Longitud { get; set; }
+		public string Estado { get; set; }
+
 	}
 	public class Cat_TipoLocalidad : EntityClass
 	{
 		public int? Id_Tipo_Localidad { get; set; }
 		public string Nombre_TipoLocalidad { get; set; }
+		public string Estado { get; set; }
 	}
-	public class CatDisciplinas : EntityClass
-	{
-		public int? Id_Disciplina { get; set; }
-		public string DescripcionDisciplina { get; set; }
-		public string Color { get; set; }
-		public string Icono { get; set; }
-	}
+	//public class Cat_Disciplinas : EntityClass
+	//{
+	//	public int? Id_Disciplina { get; set; }
+	//	public string DescripcionDisciplina { get; set; }
+	//	public string Color { get; set; }
+	//	public string Icono { get; set; }
+	//	public string Estado { get; set; }
+	//}
 	public class Cat_Tipo_Colaborador : EntityClass
 	{
 		public int? Id_Tipo_Colaboracion { get; set; }

@@ -5,12 +5,13 @@ using System.Text;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Cat_Disciplinas
+    public class Cat_Disciplinas: EntityClass
     {
         public int? Id_Disciplina { get; set; }
         public string DescripcionDisciplina { get; set; }
         public string Color { get; set;}
         public string Icono { get; set; }
+        public string Estado { get; set; }
 
         //TBL_Displinas_INvestigaciones
         public int? Id_Investigacion { get; set; }
@@ -18,7 +19,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("CatDisciplinas", this);
+                return SqlADOConexion.SQLM.TakeList(this);
             }
             catch (Exception)
             {

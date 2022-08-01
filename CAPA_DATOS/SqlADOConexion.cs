@@ -13,7 +13,7 @@ namespace CAPA_DATOS
         public static bool Anonimo = true;
         //static string SQLServer = ".";
         //static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
-        static string SQLServer = ".";
+        static string SQLServer = ".\\SQLEXPRESS";
         static public bool IniciarConexionSNIBD(string user, string password)
         {
             try
