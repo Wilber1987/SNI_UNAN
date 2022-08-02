@@ -17,7 +17,6 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Logo { get; set; }
         public string Fecha_Ingreso { get; set; }
         public string Descripcion { get; set; }
-        public string EstadoAsociacion { get; set; }
 
         public List<Object> Take()
         {

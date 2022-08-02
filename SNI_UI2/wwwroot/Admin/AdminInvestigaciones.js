@@ -3,7 +3,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WMo
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
 import { InvestigadorProfile } from "../Model/InvestigadorProfile.js";
-import { CatDisciplinas, CatRedesSociales, CatTipoDistincion, Cat_Cargos, Cat_Cargo_Proyecto, Cat_Idiomas, Cat_instituciones, Cat_Localidad, Cat_Paises, Cat_TipoEstudio, Cat_TipoGrupo, Cat_TipoLocalidad, Cat_TipoMiembro, Cat_Tipo_Asociacion, Cat_Tipo_Colaborador, Cat_Tipo_Evento, Cat_Tipo_Investigacion, Cat_Tipo_Proyecto, Tbl_Investigaciones, Tbl_InvestigatorProfile } from "../Model/ModelDatabase.js";
+import { Cat_Disciplinas, CatRedesSociales, CatTipoDistincion, Cat_Cargos, Cat_Cargo_Proyecto, Cat_Idiomas, Cat_instituciones, Cat_Localidad, Cat_Paises, Cat_TipoEstudio, Cat_TipoGrupo, Cat_TipoLocalidad, Cat_TipoMiembro, Cat_Tipo_Asociacion, Cat_Tipo_Colaborador, Cat_Tipo_Evento, Cat_Tipo_Investigacion, Cat_Tipo_Proyecto, Tbl_Investigaciones, Tbl_InvestigatorProfile } from "../Model/ModelDatabase.js";
 import { WProfileInvestigador } from "../Views/ViewProfile.js";
 import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";

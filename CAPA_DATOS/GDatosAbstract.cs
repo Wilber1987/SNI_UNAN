@@ -89,11 +89,7 @@ namespace CAPA_DATOS
         public Object InsertObject(Object Inst)
         {
             try
-            {
-                if (TakeList(Inst).Count > 0)
-                {
-                    return false;
-                }
+            {               
                 string ColumnNames = "";
                 string Values = "";
                 string TableName = Inst.GetType().Name;

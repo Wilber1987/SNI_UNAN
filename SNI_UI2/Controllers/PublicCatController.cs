@@ -83,6 +83,12 @@ namespace SNI_UI2.Controllers
             inst.Estado = "Activo";
             return inst.Get();
         }
+        public object GetTipoGrupo()
+        {
+            var inst = new Cat_TipoGrupo();
+            inst.Estado = "Activo";
+            return inst.Get();
+        }
         //Postularse
         public object Register(Tbl_InvestigatorProfile postulante)
         {

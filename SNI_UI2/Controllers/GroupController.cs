@@ -18,6 +18,11 @@ namespace SNI_UI2.Controllers
             Inst.Id_Investigador_Crea = AuthNetCore.User().UserId;
             return Inst.SaveGrupo();
         }
+        public object TakeGrupos(Tbl_InvestigatorProfile Inst)
+        {
+            Tbl_Grupos tg = new Tbl_Grupos();
+            return tg.GetGroupsByInvestigator(Inst);
+        }
         public Object GetGroup(Tbl_Grupos Inst)
         {
             return Inst.GetGroup();

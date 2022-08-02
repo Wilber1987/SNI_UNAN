@@ -56,7 +56,8 @@ class Tbl_Grupos {
 		}
 	}
 	Id_Grupo = { type: "number", primary: true };
-	Id_Investigador_Crea = { type: "number" };
+	Descripcion = { type: "text" };ED
+	Id_Investigador_Crea = { type: "number", hidden: true };
 	Id_TipoGrupo = { type: "number" };
 	Fecha_Creacion = { type: "date" };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
@@ -368,7 +369,7 @@ class Cat_Tipo_Asociacion {
 	}
 	Id_Tipo_Asociacion = { type: "number", primary: true };
 	Descripcion = { type: "text" };
-	EstadoAsociacion = { type: "text" };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Asociacion }
 class Tbl_Instituciones_Asociadas {
@@ -396,7 +397,7 @@ class ViewGPInstitucionesAsociadas {
 	Id_Proyecto = { type: "number" };
 	Id_Tipo_Asociacion = { type: "number" };
 	Descripcion = { type: "text" };
-	EstadoAsociacion = { type: "text" };
+	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 	Fecha_Ingreso = { type: "date" };
 }
 export { ViewGPInstitucionesAsociadas }

@@ -1,0 +1,883 @@
+﻿++Solución "SNI_PROYECT" ‎(7 de 7 proyectos)
+i:{00000000-0000-0000-0000-000000000000}:SNI_PROYECT.sln
+++CAPA_DATOS
+i:{00000000-0000-0000-0000-000000000000}:CAPA_DATOS
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\xampp\htdocs\sni_unan\capa_datos\bin\debug\netcoreapp3.1\capa_datos.dll
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_datos\bin\debug\netcoreapp3.1\capa_datos.dll
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_datos\bin\debug\netcoreapp3.1\capa_datos.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\capa_datos\bin\debug\netcoreapp3.1\capa_datos.dll
+++Dependencias
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:>1393
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:>2095
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:>1394
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:>3812
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:>1395
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:>3813
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:>3814
+++EntityClass.cs
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:c:\xampp\htdocs\sni_unan\capa_datos\entityclass.cs
+++GDatosAbstract.cs
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:c:\xampp\htdocs\sni_unan\capa_datos\gdatosabstract.cs
+++SqlADOConexion.cs
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:c:\xampp\htdocs\sni_unan\capa_datos\sqladoconexion.cs
+++SqlServerGDatos.cs
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:c:\xampp\htdocs\sni_unan\capa_datos\sqlservergdatos.cs
+++Marcos de trabajo
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:marcos de trabajo
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:marcos de trabajo
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:marcos de trabajo
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:marcos de trabajo
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:marcos de trabajo
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:marcos de trabajo
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:marcos de trabajo
+++Paquetes
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:paquetes
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:paquetes
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:paquetes
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:paquetes
+++Microsoft.NETCore.App
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:c:\xampp\htdocs\sni_unan\capa_datos\microsoft.netcore.app
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\xampp\htdocs\sni_unan\security\microsoft.netcore.app
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\microsoft.netcore.app
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\microsoft.netcore.app
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\microsoft.netcore.app
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\microsoft.netcore.app
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\microsoft.netcore.app
+++System.Data.SqlClient (4.8.2)
+i:{8ff1a6c7-4251-4041-a3ee-0a23ae39517d}:>3841
+++SECURITY
+i:{00000000-0000-0000-0000-000000000000}:SECURITY
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\security\bin\debug\net5.0\security.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\security\bin\debug\net5.0\security.dll
+++AuthNetCore.cs
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\xampp\htdocs\sni_unan\security\authnetcore.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\security\authnetcore.cs
+++UserModel.cs
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\xampp\htdocs\sni_unan\security\usermodel.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\security\usermodel.cs
+++Analizadores
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:analizadores
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:analizadores
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:analizadores
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:analizadores
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:analizadores
+++Proyectos
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:proyectos
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:proyectos
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:proyectos
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:proyectos
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:proyectos
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:proyectos
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{e84f61c0-c447-41b7-9469-689b4770bdc2}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++SNI_PROYECT
+i:{00000000-0000-0000-0000-000000000000}:SNI_PROYECT
+++CAPA_NEGOCIO
+i:{5d5b000e-9e4f-4b7a-b252-9667c82d5be7}:CAPA_NEGOCIO
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\capa_negocio\bin\debug\netcoreapp3.1\capa_negocio.dll
+++Entity
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\
+++MAPEO
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\
+++Security
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\security\
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\security\
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\security\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\security\
+++Views
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\views\
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\views\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\
+++InvestigacionesClass.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\investigacionesclass.cs
+++ViewInforme1.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\viewinforme1.cs
+++ProyectoCatCargosDepenedencias.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectocatcargosdepenedencias.cs
+++ProyectoCatDependencias.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectocatdependencias.cs
+++ProyectoCatTipoParticipaciones.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectocattipoparticipaciones.cs
+++ProyectoTableActividades.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotableactividades.cs
+++ProyectoTableAgenda.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotableagenda.cs
+++ProyectoTableCalendario.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotablecalendario.cs
+++ProyectoTableDependencias_Usuarios.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotabledependencias_usuarios.cs
+++ProyectoTableEvidencias.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotableevidencias.cs
+++ProyectoTableParticipantes.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotableparticipantes.cs
+++ProyectoTableTareas.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\entity\proyectotabletareas.cs
+++Cat_Disciplinas.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\cat_disciplinas.cs
+++Cat_Idiomas.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\cat_idiomas.cs
+++Cat_instituciones.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\cat_instituciones.cs
+++Cat_Tipo_Proyecto.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\cat_tipo_proyecto.cs
+++Cat_TipoColaborador.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\cat_tipocolaborador.cs
+++CatRedesSociales.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\catredessociales.cs
+++MCatalogos.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\mcatalogos.cs
+++MProfilesClass.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\mprofilesclass.cs
+++MRelacionales.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\mrelacionales.cs
+++Tbl_Colaboradores.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_colaboradores.cs
+++Tbl_Evento.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_evento.cs
+++Tbl_Grupos.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_grupos.cs
+++Tbl_Instituciones_Asociadas.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_instituciones_asociadas.cs
+++Tbl_Investigaciones.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_investigaciones.cs
+++Tbl_InvestigatorProfile.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_investigatorprofile.cs
+++Tbl_Participantes_Proyectos.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_participantes_proyectos.cs
+++Tbl_Proyectos.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\mapeo\tbl_proyectos.cs
+++SecurityModel.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\security\securitymodel.cs
+++ViewCalendarioByDependencia.cs
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:c:\xampp\htdocs\sni_unan\capa_negocio\views\viewcalendariobydependencia.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\views\viewcalendariobydependencia.cs
+++Newtonsoft.Json (13.0.1)
+i:{3a1bd19d-5c38-4166-9a02-b94b79ec5717}:>3844
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:>3879
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:>3873
+++SNI_UI2
+i:{5d5b000e-9e4f-4b7a-b252-9667c82d5be7}:SNI_UI2
+++Connected Services 
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:>3815
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:>3816
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:>3817
+++Properties
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\properties\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\properties\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\properties\
+++wwwroot
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\
+++Admin
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\admin\
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\admin\
+++AppComponents
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\appcomponents\
+++css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\css\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\css\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\css\
+++js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\js\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\js\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\js\
+++Model
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\model\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\model\
+++MGroups
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\mgroups\
+++MProyects
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\mproyects\
+++Perfil
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\perfil\
+++ViewComponents
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\viewcomponents\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\viewcomponents\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\
+++AgendaView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\agendaview.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\agendaview.js
+++PerfilView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\perfilview.js
+++Home.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\home.js
+++HomeView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\homeview.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\homeview.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\homeview.js
+++KnowledgeMap.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\knowledgemap.js
+++ViewProfile.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\viewprofile.js
+++ViewRead.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\viewread.js
+++WDevCore
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\
+++App.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\app.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\app.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\app.js
+++favicon.ico
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\favicon.ico
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\favicon.ico
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\favicon.ico
+++MasterDomClass.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\masterdomclass.js
+++MasterDomDetaills.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\masterdomdetaills.js
+++ModelEstud.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\modelestud.sql
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\modelestud.sql
+++ViewReporte1.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\viewreporte1.sql
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\viewreporte1.sql
+++Controllers
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\controllers\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\controllers\
+++AdminController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\admincontroller.cs
+++AuthAnonymousAttribute.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\authanonymousattribute.cs
+++AuthControllerAttribute.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\authcontrollerattribute.cs
+++CalendarController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\calendarcontroller.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\controllers\calendarcontroller.cs
+++GroupController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\groupcontroller.cs
+++HomeController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\homecontroller.cs
+++InvestigacionesController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\investigacionescontroller.cs
+++ProfileController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\profilecontroller.cs
+++ProyectController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\proyectcontroller.cs
+++PublicCatController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\publiccatcontroller.cs
+++SecurityController.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\controllers\securitycontroller.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\controllers\securitycontroller.cs
+++Pages
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\
+++appsettings.Development.json
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\appsettings.development.json
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\appsettings.development.json
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\appsettings.development.json
+++appsettings.json
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\appsettings.json
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\appsettings.json
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\appsettings.json
+++Program.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\program.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\program.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\program.cs
+++Startup.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\startup.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\startup.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\startup.cs
+++No se detectaron dependencias de servicio
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:>3820
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:>3818
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:>3819
+++launchSettings.json
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\properties\launchsettings.json
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\properties\launchsettings.json
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\properties\launchsettings.json
+++AdminInvestigaciones.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\admin\admininvestigaciones.js
+++AdminInvestigadores.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\admin\admininvestigadores.js
+++AdminNavigator.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\admin\adminnavigator.js
+++AdminSecurity.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\admin\adminsecurity.js
+++AsideV1.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\appcomponents\asidev1.js
+++AdminTemplate.css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\css\admintemplate.css
+++site.css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\css\site.css
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\css\site.css
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\css\site.css
+++site.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\js\site.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\js\site.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\js\site.js
+++AgendaModel.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\agendamodel.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\model\agendamodel.js
+++InvestigadorProfile.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\investigadorprofile.js
+++ModelDatabase.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\modeldatabase.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\model\modeldatabase.js
+++SecurityModel.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\securitymodel.js
+++TareaModel.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\model\tareamodel.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\model\tareamodel.js
+++Login.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\security\login.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\security\login.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\security\login.js
+++Register.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\security\register.js
+++GroupsView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\mgroups\groupsview.js
+++ViewProyectDetail.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\mproyects\viewproyectdetail.js
+++ViewProyects.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\mproyects\viewproyects.js
+++ReservaComponent.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\viewcomponents\reservacomponent.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\viewcomponents\reservacomponent.js
+++ViewActivityComponent.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\views\perfil\viewcomponents\viewactivitycomponent.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\views\viewcomponents\viewactivitycomponent.js
+++StyleModules
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\stylemodules\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\stylemodules\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\stylemodules\
+++WComponents
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\
+++WModules
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\
+++WWComponentsPROTOS
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wwcomponentsprotos\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wwcomponentsprotos\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wwcomponentsprotos\
+++Expediente.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\expediente.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\expediente.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\expediente.js
+++README.md
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\readme.md
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\readme.md
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\readme.md
+++WExpDev.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wexpdev.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wexpdev.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wexpdev.js
+++WSnippes.json
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wsnippes.json
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wsnippes.json
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wsnippes.json
+++Shared
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\shared\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\shared\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\shared\
+++_ViewImports.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\_viewimports.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\_viewimports.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\_viewimports.cshtml
+++_ViewStart.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\_viewstart.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\_viewstart.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\_viewstart.cshtml
+++Error.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\error.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\error.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\error.cshtml
+++Error.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\error.cshtml.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\error.cshtml.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\error.cshtml.cs
+++Index.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\index.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\admin\index.cshtml
+++Index.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\index.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\admin\index.cshtml.cs
+++mail.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\mail.cshtml
+++mail.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\mail.cshtml.cs
+++Privacy.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\privacy.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\privacy.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\privacy.cshtml
+++Privacy.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\privacy.cshtml.cs
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\privacy.cshtml.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\privacy.cshtml.cs
+++Microsoft.AspNetCore.Analyzers
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.App
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\microsoft.aspnetcore.app
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\microsoft.aspnetcore.app
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\microsoft.aspnetcore.app
+++Microsoft.AspNet.WebApi.Core (5.2.8)
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:>3882
+++MultiSelectStyle.css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\stylemodules\multiselectstyle.css
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\stylemodules\multiselectstyle.css
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\stylemodules\multiselectstyle.css
+++StyleModules.css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\stylemodules\stylemodules.css
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\stylemodules\stylemodules.css
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\stylemodules\stylemodules.css
+++WchartStyle.css
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\stylemodules\wchartstyle.css
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\stylemodules\wchartstyle.css
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\stylemodules\wchartstyle.css
+++WStyleComponents.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\stylemodules\wstylecomponents.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\stylemodules\wstylecomponents.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\stylemodules\wstylecomponents.js
+++TestView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\testview.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\testview.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\testview.js
+++WAppNavigator.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wappnavigator.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wappnavigator.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wappnavigator.js
+++WArticlesComponent.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\warticlescomponent.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\warticlescomponent.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\warticlescomponent.js
+++WCalendar.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wcalendar.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wcalendar.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wcalendar.js
+++WCardCarousel.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wcardcarousel.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wcardcarousel.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wcardcarousel.js
+++WChartJSComponents.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wchartjscomponents.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wchartjscomponents.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wchartjscomponents.js
+++WFilterControls.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wfiltercontrols.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wfiltercontrols.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wfiltercontrols.js
+++WForm.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wform.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wform.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wform.js
+++WLoginTemplate.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wlogintemplate.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wlogintemplate.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wlogintemplate.js
+++WModalForm.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wmodalform.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wmodalform.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wmodalform.js
+++WMultiSelect.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wmultiselect.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wmultiselect.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wmultiselect.js
+++WSlide.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wslide.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wslide.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wslide.js
+++WTableComponent.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wtablecomponent.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wtablecomponent.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wtablecomponent.js
+++WTableDynamic.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wcomponents\wtabledynamic.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wcomponents\wtabledynamic.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wcomponents\wtabledynamic.js
+++WIcons
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wicons\
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wicons\
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wicons\
+++ModelDataSQL.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\modeldatasql.sql
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\modeldatasql.sql
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\modeldatasql.sql
+++ModelSqlServerCPHP.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\modelsqlservercphp.sql
+++ModelSqlServerCSharp.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\modelsqlservercsharp.sql
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\modelsqlservercsharp.sql
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\modelsqlservercsharp.sql
+++ModelSqlServerJavascript.sql
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\modelsqlserverjavascript.sql
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\modelsqlserverjavascript.sql
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\modelsqlserverjavascript.sql
+++WComponents.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wcomponents.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wcomponents.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wcomponents.js
+++WComponentsTools.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wcomponentstools.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wcomponentstools.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wcomponentstools.js
+++WIcons.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wicons.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wicons.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wicons.js
+++WOrtograficValidation.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wortograficvalidation.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wortograficvalidation.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wortograficvalidation.js
+++WSecurity.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wsecurity.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wsecurity.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wsecurity.js
+++WStyledRender.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wstyledrender.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wstyledrender.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wstyledrender.js
+++WReportsView.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wwcomponentsprotos\wreportsview.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wwcomponentsprotos\wreportsview.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wwcomponentsprotos\wreportsview.js
+++WRichText.js
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wwcomponentsprotos\wrichtext.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wwcomponentsprotos\wrichtext.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wwcomponentsprotos\wrichtext.js
+++Login.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\admin\login.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\login.cshtml
+++Login.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\admin\login.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\login.cshtml.cs
+++PerfilView.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\perfil\perfilview.cshtml
+++PerfilView.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\perfil\perfilview.cshtml.cs
+++Confirmacion_Registro.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\confirmacion_registro.cshtml
+++Confirmacion_Registro.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\confirmacion_registro.cshtml.cs
+++Register.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\register.cshtml
+++Register.cshtml.cs
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\security\register.cshtml.cs
+++_Layout.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\shared\_layout.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\shared\_layout.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\shared\_layout.cshtml
+++_ValidationScriptsPartial.cshtml
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\pages\shared\_validationscriptspartial.cshtml
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\pages\shared\_validationscriptspartial.cshtml
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\pages\shared\_validationscriptspartial.cshtml
+++downRow.svg
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wicons\downrow.svg
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wicons\downrow.svg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wicons\downrow.svg
+++downWhiteRow.svg
+i:{65064c0f-e1e2-4448-9f71-6581fa14b112}:c:\xampp\htdocs\sni_unan\sni_ui2\wwwroot\wdevcore\wmodules\wicons\downwhiterow.svg
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\wdevcore\wmodules\wicons\downwhiterow.svg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\wdevcore\wmodules\wicons\downwhiterow.svg
+++UNAN_PROYECT
+i:{00000000-0000-0000-0000-000000000000}:UNAN_PROYECT
+++CAPA_MODEL
+i:{6e16e6c9-f496-4bf2-9785-6b997784ba0b}:CAPA_MODEL
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\capa_model\bin\debug\net5.0\capa_model.dll
+++CatCargosDepenedencias.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\catcargosdepenedencias.cs
+++CatDependencias.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\catdependencias.cs
+++CatTipoParticipaciones.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\cattipoparticipaciones.cs
+++TblActividades.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblactividades.cs
+++TblAgenda.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblagenda.cs
+++TblCalendario.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblcalendario.cs
+++TblDependencias_Usuarios.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tbldependencias_usuarios.cs
+++TblEvidencias.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblevidencias.cs
+++TblParticipantes.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblparticipantes.cs
+++TblTareas.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tbltareas.cs
+++TblUsuario.cs
+i:{2262a898-60ac-48af-a22f-9a88eac478fb}:c:\xampp\htdocs\sni_unan\capa_model\entity\tblusuario.cs
+++UNAN_UI
+i:{6e16e6c9-f496-4bf2-9785-6b997784ba0b}:UNAN_UI
+++index.html
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\index.html
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\index.html
+++Layout.js
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\layout.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\layout.js
+++AppForms.css
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\css\appforms.css
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\css\appforms.css
+++Login.html
+i:{9eed8d73-2fe4-4f44-9f48-9e387b8a69fe}:c:\xampp\htdocs\sni_unan\unan_ui\wwwroot\security\login.html
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\security\login.html
+++USAV_WEB
+i:{00000000-0000-0000-0000-000000000000}:USAV_WEB
+++UI_USAV
+i:{0dae2e93-9b88-48f7-bdb7-6fb018014eb7}:UI_USAV
+++Media
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\
+++VideosController.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\controllers\videoscontroller.cs
+++MDatabase.cs
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\model\mdatabase.cs
+++Categorias
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\
+++FotosFondos
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\
+++IMG
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\img\
+++LogosGrises
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\
+++Tipologias
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\tipologias\
+++1.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\1.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\tipologias\1.jpg
+++2.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\2.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\tipologias\2.jpg
+++3.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\3.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\tipologias\3.jpg
+++4.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\4.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\tipologias\4.jpg
+++5.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\5.jpg
+++6.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\6.jpg
+++7.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\7.jpg
+++b562253c7552f8a035c362c3d29c4852.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\b562253c7552f8a035c362c3d29c4852.jpg
+++descarga.htm
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\descarga.htm
+++descarga.jfif
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\descarga.jfif
+++images.jfif
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\categorias\images.jfif
+++Panoramica Ciudad
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\
+++007.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\007.jpg
+++10983505204_34fb8afe92_o.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\10983505204_34fb8afe92_o.jpg
+++205.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\205.jpg
+++27303129555_3ab5001b70_o.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\27303129555_3ab5001b70_o.jpg
+++27923095822_81a8613e9a_k.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\27923095822_81a8613e9a_k.jpg
+++alfons-morales-h8iKOslX-Uo-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\alfons-morales-h8ikoslx-uo-unsplash.jpg
+++architecture-3363642.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\architecture-3363642.jpg
+++barcelona-4275011.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\barcelona-4275011.jpg
+++baroque-441965.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\baroque-441965.jpg
+++batllo-house-1725804.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\batllo-house-1725804.jpg
+++boris-yue-VDz2vwg7Vio-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\boris-yue-vdz2vwg7vio-unsplash.jpg
+++camille-minouflet-fXMZKc_1Bi0-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\camille-minouflet-fxmzkc_1bi0-unsplash.jpg
+++carles-rabada-kMde0v9tYYM-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\carles-rabada-kmde0v9tyym-unsplash.jpg
+++chris-king-mQ-H7mnqJuQ-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\chris-king-mq-h7mnqjuq-unsplash.jpg
+++david-castella-l6T7tGOWKfU-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\david-castella-l6t7tgowkfu-unsplash.jpg
+++desktop.ini
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\desktop.ini
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\desktop.ini
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\desktop.ini
+++facade-2467198.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\facade-2467198.jpg
+++gokhun-guneyhan-NbqDeIXB2fA-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\gokhun-guneyhan-nbqdeixb2fa-unsplash.jpg
+++joseph-gilbey-2dQXoqtg2SM-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\joseph-gilbey-2dqxoqtg2sm-unsplash.jpg
+++lamppost-666260.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\lamppost-666260.jpg
+++logan-armstrong-hVhfqhDYciU-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\logan-armstrong-hvhfqhdyciu-unsplash.jpg
+++marius-walter-bIMnxBnEI7M-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\marius-walter-bimnxbnei7m-unsplash.jpg
+++pexels-omer-dahoush-5862142.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\pexels-omer-dahoush-5862142.jpg
+++ruggiero-calabrese-j1iq-dE3mig-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\ruggiero-calabrese-j1iq-de3mig-unsplash.jpg
+++sergi-ferrete-K1WuU0GlwPU-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\sergi-ferrete-k1wuu0glwpu-unsplash.jpg
+++shai-pal-fwi8RCxfmY4-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\shai-pal-fwi8rcxfmy4-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\shai-pal-fwi8rcxfmy4-unsplash.jpg
+++simon-weisser-5Hcm3nKCKVA-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\simon-weisser-5hcm3nkckva-unsplash.jpg
+++simon-weisser-SQgLKYgKFoU-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\simon-weisser-sqglkygkfou-unsplash.jpg
+++yoko-correia-nishimiya-cggjBgsPQ8Y-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\yoko-correia-nishimiya-cggjbgspq8y-unsplash.jpg
+++Banner
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\img\banner\
+++3D Spaces pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\3d spaces pq.png
+++3D Spaces.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\3d spaces.png
+++accesia pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\accesia pq.png
+++accesia.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\accesia.png
+++Arag pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\arag pq.png
+++Arag.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\arag.png
+++BBVA pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\bbva pq.png
+++BBVA.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\bbva.png
+++BetterPlaces Ico pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\betterplaces ico pq.png
+++BetterPlaces Ico.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\betterplaces ico.png
+++Betterplaces pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\betterplaces pq.png
+++Betterplaces.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\betterplaces.png
+++Big Data pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\big data pq.png
+++Big Data.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\big data.png
+++bitmon (2) pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\bitmon (2) pq.png
+++bitmon (2).png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\bitmon (2).png
+++Bitmon.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\bitmon.png
+++enalquiler pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\enalquiler pq.png
+++enalquiler.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\enalquiler.png
+++Fotocasa pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\fotocasa pq.png
+++Fotocasa.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\fotocasa.png
+++Gas Arquitectura.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\gas arquitectura.png
+++gas pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\gas pq.png
+++gas.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\gas.png
+++gpisoftware pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\gpisoftware pq.png
+++gpisoftware.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\gpisoftware.png
+++Habitaclia pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\habitaclia pq.png
+++Habitaclia.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\habitaclia.png
+++Idealista pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\idealista pq.png
+++Idealista.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\idealista.png
+++Indomio pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\indomio pq.png
+++Indomio.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\indomio.png
+++Inglobaly pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\inglobaly pq.png
+++Inglobaly.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\inglobaly.png
+++pisos com pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\pisos com pq.png
+++pisos com.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\pisos com.png
+++Simple pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\simple pq.png
+++Simple.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\simple.png
+++Thumbs.db
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\thumbs.db
+++Witei pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\witei pq.png
+++Witei.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\witei.png
+++yaencontre pq.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\yaencontre pq.png
+++yaencontre.png
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\logosgrises\yaencontre.png
+++HomeEquipo.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\homeequipo.js
+++HomeFooter.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\homefooter.js
+++HomeLastAd.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\homelastad.js
+++HomeMosaicVideos.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\homemosaicvideos.js
+++HomeServicios.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\homeservicios.js
+++HomeTipologias.js
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\views\viewcomponents\hometipologias.js
+++1539853165_052605_1539866668_noticia_normal.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\1539853165_052605_1539866668_noticia_normal.jpg
+++andrea-rodriguez-m1tTo-2qTCA-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\andrea-rodriguez-m1tto-2qtca-unsplash.jpg
+++dimitry-anikin-ECkAbFv_Nnc-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\dimitry-anikin-eckabfv_nnc-unsplash.jpg
+++IMG-20190630-WA0009.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\img-20190630-wa0009.jpg
+++kevin-horvat-Nd8h38tRIlc-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\kevin-horvat-nd8h38trilc-unsplash.jpg
+++manuel-torres-garcia-vv4i4sGA2nQ-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\manuel-torres-garcia-vv4i4sga2nq-unsplash.jpg
+++marc-najera-8ENruNw6D3o-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\marc-najera-8enrunw6d3o-unsplash.jpg
+++pere-jurado-08btHh0iR40-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\pere-jurado-08bthh0ir40-unsplash.jpg
+++rose-erkul-P0c4NMJJXUg-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\rose-erkul-p0c4nmjjxug-unsplash.jpg
+++sagrada-familia-ciudad-barcelona-crepusculo_48663-26.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\sagrada-familia-ciudad-barcelona-crepusculo_48663-26.jpg
+++salim-benaadjou--XAJDwwDncc-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\salim-benaadjou--xajdwwdncc-unsplash.jpg
+++vitalie-sitnic-56chlDgjPdI-unsplash.jpg
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\fotosfondos\panoramica ciudad\vitalie-sitnic-56chldgjpdi-unsplash.jpg
+++Banner1.JPG
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\img\banner\banner1.jpg
+++Banner2.JPG
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\img\banner\banner2.jpg
+++Banner3.JPG
+i:{1c294730-559b-4c71-ba6a-3a4b1344d0b6}:c:\xampp\htdocs\sni_unan\ui_usav\wwwroot\media\img\banner\banner3.jpg

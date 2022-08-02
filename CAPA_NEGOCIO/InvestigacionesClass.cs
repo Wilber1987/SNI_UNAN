@@ -10,7 +10,7 @@ namespace CAPA_NEGOCIO
         public int? Id_Investigacion { get; set; }
         public int? Id_Investigador { get; set; }
         public string Foto { get; set; }
-        public string Photo { get; set; }
+        //public string Photo { get; set; }
         public string Nombres { get; set; }
         public string  Apellidos { get; set; }       
         public string Titulo { get; set; }

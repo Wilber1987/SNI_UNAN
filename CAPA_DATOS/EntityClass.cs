@@ -61,6 +61,10 @@ namespace CAPA_DATOS
                 condition = condition + Value + ",";
             }
             condition = condition.TrimEnd(',');
+            if (condition == "")
+            {
+                return "-1";
+            }
             return condition;
         }       
         public object Save()

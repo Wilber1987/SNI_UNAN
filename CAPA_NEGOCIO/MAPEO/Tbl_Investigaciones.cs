@@ -19,7 +19,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public DateTime? Fecha_ejecucion { get; set; }
         public int? Id_Investigador { get; set; }
         public int? Id_Localidad { get; set; }
-        public string Photo { get; set; }
+        //public string Photo { get; set; }
         public string Estado { get; set; }
         public List<Tbl_Investigaciones_Disciplinas> Disciplinas { get; set; }
         public Object GetInvestigaciones()

@@ -12,7 +12,7 @@ import { ProfileCard, ProfileTab, WProfileInvestigador } from "../ViewProfile.js
 import { WSecurity } from "../../WDevCore/WModules/WSecurity.js";
 import { WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
@@ -71,6 +71,8 @@ class PerfilClass extends HTMLElement {
                 }, {
                     name: "Proyectos", url: "#", action: async (ev) => { this.NavProyectos("Tab-TareasProyectos"); }
                 }, {
+                    name: "Grupos", url: "#", action: async (ev) => { this.NavGrupos("Tab-Grupos"); }
+                },{
                     name: "Eventos", url: "#",
                     action: async (ev) => {
                         const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
@@ -99,7 +101,7 @@ class PerfilClass extends HTMLElement {
             borderRadius: "0.3cm",
             boxShadow: "0 0 4px 0 rgb(0 0 0 / 40%)",
             margin: "10px",
-            maxHeight: "700px"
+            height: "700px"
         })
         this.DrawComponent();
     }
@@ -189,7 +191,7 @@ class PerfilClass extends HTMLElement {
                 this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.Distinciones, Model);
             }
         }];
-    }
+    } 
     NavInvestigaciones = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
@@ -261,6 +263,36 @@ class PerfilClass extends HTMLElement {
                 ]
             }))
         });
+        this.TabManager.NavigateFunction(TabId, Tab);
+    }
+    NavGrupos = async (TabId) => {
+        const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
+        const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
+        const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");        
+        const Tbl_Instituciones_Asociadas = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
+        Tab.append(WRender.Create({
+            className: "DivProy", children: [
+                { tagName: "h3", innerText: "Grupos" },
+                new WTableComponent({
+                    Dataset: Dataset,
+                    ModelObject: new Tbl_Grupos({
+                        Id_TipoGrupo : { type: "Select", Dataset: Id_TipoGrupo.map(x => ({id: x.Id_TipoGrupo, desc: x.Descripcion}))},
+                        Instituciones_Asociadas: { type: "MULTISELECT", Dataset: Tbl_Instituciones_Asociadas.map(x =>({
+                            Id_Institucion: x.Id_Institucion, Descripcion:x.Nombre,
+                        })) }
+                    }),
+                    Options: {
+                        Search: true, UrlSearch: 'api_route',
+                        Add: true, UrlAdd: '../../api/Group/SaveGroup',
+                        UserActions: [{
+                            name: 'Ver Detalle', Function: async (TableElement) => {
+                                
+                            }
+                        }]
+                    }
+                })
+            ]
+        }))
         this.TabManager.NavigateFunction(TabId, Tab);
     }
     NavSaveCatalogo = async (TabId, ApiName = { add: "" }, Dataset = [], Model = {}) => {
@@ -362,5 +394,5 @@ class PerfilClass extends HTMLElement {
     }
 }
 
-customElements.define('w-home', PerfilClass);
+customElements.define('w-perfil', PerfilClass);
 

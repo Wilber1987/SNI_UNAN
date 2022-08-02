@@ -60,7 +60,7 @@ namespace CAPA_NEGOCIO.MAPEO
 	{
 		public int? Id_Tipo_Asociacion { get; set; }
 		public string Descripcion { get; set; }
-		public string EstadoAsociacion { get; set; }
+		public string Estado { get; set; }
 	}
 	public class Cat_Tipo_Investigacion : EntityClass
 	{

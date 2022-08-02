@@ -15,7 +15,6 @@ namespace CAPA_NEGOCIO.MAPEO
 
         //CAT TIPO ASOCIACION Cat_Tipo_Asociacion
         public string Descripcion { get; set; }
-        public string EstadoAsociacion { get; set; }
         public Object TakeAsociaciones()
         {
             try

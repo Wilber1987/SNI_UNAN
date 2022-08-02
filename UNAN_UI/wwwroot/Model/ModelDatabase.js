@@ -246,7 +246,7 @@ export{ViewInvestigaciones}
 class Cat_Tipo_Asociacion {
 	Id_Tipo_Asociacion = { type: "number" }
 	Descripcion = { type: "text" }
-	EstadoAsociacion = { type: "text" }
+	Estado = { type: "text" }
 }
 export{Cat_Tipo_Asociacion}
 class Tbl_Instituciones_Asociadas {
@@ -264,7 +264,7 @@ class ViewGPInstitucionesAsociadas {
 	Id_Proyecto = { type: "number" }
 	Id_Tipo_Asociacion = { type: "number" }
 	Descripcion = { type: "text" }
-	EstadoAsociacion = { type: "text" }
+	Estado = { type: "text" }
 	Fecha_Ingreso = { type: "date" }
 }
 export{ViewGPInstitucionesAsociadas}

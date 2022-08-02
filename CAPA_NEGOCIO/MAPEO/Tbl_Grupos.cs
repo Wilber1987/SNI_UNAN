@@ -9,34 +9,41 @@ namespace CAPA_NEGOCIO.MAPEO
     public class Tbl_Grupos : EntityClass
     {
         public int? Id_Grupo { get; set; }
+        public string Descripcion { get; set; }
         public int? Id_Investigador_Crea { get; set; }
         public int? Id_TipoGrupo { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
         public string Estado { get; set; }
-        List<Tbl_InstitucionesAsociadasGrupos> Instituciones_Asociadas { get; set; }
-        List<Tbl_InvestigadoresAsociados> Investigadores_Asociados { get; set; }
+        public List<Tbl_InstitucionesAsociadasGrupos> Instituciones_Asociadas { get; set; }
+        public List<Tbl_InvestigadoresAsociados> Investigadores_Asociados { get; set; }
         public Object SaveGrupo()
         {
             if (this.Id_Grupo == null)
             {
                 this.Id_Grupo = (Int32)this.Save();
-            }
-            else
-            {
-                this.Update("Id_Grupo");
-            }
-            if (this.Instituciones_Asociadas != null)
-            {
-                Tbl_InstitucionesAsociadasGrupos IdI = new Tbl_InstitucionesAsociadasGrupos();
-                IdI.Id_Grupo = this.Id_Grupo;
-                IdI.Delete();
-                foreach (Tbl_InstitucionesAsociadasGrupos obj in this.Instituciones_Asociadas)
+                //INVESTIGADOR CREA ES ASOCIADO POR DEFECTO
+                Tbl_InvestigadoresAsociados invCreador = new Tbl_InvestigadoresAsociados()
                 {
-                    obj.Id_Grupo = this.Id_Grupo;
-                    obj.Save();
+                    Id_Investigador = this.Id_Investigador_Crea,
+                    Id_TipoMiembro = 1,//coordinador
+                    Id_Grupo = this.Id_Grupo,
+                    Fecha_Incorporacion = DateTime.Now,
+                    Estado = "Activo"
+                };
+                invCreador.Save();
+                if (this.Instituciones_Asociadas != null)
+                {
+                    foreach (Tbl_InstitucionesAsociadasGrupos obj in this.Instituciones_Asociadas)
+                    {
+                        obj.Id_Grupo = this.Id_Grupo;
+                        obj.Estado = "Activo";
+                        obj.Fecha_Incorporacion = DateTime.Now;
+                        obj.Save();
+                    }
                 }
+                return true;
             }
-            return true;
+            return false;
         }
         public Tbl_Grupos GetGroup()
         {
@@ -50,7 +57,7 @@ namespace CAPA_NEGOCIO.MAPEO
                             (new Tbl_InstitucionesAsociadasGrupos()).Get_WhereIN<Tbl_InstitucionesAsociadasGrupos>(
                                     "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
             var Ives = new Tbl_InvestigadoresAsociados();
-            Ives.Estado = "ACTIVO";
+            Ives.Estado = "Activo";
             grupo.Investigadores_Asociados = Ives.Get_WhereIN<Tbl_InvestigadoresAsociados>(
                         "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
         }
@@ -60,8 +67,8 @@ namespace CAPA_NEGOCIO.MAPEO
             List<Tbl_Grupos> grupos = this.Get<Tbl_Grupos>();
             foreach (Tbl_Grupos grupo in grupos)
             {
-                this.ChargeGroupData(grupo);
-            }           
+                ChargeGroupData(grupo);
+            }
             return grupos;
         }
         public List<Tbl_Grupos> GetGroupsByInvestigator(Tbl_InvestigatorProfile Inv)
@@ -69,23 +76,29 @@ namespace CAPA_NEGOCIO.MAPEO
             var Ids = (new Tbl_InvestigadoresAsociados()).Get_WhereIN<Tbl_InvestigadoresAsociados>(
                 "Id_Investigador", new string[] { Inv.Id_Investigador.ToString() }
                 ).Select(g => g.Id_Grupo.ToString()).ToArray();
-            return this.Get_WhereIN<Tbl_Grupos>("Id_Grupo", Ids);
+            List<Tbl_Grupos> groups =  this.Get_WhereIN<Tbl_Grupos>("Id_Grupo", Ids);
+            foreach (var group in groups)
+            {
+                ChargeGroupData(group);
+            }
+            return groups;
         }
         public Object SolicitarUnirse(Tbl_InvestigatorProfile Inv)
         {
-            Tbl_InvestigadoresAsociados tbl_InvestigadoresAsociado = BuildInvAsociado(Inv, "SOLICITANTE");
+            Tbl_InvestigadoresAsociados tbl_InvestigadoresAsociado = BuildInvAsociado(Inv, "Solicitante");
             tbl_InvestigadoresAsociado.Save();
             return true;
         }
         public Object AprobarSolicitud(Tbl_InvestigadoresAsociados Inv)
         {
-            Inv.Estado = "ACTIVO";
+            Inv.Estado = "Activo";
+            Inv.Fecha_Incorporacion = DateTime.Now;
             Inv.Update(new string[] { "Id_Grupo", "Id_Investigador" });
             return true;
         }
         public Object RechazarSolicitud(Tbl_InvestigadoresAsociados Inv)
         {
-            Inv.Estado = "RECHAZADO";
+            Inv.Estado = "Rechazado";
             Inv.Update(new string[] { "Id_Grupo", "Id_Investigador" });
             return true;
         }
