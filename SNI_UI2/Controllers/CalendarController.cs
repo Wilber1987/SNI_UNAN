@@ -24,9 +24,9 @@ namespace SNI_UI2.Controllers
         {
             List<object> data = new List<object>();
             ProyectoCatDependencias Dep = new ProyectoCatDependencias();
-            data.Add(Dep.Get());
+            data.Add(Dep.Get<ProyectoCatDependencias>());
             Tbl_InvestigatorProfile Users = new Tbl_InvestigatorProfile();
-            data.Add(Users.Get());
+            data.Add(Users.Get<Tbl_InvestigatorProfile>());
             Users.Id_Investigador = AuthNetCore.User().UserId;
             data.Add(Users.TakeDepCoordinaciones());
             return data;
@@ -40,7 +40,7 @@ namespace SNI_UI2.Controllers
         }
         public Object TakeActividades(ProyectoTableActividades Inst)
         {            
-            return Inst.Get();
+            return Inst.Get<ProyectoTableActividades>();
         }
         public Object TakeActividad(ProyectoTableActividades Inst)
         {
@@ -64,7 +64,7 @@ namespace SNI_UI2.Controllers
             ProyectoTableAgenda ag = new ProyectoTableAgenda();
             ag.Id_Dependencia = Act.Id_Dependencia;
             ag.Id_Investigador = AuthNetCore.User().UserId;
-            return ag.Get();
+            return ag.Get<ProyectoTableAgenda>();
         }
         public Object SaveAgendaUsuarioDependencia(ProyectoTableAgenda Act)
         {
@@ -79,26 +79,26 @@ namespace SNI_UI2.Controllers
     {
         public int Id_Dependencia { get; set; }
         public int IdUsuario { get; set; }
-        public List<Object> Actividades { get; set; }
-        public List<Object> Agenda { get; set; }
-        public List<Object> Calendario { get; set; }
+        public Object Actividades { get; set; }
+        public Object Agenda { get; set; }
+        public Object Calendario { get; set; }
 
         public void TakeAgenda()
         {
             ProyectoTableAgenda ag = new ProyectoTableAgenda();
             ag.Id_Dependencia = this.Id_Dependencia;
-            this.Agenda = ag.Get();
+            this.Agenda = ag.Get<ProyectoTableAgenda>();
         }
         public void TakeActividades()
         {
             ProyectoTableActividades ag = new ProyectoTableActividades();
-            this.Actividades = ag.Get();
+            this.Actividades = ag.Get<ProyectoTableActividades>();
         }
         public void TakeCalendario()
         {
             ViewCalendarioByDependencia ag = new ViewCalendarioByDependencia();
             ag.Id_Dependencia = this.Id_Dependencia;
-            this.Calendario = ag.Get();
+            this.Calendario = ag.Get<ViewCalendarioByDependencia>();
         }
     }
 }

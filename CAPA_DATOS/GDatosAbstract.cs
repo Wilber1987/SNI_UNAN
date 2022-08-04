@@ -70,22 +70,7 @@ namespace CAPA_DATOS
                 SQLMCon.Close();
                 throw;
             }
-        }
-        public Object InsertObject(string TableName, Object Inst)
-        {
-            try
-            {
-                string ColumnNames = "";
-                string Values = "";
-                BuildInsertQueryByObject(Inst, ref ColumnNames, ref Values);
-                string strQuery = "INSERT INTO " + TableName + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
-                return ExcuteSqlQuery(strQuery);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        }       
         public Object InsertObject(Object Inst)
         {
             try
@@ -102,7 +87,6 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-
         private static void BuildInsertQueryByObject(object Inst, ref string ColumnNames, ref string Values)
         {
             Type _type = Inst.GetType();
@@ -134,7 +118,6 @@ namespace CAPA_DATOS
             ColumnNames = ColumnNames.TrimEnd(',');
             Values = Values.TrimEnd(',');
         }
-
         private static bool IsNumeric(object AtributeValue)
         {
             return AtributeValue.GetType() == typeof(int)
@@ -142,7 +125,6 @@ namespace CAPA_DATOS
                                 || AtributeValue.GetType() == typeof(Decimal)
                                 || AtributeValue.GetType() == typeof(int?);
         }
-
         public Object UpdateObject(Object Inst, string[] IdObject)
         {
             try
@@ -257,7 +239,6 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-
         public Object Delete(Object Inst)
         {
             string TableName = Inst.GetType().Name;
@@ -279,7 +260,6 @@ namespace CAPA_DATOS
             string strQuery = "DELETE FROM  " + TableName + CondicionString;
             return ExcuteSqlQuery(strQuery);
         }
-
         private static void WhereConstruction(ref string CondicionString, ref int index, string AtributeName, object AtributeValue)
         {
 
@@ -300,7 +280,6 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + AtributeName + "=" + AtributeValue.ToString() + " ";
             }
         }
-
         private static void WhereOrAnd(ref string CondicionString, ref int index)
         {
             if (index == 0)

@@ -9,16 +9,7 @@ namespace CAPA_DATOS
 {
     public abstract class EntityClass
     {
-        public List<Object> Get()
-        {
-            var Data = SqlADOConexion.SQLM.TakeList(this);
-            return Data;
-        }
-        public List<Object> Get(string condition)
-        {
-            var Data = SqlADOConexion.SQLM.TakeList(this, condition);
-            return Data;
-        }
+               
         public List<T> Get<T>()
         {
             var Data = SqlADOConexion.SQLM.TakeList<T>(this);

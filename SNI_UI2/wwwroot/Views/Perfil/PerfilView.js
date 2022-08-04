@@ -1,15 +1,12 @@
-import { AsideV1 } from "../../AppComponents/AsideV1.js";
 import { MasterDomDetaills } from "../../MasterDomDetaills.js";
 import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WRender, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
 import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
 import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
-import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
-import { ProfileCard, ProfileTab, WProfileInvestigador } from "../ViewProfile.js";
-import { WSecurity } from "../../WDevCore/WModules/WSecurity.js";
+import { WProfileInvestigador } from "../ViewProfile.js";
 import { WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
@@ -29,72 +26,8 @@ class PerfilClass extends HTMLElement {
         this.append(this.WStyle, WRender.createElement(StylesControlsV2));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
-        this.OptionContainer = WRender.Create({
-            className: "OptionContainer",
-            children: [
-                // {
-                //     tagName: 'input', type: 'button', className: 'Btn', value: 'Nueva Actividad',
-                //     onclick: async () => {
-                //         this.append(new WModalForm({
-                //             ObjectModal: new ReservarComponent(),
-                //             ShadowRoot: false,
-                //             StyleForm: "columnX3"
-                //         }))
-                //     }
-                // }, {
-                //     tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Reservar',
-                //     onclick: async () => {
-                //         this.append(new WModalForm({
-                //             ObjectModal: new ReservarComponent("ApplyFor"),
-                //             ShadowRoot: false,
-                //             StyleForm: "columnX3"
-                //         }))
-                //     }
-                // }
-            ]
-        });
-        this.TabActividades = new WAppNavigator({
-            //NavStyle: "tab",
-            Direction: "column",
-            Inicialize: true,
-            Elements: [
-                {
-                    name: "Datos Generales", url: "#",
-                    action: async (ev) => {
-                        this.response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
-                            { Id_Investigador: this.Id_Investigador }
-                        );
-                        this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
-                    }
-                }, {
-                    name: "Investigaciones", url: "#", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
-                }, {
-                    name: "Proyectos", url: "#", action: async (ev) => { this.NavProyectos("Tab-TareasProyectos"); }
-                }, {
-                    name: "Grupos", url: "#", action: async (ev) => { this.NavGrupos("Tab-Grupos"); }
-                },{
-                    name: "Eventos", url: "#",
-                    action: async (ev) => {
-                        const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
-                        const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
-                        const Model = new Tbl_Evento({
-                            Id_Tipo_Evento: {
-                                type: "Select",
-                                Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, desc: x.Descripcion }))
-                            }, Id_Pais: {
-                                type: "Select",
-                                Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, desc: x.Descripcion }))
-                            }
-                        });
-                        this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, this.response.Eventos, Model);
-                    }
-                }, {
-                    name: "Editar", SubNav: {
-                        Elements: this.EditarPerfilNav()
-                    }
-                }
-            ]
-        });
+        this.OptionContainer = WRender.Create({ className: "OptionContainer" });
+        this.TabActividades = this.MainNav;
         WRender.SetStyle(this.TabActividades, {
             padding: "10px",
             backgroundColor: "#fff",
@@ -104,7 +37,7 @@ class PerfilClass extends HTMLElement {
             height: "700px"
         })
         this.DrawComponent();
-    }
+    }    
     EditarPerfilNav = () => {
         return [{
             name: "Perfil", url: "#", action: async (ev) => { this.EditProfile(); }
@@ -191,7 +124,49 @@ class PerfilClass extends HTMLElement {
                 this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.Distinciones, Model);
             }
         }];
-    } 
+    }
+    MainNav = new WAppNavigator({
+        //NavStyle: "tab",
+        Direction: "column",
+        Inicialize: true,
+        Elements: [
+            {
+                name: "Datos Generales", url: "#",
+                action: async (ev) => {
+                    this.response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
+                        { Id_Investigador: this.Id_Investigador }
+                    );
+                    this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
+                }
+            }, {
+                name: "Investigaciones", url: "#", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
+            }, {
+                name: "Proyectos", url: "#", action: async (ev) => { this.NavProyectos("Tab-TareasProyectos"); }
+            }, {
+                name: "Grupos", url: "#", action: async (ev) => { this.NavGrupos("Tab-Grupos"); }
+            }, {
+                name: "Eventos", url: "#",
+                action: async (ev) => {
+                    const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
+                    const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
+                    const Model = new Tbl_Evento({
+                        Id_Tipo_Evento: {
+                            type: "Select",
+                            Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, desc: x.Descripcion }))
+                        }, Id_Pais: {
+                            type: "Select",
+                            Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, desc: x.Descripcion }))
+                        }
+                    });
+                    this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, this.response.Eventos, Model);
+                }
+            }, {
+                name: "Editar", SubNav: {
+                    Elements: this.EditarPerfilNav()
+                }
+            }
+        ]
+    });
     NavInvestigaciones = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
@@ -268,7 +243,7 @@ class PerfilClass extends HTMLElement {
     NavGrupos = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
-        const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");        
+        const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");
         const Tbl_Instituciones_Asociadas = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         Tab.append(WRender.Create({
             className: "DivProy", children: [
@@ -276,17 +251,19 @@ class PerfilClass extends HTMLElement {
                 new WTableComponent({
                     Dataset: Dataset,
                     ModelObject: new Tbl_Grupos({
-                        Id_TipoGrupo : { type: "Select", Dataset: Id_TipoGrupo.map(x => ({id: x.Id_TipoGrupo, desc: x.Descripcion}))},
-                        Instituciones_Asociadas: { type: "MULTISELECT", Dataset: Tbl_Instituciones_Asociadas.map(x =>({
-                            Id_Institucion: x.Id_Institucion, Descripcion:x.Nombre,
-                        })) }
+                        Id_TipoGrupo: { type: "Select", Dataset: Id_TipoGrupo.map(x => ({ id: x.Id_TipoGrupo, desc: x.Descripcion })) },
+                        Instituciones_Asociadas: {
+                            type: "MULTISELECT", Dataset: Tbl_Instituciones_Asociadas.map(x => ({
+                                Id_Institucion: x.Id_Institucion, Descripcion: x.Nombre,
+                            }))
+                        }
                     }),
                     Options: {
                         Search: true, UrlSearch: 'api_route',
                         Add: true, UrlAdd: '../../api/Group/SaveGroup',
                         UserActions: [{
                             name: 'Ver Detalle', Function: async (TableElement) => {
-                                
+
                             }
                         }]
                     }
@@ -396,3 +373,21 @@ class PerfilClass extends HTMLElement {
 
 customElements.define('w-perfil', PerfilClass);
 
+class objeto {
+    px = 0;
+    py = 0;
+}
+class objetoTest extends objeto {
+    constructor(){
+        super()
+    }
+    moverX = (x)=> this.px + x
+    moverY = (y)=> this.py + y
+    movilizarseX = (x = 0)=>{
+        if (x != 0) {
+            this.px + 1;
+            x++;
+            this.movilizarseX(x);
+        }
+    }
+}

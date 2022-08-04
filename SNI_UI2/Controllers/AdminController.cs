@@ -18,7 +18,7 @@ namespace SNI_UI2.Controllers
         public Object TakePostulantes(Tbl_InvestigatorProfile inv)
         {
             inv.Estado = "POSTULANTE";
-            return inv.Get();
+            return inv.Get<Tbl_InvestigatorProfile>();
         }
         public Object AdmitirPostulante(Tbl_InvestigatorProfile inv)
         {
@@ -36,40 +36,40 @@ namespace SNI_UI2.Controllers
         public Object TakeInvestigadores(Tbl_InvestigatorProfile inv)
         {
             inv.Estado = "ACTIVO";
-            return inv.Get();
+            return inv.Get<Tbl_InvestigatorProfile>();
         }
         public Object TakeRechazados(Tbl_InvestigatorProfile inv)
         {
             inv.Estado = "RECHAZADO";
-            return inv.Get();
+            return inv.Get<Tbl_InvestigatorProfile>();
         }
         #endregion
         #region INVESTIGACIONES
         public Object TakeInvestigaciones(Tbl_Investigaciones Inst)
         {
-            return Inst.Get();
+            return Inst.Get<Tbl_Investigaciones>();
         }
         #endregion
         #region CATALOGOS
-        public Object TakeCat_instituciones(Cat_instituciones inv) { return inv.Get(); }
-        public Object TakeCat_Paises(Cat_Paises inv) { return inv.Get(); }
-        public Object TakeCat_Localidad(Cat_Localidad inv) { return inv.Get(); }
-        public Object TakeCat_TipoLocalidad(Cat_TipoLocalidad inv) { return inv.Get(); }
-        public Object TakeCatRedesSociales(CatRedesSociales inv) { return inv.Get(); }
-        public Object TakeCat_Idiomas(Cat_Idiomas inv) { return inv.Get(); }
-        public Object TakeCat_Cargos(Cat_Cargos inv) { return inv.Get(); }
-        public Object TakeCatTipoDistincion(CatTipoDistincion inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Get(); }
-        public Object TakeCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Get(); }
-        public Object TakeCat_Disciplinas(Cat_Disciplinas inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Get(); }
-        public Object TakeCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Proyecto(Cat_Tipo_Proyecto inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Get(); }
-        public Object TakeCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Get(); }
-        public Object TakeCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Get(); }
-        public Object TakeCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Get(); }
+        public Object TakeCat_instituciones(Cat_instituciones inv) { return inv.Get<Cat_instituciones>(); }
+        public Object TakeCat_Paises(Cat_Paises inv) { return inv.Get<Cat_Paises>(); }
+        public Object TakeCat_Localidad(Cat_Localidad inv) { return inv.Get<Cat_Localidad>(); }
+        public Object TakeCat_TipoLocalidad(Cat_TipoLocalidad inv) { return inv.Get<Cat_TipoLocalidad>(); }
+        public Object TakeCatRedesSociales(CatRedesSociales inv) { return inv.Get<CatRedesSociales>(); }
+        public Object TakeCat_Idiomas(Cat_Idiomas inv) { return inv.Get<Cat_Idiomas>(); }
+        public Object TakeCat_Cargos(Cat_Cargos inv) { return inv.Get<Cat_Cargos>(); }
+        public Object TakeCatTipoDistincion(CatTipoDistincion inv) { return inv.Get<CatTipoDistincion>(); }
+        public Object TakeCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Get<Cat_Tipo_Investigacion>(); }
+        public Object TakeCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Get<Cat_TipoEstudio>(); }
+        public Object TakeCat_Disciplinas(Cat_Disciplinas inv) { return inv.Get<Cat_Disciplinas>(); }
+        public Object TakeCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Get<Cat_Tipo_Colaborador>(); }
+        public Object TakeCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Get<Cat_Cargo_Proyecto>(); }
+        public Object TakeCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Get<Cat_Tipo_Asociacion>(); }
+        public Object TakeCat_Tipo_Proyecto(Cat_Tipo_Proyecto inv) { return inv.Get<Cat_Tipo_Proyecto>(); }
+        public Object TakeCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Get<Cat_Tipo_Evento>(); }
+        public Object TakeCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Get<Cat_TipoGrupo>(); }
+        public Object TakeCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Get<Cat_TipoMiembro>(); }
+        public Object TakeCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Get<Cat_Tipo_Proceso_Editorial>(); }
         //SAVESSS
         public Object SaveCat_instituciones(Cat_instituciones inv) { return inv.Save(); }
         public Object SaveCat_Paises(Cat_Paises inv) { return inv.Save(); }
@@ -113,7 +113,7 @@ namespace SNI_UI2.Controllers
         #endregion
 
         #region SECURITY
-        public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get(); }
+        public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get<Security_Permissions>(); }
         public Object TakeSecurity_Roles(Security_Roles inv) { return inv.GetRoles(); }
         public Object TakeSecurity_Users(Security_Users inv) { return inv.GetUsers(); }
 
