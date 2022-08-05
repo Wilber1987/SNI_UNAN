@@ -19,23 +19,11 @@ namespace CAPA_DATOS
         {
             var Data = SqlADOConexion.SQLM.TakeList<T>(this, condition);
             return Data;
-        }
-        public List<Object> Get_WhereIN(string Field, string[] conditions)
-        {
-            string condition = BuildArrayIN(conditions);
-            var Data = SqlADOConexion.SQLM.TakeList(this, Field + " IN (" + condition + ")");
-            return Data;
-        }
+        }      
         public List<T> Get_WhereIN<T>(string Field, string[] conditions)
         {
             string condition = BuildArrayIN(conditions);
             var Data = SqlADOConexion.SQLM.TakeList<T>(this, Field + " IN (" + condition + ")");
-            return Data;
-        }
-        public List<Object> Get_WhereNotIN(string Field, string[] conditions)
-        {
-            string condition = BuildArrayIN(conditions);
-            var Data = SqlADOConexion.SQLM.TakeList(this, Field + " NOT IN (" + condition + ")");
             return Data;
         }
         public List<T> Get_WhereNotIN<T>(string Field, string[] conditions)

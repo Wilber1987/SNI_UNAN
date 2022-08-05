@@ -43,7 +43,7 @@ namespace CAPA_NEGOCIO
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
             DU.Id_Dependencia = this.Id_Dependencia;
-            if (DU.Get_WhereIN("IdCargo", new string[]{ "1", "2"}).Count == 0)
+            if (DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("IdCargo", new string[]{ "1", "2"}).Count == 0)
             {
                 return false;
             }

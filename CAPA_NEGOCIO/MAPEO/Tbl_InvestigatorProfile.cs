@@ -40,11 +40,11 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<TblProcesosEditoriales> ProcesosEditoriales { get; set; }
 
 
-        public List<Object> TakeDepCoordinaciones()
+        public List<ProyectoTableDependencias_Usuarios> TakeDepCoordinaciones()
         {
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
-            return DU.Get_WhereIN("Id_Cargo", new string[] { "1", "2" });
+            return DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[] { "1", "2" });
         }
         public Object TakeProfile()
         {
