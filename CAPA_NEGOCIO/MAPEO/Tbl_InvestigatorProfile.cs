@@ -50,8 +50,8 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                var List = SqlADOConexion.SQLM.TakeList("Tbl_InvestigatorProfile", this);
-                Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
+                var List = SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>(this);
+                Tbl_InvestigatorProfile Investigador = List[0];
                 return Investigador;
             }
             catch (Exception)
@@ -64,24 +64,24 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                var List = SqlADOConexion.SQLM.TakeList("Tbl_InvestigatorProfile", this);
+                var List = SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>( this);
                 Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
                 //Investigaciones
                 Tbl_Investigaciones ModelInvestigacion = new Tbl_Investigaciones();
                 ModelInvestigacion.Id_Investigador = this.Id_Investigador;
                 Investigador.Investigaciones = ModelInvestigacion.Get<Tbl_Investigaciones>();
                 //Colaboraciones
-                Tbl_Colaboradores ModelCol = new Tbl_Colaboradores();
-                ModelCol.Id_Investigador = this.Id_Investigador;
-                Investigador.Colaboraciones = ModelCol.TakeColaboradores();
+                //Tbl_Colaboradores ModelCol = new Tbl_Colaboradores();
+                //ModelCol.Id_Investigador = this.Id_Investigador;
+                //Investigador.Colaboraciones = ModelCol.TakeColaboradores();
                 //Proyectos
                 Tbl_Participantes_Proyectos ModelProyectos = new Tbl_Participantes_Proyectos();
                 ModelProyectos.Id_Investigador = this.Id_Investigador;
                 Investigador.Proyectos = ModelProyectos.TakeParicipantesProyectos();
                 //Idiomas
-                Cat_Idiomas ModelIdiom = new Cat_Idiomas();
+                /*Cat_Idiomas ModelIdiom = new Cat_Idiomas();
                 ModelIdiom.Id_Investigador = this.Id_Investigador;
-                Investigador.Idiomas = ModelIdiom.TakeIdiomasInv();
+                Investigador.Idiomas = ModelIdiom.TakeIdiomasInv();*/
                 //RedesSociales
                 CatRedesSociales ModelRedes = new CatRedesSociales();
                 ModelRedes.Id_Investigador = this.Id_Investigador;

@@ -21,8 +21,8 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                var List = SqlADOConexion.SQLM.TakeList("Tbl_Proyectos", this);
-                Tbl_Proyectos Proyecto = (Tbl_Proyectos)List[0];
+                var List = SqlADOConexion.SQLM.TakeList<Tbl_Proyectos>(this);
+                Tbl_Proyectos Proyecto = List[0];
                 Tbl_Participantes_Proyectos ModelProyect = new Tbl_Participantes_Proyectos();
                 ModelProyect.Id_Proyecto = Proyecto.Id_Proyecto;
                 Cat_Tipo_Proyecto TP = new Cat_Tipo_Proyecto();
@@ -31,7 +31,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 Proyecto.Participantes = ModelProyect.TakeParicipantesProyectos();
                 Cat_instituciones ModelInst = new Cat_instituciones();
                 ModelInst.Id_Proyecto = Proyecto.Id_Proyecto;
-                Proyecto.Instituciones = ModelInst.TakeInstitucionesAsociadas();
+                //Proyecto.Instituciones = ModelInst.TakeInstitucionesAsociadas();
                 return Proyecto;
             }
             catch (Exception)
@@ -39,11 +39,11 @@ namespace CAPA_NEGOCIO.MAPEO
                 throw;
             }
         }
-        public List<Object> TakeProyects()
+        public List<Tbl_Proyectos> TakeProyects()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("Tbl_Proyectos", this);
+                return SqlADOConexion.SQLM.TakeList<Tbl_Proyectos>(this);
             }
             catch (Exception)
             {

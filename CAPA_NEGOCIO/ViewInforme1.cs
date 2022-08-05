@@ -14,11 +14,11 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                var Informe = SqlADOConexion.SQLM.TakeList("ViewInforme1", this,
-                    "Where Fecha between '" +
-                    date1.ToString("yyyy/MM/dd")+"' and '"+ 
-                    date2.ToString("yyyy/MM/dd") + "'");               
-                return Informe;
+            //    var Informe = SqlADOConexion.SQLM.TakeList("ViewInforme1", this,
+            //        "Where Fecha between '" +
+            //        date1.ToString("yyyy/MM/dd")+"' and '"+ 
+            //        date2.ToString("yyyy/MM/dd") + "'");               
+                return true;
             }
             catch (Exception)
             {

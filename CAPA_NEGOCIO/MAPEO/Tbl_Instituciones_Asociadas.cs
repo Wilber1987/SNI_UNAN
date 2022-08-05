@@ -14,29 +14,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Estado { get; set; }
 
         //CAT TIPO ASOCIACION Cat_Tipo_Asociacion
-        public string Descripcion { get; set; }
-        public Object TakeAsociaciones()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList("Tbl_Instituciones_Asociadas", this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public Object TakeTipoAsociacion()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList("Cat_Tipo_Asociacion", this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        public string Descripcion { get; set; }     
 
     }
 }

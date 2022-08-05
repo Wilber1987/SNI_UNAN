@@ -10,11 +10,11 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Descripcion_Tipo_Proyecto { get; set; }
         public string Estado_Tipo_Proyecto { get; set; }
         public string Icon { get; set; }
-        public List<Object> TakeTipoProyecto()
+        public List<Cat_Tipo_Proyecto> TakeTipoProyecto()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("Cat_Tipo_Proyecto", this);
+                return SqlADOConexion.SQLM.TakeList<Cat_Tipo_Proyecto>( this);
             }
             catch (Exception)
             {

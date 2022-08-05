@@ -18,22 +18,22 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Fecha_Ingreso { get; set; }
         public string Descripcion { get; set; }
 
-        public List<Object> Take()
+        public List<Cat_instituciones> Take()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("Cat_instituciones", this);
+                return SqlADOConexion.SQLM.TakeList<Cat_instituciones>( this);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public List<Object> TakeInstitucionesAsociadas()
+        public Object TakeInstitucionesAsociadas()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("ViewGPInstitucionesAsociadas", this);
+                return true;//SqlADOConexion.SQLM.TakeList("ViewGPInstitucionesAsociadas", this);
             }
             catch (Exception)
             {

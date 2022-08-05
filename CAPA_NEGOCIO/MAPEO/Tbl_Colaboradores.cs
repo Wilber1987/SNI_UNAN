@@ -19,11 +19,11 @@ namespace CAPA_NEGOCIO.MAPEO
 
 
 
-        public List<Object> TakeColaboradores()
+        public Object TakeColaboradores()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("ViewColaboradores", this);
+                return true;// SqlADOConexion.SQLM.TakeList("ViewColaboradores", this);
             }
             catch (Exception)
             {

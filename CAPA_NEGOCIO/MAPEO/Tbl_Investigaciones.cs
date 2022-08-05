@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using CAPA_DATOS;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Tbl_Investigaciones:EntityClass
+    public class Tbl_Investigaciones : EntityClass
     {
         public int? Id_Investigacion { get; set; }
         public string Visibilidad { get; set; }
-        public int? Id_Tipo_Investigacion { get; set; }       
+        public int? Id_Tipo_Investigacion { get; set; }
         public string Titulo { get; set; }
         public string Abstract { get; set; }
         public string Resumen { get; set; }
@@ -21,8 +22,28 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Localidad { get; set; }
         //public string Photo { get; set; }
         public string Estado { get; set; }
+        public List<Tbl_InvestigatorProfile> Colaboradores { get; set; }
         public List<Tbl_Investigaciones_Disciplinas> Disciplinas { get; set; }
-        public Object GetInvestigaciones()
+        public Tbl_Investigaciones GetInvestigacion()
+        {
+            try
+            {
+                Tbl_Investigaciones Investigacion = GetInvestigaciones()[0];
+                List<Tbl_Colaboradores> colaboradores = (new Tbl_Colaboradores()
+                {
+                    Id_Investigacion = this.Id_Investigacion
+                }
+                ).Get<Tbl_Colaboradores>();
+                Investigacion.Colaboradores = (new Tbl_InvestigatorProfile()).Get_WhereIN<Tbl_InvestigatorProfile>(
+                        "Id_Investigador", colaboradores.Select(c => c.Id_Investigador.ToString()).ToArray());
+                return Investigacion;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<Tbl_Investigaciones> GetInvestigaciones()
         {
             try
             {
@@ -30,8 +51,8 @@ namespace CAPA_NEGOCIO.MAPEO
                 foreach (Tbl_Investigaciones inv in Investigaciones)
                 {
                     inv.Disciplinas = (new Tbl_Investigaciones_Disciplinas()).Get_WhereIN<Tbl_Investigaciones_Disciplinas>(
-                        "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() } );
-                }                
+                        "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
+                }
                 return Investigaciones;
             }
             catch (Exception)
@@ -63,17 +84,6 @@ namespace CAPA_NEGOCIO.MAPEO
                     }
                 }
                 return this;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public List<Object> TakeInvestigaciones()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList("Tbl_Investigaciones", this);
             }
             catch (Exception)
             {

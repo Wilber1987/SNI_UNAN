@@ -12,22 +12,22 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Estado { get; set; }
         //Idiomas Investigadores
         public int? Id_Investigador { get; set; }
-        public List<Object> Take()
+        public List<Cat_Idiomas> Take()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("Cat_Idiomas", this);
+                return SqlADOConexion.SQLM.TakeList<Cat_Idiomas>( this);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public List<Object> TakeIdiomasInv()
+        public Object TakeIdiomasInv()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList("ViewIdiomasInvestigadores", this);
+                return true;//SqlADOConexion.SQLM.TakeList("ViewIdiomasInvestigadores", this);
             }
             catch (Exception)
             {

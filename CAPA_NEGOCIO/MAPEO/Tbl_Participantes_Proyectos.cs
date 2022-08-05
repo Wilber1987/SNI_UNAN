@@ -16,24 +16,25 @@ namespace CAPA_NEGOCIO.MAPEO
         public Object Perfil { get; set; }
         public List<Object> TakeParicipantesProyectos()
         {
-            try
-            {
-                List<Object> Participantes = SqlADOConexion.SQLM.TakeList("ViewParticipantesProyectos", this);
-                List<Object> NewList = new List<Object>();
-                foreach (Object Participante in Participantes)
-                {
-                    Tbl_InvestigatorProfile NewId = new Tbl_InvestigatorProfile();
-                    Tbl_Participantes_Proyectos ParticipanteInstance = (Tbl_Participantes_Proyectos)Participante;
-                    NewId.Id_Investigador = ParticipanteInstance.Id_Investigador;
-                    ParticipanteInstance.Perfil = NewId.TakeProfile();
-                    NewList.Add(ParticipanteInstance);
-                }
-                return NewList;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return new List<Object>();
+            //try
+            //{
+            //    List<Object> Participantes = SqlADOConexion.SQLM.TakeList("ViewParticipantesProyectos", this);
+            //    List<Object> NewList = new List<Object>();
+            //    foreach (Object Participante in Participantes)
+            //    {
+            //        Tbl_InvestigatorProfile NewId = new Tbl_InvestigatorProfile();
+            //        Tbl_Participantes_Proyectos ParticipanteInstance = (Tbl_Participantes_Proyectos)Participante;
+            //        NewId.Id_Investigador = ParticipanteInstance.Id_Investigador;
+            //        ParticipanteInstance.Perfil = NewId.TakeProfile();
+            //        NewList.Add(ParticipanteInstance);
+            //    }
+            //    return NewList;
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
         }
     }
 }

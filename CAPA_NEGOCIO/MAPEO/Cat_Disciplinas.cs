@@ -15,28 +15,17 @@ namespace CAPA_NEGOCIO.MAPEO
 
         //TBL_Displinas_INvestigaciones
         public int? Id_Investigacion { get; set; }
-        public List<Object> TakeDisciplinas()
+        public List<Cat_Disciplinas> TakeDisciplinas()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList(this);
+                return SqlADOConexion.SQLM.TakeList<Cat_Disciplinas>(this);
             }
             catch (Exception)
             {
                 throw;
             }
-        }
-        public List<Object> TakeDisciplinasInvestigaciones()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList("ViewInvestigacionesDisciplinas", this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        }       
 
     }
 }

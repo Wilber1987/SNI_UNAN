@@ -42,11 +42,12 @@ namespace SNI_UI.Controllers
             Inst.Estado = null;
             return Inst.SaveInvestigacion();
         }
-        public object TakeInvestigaciones(InvestigacionesClass Inst)
+        //PUBLIC CONTROLLER INVESTIGACIONES
+        public object TakeInvestigaciones(Tbl_Investigaciones Inst)
         {            
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();
-            Data.Add(Inst.TakeInvestigaciones());
+            Data.Add(Inst.GetInvestigaciones());
             Data.Add(Dis.TakeDisciplinas());
             return Data;
         }
@@ -59,10 +60,9 @@ namespace SNI_UI.Controllers
             Data.Add(Dis.TakeDisciplinas());
             return Data;
         }
-        public object TakeInvestigacion(Object ObjInst)
+        public object TakeInvestigacion(Tbl_Investigaciones ObjInst)
         {
-            var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
-            return Inst.TakeInvestigacion();
+            return ObjInst.GetInvestigacion();
         }
         public object TakeInvestigadorProfile(Object ObjInst)
         {

@@ -38,14 +38,14 @@ namespace CAPA_NEGOCIO
             try
             {               
 
-                var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
+               /* var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
                 foreach (var item in Investigaciones)
                 {
                     MAPEO.Cat_Disciplinas ModelDis = new MAPEO.Cat_Disciplinas();
                     ModelDis.Id_Investigacion = ((InvestigacionesClass)item).Id_Investigacion;
                     ((InvestigacionesClass)item).Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();
-                }
-                return Investigaciones;
+                }*/
+                return true;
             }
             catch (Exception)
             {
@@ -56,8 +56,8 @@ namespace CAPA_NEGOCIO
         {
             try
             {
-                var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigacionesPorDisciplinas", this);                
-                return Investigaciones;
+                //var Investigaciones = SqlADOConexion.SQLM.TakeList("ViewInvestigacionesPorDisciplinas", this);                
+                return true;
             }
             catch (Exception)
             {
@@ -68,6 +68,7 @@ namespace CAPA_NEGOCIO
         {
             try
             {
+                /*
                 var List = SqlADOConexion.SQLM.TakeList("ViewInvestigaciones", this);
                 InvestigacionesClass Investigacion = (InvestigacionesClass)List[0];
                 //Colaboradores
@@ -77,8 +78,8 @@ namespace CAPA_NEGOCIO
                 //Disciplinas
                 MAPEO.Cat_Disciplinas ModelDis = new MAPEO.Cat_Disciplinas();
                 ModelDis.Id_Investigacion = this.Id_Investigacion;
-                Investigacion.Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();
-                return Investigacion;
+                Investigacion.Disciplinas = ModelDis.TakeDisciplinasInvestigaciones();*/
+                return true;
             }
             catch (Exception)
             {
