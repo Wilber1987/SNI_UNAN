@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
-    public class Tbl_Instituciones_Asociadas
+    public class Tbl_Instituciones_Asociadas: EntityClass
     {
         public int? Id_Institucion { get; set; }
         public int? Id_Proyecto { get; set; }
@@ -14,7 +14,8 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Estado { get; set; }
 
         //CAT TIPO ASOCIACION Cat_Tipo_Asociacion
-        public string Descripcion { get; set; }     
+        public string Descripcion { get; set; }
+        public Cat_instituciones cat_Instituciones { get; set; }
 
     }
 }

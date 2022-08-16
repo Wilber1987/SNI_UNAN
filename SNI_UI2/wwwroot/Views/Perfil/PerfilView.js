@@ -372,22 +372,3 @@ class PerfilClass extends HTMLElement {
 }
 
 customElements.define('w-perfil', PerfilClass);
-
-class objeto {
-    px = 0;
-    py = 0;
-}
-class objetoTest extends objeto {
-    constructor(){
-        super()
-    }
-    moverX = (x)=> this.px + x
-    moverY = (y)=> this.py + y
-    movilizarseX = (x = 0)=>{
-        if (x != 0) {
-            this.px + 1;
-            x++;
-            this.movilizarseX(x);
-        }
-    }
-}

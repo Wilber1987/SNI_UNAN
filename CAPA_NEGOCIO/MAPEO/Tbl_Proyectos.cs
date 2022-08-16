@@ -15,8 +15,8 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Estado_Proyecto {get; set; }
         public DateTime? Fecha_Inicio {get; set; }
         public DateTime? Fecha_Finalizacion {get; set; }        
-        public List<Object> Participantes { get; set; }
-        public List<Object> Instituciones { get; set; }
+        public List<Tbl_Participantes_Proyectos> Participantes { get; set; }
+        public List<Tbl_Instituciones_Asociadas> Instituciones { get; set; }
         public Object TakeProyect()
         {
             try
@@ -28,10 +28,12 @@ namespace CAPA_NEGOCIO.MAPEO
                 Cat_Tipo_Proyecto TP = new Cat_Tipo_Proyecto();
                 var CP = (Cat_Tipo_Proyecto)TP.TakeTipoProyecto()[0];
                 Proyecto.Descripcion_Tipo_Proyecto = CP.Descripcion_Tipo_Proyecto;
-                Proyecto.Participantes = ModelProyect.TakeParicipantesProyectos();
+                Proyecto.Participantes = ModelProyect.Get<Tbl_Participantes_Proyectos>();
                 Cat_instituciones ModelInst = new Cat_instituciones();
                 ModelInst.Id_Proyecto = Proyecto.Id_Proyecto;
-                //Proyecto.Instituciones = ModelInst.TakeInstitucionesAsociadas();
+                Tbl_Instituciones_Asociadas institucionesProyect = new Tbl_Instituciones_Asociadas();
+                institucionesProyect.Id_Proyecto = Proyecto.Id_Proyecto;
+                Proyecto.Instituciones = institucionesProyect.Get<Tbl_Instituciones_Asociadas>() ;
                 return Proyecto;
             }
             catch (Exception)

@@ -83,7 +83,56 @@ namespace CAPA_DATOS
             {
                 DataTable Table = BuildTable(Inst, ref CondSQL);
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
+                foreach (T item in ListD)
+                {
+                    Type _type = item.GetType();
+                    PropertyInfo[] lst = _type.GetProperties();
+                    foreach (PropertyInfo oProperty in lst)
+                    {
+                        string AtributeName = oProperty.Name;
+                        var AtributeValue = oProperty.GetValue(item);
+                        Type a_type = oProperty.PropertyType;
+                        var methods = a_type.GetMethods();
+                        var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
+                        if (method != null)
+                        {
+                            bool relationated = false;
+                            var obj = Activator.CreateInstance(a_type);
+                            foreach (PropertyInfo prop in a_type.GetProperties())
+                            {
+                                var relationatedProp = lst.FirstOrDefault(lstProp =>
+                                lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType());
+                                if (relationatedProp != null)
+                                {
+                                    relationated = true;
+                                    prop.SetValue(obj, relationatedProp.GetValue(item), null);
+                                }
+                            }
+                            if (relationated)
+                            {                               
+                                var result = method.GetGenericMethodDefinition().MakeGenericMethod(a_type).Invoke(obj, new object[] { });
+                                oProperty.SetValue(item, result, null);
+                            }
+
+                        }
+
+                    }
+                }
                 return ListD;
+            }
+            catch (Exception)
+            {
+                SQLMCon.Close();
+                throw;
+            }
+        }
+        public T TakeObject<T>(Object Inst, string CondSQL = "")
+        {
+            try
+            {
+                DataTable Table = BuildTable(Inst, ref CondSQL);
+                List<T> ListD = ConvertDataTable<T>(Table, Inst);
+                return ListD[0];
             }
             catch (Exception)
             {

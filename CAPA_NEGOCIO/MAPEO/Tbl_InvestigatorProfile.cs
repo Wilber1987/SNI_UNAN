@@ -27,7 +27,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Tbl_Investigaciones> Investigaciones { get; set; }
         public List<Object> Colaboraciones { get; set; }
         public List<Object> Grupos { get; set; }
-        public List<Object> Proyectos { get; set; }
+        public List<Tbl_Participantes_Proyectos> Proyectos { get; set; }
         public List<CatRedesSociales> RedesSociales { get; set; }
         public List<Object> Idiomas { get; set; }
         public List<Tbl_IdiomasInv> Id_Idiomas { get; set; }
@@ -77,7 +77,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 //Proyectos
                 Tbl_Participantes_Proyectos ModelProyectos = new Tbl_Participantes_Proyectos();
                 ModelProyectos.Id_Investigador = this.Id_Investigador;
-                Investigador.Proyectos = ModelProyectos.TakeParicipantesProyectos();
+                Investigador.Proyectos = ModelProyectos.Get<Tbl_Participantes_Proyectos>();
                 //Idiomas
                 /*Cat_Idiomas ModelIdiom = new Cat_Idiomas();
                 ModelIdiom.Id_Investigador = this.Id_Investigador;
