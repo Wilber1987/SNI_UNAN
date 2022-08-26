@@ -17,22 +17,11 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Investigador { get; set; }
         public string url_red_inv { get; set; }
 
-        public List<CatRedesSociales> Take()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList<CatRedesSociales>(this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
         public List<CatRedesSociales> TakeRedesInv()
         {
             try
             {
-                return SqlADOConexion.SQLM.TakeList<CatRedesSociales>(this);
+                return new List<CatRedesSociales>(); //SqlADOConexion.SQLM.TakeList<CatRedesSociales>(this);
             }
             catch (Exception)
             {

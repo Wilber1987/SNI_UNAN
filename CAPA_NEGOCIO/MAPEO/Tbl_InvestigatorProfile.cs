@@ -45,26 +45,12 @@ namespace CAPA_NEGOCIO.MAPEO
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
             return DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[] { "1", "2" });
-        }
-        public Object TakeProfile()
-        {
-            try
-            {
-                var List = SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>(this);
-                Tbl_InvestigatorProfile Investigador = List[0];
-                return Investigador;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        }       
         public Object TakeInvestigadorProfile()
         {
             try
             {
-                var List = SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>( this);
+                var List = this.Get<Tbl_InvestigatorProfile>();// SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>( this);
                 Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
                 //Investigaciones
                 Tbl_Investigaciones ModelInvestigacion = new Tbl_Investigaciones();

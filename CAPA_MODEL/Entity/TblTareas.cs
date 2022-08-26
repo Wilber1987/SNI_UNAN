@@ -43,7 +43,7 @@ namespace CAPA_MODEL.Entity
         }
         public List<TblParticipantes> GetParticiapantes()
         {
-            this.Participantes = SqlADOConexion.SQLM.TakeList<TblParticipantes>(this);
+            this.Participantes = new List<TblParticipantes>(); // SqlADOConexion.SQLM.TakeList<TblParticipantes>(this);
             return this.Participantes;
         }
     }

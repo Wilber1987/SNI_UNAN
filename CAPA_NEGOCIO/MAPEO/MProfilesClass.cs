@@ -41,7 +41,7 @@ namespace CAPA_NEGOCIO.MAPEO
 		public DateTime? Fecha_Finalizacion { get; set; }
 		public Cat_TipoEstudio TipoEstudio { get; set; }
 		public Cat_instituciones Institucion { get; set; }
-		public Tbl_InvestigatorProfile InvestigatorProfile { get; set; }
+		//public Tbl_InvestigatorProfile InvestigatorProfile { get; set; }
 	}
 	public class Tbl_Distinciones : EntityClass
 	{

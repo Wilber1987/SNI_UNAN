@@ -11,28 +11,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Descripcion { get; set; }
         public string Estado { get; set; }
         //Idiomas Investigadores
-        public int? Id_Investigador { get; set; }
-        public List<Cat_Idiomas> Take()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList<Cat_Idiomas>( this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public Object TakeIdiomasInv()
-        {
-            try
-            {
-                return true;//SqlADOConexion.SQLM.TakeList("ViewIdiomasInvestigadores", this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        public int? Id_Investigador { get; set; }        
+        
     }
 }

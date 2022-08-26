@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,11 +10,17 @@ namespace CAPA_DATOS
 {
     public abstract class EntityClass
     {
-               
+
         public List<T> Get<T>()
         {
             var Data = SqlADOConexion.SQLM.TakeList<T>(this);
             return Data;
+        }
+        public static List<T> EndpointMethod<T>()
+        {
+            List<T> list = new List<T>();
+
+            return list;
         }
         public T Find<T>()
         {
@@ -53,7 +60,17 @@ namespace CAPA_DATOS
         }       
         public object Save()
         {
-            return SqlADOConexion.SQLM.InsertObject(this);
+            try
+            {
+                var method = this.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
+                var result = method.GetGenericMethodDefinition().MakeGenericMethod(this.GetType()).Invoke(this, new object[] { });
+                return SqlADOConexion.SQLM.InsertObject(this);
+               
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public bool Update(string Id)
         {

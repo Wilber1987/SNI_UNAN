@@ -25,12 +25,21 @@ namespace CAPA_DATOS
         protected abstract string BuildDeleteQuery(object Inst);
         public object ExcuteSqlQuery(string strQuery)
         {
-            //SQLMCon.Open();
-            var com = ComandoSql(strQuery, SQLMCon);
-            var scalar = com.ExecuteScalar();
-            //SQLMCon.Close();
-            if (scalar == (object)DBNull.Value) return true;
-            else return Convert.ToInt32(scalar);
+            try
+            {
+                SQLMCon.Open();
+                var com = ComandoSql(strQuery, SQLMCon);
+                var scalar = com.ExecuteScalar();
+                SQLMCon.Close();
+                if (scalar == (object)DBNull.Value) return true;
+                else return Convert.ToInt32(scalar);
+            }
+            catch (Exception)
+            {
+                SQLMCon.Close();
+                throw;
+            }
+
         }
         //INSERT, DELETE, UPDATES METHODS
         public Object InsertObject(Object Inst)
@@ -85,38 +94,7 @@ namespace CAPA_DATOS
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
                 foreach (T item in ListD)
                 {
-                    Type _type = item.GetType();
-                    PropertyInfo[] lst = _type.GetProperties();
-                    foreach (PropertyInfo oProperty in lst)
-                    {
-                        string AtributeName = oProperty.Name;
-                        var AtributeValue = oProperty.GetValue(item);
-                        Type a_type = oProperty.PropertyType;
-                        var methods = a_type.GetMethods();
-                        var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
-                        if (method != null)
-                        {
-                            bool relationated = false;
-                            var obj = Activator.CreateInstance(a_type);
-                            foreach (PropertyInfo prop in a_type.GetProperties())
-                            {
-                                var relationatedProp = lst.FirstOrDefault(lstProp =>
-                                lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType());
-                                if (relationatedProp != null)
-                                {
-                                    relationated = true;
-                                    prop.SetValue(obj, relationatedProp.GetValue(item), null);
-                                }
-                            }
-                            if (relationated)
-                            {                               
-                                var result = method.GetGenericMethodDefinition().MakeGenericMethod(a_type).Invoke(obj, new object[] { });
-                                oProperty.SetValue(item, result, null);
-                            }
-
-                        }
-
-                    }
+                    FindRelationatedsEntitys(item);
                 }
                 return ListD;
             }
@@ -126,12 +104,56 @@ namespace CAPA_DATOS
                 throw;
             }
         }
+
+        private static void FindRelationatedsEntitys<T>(T item)
+        {
+            Type _type = item.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(item);
+                Type a_type = oProperty.PropertyType;
+                var methods = a_type.GetMethods();
+                var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
+                if (method != null && a_type.Name != _type.Name)
+                {
+                    bool relationated = false;
+                    var obj = Activator.CreateInstance(a_type);
+                    foreach (PropertyInfo prop in a_type.GetProperties())
+                    {
+                        var relationatedProp = lst.FirstOrDefault(lstProp =>
+                            lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType()
+                            && (lstProp.Name.ToUpper().Contains("ID_") || lstProp.Name.ToUpper().Contains("KEY_"))
+                        );
+                        if (relationatedProp != null)
+                        {
+                            relationated = true;
+                            prop.SetValue(obj, relationatedProp.GetValue(item), null);
+                        }
+                    }
+                    if (relationated)
+                    {
+                        var result = method.GetGenericMethodDefinition().MakeGenericMethod(a_type).Invoke(obj, new object[] { });
+                        oProperty.SetValue(item, result, null);
+                    }
+
+                }
+
+            }
+        }
+
         public T TakeObject<T>(Object Inst, string CondSQL = "")
         {
             try
             {
                 DataTable Table = BuildTable(Inst, ref CondSQL);
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
+                FindRelationatedsEntitys(Inst);
+                if (ListD.Count == 0)
+                {
+                    throw new NullReferenceException();
+                }
                 return ListD[0];
             }
             catch (Exception)

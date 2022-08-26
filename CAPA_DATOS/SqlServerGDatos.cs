@@ -59,7 +59,7 @@ namespace CAPA_DATOS
                 {
                     switch (EntityProp.DATA_TYPE)
                     {
-                        case "nvachar":
+                        case "nvarchar":
                         case "varchar":
                         case "char":
                             ColumnNames = ColumnNames + AtributeName.ToString() + ",";
@@ -73,6 +73,9 @@ namespace CAPA_DATOS
                         case "smallint":
                             ColumnNames = ColumnNames + AtributeName.ToString() + ",";
                             Values = Values + AtributeValue.ToString() + ",";
+                            break;
+                        case "bit":
+                            Values = Values + AtributeName + "= '" + (AtributeValue.ToString() == "True" ? "1" : "0") + "',";
                             break;
                         case "datetime":
                         case "date":
@@ -148,7 +151,7 @@ namespace CAPA_DATOS
         {
             switch (EntityProp.DATA_TYPE)
             {
-                case "nvachar":
+                case "nvarchar":
                 case "varchar":
                 case "char":
                     Values = Values + AtributeName + "= '" + AtributeValue.ToString() + "',";
@@ -160,6 +163,9 @@ namespace CAPA_DATOS
                 case "money":
                 case "smallint":
                     Values = Values + AtributeName + "= " + AtributeValue.ToString() + ",";
+                    break;
+                case "bit":
+                    Values = Values + AtributeName + "= '" + (AtributeValue.ToString() == "True" ? "1" : "0") + "',";
                     break;
                 case "datetime":
                 case "date":

@@ -12,33 +12,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         //INSTITUCIONES PROYECTOS
-        public int? Id_Proyecto { get; set; }
-        public int? Id_Tipo_Asociacion {get; set; }
         public string Logo { get; set; }
-        public string Fecha_Ingreso { get; set; }
-        public string Descripcion { get; set; }
-
-        public List<Cat_instituciones> Take()
-        {
-            try
-            {
-                return SqlADOConexion.SQLM.TakeList<Cat_instituciones>( this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public Object TakeInstitucionesAsociadas()
-        {
-            try
-            {
-                return true;//SqlADOConexion.SQLM.TakeList("ViewGPInstitucionesAsociadas", this);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+      
     }
 }
