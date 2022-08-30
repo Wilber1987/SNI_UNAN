@@ -12,8 +12,7 @@ import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
-    const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigaciones");
-    const BodyComponents = new MasterDomDetaills(new PerfilClass(response[0]));
+    const BodyComponents = new MasterDomDetaills(new PerfilClass());
     App.appendChild(WRender.createElement(BodyComponents));
 }
 window.onload = OnLoad;
@@ -136,6 +135,7 @@ class PerfilClass extends HTMLElement {
                     this.response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
                         { Id_Investigador: this.Id_Investigador }
                     );
+                    this.response.Id_Idiomas = this.response.Id_Idiomas.map(i => i.Idioma)
                     this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
                 }
             }, {
@@ -178,12 +178,13 @@ class PerfilClass extends HTMLElement {
             Id_Tipo_Investigacion: { type: "SELECT", Dataset: tipoInvestigacion.map(x => ({ id: x.Id_Tipo_Investigacion, desc: x.Descripcion })) },
             Id_Localidad: { type: "SELECT", Dataset: tipoLocalidad.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad })) },
             Disciplinas: {
-                type: "MultiSelect", Dataset: disciplinas.map(x => {
+                type: "MultiSelect", Dataset: disciplinas.map(x => {                    
                     x.Descripcion = x.DescripcionDisciplina
                     return x;
                 })
             }
         });
+        console.log(ModelInvestigacion);
         ModelInvestigacion.Abstract.hidden = true;
         ModelInvestigacion.Resumen.hidden = true;
         ModelInvestigacion.Repositorio.hidden = true;
@@ -293,7 +294,6 @@ class PerfilClass extends HTMLElement {
         this.TabManager.NavigateFunction(TabId, Tab);
     }
     EditProfile = async () => {
-        this.response.Id_Idiomas = this.response.Idiomas;
         const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
         const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");

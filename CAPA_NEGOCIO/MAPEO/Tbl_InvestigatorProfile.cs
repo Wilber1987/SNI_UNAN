@@ -65,9 +65,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 ModelProyectos.Id_Investigador = this.Id_Investigador;
                 Investigador.Proyectos = ModelProyectos.Get<Tbl_Participantes_Proyectos>();
                 //Idiomas
-                /*Cat_Idiomas ModelIdiom = new Cat_Idiomas();
-                ModelIdiom.Id_Investigador = this.Id_Investigador;
-                Investigador.Idiomas = ModelIdiom.TakeIdiomasInv();*/
+                Investigador.Id_Idiomas = new Tbl_IdiomasInv(){ Id_Investigador = this.Id_Investigador}.Get<Tbl_IdiomasInv>();
                 //RedesSociales
                 CatRedesSociales ModelRedes = new CatRedesSociales();
                 ModelRedes.Id_Investigador = this.Id_Investigador;

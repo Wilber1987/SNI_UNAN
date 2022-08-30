@@ -62,8 +62,8 @@ namespace CAPA_DATOS
         {
             try
             {
-                var method = this.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
-                var result = method.GetGenericMethodDefinition().MakeGenericMethod(this.GetType()).Invoke(this, new object[] { });
+                //var method = this.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
+                //var result = method.GetGenericMethodDefinition().MakeGenericMethod(this.GetType()).Invoke(this, new object[] { });
                 return SqlADOConexion.SQLM.InsertObject(this);
                
             }

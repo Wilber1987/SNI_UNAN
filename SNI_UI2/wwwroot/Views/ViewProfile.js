@@ -253,7 +253,7 @@ class ProfileCard extends HTMLElement {
     DraProfileCard = async (response) => {
         this.container.innerHTML = "";
         const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
-        response.Idiomas.forEach(element => {
+        response.Id_Idiomas.forEach(element => {
             divIdiomas.append(WRender.createElement(element.Descripcion));
         });
         this.container.append(WRender.Create({
