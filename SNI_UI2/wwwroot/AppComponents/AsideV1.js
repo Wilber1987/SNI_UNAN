@@ -3,7 +3,8 @@ import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 class AsideV1 extends HTMLElement {
     constructor(Data = []) {
         super();
-        const DisplinesList = WRender.createElement({ type: 'div', props: { class: 'DisciplineClass' } });
+        const DisplinesList = WRender.createElement({ type: 'div', props: 
+        { class: 'DisciplineClass' } });
         DisplinesList.appendChild(AppStyle);
         DisplinesList.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Mapa de Conocimiento</h3>"));
         DisplinesList.append(WRender.createElement({
@@ -45,13 +46,14 @@ const AppStyle = WRender.createElement({
                 display: 'flex',
                 "justify-content": "space-between",
                 padding: "5px 15px",
-                "border-radius": 10,
-                filter: "invert(100%)",
+                "border-radius": 10,             
                 "background-color": "#999",
                 margin: "5px 10px",
+                color: "#fff",
                 cursor: "pointer",
                 "font-weight": "500",
             }), new WCssClass(`.DisciplineClass .img`, {
+                filter: "invert(100%)",
                 height: 18,
                 width: 18
             }), new WCssClass(`.HeaderDis`, {

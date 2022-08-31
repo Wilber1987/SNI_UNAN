@@ -22,6 +22,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Localidad { get; set; }
         //public string Photo { get; set; }
         public string Estado { get; set; }
+        public Tbl_InvestigatorProfile Investigador { get; set; }
         public List<Tbl_InvestigatorProfile> Colaboradores { get; set; }
         public List<Tbl_Investigaciones_Disciplinas> Disciplinas { get; set; }
         public Tbl_Investigaciones GetInvestigacion()

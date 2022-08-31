@@ -15,7 +15,8 @@ namespace CAPA_NEGOCIO.MAPEO
 
         //CAT TIPO ASOCIACION Cat_Tipo_Asociacion
         public string Descripcion { get; set; }
-        public Cat_instituciones cat_Instituciones { get; set; }
+        public Cat_instituciones Institucion { get; set; }
+        public Cat_Tipo_Asociacion Asociacion { get; set; }
 
     }
 }

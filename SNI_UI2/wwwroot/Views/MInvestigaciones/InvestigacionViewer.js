@@ -1,10 +1,10 @@
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
-import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
+import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
+import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 
 
-class WReadInvestigacion extends HTMLElement {
+class InvestigacionViewer extends HTMLElement {
     constructor(response) {
         super();
         this.response = response;
@@ -234,5 +234,5 @@ class WReadInvestigacion extends HTMLElement {
         }
     };
 }
-customElements.define('w-view-read', WReadInvestigacion);
-export {WReadInvestigacion}
+customElements.define('w-view-read', InvestigacionViewer);
+export {InvestigacionViewer}

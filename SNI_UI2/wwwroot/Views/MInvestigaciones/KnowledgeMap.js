@@ -1,10 +1,10 @@
-import { WRender, WArrayF, ComponentsManager, WAjaxTools, GenerateColor } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
-import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV1 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import "../WDevCore/WComponents/WTableComponent.js";
-import { RadialChart, ColumChart } from "../WDevCore/WComponents/WChartJSComponents.js";
-import { WTableComponent } from '../WDevCore/WComponents/WTableComponent.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools, GenerateColor } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
+import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
+import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import "../../WDevCore/WComponents/WTableComponent.js";
+import { RadialChart, ColumChart } from "../../WDevCore/WComponents/WChartJSComponents.js";
+import { WTableComponent } from '../../WDevCore/WComponents/WTableComponent.js';
 let town = "Nicaragua";
 let SrcMap = `https://maps.google.com/maps?q=${encodeURIComponent(town)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 SrcMap = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1674440.5174158672!2d-85.50662771759073!3d12.896594765807182!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f10c200ceff22cd%3A0xc8faa7e53fac15b5!2sNicaragua!5e0!3m2!1ses!2sus!4v1634680432067!5m2!1ses!2sus"
@@ -23,8 +23,8 @@ const DOMManager = new ComponentsManager();
 const OnLoad = async () => {
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigaciones");
     const DataDisciplinas = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacionesPorDisciplina");
-    const { WRender } = await import("../WDevCore/WModules/WComponentsTools.js");
-    const modules = await import("../MasterDomDetaills.js");
+    const { WRender } = await import("../../WDevCore/WModules/WComponentsTools.js");
+    const modules = await import("../../MasterDomDetaills.js");
     const cadenaB64 = "data:image/png;base64,";
     response[1].forEach(dis => {
         ColorsDis.push(dis.color)
@@ -246,7 +246,7 @@ class KnowledgeMapTab {
                         props: {
                             style: { cursor: "pointer"} ,
                             onclick: ()=>{
-                                window.location = location.origin + "/Views/ViewRead.html?param=" + inv.id_Investigacion
+                                window.location = location.origin + "/Views/InvestigacionViewer.html?param=" + inv.id_Investigacion
                             }
                         }, children: [inv.titulo, DisplineDiv]
                     }));

@@ -2,9 +2,10 @@ import { ComponentsManager, WAjaxTools, WRender, WArrayF } from "../WDevCore/WMo
 import { WCssClass } from "../WDevCore/WModules/WStyledRender.js";
 import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.js";
 import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
-import { WReadInvestigacion } from "./ViewRead.js";
+import { InvestigacionViewer } from "./MInvestigaciones/InvestigacionViewer.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
-import { WProfileInvestigador } from "./ViewProfile.js";
+import { WProfileInvestigador } from "./Perfil/ViewProfile.js";
+import { InvestigacionesViewer } from "./MInvestigaciones/InvestigacionesViewer.js";
 
 class HomeClass extends HTMLElement {
     constructor(response) {
@@ -23,37 +24,34 @@ class HomeClass extends HTMLElement {
         this.DrawComponent();
     }
     DrawComponent = async () => {
-        this.append(WRender.createElement({
-            type: 'w-articles',
-            props: {
-                id: "Artcles",
-                ArticleHeader: ["Foto", "Nombres", "Apellidos", "Fecha_ejecucion"],
-                ArticleBody: ["Titulo", "Photo", "Resumen"],
-                Dataset: this.response, Options: {
-                    Search: true,
-                    ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
-                    UserActions: [{
-                        name: "Leer...", Function: async (Article) => {
-                            //const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
-                            const Id_Investigacion = Article.Id_Investigacion;
-                            const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
-                                { Id_Investigacion: Id_Investigacion }
-                            );
-                            const Card = new WCard({
-                                titulo: `${response.Nombres}`,
-                                picture: response.Foto,
-                                subtitulo: "Autor",
-                                descripcion: response.NombreInstitucion,
-                                id_Investigador: response.Id_Investigador
-                            }, 2, () => {
-                                ActionFunction(response.Id_Investigador, this);
-                            });
-                            const Reader = new WReadInvestigacion(response);                          
-                            const Modal = ModalComp(Reader, Card);
-                            this.append(Modal)
-                        }
-                    }]
-                }
+        this.append(new InvestigacionesViewer({
+            id: "Artcles",
+            ArticleHeader: ["Foto", "Nombres", "Apellidos", "Fecha_ejecucion"],
+            ArticleBody: ["Titulo", "Investigador", "Resumen"],
+            Dataset: this.response, Options: {
+                Search: true,
+                ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
+                UserActions: [{
+                    name: "Leer...", Function: async (Article) => {
+                        //const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
+                        const Id_Investigacion = Article.Id_Investigacion;
+                        const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
+                            { Id_Investigacion: Id_Investigacion }
+                        );
+                        const Card = new WCard({
+                            titulo: `${response.Investigador.Nombres}`,
+                            picture: response.Investigador.Foto,
+                            subtitulo: "Autor",
+                            descripcion: response.Investigador.NombreInstitucion,
+                            id_Investigador: response.Investigador.Id_Investigador
+                        }, 2, () => {
+                            ActionFunction(response.Id_Investigador, this);
+                        });
+                        const Reader = new InvestigacionViewer(response);                          
+                        const Modal = ModalComp(Reader, Card);
+                        this.append(Modal)
+                    }
+                }]
             }
         }))
     }    
@@ -110,9 +108,9 @@ const ActionFunction = async (Id_Investigador, Container) => {
     const dataResume = WRender.createElement({
         type: 'div', props: { id: '', class: 'ResumenContainer' }, children: [
             WRender.CreateStringNode("<h3>Logros</h3>"),
-            "Investigaciones: " + response.Investigaciones.length,
-            "Proyectos: " + response.Proyectos.length,
-            "Colaboraciones: " + response.Colaboraciones.length,
+            "Investigaciones: " + response.Investigaciones?.length,
+            "Proyectos: " + response.Proyectos?.length,
+            "Colaboraciones: " + response.Colaboraciones?.length,
             WRender.CreateStringNode("<h3>Redes Sociales</h3>"),
             divRedes
         ]

@@ -5,7 +5,7 @@ import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.j
 import { ActionFunction } from '../Home.js';
 
 
-class ViewProyectDetail extends HTMLElement {
+class ProyectDetailViewer extends HTMLElement {
     constructor(response) {
         super();
         this.response = response;
@@ -35,9 +35,9 @@ class ViewProyectDetail extends HTMLElement {
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
                             this.response.Instituciones.map(x=>{
                                 return `<div class="InstitucionDiv">
-                                    <img src="${x.Logo}"/>
-                                    <label>${x.Nombre}</label>
-                                    <label>${x.Descripcion}</label>
+                                    <img src="${x.Institucion.Logo}"/>
+                                    <label>${x.Institucion.Nombre}</label>
+                                    <label>${x.Asociacion.Descripcion}</label>
                                 </div>`;
                             }).join('')
                         }</div>`)
@@ -50,7 +50,7 @@ class ViewProyectDetail extends HTMLElement {
         this.response.Participantes.forEach(element => {
             element.titulo = `${element.Perfil.Nombres} ${element.Perfil.Apellidos}`;
             element.picture = element.Perfil.Foto;
-            element.subtitulo = element.Cargo;
+            element.subtitulo = element.Cargo.Descripcion;
             element.descripcion = "";
         });
         const Colaboradores = new WCardCarousel(this.response.Participantes);
@@ -128,5 +128,5 @@ class ViewProyectDetail extends HTMLElement {
         }
     };
 }
-customElements.define('w-view', ViewProyectDetail);
-export {ViewProyectDetail}
+customElements.define('w-view', ProyectDetailViewer);
+export {ProyectDetailViewer}

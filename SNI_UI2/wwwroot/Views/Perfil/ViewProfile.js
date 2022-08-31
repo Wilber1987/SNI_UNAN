@@ -1,8 +1,8 @@
-﻿import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
-import { WCardCarousel, WCard } from '../WDevCore/WComponents/WCardCarousel.js';
-import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import "../WDevCore/WComponents/WTableComponent.js";
+﻿import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
+import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
+import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import "../../WDevCore/WComponents/WTableComponent.js";
 
 class WProfileInvestigador extends HTMLElement {
     constructor(response, Options = {}) {
@@ -173,7 +173,7 @@ class ProfileTab {
         let action = true;
         switch (name) {
             case "Investigaciones":
-                //urlAction = location.origin + "/Views/ViewRead.html?param=";
+                //urlAction = location.origin + "/Views/InvestigacionViewer.html?param=";
                 idAction = "id_Investigacion";
                 break;
             case "Proyectos":
@@ -181,7 +181,7 @@ class ProfileTab {
                 idAction = "id_Proyecto";
                 break;
             case "Colaboraciones":
-                //urlAction = location.origin + "/Views/ViewRead.html?param=";
+                //urlAction = location.origin + "/Views/InvestigacionViewer.html?param=";
                 idAction = "id_Investigacion";
                 break;
             default:
@@ -254,7 +254,7 @@ class ProfileCard extends HTMLElement {
         this.container.innerHTML = "";
         const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
         response.Id_Idiomas.forEach(element => {
-            divIdiomas.append(WRender.createElement(element.Descripcion));
+            divIdiomas.append(WRender.createElement(element.Idioma.Descripcion));
         });
         this.container.append(WRender.Create({
             tagName: 'div', class: 'DataContainer', children: [

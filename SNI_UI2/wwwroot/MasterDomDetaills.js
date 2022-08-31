@@ -167,7 +167,7 @@ class headerClass extends HTMLElement {
                     }, {
                         name: "Perfil", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/Perfil/PerfilView";
+                            window.location = location.origin + "/Perfil/PerfilViewer";
                         }
                     }, {
                         name: "Opciones", url: "#",
@@ -331,7 +331,7 @@ class FooterNavigator extends ComponentsManager {
                     WSecurity.LoginIn();
                     return;
                 }
-                DOMManager.NavigateFunction("PerfilView", new PerfilView(WSecurity.User()), "AppMain");
+                DOMManager.NavigateFunction("PerfilViewer", new PerfilViewer(WSecurity.User()), "AppMain");
             }
         }
     }, {

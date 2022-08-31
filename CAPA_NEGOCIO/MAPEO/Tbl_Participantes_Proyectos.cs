@@ -13,8 +13,9 @@ namespace CAPA_NEGOCIO.MAPEO
         public DateTime? Fecha_Ingreso { get; set; }
         public string Estado_Participante { get; set; }
         public int? Id_Cargo_Proyecto { get; set; }
-        public string Cargo { get; set; }
-        public Object Perfil { get; set; }
+        public Cat_Cargo_Proyecto Cargo { get; set; }
+        public Tbl_InvestigatorProfile Perfil { get; set; }
+
        
     }
 }

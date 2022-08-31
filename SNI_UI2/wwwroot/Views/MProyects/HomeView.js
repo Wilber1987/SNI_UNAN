@@ -1,9 +1,9 @@
-import { WAppNavigator } from '../WDevCore/WComponents/WAppNavigator.js';
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass, WStyledRender } from '../WDevCore/WModules/WStyledRender.js';
-import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
-import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
+import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
+import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
+import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
+import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
+import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
 import { ReservarComponent } from "./ViewComponents/ReservaComponent.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
 

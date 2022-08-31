@@ -25,7 +25,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string NombreInstitucion { get; set; }     
 
         public List<Tbl_Investigaciones> Investigaciones { get; set; }
-        public List<Object> Colaboraciones { get; set; }
+        public List<Tbl_Colaboradores> Colaboraciones { get; set; }
         public List<Object> Grupos { get; set; }
         public List<Tbl_Participantes_Proyectos> Proyectos { get; set; }
         public List<CatRedesSociales> RedesSociales { get; set; }
@@ -56,10 +56,9 @@ namespace CAPA_NEGOCIO.MAPEO
                 Tbl_Investigaciones ModelInvestigacion = new Tbl_Investigaciones();
                 ModelInvestigacion.Id_Investigador = this.Id_Investigador;
                 Investigador.Investigaciones = ModelInvestigacion.Get<Tbl_Investigaciones>();
-                //Colaboraciones
-                //Tbl_Colaboradores ModelCol = new Tbl_Colaboradores();
-                //ModelCol.Id_Investigador = this.Id_Investigador;
-                //Investigador.Colaboraciones = ModelCol.TakeColaboradores();
+
+                Investigador.Colaboraciones = new Tbl_Colaboradores() { Id_Investigador = this.Id_Investigador }.Get<Tbl_Colaboradores>();
+
                 //Proyectos
                 Tbl_Participantes_Proyectos ModelProyectos = new Tbl_Participantes_Proyectos();
                 ModelProyectos.Id_Investigador = this.Id_Investigador;

@@ -4,7 +4,7 @@ import "../../WDevCore/WComponents/WTableComponent.js";
 import { WArticlesComponent } from "../../WDevCore/WComponents/WArticlesComponent.js";
 import { AsideV1 } from "../../AppComponents/AsideV1.js";
 import { WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
-import { ViewProyectDetail } from './ViewProyectDetail.js';
+import { ProyectDetailViewer } from './ProyectDetailViewer.js';
 import { ActionFunction, ModalComp } from '../Home.js';
 
 const DOMManager = new ComponentsManager();
@@ -125,9 +125,8 @@ class ViewProyectsTab extends HTMLElement {
         const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
             { Id_Proyecto: Id_Proyecto }
         );
-        const ProyectMap = WRender.Create({});       
-        
-        const BodyComponents = new ViewProyectDetail(response);
+        const ProyectMap = WRender.Create({}); 
+        const BodyComponents = new ProyectDetailViewer(response);
         this.appendChild(WRender.createElement(ModalComp(BodyComponents, ProyectMap)));
     }
     Style = {

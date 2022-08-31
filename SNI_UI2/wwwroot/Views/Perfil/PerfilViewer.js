@@ -6,7 +6,7 @@ import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
-import { WProfileInvestigador } from "../ViewProfile.js";
+import { WProfileInvestigador } from "./ViewProfile.js";
 import { WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";

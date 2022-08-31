@@ -7,7 +7,7 @@ import { Cat_Disciplinas, CatRedesSociales, CatTipoDistincion, Cat_Cargos, Cat_C
 import { WProfileInvestigador } from "../Views/ViewProfile.js";
 import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
-import { WReadInvestigacion } from "../Views/ViewRead.js";
+import { InvestigacionViewer } from "../Views/InvestigacionViewer.js";
 import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
 import { ActionFunction, ModalComp } from "../Views/Home.js";
 window.addEventListener("load", async () => {
@@ -58,7 +58,7 @@ function Investigacion(TabName = "Investigaciones", DOMManager) {
                                             }
                                         }]
                                 });
-                                const Reader = new WReadInvestigacion(response);
+                                const Reader = new InvestigacionViewer(response);
                                 DOMManager.NavigateFunction("Reader" + response.Id_Investigador, [Card, Reader])
                             }
                         }
