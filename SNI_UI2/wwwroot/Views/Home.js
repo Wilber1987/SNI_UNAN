@@ -4,7 +4,7 @@ import { WArticlesComponent } from "../WDevCore/WComponents/WArticlesComponent.j
 import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
 import { InvestigacionViewer } from "./MInvestigaciones/InvestigacionViewer.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
-import { WProfileInvestigador } from "./Perfil/ViewProfile.js";
+import { WProfileInvestigador } from "./Perfil/ProfileViewer.js";
 import { InvestigacionesViewer } from "./MInvestigaciones/InvestigacionesViewer.js";
 
 class HomeClass extends HTMLElement {
@@ -32,24 +32,8 @@ class HomeClass extends HTMLElement {
                 Search: true,
                 ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                 UserActions: [{
-                    name: "Leer...", Function: async (Article) => {
-                        //const Id_Investigacion = new URLSearchParams(window.location.search).get('param');
-                        const Id_Investigacion = Article.Id_Investigacion;
-                        const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
-                            { Id_Investigacion: Id_Investigacion }
-                        );
-                        const Card = new WCard({
-                            titulo: `${response.Investigador.Nombres}`,
-                            picture: response.Investigador.Foto,
-                            subtitulo: "Autor",
-                            descripcion: response.Investigador.NombreInstitucion,
-                            id_Investigador: response.Investigador.Id_Investigador
-                        }, 2, () => {
-                            ActionFunction(response.Id_Investigador, this);
-                        });
-                        const Reader = new InvestigacionViewer(response);                          
-                        const Modal = ModalComp(Reader, Card);
-                        this.append(Modal)
+                    name: "Leer...", Function: async (Investigacion) => {
+                        await ChargeInvestigacion(Investigacion, this);
                     }
                 }]
             }
@@ -91,7 +75,7 @@ class HomeClass extends HTMLElement {
                 ]
             }]
         }
-    };
+    };    
 }
 customElements.define("app-home", HomeClass);
 const ActionFunction = async (Id_Investigador, Container) => {
@@ -122,8 +106,8 @@ const ActionFunction = async (Id_Investigador, Container) => {
 
 function ModalComp(BodyComponents, dataResume) {
     return new WModalForm({
-        title: "Perfil",
-        StyleForm: "FullScreen",
+        title: "SINI - SISTEMA NACIONAL DE INVESTIGADORES",
+        //StyleForm: "FullScreen",
         ObjectModal: WRender.Create({
             style: {
                 display: "grid",
@@ -134,5 +118,23 @@ function ModalComp(BodyComponents, dataResume) {
         })
     });
 }
+async function ChargeInvestigacion(Investigacion, Container) {
+    const Id_Investigacion = Investigacion.Id_Investigacion;
+    const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
+        { Id_Investigacion: Id_Investigacion }
+    );
+    const Card = new WCard({
+        titulo: `${response.Investigador.Nombres}`,
+        picture: response.Investigador.Foto,
+        subtitulo: "Autor",
+        descripcion: response.Investigador.NombreInstitucion,
+        id_Investigador: response.Investigador.Id_Investigador
+    }, 2, () => {
+        ActionFunction(response.Id_Investigador, Container);
+    });
+    const Reader = new InvestigacionViewer(response);
+    const Modal = ModalComp(Reader, Card);    
+    Container.append(Modal);
+}
 
-export { HomeClass, ActionFunction, ModalComp }
+export { HomeClass, ActionFunction, ModalComp, ChargeInvestigacion}

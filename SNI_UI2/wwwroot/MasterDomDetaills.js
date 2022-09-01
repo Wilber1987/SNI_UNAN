@@ -167,7 +167,7 @@ class headerClass extends HTMLElement {
                     }, {
                         name: "Perfil", url: "#",
                         action: (ev) => {
-                            window.location = location.origin + "/Perfil/PerfilViewer";
+                            window.location = location.origin + "/Perfil/PerfilView";
                         }
                     }, {
                         name: "Opciones", url: "#",

@@ -2,6 +2,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/
 import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import { ActionFunction } from '../Home.js';
 
 
 class InvestigacionViewer extends HTMLElement {
@@ -128,7 +129,7 @@ class InvestigacionViewer extends HTMLElement {
         if (this.response.Colaboradores.length > 0) {
             const Colaboradores = new WCardCarousel(this.response.Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
-                window.location = location.origin + "/Views/ViewProfile?param=" + Object.Id_Investigador;
+                ActionFunction(Object.Id_Investigador, this)
             }
             this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
             this.InvestigacionContainer.append(WRender.createElement(Colaboradores));

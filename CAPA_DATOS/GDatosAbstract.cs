@@ -113,33 +113,57 @@ namespace CAPA_DATOS
             {
                 string AtributeName = oProperty.Name;
                 var AtributeValue = oProperty.GetValue(item);
-                Type a_type = oProperty.PropertyType;
-                var methods = a_type.GetMethods();
+                Type relationatedEntityType = oProperty.PropertyType;
+                var methods = relationatedEntityType.GetMethods();
                 var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
-                if (method != null && a_type.Name != _type.Name)
+                if (method != null && relationatedEntityType.Name != _type.Name)
                 {
-                    bool relationated = false;
-                    var obj = Activator.CreateInstance(a_type);
-                    foreach (PropertyInfo prop in a_type.GetProperties())
-                    {
-                        var relationatedProp = lst.FirstOrDefault(lstProp =>
-                            lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType()
-                            && (lstProp.Name.ToUpper().Contains("ID_") || lstProp.Name.ToUpper().Contains("KEY_"))
-                        );
-                        if (relationatedProp != null)
+                    OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
+                    var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
+                    if (oneToOne != null)
+                    {                     
+                        PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne.KeyColumn ?? oneToOne.ForeignKeyColumn);
+                        PropertyInfo ForeingKeyPropRelationated = relationatedEntityType.GetProperty(oneToOne.ForeignKeyColumn);
+                        if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
                         {
-                            relationated = true;
-                            prop.SetValue(obj, relationatedProp.GetValue(item), null);
+                            ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
+                            TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
                         }
                     }
-                    if (relationated)
+                    else
                     {
-                        var result = method.GetGenericMethodDefinition().MakeGenericMethod(a_type).Invoke(obj, new object[] { });
-                        oProperty.SetValue(item, result, null);
-                    }
+                        bool relationated = false;
+                        foreach (PropertyInfo prop in relationatedEntityType.GetProperties())
+                        {
+                            var relationatedProp = lst.FirstOrDefault(lstProp =>
+                            lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType()
+                                && (lstProp.Name.ToUpper().Contains("ID_") || lstProp.Name.ToUpper().Contains("KEY_")));
+                            if (relationatedProp != null)
+                            {
+                                relationated = true;
+                                prop.SetValue(relationatedEntityInstance, relationatedProp.GetValue(item), null);
+                            }
+                        }
+                        if (relationated)
+                        {
+                            TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
+                        }
+                    }  
 
                 }
 
+            }
+
+            static void TakeRelationatedObject<T>(T item, PropertyInfo oProperty, Type relationatedEntityType, MethodInfo method, object relationatedEntityInstance)
+            {
+                try
+                {
+                    var result = method.GetGenericMethodDefinition().MakeGenericMethod(relationatedEntityType).Invoke(relationatedEntityInstance, new object[] { });
+                    oProperty.SetValue(item, result, null);
+                }
+                catch (Exception ext)
+                {
+                }
             }
         }
 

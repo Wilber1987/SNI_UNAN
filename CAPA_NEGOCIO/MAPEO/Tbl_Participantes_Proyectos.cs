@@ -15,6 +15,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Cargo_Proyecto { get; set; }
         public Cat_Cargo_Proyecto Cargo { get; set; }
         public Tbl_InvestigatorProfile Perfil { get; set; }
+        public Tbl_Proyectos Proyecto { get; set; }
 
        
     }

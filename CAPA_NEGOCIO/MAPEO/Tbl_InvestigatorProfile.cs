@@ -29,7 +29,6 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Object> Grupos { get; set; }
         public List<Tbl_Participantes_Proyectos> Proyectos { get; set; }
         public List<CatRedesSociales> RedesSociales { get; set; }
-        public List<Object> Idiomas { get; set; }
         public List<Tbl_IdiomasInv> Id_Idiomas { get; set; }
         public List<ProyectoTableDependencias_Usuarios> Dependencias { get; set; }
         public List<Tbl_Formacion_Academica> FormacionAcademica { get; set; }
