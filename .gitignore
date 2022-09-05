@@ -398,3 +398,17 @@ FodyWeavers.xsd
 *.sln.iml
 bin/
 obj/
+SECURITY/obj/
+SNI_UI2/obj/
+CAPA_NEGOCIO/obj/
+CAPA_MODEL/obj/
+UNAN_UI/obj/
+CAPA_DATOS/obj/
+UI_USAV/obj/
+SECURITY/bin/
+SNI_UI2/bin/
+CAPA_NEGOCIO/bin/
+CAPA_MODEL/bin/
+UNAN_UI/bin/
+CAPA_DATOS/bin/
+UI_USAV/bin/
