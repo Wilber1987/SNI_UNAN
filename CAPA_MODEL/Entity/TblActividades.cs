@@ -20,33 +20,33 @@ namespace CAPA_MODEL
         public int? IdUsuario { get; set; }
         public int? IdDependencia { get; set; }
         public List<TblTareas> Tareas { get; set; }
-        public bool SaveActividades()
-        {
-            this.IdUsuario = AuthNetCore.User().UserId;
-            if (this.CheckCanSaveAct())
-            {
-                this.Estado = "Activa";
-                this.IdActividad = (Int32)SqlADOConexion.SQLM.InsertObject(this);
-                foreach (TblTareas obj in this.Tareas)
-                {
-                    obj.IdActividad = this.IdActividad;
-                    obj.SaveTarea();
-                }
-                return true;
-            }            
-            return false;
-        }
-        public bool CheckCanSaveAct()
-        {
-            TblDependencias_Usuarios DU = new TblDependencias_Usuarios();
-            DU.IdUsuario = this.IdUsuario;
-            DU.IdDependencia = this.IdDependencia;
-            if (DU.Get_WhereIN("IdCargo", new string[]{ "1", "2"}).Count == 0)
-            {
-                return false;
-            }
-            return true;
-        }
+        //public bool SaveActividades()
+        //{
+        //    this.IdUsuario = AuthNetCore.User().UserId;
+        //    if (this.CheckCanSaveAct())
+        //    {
+        //        this.Estado = "Activa";
+        //        this.IdActividad = (Int32)SqlADOConexion.SQLM.InsertObject(this);
+        //        foreach (TblTareas obj in this.Tareas)
+        //        {
+        //            obj.IdActividad = this.IdActividad;
+        //            obj.SaveTarea();
+        //        }
+        //        return true;
+        //    }            
+        //    return false;
+        //}
+        //public bool CheckCanSaveAct()
+        //{
+        //    TblDependencias_Usuarios DU = new TblDependencias_Usuarios();
+        //    DU.IdUsuario = this.IdUsuario;
+        //    DU.IdDependencia = this.IdDependencia;
+        //    if (DU.Get_WhereIN("IdCargo", new string[]{ "1", "2"}).Count == 0)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
         public bool SolicitarActividades()
         {
             this.IdUsuario = AuthNetCore.User().UserId;
