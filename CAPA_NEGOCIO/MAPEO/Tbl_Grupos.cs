@@ -9,11 +9,13 @@ namespace CAPA_NEGOCIO.MAPEO
     public class Tbl_Grupos : EntityClass
     {
         public int? Id_Grupo { get; set; }
+        public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int? Id_Investigador_Crea { get; set; }
         public int? Id_TipoGrupo { get; set; }
         public DateTime? Fecha_Creacion { get; set; }
         public string Estado { get; set; }
+        public Cat_TipoGrupo Tipo { get; set; }
         public List<Tbl_InstitucionesAsociadasGrupos> Instituciones_Asociadas { get; set; }
         public List<Tbl_InvestigadoresAsociados> Investigadores_Asociados { get; set; }
         public Object SaveGrupo()
@@ -49,8 +51,16 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             this.ChargeGroupData(this);
             return this;
+        }        
+        public List<Tbl_Grupos> GetRecomendedGroups()
+        {
+            List<Tbl_Grupos> grupos = this.Get<Tbl_Grupos>();
+            foreach (Tbl_Grupos grupo in grupos)
+            {
+                ChargeGroupData(grupo);
+            }
+            return grupos;
         }
-
         private void ChargeGroupData(Tbl_Grupos grupo)
         {
             grupo.Instituciones_Asociadas =
@@ -126,6 +136,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Grupo { get; set; }
         public DateTime? Fecha_Incorporacion { get; set; }
         public string Estado { get; set; }
+        public Cat_instituciones Institucion { get; set; }
     }
     public class Tbl_InvestigadoresAsociados : EntityClass
     {
@@ -134,5 +145,6 @@ namespace CAPA_NEGOCIO.MAPEO
         public DateTime? Fecha_Incorporacion { get; set; }
         public string Estado { get; set; }
         public int? Id_TipoMiembro { get; set; }
+        public Tbl_InvestigatorProfile Investigador { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace CAPA_NEGOCIO.MAPEO
 {
     public class Tbl_InvestigatorProfile : EntityClass
     {
-
         public int? Id_Investigador { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
@@ -37,7 +36,6 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Tbl_Evento> Eventos { get; set; }
         public List<Tbl_Distinciones> Distinciones { get; set; }
         public List<TblProcesosEditoriales> ProcesosEditoriales { get; set; }
-
 
         public List<ProyectoTableDependencias_Usuarios> TakeDepCoordinaciones()
         {

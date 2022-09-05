@@ -27,6 +27,10 @@ namespace SNI_UI2.Controllers
         {
             return Inst.GetGroup();
         }
+        public Object GetRecomendedGroups(Tbl_Grupos Inst)
+        {
+            return Inst.GetRecomendedGroups();
+        }
         public Object GetGroups(Tbl_Grupos Inst)
         {
             return Inst.GetGroups();
