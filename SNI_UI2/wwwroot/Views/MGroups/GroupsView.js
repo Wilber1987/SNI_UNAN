@@ -10,11 +10,6 @@ class GroupView extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });  
-        /*
-        WRender.CreateStringNode("<div><h3 class='HeaderDis'>Mis Grupos</h3><hr></div>"),
-        this.ViewMisGruposContainer,
-        WRender.CreateStringNode("<div><h3 class='HeaderDis'>Grupos</h3><hr></div>"),
-        this.ViewGruposContainer*/
         this.shadowRoot.append(
             this.Style,
             WRender.createElement(StylesControlsV2),
@@ -25,9 +20,7 @@ class GroupView extends HTMLElement {
     }
     connectedCallback() { }
     DrawGroupView = async () => {
-      
-       
-       
+        
     }
     GroupDiv = (group = (new Tbl_Grupos()), type = "RECOMENDACION") => {
         const GrupoDiv = WRender.Create({
@@ -101,6 +94,9 @@ class GroupView extends HTMLElement {
                 action: async (ev) => {
                     const Grupos = await WAjaxTools.PostRequest("../api/Group/GetRecomendedGroups");
                     const GruposContainer = WRender.Create({ class: 'ViewProyectsContainer' });
+                    Grupos.forEach(group => {
+                        GruposContainer.append(this.GroupDiv(group, "RECOMENDACION"))
+                    });
                     this.DOMManager.NavigateFunction("Tab-grupos", GruposContainer, "TabContainer");
                 }
             }

@@ -149,20 +149,22 @@ class headerClass extends HTMLElement {
                 Elements: [
                     {
                         name: "Investigaciones", url: "#",
-                        action: (ev) => {
-                            window.location = location.origin + "/";
+                        action: async (ev) => {
+                            const response = await WAjaxTools.PostRequest("api/Investigaciones/TakeInvestigaciones");
+                            const BodyComponents = new HomeClass(response[0]);
+                            DOMManager.NavigateFunction("Home", BodyComponents);
                         }
                     }, {
                         name: "Proyectos", url: "#",
                         action: async (ev) => {
                             const response = await WAjaxTools.PostRequest("../api/Proyect/TakeTypeProyects");
-                            const BodyComponents = new ViewProyects(response);                           
-                            DOMManager.NavigateFunction("Proyectos",BodyComponents);
+                            const BodyComponents = new ViewProyects(response);
+                            DOMManager.NavigateFunction("Proyectos", BodyComponents);
                         }
-                    },  {
+                    }, {
                         name: "Grupos", url: "#",
-                        action: async (ev) => {                                           
-                            DOMManager.NavigateFunction("Grupos",new GroupView());
+                        action: async (ev) => {
+                            DOMManager.NavigateFunction("Grupos", new GroupView());
                         }
                     }, {
                         name: "Perfil", url: "#",
