@@ -8,6 +8,7 @@ import { HomeClass } from "./Views/Home.js";
 import { WModalForm } from "./WDevCore/WComponents/WModalForm.js";
 import { ViewProyects } from "./Views/MProyects/ViewProyects.js";
 import { GroupView } from "./Views/MGroups/GroupsView.js";
+import { EventsView } from "./Views/MEventos/EventsView.js";
 const Auth = new WSecurity();
 const DOMManager = new ComponentsManager({ SPAManage: true });
 class MasterDomDetaills extends ComponentsManager {
@@ -165,6 +166,11 @@ class headerClass extends HTMLElement {
                         name: "Grupos", url: "#",
                         action: async (ev) => {
                             DOMManager.NavigateFunction("Grupos", new GroupView());
+                        }
+                    },  {
+                        name: "Eventos", url: "#",
+                        action: async (ev) => {
+                            DOMManager.NavigateFunction("Eventos", new EventsView());
                         }
                     }, {
                         name: "Perfil", url: "#",

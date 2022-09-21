@@ -13,6 +13,7 @@ class Tbl_Distinciones {
 	Montos = { type: "number" };
 }
 export { Tbl_Distinciones }
+
 class Tbl_Evento {
 	constructor(props) {
 		for (const prop in props) {

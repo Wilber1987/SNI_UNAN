@@ -1,15 +1,9 @@
 import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";
-import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
+import { WRender, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
-import { InvestigadorProfile } from "../Model/InvestigadorProfile.js";
-import { Cat_Disciplinas, CatRedesSociales, CatTipoDistincion, Cat_Cargos, Cat_Cargo_Proyecto, Cat_Idiomas, Cat_instituciones, Cat_Localidad, Cat_Paises, Cat_TipoEstudio, Cat_TipoGrupo, Cat_TipoLocalidad, Cat_TipoMiembro, Cat_Tipo_Asociacion, Cat_Tipo_Colaborador, Cat_Tipo_Evento, Cat_Tipo_Investigacion, Cat_Tipo_Proyecto, Tbl_Investigaciones, Tbl_InvestigatorProfile } from "../Model/ModelDatabase.js";
-import { WProfileInvestigador } from "../Views/ViewProfile.js";
-import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
-import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
+import { Tbl_Investigaciones } from "../Model/ModelDatabase.js";
 import { InvestigacionViewer } from "../Views/InvestigacionViewer.js";
-import { WCard } from "../WDevCore/WComponents/WCardCarousel.js";
-import { ActionFunction, ModalComp } from "../Views/Home.js";
+import { ActionFunction } from "../Views/Home.js";
 window.addEventListener("load", async () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });
     Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de Investigaciones"}));

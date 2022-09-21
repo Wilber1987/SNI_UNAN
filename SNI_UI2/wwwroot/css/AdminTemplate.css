@@ -11,6 +11,10 @@
 }
 #Header {
     background-color: #d3d4d6;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    align-items: center;
 }
 #Aside {
     background-color: rgb(27, 27, 27);
