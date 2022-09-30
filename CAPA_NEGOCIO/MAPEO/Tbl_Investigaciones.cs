@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using CAPA_DATOS;
+using System.IO;
 
 namespace CAPA_NEGOCIO.MAPEO
 {
@@ -44,6 +45,27 @@ namespace CAPA_NEGOCIO.MAPEO
                 throw;
             }
         }
+        public bool SaveImage(string ImgStr, string ImgName)
+        {
+            String path = "";//HttpContext.Current.Server.MapPath("~/ImageStorage"); //Path
+
+            //Check if directory exist
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+            }
+
+            string imageName = ImgName + ".jpg";
+
+            //set the image path
+            string imgPath = Path.Combine(path, imageName);
+
+            byte[] imageBytes = Convert.FromBase64String(ImgStr);
+
+            File.WriteAllBytes(imgPath, imageBytes);
+
+            return true;
+        }
         public List<Tbl_Investigaciones> GetInvestigaciones()
         {
             try
@@ -53,6 +75,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 {
                     inv.Disciplinas = (new Tbl_Investigaciones_Disciplinas()).Get_WhereIN<Tbl_Investigaciones_Disciplinas>(
                         "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
+
                 }
                 return Investigaciones;
             }

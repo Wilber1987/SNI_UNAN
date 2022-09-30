@@ -10,8 +10,7 @@ namespace CAPA_NEGOCIO.MAPEO
 		public int? Id_Disciplina { get; set; }
 		public int? Id_Investigacion { get; set; }
         public Cat_Disciplinas Disciplina { get; set; }
-    }
-
+    }	
 	public class Tbl_IdiomasInv : EntityClass
 	{
 		public int? Id_Investigador { get; set; }

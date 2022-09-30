@@ -30,7 +30,12 @@
       "ProjectGuid": "2262a898-60ac-48af-a22f-9a88eac478fb",
       "DisplayName": "CAPA_MODEL",
       "ColorIndex": 4
+    },
+    "e84f61c0-c447-41b7-9469-689b4770bdc2": {
+      "ProjectGuid": "e84f61c0-c447-41b7-9469-689b4770bdc2",
+      "DisplayName": "SECURITY",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }

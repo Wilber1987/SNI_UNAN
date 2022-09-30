@@ -23,6 +23,20 @@ namespace CAPA_DATOS
         protected abstract string BuildUpdateQueryByObject(object Inst, string IdObject);
         protected abstract string BuildUpdateQueryByObject(object Inst, string[] WhereProps);
         protected abstract string BuildDeleteQuery(object Inst);
+        public bool TestConnection()
+        {
+            try
+            {
+                SQLMCon.Open();
+                SQLMCon.Close();
+               return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public object ExcuteSqlQuery(string strQuery)
         {
             try
@@ -121,7 +135,7 @@ namespace CAPA_DATOS
                     OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
                     if (oneToOne != null)
-                    {                     
+                    {
                         PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne.KeyColumn ?? oneToOne.ForeignKeyColumn);
                         PropertyInfo ForeingKeyPropRelationated = relationatedEntityType.GetProperty(oneToOne.ForeignKeyColumn);
                         if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
@@ -148,7 +162,7 @@ namespace CAPA_DATOS
                         {
                             TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
                         }
-                    }  
+                    }
 
                 }
 

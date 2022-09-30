@@ -19,11 +19,12 @@ namespace CAPA_DATOS
             try
             {
                 Anonimo = false;
-                UserSQLConexion = "Data Source="+ SQLServer + 
-                    "; Initial Catalog="+ DataBaseNameSNIBD + "; User ID=" 
+                UserSQLConexion = "Data Source=" + SQLServer +
+                    "; Initial Catalog=" + DataBaseNameSNIBD + "; User ID="
                     + user + ";Password=" + password;
-                SQLM = new SqlServerGDatos(UserSQLConexion);                
-                return true;
+                SQLM = new SqlServerGDatos(UserSQLConexion);
+                if (SQLM.TestConnection()) return true;
+               else return false;
             }
             catch (Exception)
             {
