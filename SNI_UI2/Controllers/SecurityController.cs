@@ -37,7 +37,8 @@ namespace SNI_UI2.Controllers
         }
         public static bool HavePermission()
         {
-            return true;
+            //TODO AGREGAR VERIFICACION DE PERMISOS Y LOGIN
+            return AuthNetCore.Authenticate();
         }
         public static bool HavePermission(string permission)
         {

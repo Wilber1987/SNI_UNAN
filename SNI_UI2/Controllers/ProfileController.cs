@@ -71,7 +71,7 @@ namespace SNI_UI2.Controllers
             if (Inst.Id_Evento == null)
             {
                 Inst.Id_Investigador = AuthNetCore.User().UserId;
-                return Inst.Save();
+                return Inst.SaveEvento();
             }
             else
             {

@@ -8,10 +8,10 @@ import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js
 import { WProfileInvestigador } from "./ProfileViewer.js";
 import { WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
-    Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de perfiles"}));
+    Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
     const AdminPerfil = new PerfilClass();
     Aside.append(AdminPerfil.MainNav);
     Main.appendChild(AdminPerfil);
@@ -29,9 +29,9 @@ class PerfilClass extends HTMLElement {
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({ className: "OptionContainer" });
         this.TabActividades = this.MainNav;
-        
+
         this.DrawComponent();
-    }    
+    }
     EditarPerfilNav = () => {
         return [{
             name: "Perfil", action: async (ev) => { this.EditProfile(); }
@@ -143,18 +143,7 @@ class PerfilClass extends HTMLElement {
             }, {
                 name: "Eventos",
                 action: async (ev) => {
-                    const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
-                    const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
-                    const Model = new Tbl_Evento({
-                        Id_Tipo_Evento: {
-                            type: "Select",
-                            Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, desc: x.Descripcion }))
-                        }, Id_Pais: {
-                            type: "Select",
-                            Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, desc: x.Descripcion }))
-                        }
-                    });
-                    this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, this.response.Eventos, Model);
+                    await this.SetEventos();
                 }
             }, {
                 name: "Editar", SubNav: {
@@ -174,7 +163,7 @@ class PerfilClass extends HTMLElement {
             Id_Tipo_Investigacion: { type: "SELECT", Dataset: tipoInvestigacion.map(x => ({ id: x.Id_Tipo_Investigacion, desc: x.Descripcion })) },
             Id_Localidad: { type: "SELECT", Dataset: tipoLocalidad.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad })) },
             Disciplinas: {
-                type: "MultiSelect", Dataset: disciplinas.map(x => {                    
+                type: "MultiSelect", Dataset: disciplinas.map(x => {
                     x.Descripcion = x.DescripcionDisciplina
                     return x;
                 })
@@ -269,7 +258,7 @@ class PerfilClass extends HTMLElement {
         }))
         this.TabManager.NavigateFunction(TabId, Tab);
     }
-    NavSaveCatalogo = async (TabId, ApiName = { add: "" }, Dataset = [], Model = {}) => {
+    NavSaveCatalogo = async (TabId, ApiName = { add: "" }, Dataset = [], Model = {}, DisplayData) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         Tab.append(WRender.Create({
             className: "DivProy", children: [
@@ -277,7 +266,7 @@ class PerfilClass extends HTMLElement {
                 new WTableComponent({
                     Dataset: Dataset,
                     ModelObject: Model,
-                    //DisplayData: ['titulo', 'estado'],
+                    DisplayData: DisplayData,
                     Options: {
                         Search: true, UrlSearch: undefined,
                         Add: true, UrlAdd: "../../api/Profile/" + ApiName.add,
@@ -331,6 +320,37 @@ class PerfilClass extends HTMLElement {
         });
         this.TabManager.NavigateFunction("Tab-Editar", EditForm);
     }
+    async SetEventos() {
+        const Eventos = await WAjaxTools.PostRequest("../../api/Events/GetEventosPropiosGestion");
+        const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
+        const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
+        const Id_Tipo_Participacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoParticipacionEventos");
+        const Id_Investigador = await WAjaxTools.PostRequest("../../api/PublicCat/GetInvestigadores");
+        const Model = new Tbl_Evento({
+            Id_Tipo_Evento: {
+                type: "WSelect",
+                Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, Descripcion: x.Descripcion }))
+            }, Id_Pais: {
+                type: "WSelect",
+                Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, Descripcion: x.Descripcion }))
+            }, Participantes: {
+                type: "Masterdetail",
+                MinimunRequired: 1,
+                MaxRequired: undefined,
+                ModelObject: new Tbl_Participantes_Eventos({
+                    Id_Tipo_Participacion: {
+                        type: "select",
+                        Dataset: Id_Tipo_Participacion.map(x => ({ id: x.Id_Tipo_Participacion, Descripcion: x.Descripcion }))
+                    }, Id_Investigador: {
+                        type: "WSelect",
+                        Dataset: Id_Investigador.map(x => ({ id: x.Id_Investigador, Descripcion: `${x.Nombres} ${x.Apellidos}` }))
+                    }
+                })
+            }
+        });
+        this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, Eventos, Model, ["Id_Tipo_Evento", "nombre", "Modalidad", "Link"]);
+    }
+
     connectedCallback() { }
     DrawComponent = async () => {
         this.append(this.TabContainer);
@@ -355,8 +375,7 @@ class PerfilClass extends HTMLElement {
         ], MediaQuery: [{
             condicion: '(max-width: 600px)',
             ClassList: []
-        },
-        ]
+        }]
     });
     Icons = {
         New: "",

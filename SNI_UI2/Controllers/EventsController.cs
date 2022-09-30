@@ -30,6 +30,10 @@ namespace SNI_UI2.Controllers
         {           
             return Inst.GetEventos();
         }
+        public object GetEventosPropiosGestion(Tbl_Evento Inst)
+        {
+            return Inst.GetEventosPropiosGestion();
+        }
         public object GetEvento(Tbl_Evento Inst)
         {
             return Inst.GetEvento();

@@ -24,7 +24,6 @@ class Tbl_Evento {
 	Id_Tipo_Evento = { type: "number" };
 	Nombre = { type: "text" };
 	Id_Pais = { type: "number" };
-	Titulo_Ponencia = { type: "text" };
 	Fecha_Inicio = { type: "date" };
 	Fecha_Finalizacion = { type: "date" };
 	Modalidad = { type: "text" };
@@ -32,8 +31,32 @@ class Tbl_Evento {
 	Link = { type: "text" };
 	Datos_Adicionales = { type: "text" };
 	Id_Investigador = { type: "number", hidden: true };
+	Participantes = { type: "MasterDetail"};
 }
 export { Tbl_Evento }
+class Tbl_Participantes_Eventos {
+	constructor(props) {
+		for (const prop in props) {
+			this[prop] = props[prop];
+		}
+	}
+	Id_Investigador = { type: "number" , hidden: true  };
+	Id_Evento = { type: "number"  , primary: true };
+	Descripcion = { type: "text"  };
+	Id_Tipo_Participacion = { type: "number"  };
+	Fecha_Participacion = { type: "date"  };
+}
+export{Tbl_Participantes_Eventos}
+class Cat_Tipo_Participacion_Eventos {
+	constructor(props) {
+		for (const prop in props) {
+			this[prop] = props[prop];
+		}
+	}
+	Id_Tipo_Participacion = { type: "number" , primary: true  };
+	Descripcion = { type: "text"  };
+}
+export{Cat_Tipo_Participacion_Eventos}
 class Tbl_Formacion_Academica {
 	constructor(props) {
 		for (const prop in props) {
@@ -49,6 +72,7 @@ class Tbl_Formacion_Academica {
 	Fecha_Finalizacion = { type: "date" };
 	Id_Investigador = { type: "number", hidden: true };
 }
+
 export { Tbl_Formacion_Academica }
 class Tbl_Grupos {
 	constructor(props) {

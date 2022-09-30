@@ -89,6 +89,18 @@ namespace SNI_UI2.Controllers
             inst.Estado = "Activo";
             return inst.Get<Cat_TipoGrupo>();
         }
+        public object GetTipoParticipacionEventos()
+        {
+            var inst = new Cat_Tipo_Participacion_Eventos();
+            //inst.Estado = "Activo";
+            return inst.Get<Cat_Tipo_Participacion_Eventos>();
+        }
+        public object GetInvestigadores()
+        {
+            var inst = new Tbl_InvestigatorProfile();
+            inst.Estado = "Activo";
+            return inst.Get<Tbl_InvestigatorProfile>();
+        }
         //Postularse
         public object Register(Tbl_InvestigatorProfile postulante)
         {
