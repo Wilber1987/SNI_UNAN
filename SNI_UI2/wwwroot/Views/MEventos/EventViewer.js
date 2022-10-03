@@ -2,7 +2,7 @@ import { WRender, WAjaxTools, GenerateColor, ComponentsManager } from '../../WDe
 import { css, WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
 import "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
-import { Tbl_Evento } from '../../Model/ModelDatabase.js';
+import { Tbl_Evento, Tbl_Participantes_Eventos } from '../../Model/ModelDatabase.js';
 import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
 class EventViewer extends HTMLElement {
     constructor(Evento = new Tbl_Evento(), actionReturn = () => { }) {
@@ -33,24 +33,18 @@ class EventViewer extends HTMLElement {
             style: {
                 backgroundColor: Evento.color
             }, children: [
-                WRender.Create({
-                    tagName: "h4", innerText: Evento.Titulo_Ponencia,
-                    style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined }
-                }),
-                WRender.Create({ tagName: "h5", innerText: Evento.Nombre }),
-                WRender.Create({ tagName: "h5", innerText: "Participantes" }),
-                WRender.Create({
-                    tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => ({
-                        tagName: 'img',
-                        src: "data:image/png;base64," + I.Investigador.Foto
-                    }))
-                }),
+                WRender.Create({ tagName: "h2", innerText: Evento.Nombre }),
+                WRender.Create({ tagName: "p", innerText: Evento.Descripcion }),
                 WRender.Create({
                     tagName: "label",
                     innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
                 }),
                 WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
-                WRender.Create({ tagName: "p", innerText: "Tipo: " + Evento.Datos_Adicionales })
+                WRender.Create({ tagName: "p", innerText: "Tipo: " + Evento.Datos_Adicionales }),
+                WRender.Create({ tagName: "h3", innerText: "Participaciones" }),
+                WRender.Create({
+                    tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => (this.ParticipacionesCard(I)))
+                })
             ]
         })
         //OPTIONS
@@ -70,54 +64,58 @@ class EventViewer extends HTMLElement {
             }
         }]
     })
-    Style = new WStyledRender({
-        ClassList: [
-            new WCssClass(`.ViewEventsContainer, .ViewEventsContainer`, {
-                display: 'flex',
-                "flex-wrap": "wrap",            
-            }), new WCssClass(`.GroupDiv`, {
-                width: "100%",
-                padding: 0,
-                margin: 10,
-                background: "#eee",
-                "box-shadow": "0 0 3px 0 rgba(0,0,0,0.5)",
-                "border-radius": 5,
-                display: "flex",
-                "justify-content": "flex-start",
-                "flex-direction": "column",
-                "align-items": "flex-start",
-                color: "#2e2e2e",
-                background: "#fff",
-                "text-align": "justify",
-                overflow: "hidden"
-            }), new WCssClass(`.GroupDiv *`, {
-                margin: 0, padding: "10px 30px",
-            }), new WCssClass(`.GroupDiv h4`, {
-                margin: 0, "margin-bottom": 20, padding: 20,
-                display: "flex",
-                width: "calc(100% - 40px)",
-                "justify-content": "center",
-                "flex-direction": "row",
-                "align-items": "center",
-                color: "#fff",
-                background: "#468f04"
-            }), new WCssClass(`.GroupDiv img`, {
-                padding: 0,
-                height: 50, width: 50, "border-radius": "50%",
-                margin: 10, overflow: "hidden", "box-shadow": "0 0 3px 0 rgba(0,0,0,0.5)"
-            }), new WCssClass(`.GroupOptions`, {
-                display: "flex",
-                width: "calc(100% - 60px)",
-                "justify-content": "flex-end",
-                "flex-direction": "row",
-                "align-items": "center",
-                "border-top": "solid 1px #999"
-            }),
-        ], MediaQuery: [{
-            condicion: '(max-width: 600px)',
-            ClassList: []
-        }]
-    });
+    ParticipacionesCard(Participacion = (new Tbl_Participantes_Eventos())) {
+        return WRender.Create({
+            className: "ParticipantesCard",
+            children: [
+                { tagName: 'img', src: "data:image/png;base64," + Participacion.Investigador.Foto },
+                { tagName: 'h4', innerText: Participacion.Titulo },
+                { tagName: 'p', innerText: Participacion.Descripcion },
+                { tagName: "label", innerText: `Fecha y Hora:  ${Participacion.Fecha_Participacion}` },
+                { tagName: 'label', innerText: Participacion.Tipo_Participacion.Descripcion },
+            ]
+        });
+    }
+    Style = css`
+        .TabContainer{
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
+            border-radius: 0.2cm;
+        }
+        .InvestigadoresACont{
+            display: flex;
+            flex-direction: column;            
+        }
+        h2, h3, h4 {
+            padding: 10px 0px;
+            margin: 0px;
+            color: #5e5e5e;
+            text-transform: capitalize;
+        }
+        .ParticipantesCard{
+            display: grid;
+            grid-template-columns: 100px calc(100% - 100px);
+            grid-template-rows: 20px 40px 20px 20px;
+            grid-column-gap: 20px;
+            grid-row-gap:10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);            
+            border-radius: 0.2cm;
+        }
+        .ParticipantesCard img {
+            grid-row: span 4;
+            border-radius: 50%;
+            overflow: hidden;
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+            align-self: center;
+            justify-self: center;
+        }
+    `
 }
 customElements.define('w-event-viewer', EventViewer);
 export { EventViewer }

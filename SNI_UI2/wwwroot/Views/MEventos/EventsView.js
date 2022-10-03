@@ -50,8 +50,14 @@ class EventsView extends HTMLElement {
             style: {
                 backgroundColor: Evento.color
             }, children: [
-                WRender.Create({ tagName: "h4", innerText: Evento.Titulo_Ponencia, style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined } }),
-                WRender.Create({ tagName: "h5", innerText: Evento.Nombre, style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined } }),
+                WRender.Create({ tagName: "h4", innerText: Evento.Nombre, style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined } }),
+                WRender.Create({ tagName: "p", innerText: Evento.Descripcion, style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined } }),
+               WRender.Create({
+                    tagName: "label",
+                    innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
+                }),
+                WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
+                WRender.Create({ tagName: "p", innerText: "Datos adicionales: " + Evento.Datos_Adicionales }),
                 WRender.Create({ tagName: "h5", innerText: "Participantes" }),
                 WRender.Create({
                     tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => ({
@@ -59,12 +65,6 @@ class EventsView extends HTMLElement {
                         src: "data:image/png;base64," + I.Investigador.Foto
                     }))
                 }),
-                WRender.Create({
-                    tagName: "label",
-                    innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
-                }),
-                WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
-                WRender.Create({ tagName: "p", innerText: "Tipo: " + Evento.Datos_Adicionales })
             ]
         })
         //OPTIONS
@@ -75,7 +75,7 @@ class EventsView extends HTMLElement {
                         new EventViewer(Evento, () => { this.DOMManager.Back(); }), "TabContainer");
                 }
             }]
-        }));
+        }));        
         return GrupoDiv;
     }
     ChargeEvents = async (path = "GetEventos", type = "PRÓXIMOS") => {
@@ -119,8 +119,9 @@ class EventsView extends HTMLElement {
                 background: "#468f04"
             }), new WCssClass(`.GroupDiv img`, {
                 padding: 0,
-                height: 50, width: 50, "border-radius": "50%",
-                margin: 10, overflow: "hidden", "box-shadow": "0 0 3px 0 rgba(0,0,0,0.5)"
+                height: 80, width: 80, "border-radius": "50%",
+                margin: 10, overflow: "hidden", "box-shadow": "0 0 3px 0 rgba(0,0,0,0.5)",
+                "object-fit": "cover"
             }), new WCssClass(`.GroupOptions`, {
                 display: "flex",
                 width: "calc(100% - 60px)",

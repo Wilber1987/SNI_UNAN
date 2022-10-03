@@ -12,6 +12,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Evento { get; set; }
         public int? Id_Tipo_Evento { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         public int? Id_Pais { get; set; }
         public DateTime? Fecha_Inicio { get; set; }
         public DateTime? Fecha_Finalizacion { get; set; }
@@ -20,7 +21,10 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Link { get; set; }
         public string Datos_Adicionales { get; set; }
         public int? Id_Investigador { get; set; }
+        public string Estado { get; set; }
         public Cat_Paises Pais { get; set; }
+        [OneToOne(ForeignKeyColumn = "Investigador")]
+        public Tbl_InvestigatorProfile Investigador { get; set; }
         public List<Tbl_Participantes_Eventos> Participantes { get; set; }
 
         public Object SaveEvento()
@@ -38,10 +42,17 @@ namespace CAPA_NEGOCIO.MAPEO
                 if (this.Participantes != null)
                 {
                     Tbl_Participantes_Eventos IdI = new Tbl_Participantes_Eventos();
-                    IdI.Id_Evento = this.Id_Evento;
+                    IdI.Id_Evento = this.Id_Evento;                   
                     IdI.Delete();
                     foreach (Tbl_Participantes_Eventos obj in this.Participantes)
                     {
+                        if (obj.Id_Investigador != AuthNetCore.User().UserId)
+                        {
+                            obj.Estado = "PENDIENTE";
+                        }else
+                        {
+                            obj.Estado = "APROBADO";
+                        }
                         obj.Id_Evento = this.Id_Evento;
                         obj.Save();
                     }
@@ -57,7 +68,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             ChargeEventData(this);
             return this;
-        }
+        }       
         public List<Tbl_Evento> GetEventos()
         {
             List<Tbl_Evento> Eventos = this.Get<Tbl_Evento>("Fecha_Inicio > '" +
@@ -109,7 +120,7 @@ namespace CAPA_NEGOCIO.MAPEO
         private void ChargeEventData(Tbl_Evento evento)
         {
             evento.Participantes =
-                            (new Tbl_Participantes_Eventos()).Get_WhereIN<Tbl_Participantes_Eventos>(
+                            new Tbl_Participantes_Eventos() { Estado = "APROBADO" }.Get_WhereIN<Tbl_Participantes_Eventos>(
                                     "Id_Evento", new string[] { evento.Id_Evento.ToString() });
         }
 
@@ -118,11 +129,39 @@ namespace CAPA_NEGOCIO.MAPEO
     {
         public int? Id_Evento { get; set; }
         public int? Id_Investigador { get; set; }
+        public string Titulo { get; set; }
         public string Descripcion { get; set; }
+        public string Estado { get; set; }//APROBADO-RECHAZADO-CANCELADO-PENDIENTE
         public int? Id_Tipo_Participacion { get; set; }
         public DateTime? Fecha_Participacion { get; set; }
+        public Tbl_Evento Evento { get; set; }
         public Tbl_InvestigatorProfile Investigador { get; set; }
         public Cat_Tipo_Participacion_Eventos Tipo_Participacion { get; set; }
+        public Tbl_Participantes_Eventos AprobarParticipacion()
+        {
+            return this.ChangeEstadoParticipacion("APROBADO");
+        }
+        public Tbl_Participantes_Eventos RechazarParticipacion()
+        {
+            return this.ChangeEstadoParticipacion("RECHAZADO");
+        }
+        public Tbl_Participantes_Eventos CancelarParticipacion()
+        {
+            return this.ChangeEstadoParticipacion("CANCELADO");
+        }
+        public Tbl_Participantes_Eventos ChangeEstadoParticipacion(String Estado)
+        {
+            if (this.Id_Evento != null && this.Id_Investigador != null)
+            {
+                this.Estado = Estado;
+                this.Update(new string[] { "Id_Evento", "Id_Investigador" });
+                return this;
+
+            }else
+            {
+                throw new Exception("Evento no existe");
+            }            
+        }
     }
     public class Tbl_Invitaciones : EntityClass
     {

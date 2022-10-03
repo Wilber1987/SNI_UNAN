@@ -23,6 +23,7 @@ class Tbl_Evento {
 	Id_Evento = { type: "number", primary: true };
 	Id_Tipo_Evento = { type: "number" };
 	Nombre = { type: "text" };
+	Descripcion = { type: "textarea" };
 	Id_Pais = { type: "number" };
 	Fecha_Inicio = { type: "date" };
 	Fecha_Finalizacion = { type: "date" };
@@ -42,6 +43,7 @@ class Tbl_Participantes_Eventos {
 	}
 	Id_Investigador = { type: "number" , hidden: true  };
 	Id_Evento = { type: "number"  , primary: true };
+	Titulo = { type: "text"  };
 	Descripcion = { type: "text"  };
 	Id_Tipo_Participacion = { type: "number"  };
 	Fecha_Participacion = { type: "date"  };

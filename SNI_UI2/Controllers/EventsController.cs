@@ -46,5 +46,25 @@ namespace SNI_UI2.Controllers
         {
             return Inst.GetEventosPropios();
         }
+        public object GetParticipaciones(Tbl_Participantes_Eventos Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.Get<Tbl_Participantes_Eventos>();
+        }
+        public Tbl_Participantes_Eventos AprobarParticipacion(Tbl_Participantes_Eventos Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.AprobarParticipacion();
+        }
+        public Tbl_Participantes_Eventos RechazarParticipacion(Tbl_Participantes_Eventos Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.RechazarParticipacion();
+        }
+        public Tbl_Participantes_Eventos CancelarParticipacion(Tbl_Participantes_Eventos Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.CancelarParticipacion();
+        }
     }
 }
