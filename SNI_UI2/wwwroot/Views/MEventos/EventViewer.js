@@ -37,7 +37,7 @@ class EventViewer extends HTMLElement {
                 WRender.Create({ tagName: "p", innerText: Evento.Descripcion }),
                 WRender.Create({
                     tagName: "label",
-                    innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
+                    innerText: `Fecha: del ${Evento.Fecha_Inicio?.toDateFormatEs()} ${Evento.Fecha_Finalizacion?.toDateFormatEs() ? " Al " + Evento.Fecha_Finalizacion?.toDateFormatEs() : ""}`
                 }),
                 WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
                 WRender.Create({ tagName: "p", innerText: Evento.Datos_Adicionales }),
@@ -71,7 +71,7 @@ class EventViewer extends HTMLElement {
                 { tagName: 'img', src: "data:image/png;base64," + Participacion.Investigador.Foto },
                 { tagName: 'h4', innerText: Participacion.Titulo },
                 { tagName: 'p', innerText: Participacion.Descripcion },
-                { tagName: "label", innerText: `Fecha y Hora:  ${Participacion.Fecha_Participacion}` },
+                { tagName: "label", innerText: `Fecha y Hora:  ${Participacion.Fecha_Participacion?.toDateTimeFormatEs()}` },
                 { tagName: 'label', innerText: Participacion.Tipo_Participacion.Descripcion },
             ]
         });

@@ -238,7 +238,7 @@ class InvestigacionesViewer extends HTMLElement {
                 WRender.Create({ tagName: 'p', className: "p", innerText: element.Resumen }),
                 Card                
             );
-            ArticleFooter.append(element.Fecha_ejecucion)
+            ArticleFooter.append(element.Fecha_ejecucion?.toDateFormatEs())
             if (this.Options != undefined) {
                 if (this.Options.Show != undefined ||
                     this.Options.UserActions != undefined) {

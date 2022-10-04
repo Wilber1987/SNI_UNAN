@@ -54,7 +54,7 @@ class EventsView extends HTMLElement {
                 WRender.Create({ tagName: "p", innerText: Evento.Descripcion, style: { background: type == "PRÓXIMO" ? "#044f8f" : undefined } }),
                WRender.Create({
                     tagName: "label",
-                    innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
+                    innerText: `Fecha: del ${Evento.Fecha_Inicio?.toDateFormatEs()} ${Evento.Fecha_Finalizacion?.toDateFormatEs() ? " Al " + Evento.Fecha_Finalizacion?.toDateFormatEs() : ""}`
                 }),
                 WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
                 WRender.Create({ tagName: "p", innerText: "Datos adicionales: " + Evento.Datos_Adicionales }),

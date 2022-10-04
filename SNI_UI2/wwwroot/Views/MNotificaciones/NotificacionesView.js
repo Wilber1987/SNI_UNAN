@@ -1,7 +1,7 @@
 import { WRender, WAjaxTools, GenerateColor, ComponentsManager } from '../../WDevCore/WModules/WComponentsTools.js';
 import { css, WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.js';
 import "../../WDevCore/WComponents/WTableComponent.js";
-import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
+import { basicButtons, StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
 import { ModalVericateAction } from '../../WDevCore/WComponents/WForm.js';
 import { Tbl_Investigaciones } from '../../Model/ModelDatabase.js';
@@ -13,6 +13,7 @@ class NotificacionesView extends HTMLElement {
         this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.shadowRoot.append(
             this.Style,
+            basicButtons,
             WRender.createElement(StylesControlsV2),
             this.NotificationsNav,
             this.TabContainer
@@ -36,10 +37,10 @@ class NotificacionesView extends HTMLElement {
                             Object: E,
                             Titulo: `Se ha publicado una nueva investigación "${E.Titulo}"`,
                             Descripcion: this.InvestigacionesDescripcion(E),
-                            Fecha: E.Fecha_ejecucion,
+                            Fecha: E.Fecha_ejecucion?.toDateFormatEs(),
                             Actions: [
                                 {
-                                    TextAction: "Ver", Action: async () => {
+                                    TextAction: "Ver",  class: "btn", Action: async () => {
                                         window.open(E.url_publicacion, '_blank');
                                     }
                                 }
@@ -58,16 +59,16 @@ class NotificacionesView extends HTMLElement {
                             Object: E,
                             Titulo: `Invitación al evento ${E.Evento.Nombre}`,
                             Descripcion: this.EventInvitadosDescripcion(E),
-                            Fecha: E.Fecha_Invitacion,
+                            Fecha: E.Fecha_Invitacion?.toDateFormatEs(),
                             Actions: [
                                 {
-                                    TextAction: "Asistir", Action: async (Event) => {
+                                    TextAction: "Asistir", class: "btn",  Action: async (Event) => {
                                         this.append(ModalVericateAction(async () => {
                                             const Events = await WAjaxTools.PostRequest("../api/Events/AceptarInvitacion", Event);
                                         }))
                                     }
                                 }, {
-                                    TextAction: "Rechazar", Action: async (Event) => {
+                                    TextAction: "Rechazar",  class: "btn-alert",Action: async (Event) => {
                                         this.append(ModalVericateAction(async () => {
                                             const Events = await WAjaxTools.PostRequest("../api/Events/RechazarInvitacion", Event);
                                         }))    
@@ -89,16 +90,16 @@ class NotificacionesView extends HTMLElement {
                             Object: E,
                             Titulo: `Participación en el evento ${E.Evento.Nombre} pendiente de aprobar`,
                             Descripcion: this.EventDescripcion(E),
-                            Fecha: E.Fecha_Participacion,
+                            Fecha: E.Fecha_Participacion?.toDateFormatEs(),
                             Actions: [
                                 {
-                                    TextAction: "Aceptar", Action: async (Event) => {
+                                    TextAction: "Aceptar",  class: "btn", Action: async (Event) => {
                                         this.append(ModalVericateAction(async () => {
                                             const Events = await WAjaxTools.PostRequest("../api/Events/AprobarParticipacion", Event);
                                         }))                                       
                                     }
                                 }, {
-                                    TextAction: "Rechazar", Action: async (Event) => {
+                                    TextAction: "Rechazar",  class: "btn-alert", Action: async (Event) => {
                                         this.append(ModalVericateAction(async () => {
                                             const Events = await WAjaxTools.PostRequest("../api/Events/RechazarParticipacion", Event);
                                         }))    
@@ -126,7 +127,7 @@ class NotificacionesView extends HTMLElement {
                 { tagName: 'label',className: "fecha", innerText: Notificacion.Fecha },
                 { tagName: 'p', innerText: Notificacion.Descripcion },
                 Notificacion.Actions.map(a => ({
-                    tagName: 'input', type: 'button', className: 'btn', value: a.TextAction, onclick: async () => {
+                    tagName: 'input', type: 'button', className: a.class, value: a.TextAction, onclick: async () => {
                         await a.Action(Notificacion.Object)
                     }
                 }))
@@ -148,6 +149,7 @@ class NotificacionesView extends HTMLElement {
         .titulo{
             font-size: 20px;
             font-weight: 500;
+            color: #335888;   
         }
         .fecha{
             padding: 10px 0px;
@@ -166,31 +168,19 @@ class NotificacionesView extends HTMLElement {
             justify-content: flex-end;
             margin-top: 10px;
         } 
-        .btn {
-            padding: 8px;
-            font-size: 12px;
-            max-width: 120px;
-            min-width: 80px;
-            background-color: #335888;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            margin-left: 10px;
-            cursor:pointer;
-        }
     `
     EventDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion}.
+        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion?.toDateFormatEs()}.
         
         ¿Desea confirmar su participación?`;
     }
     EventInvitadosDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion} que se realizara de forma ${E.Evento.Modalidad}.
+        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion?.toDateFormatEs()} que se realizara de forma ${E.Evento.Modalidad}.
         
         ¿Desea confirmar su asistencia?`;
     }
     InvestigacionesDescripcion(E = (new Tbl_Investigaciones())) {
-        return `${E.Investigador?.Nombres} ${E.Investigador?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion}.
+        return `${E.Investigador?.Nombres} ${E.Investigador?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion?.toDateFormatEs()}.
         
         ¿Desea revisar la publicación?`;
     }
