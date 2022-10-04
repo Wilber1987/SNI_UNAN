@@ -26,7 +26,7 @@ namespace CAPA_NEGOCIO.MAPEO
         [OneToOne(ForeignKeyColumn = "Investigador")]
         public Tbl_InvestigatorProfile Investigador { get; set; }
         public List<Tbl_Participantes_Eventos> Participantes { get; set; }
-
+        public List<Tbl_Invitaciones> Invitaciones { get; set; }
         public Object SaveEvento()
         {
             try
@@ -123,6 +123,27 @@ namespace CAPA_NEGOCIO.MAPEO
                             new Tbl_Participantes_Eventos() { Estado = "APROBADO" }.Get_WhereIN<Tbl_Participantes_Eventos>(
                                     "Id_Evento", new string[] { evento.Id_Evento.ToString() });
         }
+        public Object InvitarInvestigadores()
+        {
+            try
+            {
+                if (this.Id_Evento != null && this.Invitaciones != null)
+                {
+                    foreach (var Invitacion in this.Invitaciones)
+                    {
+                        Invitacion.Id_Evento = this.Id_Evento;
+                        Invitacion.Fecha_Invitacion = DateTime.Now;
+                        Invitacion.Estado = "PENDIENTE";
+                        Invitacion.Save();
+                    }
+                }              
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
     }
     public class Tbl_Participantes_Eventos : EntityClass
@@ -170,6 +191,22 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Evento { get; set; }
         public string Estado { get; set; }
         public DateTime? Fecha_Invitacion { get; set; }
+        public Tbl_Evento Evento { get; set; }
+        public Tbl_Invitaciones ChangeEstadoInvitacion(String Estado)
+        {
+            if (this.Id_Evento != null && this.Id_Investigador != null)
+            {
+                this.Estado = Estado;
+                this.Update(new string[] { "Id_Invitacion" });
+                return this;
+
+            }
+            else
+            {
+                throw new Exception("Invitación no existe");
+            }
+        }
+
     }
     public class Cat_Tipo_Participacion_Eventos : EntityClass
     {

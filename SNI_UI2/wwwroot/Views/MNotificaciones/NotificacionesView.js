@@ -3,6 +3,8 @@ import { css, WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRe
 import "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WAppNavigator } from '../../WDevCore/WComponents/WAppNavigator.js';
+import { ModalVericateAction } from '../../WDevCore/WComponents/WForm.js';
+import { Tbl_Investigaciones } from '../../Model/ModelDatabase.js';
 class NotificacionesView extends HTMLElement {
     constructor() {
         super();
@@ -27,11 +29,54 @@ class NotificacionesView extends HTMLElement {
             {
                 name: "INVESTIGACIONES", url: "#",
                 action: async (ev) => {
-
+                    const Investigaciones = await WAjaxTools.PostRequest("../api/Investigaciones/GetUltimasInvestigaciones");
+                    const Notifications = Investigaciones.map((E = (new Tbl_Investigaciones())) => {
+                        return {
+                            TextAction: E.Estado,
+                            Object: E,
+                            Titulo: `Se ha publicado una nueva investigación "${E.Titulo}"`,
+                            Descripcion: this.InvestigacionesDescripcion(E),
+                            Fecha: E.Fecha_ejecucion,
+                            Actions: [
+                                {
+                                    TextAction: "Ver", Action: async () => {
+                                        window.open(E.url_publicacion, '_blank');
+                                    }
+                                }
+                            ]
+                        }
+                    });
+                    this.DOMManager.NavigateFunction("Tab-investigaciones", this.DrawNotificaciones(Notifications));
                 }
             }, {
                 name: "INVITACIONES", url: "#",
                 action: async (ev) => {
+                    const Invitaciones = await WAjaxTools.PostRequest("../api/Events/GetEventosInvitaciones");
+                    const Notifications = Invitaciones.filter(E => E.Estado == "PENDIENTE").map(E => {
+                        return {
+                            TextAction: E.Estado,
+                            Object: E,
+                            Titulo: `Invitación al evento ${E.Evento.Nombre}`,
+                            Descripcion: this.EventInvitadosDescripcion(E),
+                            Fecha: E.Fecha_Invitacion,
+                            Actions: [
+                                {
+                                    TextAction: "Asistir", Action: async (Event) => {
+                                        this.append(ModalVericateAction(async () => {
+                                            const Events = await WAjaxTools.PostRequest("../api/Events/AceptarInvitacion", Event);
+                                        }))
+                                    }
+                                }, {
+                                    TextAction: "Rechazar", Action: async (Event) => {
+                                        this.append(ModalVericateAction(async () => {
+                                            const Events = await WAjaxTools.PostRequest("../api/Events/RechazarInvitacion", Event);
+                                        }))    
+                                    }
+                                }
+                            ]
+                        }
+                    });
+                    this.DOMManager.NavigateFunction("Tab-eventos-invitados", this.DrawNotificaciones(Notifications));
 
                 }
             }, {
@@ -48,11 +93,15 @@ class NotificacionesView extends HTMLElement {
                             Actions: [
                                 {
                                     TextAction: "Aceptar", Action: async (Event) => {
-                                        const Events = await WAjaxTools.PostRequest("../api/Events/AprobarParticipacion", Event);
+                                        this.append(ModalVericateAction(async () => {
+                                            const Events = await WAjaxTools.PostRequest("../api/Events/AprobarParticipacion", Event);
+                                        }))                                       
                                     }
                                 }, {
                                     TextAction: "Rechazar", Action: async (Event) => {
-                                        const Events = await WAjaxTools.PostRequest("../api/Events/RechazarParticipacion", Event);
+                                        this.append(ModalVericateAction(async () => {
+                                            const Events = await WAjaxTools.PostRequest("../api/Events/RechazarParticipacion", Event);
+                                        }))    
                                     }
                                 }
                             ]
@@ -74,7 +123,7 @@ class NotificacionesView extends HTMLElement {
         const NotificacionContainer = WRender.Create({
             className: "NotificationContainer", children: [
                 { tagName: 'label', className: "titulo", innerText: Notificacion.Titulo },
-                { tagName: 'label', innerText: Notificacion.Fecha },
+                { tagName: 'label',className: "fecha", innerText: Notificacion.Fecha },
                 { tagName: 'p', innerText: Notificacion.Descripcion },
                 Notificacion.Actions.map(a => ({
                     tagName: 'input', type: 'button', className: 'btn', value: a.TextAction, onclick: async () => {
@@ -93,12 +142,57 @@ class NotificacionesView extends HTMLElement {
             flex-direction: column;
             box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
             background-color: #fff;
-            margin: 10px;    
+            margin: 10px; 
+            color: #444;   
+        }        
+        .titulo{
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .fecha{
+            padding: 10px 0px;
+            font-size: 12px;
+            border-bottom: 1px solid #9999;
+
+        }
+        .NotificationContainer p{
+            padding: 10px 0px;
+            margin: 0px;
+            border-bottom: 1px solid #9999;
+            font-size: 14px;
+        } 
+        .NotificationContainer div{
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        } 
+        .btn {
+            padding: 8px;
+            font-size: 12px;
+            max-width: 120px;
+            min-width: 80px;
+            background-color: #335888;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor:pointer;
         }
     `
-
     EventDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion}`;
+        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion}.
+        
+        ¿Desea confirmar su participación?`;
+    }
+    EventInvitadosDescripcion(E) {
+        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion} que se realizara de forma ${E.Evento.Modalidad}.
+        
+        ¿Desea confirmar su asistencia?`;
+    }
+    InvestigacionesDescripcion(E = (new Tbl_Investigaciones())) {
+        return `${E.Investigador?.Nombres} ${E.Investigador?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion}.
+        
+        ¿Desea revisar la publicación?`;
     }
 }
 customElements.define('w-notificaciones-view', NotificacionesView);

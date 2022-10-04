@@ -40,7 +40,7 @@ class EventViewer extends HTMLElement {
                     innerText: `Fecha: del ${Evento.Fecha_Inicio} ${Evento.Fecha_Finalizacion ? " Al " + Evento.Fecha_Finalizacion : ""}`
                 }),
                 WRender.Create({ tagName: "label", innerText: "Tipo: " + Evento.Modalidad }),
-                WRender.Create({ tagName: "p", innerText: "Tipo: " + Evento.Datos_Adicionales }),
+                WRender.Create({ tagName: "p", innerText: Evento.Datos_Adicionales }),
                 WRender.Create({ tagName: "h3", innerText: "Participaciones" }),
                 WRender.Create({
                     tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => (this.ParticipacionesCard(I)))
@@ -50,8 +50,8 @@ class EventViewer extends HTMLElement {
         //OPTIONS
         GrupoDiv.appendChild(WRender.Create({
             className: "GroupOptions", children: [{
-                tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Ver detalle', onclick: async () => {
-
+                tagName: 'input', type: 'button', className: 'BtnSuccess', value: 'Ingresar', onclick: async () => {
+                    window.open(Evento.Link, '_blank');
                 }
             }]
         }));
@@ -87,12 +87,17 @@ class EventViewer extends HTMLElement {
             display: flex;
             flex-direction: column;            
         }
+        .GroupDiv{
+            display: flex;
+            flex-direction: column;
+        }
         h2, h3, h4 {
             padding: 10px 0px;
             margin: 0px;
             color: #5e5e5e;
             text-transform: capitalize;
         }
+
         .ParticipantesCard{
             display: grid;
             grid-template-columns: 100px calc(100% - 100px);

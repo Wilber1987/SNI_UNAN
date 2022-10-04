@@ -66,5 +66,23 @@ namespace SNI_UI2.Controllers
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             return Inst.CancelarParticipacion();
         }
+        public object InvitarInvestigadores(Tbl_Evento Inst)
+        {
+            return Inst.InvitarInvestigadores();
+        }
+        public Object AceptarInvitacion(Tbl_Invitaciones Inst)
+        {
+            return Inst.ChangeEstadoInvitacion("ACEPTADA");
+        }
+        public Object RechazarInvitacion(Tbl_Invitaciones Inst)
+        {
+            return Inst.ChangeEstadoInvitacion("RECHAZADA");
+        }
+        public object GetEventosInvitaciones(Tbl_Invitaciones Inst)
+        {
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return Inst.Get<Tbl_Invitaciones>();
+        }
+
     }
 }

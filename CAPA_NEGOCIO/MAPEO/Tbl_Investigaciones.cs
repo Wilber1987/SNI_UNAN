@@ -19,6 +19,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string Referencias { get; set; }
         public string url_publicacion { get; set; }
         public DateTime? Fecha_ejecucion { get; set; }
+        public DateTime? Fecha_publicacion { get; set; }
         public int? Id_Investigador { get; set; }
         public int? Id_Localidad { get; set; }
         //public string Photo { get; set; }
@@ -90,6 +91,7 @@ namespace CAPA_NEGOCIO.MAPEO
             {
                 if (this.Id_Investigacion == null)
                 {
+                    this.Fecha_publicacion = DateTime.Now;
                     this.Id_Investigacion = (Int32)this.Save();
                 }
                 else

@@ -40,8 +40,7 @@ class MasterDomDetaills extends ComponentsManager {
                 new WCssClass(`body`, {
                     "background-color": "#eee",
                     "font-family": '"Poppins", sans-serif' //"system-ui !important"
-                }),
-                new WCssClass(".App", {
+                }),new WCssClass(".App", {
                     display: "grid",
                     "grid-template-columns": "800px 400px",
                     "grid-template-rows": "70px auto ",
@@ -82,7 +81,6 @@ class MasterDomDetaills extends ComponentsManager {
                 }), new WCssClass("body", {
                     padding: "0px",
                     margin: "0px",
-                    "font-family": "Arial, Helvetica, sans-serif"
                 }), new WCssClass(".FooterNav", {
                     "grid-column": "1/3",
                     display: "none",
@@ -181,7 +179,7 @@ class headerClass extends HTMLElement {
                     }, {
                         name: "Notificaciones", url: "#",
                         action: (ev) => {
-                            DOMManager.NavigateFunction("Eventos", new NotificacionesView());
+                            DOMManager.NavigateFunction("Notificaciones", new NotificacionesView());
                         }
                     },{
                         name: "Opciones", url: "#",

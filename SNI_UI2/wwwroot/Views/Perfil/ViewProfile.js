@@ -6,9 +6,9 @@ import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.j
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
 import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
 import { WProfileInvestigador } from "./ProfileViewer.js";
-import { WForm } from "../../WDevCore/WComponents/WForm.js";
+import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_InvestigatorProfile, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -29,7 +29,6 @@ class PerfilClass extends HTMLElement {
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({ className: "OptionContainer" });
         this.TabActividades = this.MainNav;
-
         this.DrawComponent();
     }
     EditarPerfilNav = () => {
@@ -258,7 +257,7 @@ class PerfilClass extends HTMLElement {
         }))
         this.TabManager.NavigateFunction(TabId, Tab);
     }
-    NavSaveCatalogo = async (TabId, ApiName = { add: "" }, Dataset = [], Model = {}, DisplayData) => {
+    NavSaveCatalogo = async (TabId, ApiName = { add: "" }, Dataset = [], Model = {}, DisplayData, UserActions = []) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         Tab.append(WRender.Create({
             className: "DivProy", children: [
@@ -271,7 +270,7 @@ class PerfilClass extends HTMLElement {
                         Search: true, UrlSearch: undefined,
                         Add: true, UrlAdd: "../../api/Profile/" + ApiName.add,
                         Edit: true, UrlUpdate: "../../api/Profile/" + ApiName.add,
-                        UserActions: []
+                        UserActions: UserActions
                     }
                 })
             ]
@@ -348,7 +347,56 @@ class PerfilClass extends HTMLElement {
                 })
             }
         });
-        this.NavSaveCatalogo("Tab-Eventos", { add: "SaveEvento" }, Eventos, Model, ["Id_Tipo_Evento", "nombre", "Modalidad", "Link"]);
+        this.NavSaveCatalogo("Tab-Eventos",
+            { add: "SaveEvento" },
+            Eventos, Model,
+            ["Id_Tipo_Evento", "nombre", "Modalidad", "Link"], [{
+                name: "Invitar",
+                Function: (Evento) => {
+                    const table = new WTableComponent({
+                        Dataset: Id_Investigador,
+                        maxElementByPage: 5,
+                        ModelObject: new Tbl_InvestigatorProfile({
+                            FechaNac: undefined,
+                            Sexo: undefined,
+                            DNI: undefined,
+                            Correo_institucional: undefined,
+                            Id_Pais_Origen: undefined,
+                            Id_Institucion: undefined,
+                            IdUser: undefined,
+                            Estado: undefined
+                        }), Options: {
+                            Add: false, Show: false, Edit: false, Select: true, Search: true,
+                        }
+                    })
+                    const modal = new WModalForm({
+                        title: "Invitar Investigadores",
+                        ObjectModal: WRender.Create({
+                            className: "SearchInvestigador",
+                            style: { padding: "20px" },
+                            children: [
+                                table,
+                                [
+                                    {
+                                        tagName: 'input', type: 'button', className: 'Btn', value: 'Enviar Invitaciones', onclick: async () => {
+                                            this.append(ModalVericateAction(async () => {
+                                                Evento.Invitaciones = table.selectedItems;
+                                                const response = await WAjaxTools.PostRequest("../../api/Events/InvitarInvestigadores", Evento);
+                                                modal.close();
+                                            }))
+                                        }
+                                    }, {
+                                        tagName: 'input', type: 'button', className: 'BtnSecundary', value: 'Cancelar', onclick: async () => {
+                                            modal.close();
+                                        }
+                                    }
+                                ]
+                            ]
+                        })
+                    });
+                    this.append(modal);
+                }
+            }]);
     }
 
     connectedCallback() { }
