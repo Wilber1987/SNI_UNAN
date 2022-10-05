@@ -33,7 +33,7 @@ namespace SNI_UI.Controllers
         public object GetUltimasInvestigaciones(Tbl_Investigaciones Inst)
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
-            return Inst.Get<Tbl_Investigaciones>("Visibilidad = 'public' Order by [Id_Investigacion] desc");
+            return Inst.Get<Tbl_Investigaciones>("Visibilidad = 'public' Order by Id_Investigacion desc");
         }
         public object SaveInvestigacion(Tbl_Investigaciones Inst)
         {

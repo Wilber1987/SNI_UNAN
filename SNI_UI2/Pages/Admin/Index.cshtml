@@ -2,85 +2,82 @@
 @using SNI_UI2.Controllers
 @model SNI_UI2.Pages.Admin.Admin_IndexModel
 @{
-    if (!SecurityController.Auth())
+    if (!SecurityController.HavePermission("ADMIN_ACCESS"))
     {
-        Response.Redirect("../Admin/login");
-    }
-    if (!SecurityController.HavePermission())
-    {
-        Response.Redirect("../Admin/login");
+        Response.Redirect("./login");
+        return;
     }
 }
 <script type="module">
-        import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
-        import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
-        import { StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js";
-        import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";      
-        Header.append(WRender.createElement({
-                    type: "w-app-navigator",
-                    props: {
-                        Inicialize: false,
-                        alignItems: "flex-end",
-                        DisplayMode: "right",
-                        Elements: [
-                            {
-                                name: "Home", url: "#",
-                                action: async (ev) => {
-                                    window.location = location.origin + "/";
-                                }
-                            }, {
-                                name: "Perfil", url: "#",
-                                action: (ev) => {
-                                    window.location = location.origin + "/Perfil/PerfilView";
-                                }
-                            }, {
-                                name: "Opciones", url: "#",
-                                action: (ev) => {
-                                    const ModalPerfil = new WModalForm({
-                                        title: "Eliminar",
-                                        ObjectModal: new WAppNavigator({
-                                            Direction: "column",
-                                            NavStyle: "tab",
-                                            Elements: [
-                                                {
-                                                    name: "Perfil", url: "#",
-                                                    action: (ev) => {
-                                                    }
-                                                }, {
-                                                    name: "Agenda", url: "#",
-                                                    action: (ev) => {
-                                                    }
-                                                }, {
-                                                    name: "Cerrar Sesión", url: "#",
-                                                    action: (ev) => {
-                                                        WSecurity.LogOut();
-                                                    }
-                                                }
-                                            ]
-                                        })
-                                    });
-                                    this.append(ModalPerfil);
-
-                                }
+    import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
+    import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
+    import { StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js";
+    import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";
+    Header.append(WRender.createElement({
+                type: "w-app-navigator",
+                props: {
+                    Inicialize: false,
+                    alignItems: "flex-end",
+                    DisplayMode: "right",
+                    Elements: [
+                        {
+                            name: "Home", url: "#",
+                            action: async (ev) => {
+                                window.location = location.origin + "/";
                             }
-                        ]
-                    }
-                }));
-        AdminTemplate.append(WRender.createElement(StyleScrolls));
+                        }, {
+                            name: "Perfil", url: "#",
+                            action: (ev) => {
+                                window.location = location.origin + "/Perfil/PerfilView";
+                            }
+                        }, {
+                            name: "Opciones", url: "#",
+                            action: (ev) => {
+                                const ModalPerfil = new WModalForm({
+                                    title: "Eliminar",
+                                    ObjectModal: new WAppNavigator({
+                                        Direction: "column",
+                                        NavStyle: "tab",
+                                        Elements: [
+                                            {
+                                                name: "Perfil", url: "#",
+                                                action: (ev) => {
+                                                }
+                                            }, {
+                                                name: "Agenda", url: "#",
+                                                action: (ev) => {
+                                                }
+                                            }, {
+                                                name: "Cerrar Sesión", url: "#",
+                                                action: (ev) => {
+                                                    WSecurity.LogOut();
+                                                }
+                                            }
+                                        ]
+                                    })
+                                });
+                                this.append(ModalPerfil);
+
+                            }
+                        }
+                    ]
+                }
+            }));
+    AdminTemplate.append(WRender.createElement(StyleScrolls));
 </script>
 @if (SecurityController.HavePermission("ADMINISTRAR_POSTULANTES"))
 {
-     <script src="~/Admin/AdminInvestigadores.js" type="module"></script>
+    <script src="~/Admin/AdminInvestigadores.js" type="module"></script>
 }
 @if (SecurityController.HavePermission("ADMINISTRAR_INVESTIGACIONES"))
 {
-     <script src="~/Admin/AdminInvestigaciones.js" type="module"></script>
+    <script src="~/Admin/AdminInvestigaciones.js" type="module"></script>
 }
 @if (SecurityController.HavePermission("ADMINISTRAR_USUARIOS"))
 {
-     <script src="~/Admin/AdminSecurity.js" type="module"></script>
+    <script src="~/Admin/AdminSecurity.js" type="module"></script>
 }
 @if (SecurityController.HavePermission("ADMINISTRAR_CATALOGOS"))
 {
-     <script src="~/Admin/AdminNavigator.js" type="module"></script>
+    <script src="~/Admin/AdminNavigator.js" type="module"></script>
 }

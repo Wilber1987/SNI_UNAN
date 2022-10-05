@@ -3,7 +3,7 @@ import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../WDevCore/WMo
 import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
 import { Tbl_InvestigatorProfile } from "../Model/ModelDatabase.js";
-import { WProfileInvestigador } from "../Views/ViewProfile.js";
+import { WProfileInvestigador } from "../Views/Perfil/ProfileViewer.js";
 import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
 window.onload = () => {

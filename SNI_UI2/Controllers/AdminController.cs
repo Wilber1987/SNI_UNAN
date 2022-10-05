@@ -25,7 +25,7 @@ namespace SNI_UI2.Controllers
             inv.Estado = "ACTIVO";
             //TODO enviar correo
             //CrearUser
-            return inv.Update("Id_Investigador");
+            return inv.AdmitirPostulante();
         }
         public Object RechazarPostulante(Tbl_InvestigatorProfile inv)
         {

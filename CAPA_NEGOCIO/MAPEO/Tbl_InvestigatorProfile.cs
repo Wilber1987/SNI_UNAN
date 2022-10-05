@@ -1,4 +1,5 @@
 ﻿using CAPA_DATOS;
+using CAPA_NEGOCIO.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -164,5 +165,29 @@ namespace CAPA_NEGOCIO.MAPEO
             }
             return this;
         }
+        public Object AdmitirPostulante()
+        {
+            try
+            {
+                new Security_Users()
+                {
+                    Mail = this.Correo_institucional,
+                    Nombres = this.Nombres + " " + this.Apellidos,
+                    Estado = "Activo",
+                    Descripcion = "Investigador postulado",
+                    Password = Guid.NewGuid().ToString(),
+                    Token = Guid.NewGuid().ToString(),
+                    Token_Date = DateTime.Now,
+                    Token_Expiration_Date = DateTime.Now.AddMonths(6),
+                    security_Users_Roles = new List<Security_Users_Roles>(){ new Security_Users_Roles() { Id_Role = 2 } }
+                }.SaveUser();
+                this.Estado = "ACTIVO";                
+                return true;
+            }
+            catch (Exception) { return false; }
+
+        }
+
+
     }
 }

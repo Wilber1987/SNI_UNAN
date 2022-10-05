@@ -20,8 +20,8 @@ namespace SNI_UI2.Controllers
         public object Login(Object ObjInst)
         {
             var Inst = JsonConvert.DeserializeObject<UserModel>(ObjInst.ToString());
-            Inst.LoginIn();
-            return Inst;
+            AuthNetCore.loginIN(Inst.mail, Inst.password);
+            return AuthNetCore.User();
         }
         public object LogOut()
         {
@@ -35,14 +35,9 @@ namespace SNI_UI2.Controllers
         {
             return AuthNetCore.Authenticate();
         }
-        public static bool HavePermission()
-        {
-            //TODO AGREGAR VERIFICACION DE PERMISOS Y LOGIN
-            return AuthNetCore.Authenticate();
-        }
         public static bool HavePermission(string permission)
         {
-            return true;
+            return AuthNetCore.HavePermission(permission);
         }
 
     }

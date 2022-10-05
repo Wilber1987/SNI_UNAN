@@ -2,7 +2,7 @@ import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";
 import { WRender, ComponentsManager, WAjaxTools } from '../WDevCore/WModules/WComponentsTools.js';
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js";
 import { Tbl_Investigaciones } from "../Model/ModelDatabase.js";
-import { InvestigacionViewer } from "../Views/InvestigacionViewer.js";
+import { InvestigacionViewer } from "../Views/MInvestigaciones/InvestigacionViewer.js";
 import { ActionFunction } from "../Views/Home.js";
 window.addEventListener("load", async () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });

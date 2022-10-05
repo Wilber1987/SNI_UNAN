@@ -3,9 +3,15 @@
 @model SNI_UI2.Pages.IndexModel
 @{
     Layout = null;
-    if (!SecurityController.HavePermission())
+    if (!SecurityController.Auth())
     {
-        Response.Redirect("../Security/Login");
+        Response.Redirect("~/Security/Login");
+        return;
+    }
+    if (!SecurityController.HavePermission("HOME_ACCESS"))
+    {
+        Response.Redirect("~/Security/permission_error");
+        return;
     }
 
 }
@@ -17,6 +23,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./App.js" type="module"></script>
 </head>
-<body id="App"> 
+<body id="App">
 </body>
 </html>

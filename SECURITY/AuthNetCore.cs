@@ -10,6 +10,7 @@ namespace SECURITY
         static string user = "sa";
         static string password = "zaxscd";
         static public bool AuthAttribute = false;
+        static private UserModel userModel;
         static public bool Authenticate()
         {
             if (SqlADOConexion.SQLM == null)
@@ -38,9 +39,9 @@ namespace SECURITY
         }
         static public UserModel User()
         {
-            UserModel Model = new UserModel();
-            Model.UserId = 1;
-            return Model;
+            userModel = new UserModel();
+            userModel.UserId = 1;
+            return userModel;
 
         }
     }

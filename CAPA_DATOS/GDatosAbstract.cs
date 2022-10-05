@@ -29,7 +29,7 @@ namespace CAPA_DATOS
             {
                 SQLMCon.Open();
                 SQLMCon.Close();
-               return true;
+                return true;
             }
             catch (Exception)
             {
@@ -186,13 +186,18 @@ namespace CAPA_DATOS
             try
             {
                 DataTable Table = BuildTable(Inst, ref CondSQL);
-                List<T> ListD = ConvertDataTable<T>(Table, Inst);
-                FindRelationatedsEntitys(Inst);
-                if (ListD.Count == 0)
+                //List<T> ListD = ConvertDataTable<T>(Table, Inst);                
+                if (Table.Rows.Count != 0)
                 {
-                    throw new NullReferenceException();
+                    var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
+                    FindRelationatedsEntitys(Inst);
+                    return CObject;
                 }
-                return ListD[0];
+                else
+                {
+                    throw new NullReferenceException("El objeto no fue encontrado");
+
+                }
             }
             catch (Exception)
             {
