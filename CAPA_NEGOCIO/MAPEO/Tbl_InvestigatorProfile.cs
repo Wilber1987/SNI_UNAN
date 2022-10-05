@@ -1,5 +1,6 @@
 ﻿using CAPA_DATOS;
 using CAPA_NEGOCIO.Security;
+using CAPA_NEGOCIO.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -181,13 +182,11 @@ namespace CAPA_NEGOCIO.MAPEO
                     Token_Expiration_Date = DateTime.Now.AddMonths(6),
                     security_Users_Roles = new List<Security_Users_Roles>(){ new Security_Users_Roles() { Id_Role = 2 } }
                 }.SaveUser();
-                this.Estado = "ACTIVO";                
+                this.Estado = "ACTIVO";    
+                MailServices.SendMail(this.Correo_institucional);
                 return true;
             }
             catch (Exception) { return false; }
-
         }
-
-
     }
 }

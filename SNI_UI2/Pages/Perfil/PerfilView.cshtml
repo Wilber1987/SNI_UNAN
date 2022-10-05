@@ -5,12 +5,12 @@
     // Layout = null;
     if (!SecurityController.Auth())
     {
-        Response.Redirect("~/Security/login");
+        Response.Redirect("../Security/login");
         return;
     }
     if (!SecurityController.HavePermission("PERFIL_ACCESS"))
     {
-        Response.Redirect("~/Security/permission_error");
+        Response.Redirect("../Security/permission_error");
         return;
     }
 }

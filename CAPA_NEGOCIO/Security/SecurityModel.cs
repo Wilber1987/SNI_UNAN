@@ -68,8 +68,8 @@ namespace CAPA_NEGOCIO.Security
         public string Password { get; set; }
         public string Mail { get; set; }
         public string Token { get; set; }
-        public DateTime Token_Date { get; set; }
-        public DateTime Token_Expiration_Date { get; set; }
+        public DateTime? Token_Date { get; set; }
+        public DateTime? Token_Expiration_Date { get; set; }
         public List<Security_Users_Roles> security_Users_Roles { get; set; }
         public Security_Users GetUserData()
         {

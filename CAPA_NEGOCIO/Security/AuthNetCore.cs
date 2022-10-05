@@ -14,8 +14,9 @@ namespace CAPA_NEGOCIO.Security
         static private Security_Users security_User;
         static public bool Authenticate()
         {
-            if (SqlADOConexion.SQLM == null || SqlADOConexion.Anonimo)
+            if (SqlADOConexion.SQLM == null || SqlADOConexion.Anonimo || security_User == null)
             {
+                security_User = null;
                 SqlADOConexion.SQLM = null;
                 return false;
             }
@@ -39,8 +40,9 @@ namespace CAPA_NEGOCIO.Security
                 }.GetUserData();
                 if (security_User.Id_User == null)
                 {
+                    security_User = null;
                     SqlADOConexion.SQLM = null;
-                    return false;
+                    throw new Exception("El usuario no a sido encontrado");
                 }
                 return true;
             }
