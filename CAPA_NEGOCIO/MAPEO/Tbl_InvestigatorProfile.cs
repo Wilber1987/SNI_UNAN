@@ -180,9 +180,12 @@ namespace CAPA_NEGOCIO.MAPEO
                     Token = Guid.NewGuid().ToString(),
                     Token_Date = DateTime.Now,
                     Token_Expiration_Date = DateTime.Now.AddMonths(6),
-                    security_Users_Roles = new List<Security_Users_Roles>(){ new Security_Users_Roles() { Id_Role = 2 } }
+                    Security_Users_Roles = new List<Security_Users_Roles>(){ 
+                        new Security_Users_Roles() { Id_Role = 2 }
+                    }
                 }.SaveUser();
-                this.Estado = "ACTIVO";    
+                this.Estado = "ACTIVO";
+                this.Update("Id_Investigador");
                 MailServices.SendMail(this.Correo_institucional);
                 return true;
             }

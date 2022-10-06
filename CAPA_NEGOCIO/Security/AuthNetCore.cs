@@ -30,6 +30,7 @@ namespace CAPA_NEGOCIO.Security
         }
         static public bool loginIN(string mail, string password)
         {
+            if (mail == null || password == null)  throw new Exception("Datos requeridos");
             try
             {
                 SqlADOConexion.IniciarConexionSNIBD(SGBD_USER, SWGBD_PASSWORD);
@@ -85,7 +86,7 @@ namespace CAPA_NEGOCIO.Security
         {
             if (Authenticate())
             {
-                var roleHavePermision = security_User.security_Users_Roles.Where(r => RoleHavePermission(permission, r).Count != 0).ToList();
+                var roleHavePermision = security_User.Security_Users_Roles.Where(r => RoleHavePermission(permission, r).Count != 0).ToList();
                 if (roleHavePermision.Count != 0 ) return true;
                 return false;
             }
@@ -97,7 +98,7 @@ namespace CAPA_NEGOCIO.Security
 
         private static List<Security_Permissions_Roles> RoleHavePermission(string permission, Security_Users_Roles r)
         {
-            return r.security_Role.Security_Permissions_Roles.Where(p => p.security_Permissions.Descripcion == permission).ToList();
+            return r.Security_Role.Security_Permissions_Roles.Where(p => p.Security_Permissions.Descripcion == permission).ToList();
         }
     }
 }

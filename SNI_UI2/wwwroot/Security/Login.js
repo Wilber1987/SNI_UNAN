@@ -6,7 +6,7 @@ import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
 const OnLoad = async () => {
     //const { WRender, WAjaxTools } = await import("./WDevCore/WModules/WComponentsTools.js");
     const UserData = {
-        user: null,
+        mail: null,
         password: null
     }
     const LoginForm = WRender.Create({
@@ -16,9 +16,9 @@ const OnLoad = async () => {
             WRender.Create(MasterStyle),
             { tagName: 'img', src: Icons.SNI, class: 'className' },
             {
-                children: ["Usuario", {
-                    tagName: 'input', type: 'text', placeholder: 'Usuario', onchange: (ev) => {
-                        UserData.user = ev.target.value;
+                children: ["Correo", {
+                    tagName: 'input', type: 'text', placeholder: 'Correo', onchange: (ev) => {
+                        UserData.mail = ev.target.value;
                     }
                 }]
             }, {

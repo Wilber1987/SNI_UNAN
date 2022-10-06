@@ -70,16 +70,16 @@ namespace CAPA_NEGOCIO.Security
         public string Token { get; set; }
         public DateTime? Token_Date { get; set; }
         public DateTime? Token_Expiration_Date { get; set; }
-        public List<Security_Users_Roles> security_Users_Roles { get; set; }
+        public List<Security_Users_Roles> Security_Users_Roles { get; set; }
         public Security_Users GetUserData()
         {
             Security_Users user = this.Find<Security_Users>();
-            user.security_Users_Roles = new Security_Users_Roles() { 
+            user.Security_Users_Roles = new Security_Users_Roles() { 
                 Id_User = this.Id_User 
             }.Get<Security_Users_Roles>();
-            foreach (Security_Users_Roles role in user.security_Users_Roles)
+            foreach (Security_Users_Roles role in user.Security_Users_Roles)
             {
-                role.security_Role.GetRolData();
+                role.Security_Role.GetRolData();
             }
             return user;
         }
@@ -93,12 +93,12 @@ namespace CAPA_NEGOCIO.Security
             {
                 this.Update("Id_User");
             }
-            if (this.security_Users_Roles != null)
+            if (this.Security_Users_Roles != null)
             {
                 Security_Users_Roles IdI = new Security_Users_Roles();
                 IdI.Id_User = this.Id_User;
                 IdI.Delete();
-                foreach (Security_Users_Roles obj in this.security_Users_Roles)
+                foreach (Security_Users_Roles obj in this.Security_Users_Roles)
                 {
                     obj.Id_User = this.Id_User;
                     obj.Save();
@@ -111,7 +111,7 @@ namespace CAPA_NEGOCIO.Security
             var Security_Users_List = this.Get<Security_Users>();
             foreach (Security_Users User in Security_Users_List)
             {
-                User.security_Users_Roles =
+                User.Security_Users_Roles =
                     (new Security_Users_Roles()).Get_WhereIN<Security_Users_Roles>(
                          "Id_User", new string[] { User.Id_User.ToString() });
             }
@@ -131,14 +131,14 @@ namespace CAPA_NEGOCIO.Security
         public int? Id_Role { get; set; }
         public int? Id_Permission { get; set; }
         public string Estado { get; set; }
-        public Security_Permissions security_Permissions { get; set; }
+        public Security_Permissions Security_Permissions { get; set; }
     }
     public class Security_Users_Roles : EntityClass
     {
         public int? Id_Role { get; set; }
         public int? Id_User { get; set; }
         public string Estado { get; set; }
-        public Security_Roles  security_Role  { get; set; }
+        public Security_Roles  Security_Role  { get; set; }
           
     }
 }
