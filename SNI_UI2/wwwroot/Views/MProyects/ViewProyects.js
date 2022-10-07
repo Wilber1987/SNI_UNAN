@@ -126,8 +126,9 @@ class ViewProyectsTab extends HTMLElement {
             { Id_Proyecto: Id_Proyecto }
         );
         const ProyectMap = WRender.Create({}); 
-        const BodyComponents = new ProyectDetailViewer(response);
-        this.appendChild(WRender.createElement(ModalComp(BodyComponents, ProyectMap)));
+        const BodyComponents = new ProyectDetailViewer(response, DOMManager);
+        //this.appendChild(WRender.createElement(ModalComp(BodyComponents, ProyectMap)));
+        DOMManager.NavigateFunction("proyecto"+Id_Proyecto, BodyComponents)
     }
     Style = {
         type: "w-style",

@@ -1,17 +1,34 @@
 import { WRender, WArrayF, ComponentsManager, WAjaxTools } from '../../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
+import { css, WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import { WCardCarousel, WCard } from '../../WDevCore/WComponents/WCardCarousel.js';
 import { StylesControlsV1 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { ActionFunction } from '../Home.js';
 
 
 class InvestigacionViewer extends HTMLElement {
-    constructor(response) {
+    constructor(response, DomManager) {
         super();
         this.response = response;
+        this.DomManager = DomManager;
         this.InvestigacionContainer = WRender.createElement({ type: 'div', props: { class: 'InvestigacionContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
-        this.append(WRender.createElement(this.styleComponent), this.InvestigacionContainer);
+        this.profileCard = new WCard({
+            titulo: `${response.Investigador.Nombres}`,
+            picture: response.Investigador.Foto,
+            subtitulo: "Autor",
+            descripcion: response.Investigador.NombreInstitucion,
+            id_Investigador: response.Investigador.Id_Investigador
+        }, 2, () => {
+            ActionFunction(response.Id_Investigador, DomManager);
+        });
+        const BtnReturn = WRender.Create({
+            className: "GroupOptions", children: [{
+                tagName: 'input', type: 'button', className: 'BtnSuccess BtnReturn', value: 'Regresar', onclick: async () => {
+                    this.DomManager.Back()
+                }
+            }]
+        })
+        this.append(BtnReturn, WRender.createElement(this.styleComponent), this.InvestigacionContainer);
     }
     connectedCallback() {
         if (this.InvestigacionContainer.innerHTML != "") {
@@ -19,26 +36,32 @@ class InvestigacionViewer extends HTMLElement {
         }
         this.DrawComponent();
     }
-    DrawComponent = async () => {
-        const Card = WRender.createElement({
-            type: 'div',
-            props: { class: 'InvestigacionCard' }, children: [
+    DrawComponent = async () => {       
+        const Card = WRender.Create({
+            class: 'InvestigacionCard', children: [
+                this.profileCard,
                 {
-                    type: 'div', props: { id: '', class: 'Details' }, children: [
+                    class: 'Details', children: [
                         {
-                            type: 'a', props: {
-                                onclick: () => { }, innerText: (`${this.response.Titulo}`).toUpperCase()
-                            }
+                            class: "DetailsHeader", children: [{ tagName: 'label', onclick: () => { }, innerText: (`${this.response.Titulo}`).toUpperCase() }]
                         },
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Tipo: " + this.response.Descripcion],
-                        [{ type: 'img', props: { class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' } }, "Fecha: " + this.response.Fecha_ejecucion],
+                        [{ tagName: 'img', class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' }, "Tipo: " + this.response.Descripcion],
+                        [{ tagName: 'img', class: "imgIcon", src: 'https://static.witei.com/static/flat-icons/blueprint.2e0cd5ff617e.svg' }, "Fecha: " + this.response.Fecha_ejecucion],
                         [{
-                            type: 'input', props: {
-                                type: 'button', class: 'BtnPrimary', value: 'Leer...', onclick: async () => {
-                                    //window.location = this.response.url_publicacion;
-                                }
+                            tagName: 'input',
+                            tagName: 'button', class: 'BtnPrimary', innerHTML: 'Leer...', onclick: async () => {
+                                //window.location = this.response.url_publicacion;
+                                window.open(this.response.url_publicacion, "_blank");  
                             }
-                        }]
+                        }], WRender.CreateStringNode("<div class='DetailsHeader'>Disciplinas</div>"), {
+                            class: 'InvestigationDisciplineContainer',
+                            children: this.response.Disciplinas.map(element => {
+                                return {
+                                    tagName: 'label', style: { background: element.Disciplina.Color },
+                                    innerText: element.Disciplina.DescripcionDisciplina
+                                }
+                            })
+                        }
                     ]
                 }
             ]
@@ -66,7 +89,6 @@ class InvestigacionViewer extends HTMLElement {
             element.subtitulo = element.TipoColaboracion;
             element.descripcion = element.NombreInstitucion;
         });
-
         if (this.response.Photo == null) {
             this.response.Photo = ""
         }
@@ -76,164 +98,154 @@ class InvestigacionViewer extends HTMLElement {
                 props: { src: "data:image/png;base64," + this.response.Photo, class: 'photoBaner' }
             }));
         }
-        const DisplinesList = WRender.createElement({ type: 'div', props: { class: 'DisciplineClass' } });
-        DisplinesList.appendChild(WRender.createElement({
-            type: 'w-style', props: {
-                id: '', ClassList: [
-                    new WCssClass(`.DisciplineClass`, {
-                        display: 'flex',
-                    }), new WCssClass(`.DisciplineClass div`, {
-                        display: 'flex',
-                        "justify-content": "space-between",
-                        padding: 10,
-                        "border-radius": 10,
-                        filter: "invert(100%)",
-                        "background-color": "#999",
-                        margin: "10px 5px",
-                        cursor: "pointer",
-                        "font-weight": "bold"
-                    }), new WCssClass(`.DisciplineClass img`, {
-                        /*  height: 18,
-                         width: 18,
-                         "margin-left": 10 */
-                    }), new WCssClass(`.HeaderDis`, {
-                        "color": "#444",
-                        "font-size": "22px",
-                        "display": "flex",
-                        "justify-content": "center",
-                        "align-items": "center",
-                        margin: 10
-                    }),
-                ]
-            }
-        }));
-        this.response.Disciplinas.forEach(element => {
-            if (element.icono == null) {
-                return;
-            }
-            DisplinesList.appendChild(WRender.createElement({
-                type: 'div', props: {
-                    style: 'background:' + element.color, onclick: async () => {
-                        console.log(element)
-                    }
-                }, children: [
-                    element.descripcionDisciplina,
-                    { type: 'img', props: { src: 'data:image/png;base64,' + element.icono, class: 'className' } }
-                ]
-            }));
-        });
         this.InvestigacionContainer.append(WRender.createElement(Card));
-        this.InvestigacionContainer.append(WRender.CreateStringNode("<h3 class='HeaderDis'>Disciplinas</h3>"));
-        this.InvestigacionContainer.append(WRender.createElement(DisplinesList));
         this.InvestigacionContainer.append(WRender.createElement(Detaills));
         if (this.response.Colaboradores.length > 0) {
             const Colaboradores = new WCardCarousel(this.response.Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
-                ActionFunction(Object.Id_Investigador, this)
+                ActionFunction(Object.Id_Investigador, this.DomManager)
             }
             this.InvestigacionContainer.append(WRender.createElement({ type: 'h3', props: { innerText: 'Colaboradores' } }));
             this.InvestigacionContainer.append(WRender.createElement(Colaboradores));
         }
     }
-    styleComponent = {
-        type: 'w-style', props: {
-            ClassList: [new WCssClass(`w-view-read`, {
-                "background-color": '#fff',
-                display: "block",
-                "box-shadow": "0 0 4px 0 rgb(0,0,0,40%)",
-                "border-radius": "0.3cm",
-                padding: 20
-            }),
-            new WCssClass(`.photoBaner`, {
-                width: "95%",
-                "box-shadow": "0 0px 5px 0 rgba(0,0,0,0.6)",
-                "border-radius": "0.3cm",
-                "object-fit": "cover",
-            }), new WCssClass(`.InvestigacionContainer`, {
-                display: 'flex',
-                "align-items": "center",
-                "justify-content": "center",
-                "flex-wrap": "wrap",
-                "flex-direction": "column"
-            }), new WCssClass(`.InvestigacionCard`, {
-                display: 'flex',
-                width: "100%",
-                "margin-top": "10px !important",
-                overflow: "hidden",
-                position: "relative",
-                "border-radius": "0.3cm"
-            }), new WCssClass(`.InvestigacionCard .Details`, {
-                width: '100%',
-                "text-align": "left",
-                display: "grid",
-                "grid-template-columns": "33% 33% 33%",
-                "grid-template-rows": "50px 80px",
-                "grid-gap": 5,
-                "text-align": "center",
-                bottom: 0,
-                left: 10,
-                right: 0,
-                color: "#444"
-            }), new WCssClass(`.InvestigacionCard .Details a`, {
-                "grid-column": "1/4",
-                color: "#444 !important",
-                padding: 10,
-                margin: 0,
-                background: "rgb(187 187 187 / 50%)",
-                "font-size": 16,
-                "border-radius": "0.2cm"
-            }), new WCssClass(`.InvestigacionCard .Details div`, {
-                padding: 10,
-                background: "rgb(187 187 187 / 50%)",
-                "font-size": 14,
-                "border-radius": "0.2cm",
-                height: "calc(100% - 20px)",
-                display: "flex",
-                "flex-direction": "column",
-                "align-items": "center",
-                "justify-content": "center",
-            }), new WCssClass(`.InvestigacionCard .Details div .imgIcon`, {
-                height: "40px !important",
-                width: "40px !important"
-            }),
-            new WCssClass(`.Animate`, {
-                animation: "cambio 5s infinite",
-            }),
-            new WCssClass(`.InvestigacionCard img`, {
-                float: "left",
-                width: "400px !important",
-                height: "300px !important",
-            }), new WCssClass(`.PropiedadDetails`, {
-                display: 'grid',
-                "grid-template-columns": "100%",
-            }), new WCssClass(`.DetailsDiv`, {
-                padding: 10,
-            }), new WCssClass(`.DetailsDiv p`, {
-                "text-align": "justify",
-                "font-size": 14
-            }), new WCssClass(`.TagContainer`, {
-                display: "grid",
-                "grid-template-columns": "auto auto",
-            }), new WCssClass(`.TagContainer label`, {
-                padding: 10,
-                "border-radius": "0.2cm",
-                background: "#0084d2",
-                color: "#fff",
-                margin: 5,
-            }),
-            ], MediaQuery: [{
-                condicion: "(max-width: 800px)",
-                ClassList: [
-                    new WCssClass(`.InvestigacionContainer`, {
-                        overflow: "hidden",
-                        "flex-wrap": "inherit",
-                    }), new WCssClass(`w-card-carousel`, {
-                        width: "100%"
-                    }),
-                ]
-            }]
+    styleComponent = css`
+     w-view-read {
+            background-color: #fff;
+            display: block;
+            box-shadow: 0 0 4px 0 rgb(0, 0, 0, 40%);
+            border-radius: 0.3cm;
+            padding: 20px;
         }
-    };
+
+        .photoBaner {
+            width: 95%;
+            box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.6);
+            border-radius: 0.3cm;
+            object-fit: cover;
+        }       
+
+        .InvestigacionContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+        .InvestigacionCard .Details {
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 150px 80px 50px 50px;
+            grid-gap: 5px;
+            bottom: 0px;
+            left: 10px;
+            right: 0px;
+            color: #444;
+            margin: 10px;
+        }
+        
+        .InvestigacionCard {
+            display: flex;
+            width: 100%;
+            margin-top: 10px !important;
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.3cm;
+        }
+
+        .InvestigacionCard .Details a {
+            grid-column: 1/4;
+            color: #444 !important;
+            padding: 10px;
+            margin: 0px;
+            background: rgb(187 187 187 / 50%);
+            font-size: 16px;
+            border-radius: 0.2cm;
+        }
+
+        .InvestigacionCard .Details div {
+            padding: 10px;
+            background: rgb(187 187 187 / 50%);
+            font-size: 14px;
+            border-radius: 0.2cm;
+            height: calc(100% - 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .DetailsHeader{
+            grid-column: span 3;
+        }
+        .InvestigacionCard .Details .InvestigationDisciplineContainer{
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            grid-column: span 3;
+        }
+        .InvestigationDisciplineContainer label{
+            padding: 5px;
+            margin: 5px;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .InvestigacionCard .Details div .imgIcon {
+            height: 40px !important;
+            width: 40px !important;
+        }
+
+        .Animate {
+            animation: cambio 5s infinite;
+        }
+
+        .InvestigacionCard img {
+            float: left;
+            width: 400px !important;
+            height: 300px !important;
+        }
+
+        .PropiedadDetails {
+            display: grid;
+            grid-template-columns: 100%;
+        }
+
+        .DetailsDiv {
+            padding: 10px;
+        }
+
+        .DetailsDiv p {
+            text-align: justify;
+            font-size: 14px;
+        }
+
+        .TagContainer {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .TagContainer label {
+            padding: 10px;
+            border-radius: 0.2cm;
+            background: #0084d2;
+            color: #fff;
+            margin: 5px;
+        }
+
+        @media (max-width: 800px) {
+            .InvestigacionContainer {
+                overflow: hidden;
+                flex-wrap: inherit;
+            }
+
+            w-card-carousel {
+                width: 100%;
+            }
+        }
+    `;
 }
 customElements.define('w-view-read', InvestigacionViewer);
-export {InvestigacionViewer}
+export { InvestigacionViewer }

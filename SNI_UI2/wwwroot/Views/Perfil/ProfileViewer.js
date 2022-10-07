@@ -23,7 +23,7 @@ class WProfileInvestigador extends HTMLElement {
         this.ProfileContainer.append(Card);
         this.ProfileContainer.append(new ProfileCard(response));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
-        this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });
+        this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.shadowRoot.appendChild(WRender.createElement(StylesControlsV2));
         this.append(new WStyledRender({
             ClassList: [
@@ -57,7 +57,14 @@ class WProfileInvestigador extends HTMLElement {
                 Elements: this.TabElements()
             }
         });
-        this.shadowRoot.append(WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
+        const BtnReturn = WRender.Create({
+            className: "GroupOptions", children: [{
+                tagName: 'input', type: 'button', className: 'BtnSuccess BtnReturn', value: 'Regresar', onclick: async () => {
+                    this.Options.DOMManager.Back();
+                }
+            }]
+        })
+        this.shadowRoot.append(BtnReturn, WRender.createElement(this.styleComponent), this.ProfileContainer, this.ComponentTab, this.TabContainer);
     }
     connectedCallback() {
     }
@@ -68,15 +75,16 @@ class WProfileInvestigador extends HTMLElement {
             {
                 name: "Investigaciones", url: "#",
                 action: async (ev) => {
-                    this.DOMManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
+                    this.TabManager.NavigateFunction("Tab-Investigaciones", new ProfileTab(
                         this.response.Investigaciones,
-                        ["Titulo", "Fecha_ejecucion", "Estado"], "Investigaciones"
+                        ["Titulo", "Fecha_ejecucion", "Estado"], "Investigaciones",
+                        this.Options.DOMManager
                     ), "TabContainer");
                 }
             }, {
                 name: "Colaboraciones", url: "#",
                 action: async (ev) => {
-                    this.DOMManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
+                    this.TabManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
                         this.response.Colaboraciones.map(c => {
                             return {
                                 Titulo: c.Investigacion.Titulo,
@@ -84,13 +92,14 @@ class WProfileInvestigador extends HTMLElement {
                                 Fecha_ejecucion: c.Investigacion.Fecha_ejecucion
                             }
                         }),
-                        ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones"
+                        ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones",
+                        this.Options.DOMManager
                     ), "TabContainer");
                 }
             }, {
                 name: "Proyectos", url: "#",
                 action: async (ev) => {
-                    this.DOMManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
+                    this.TabManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
                         this.response.Proyectos.map(c => {
                             return {
                                 Nombre_Proyecto: c.Proyecto.Nombre_Proyecto,
@@ -98,7 +107,8 @@ class WProfileInvestigador extends HTMLElement {
                                 Estado_Proyecto: c.Proyecto.Estado_Proyecto
                             }
                         }),
-                        ["Nombre_Proyecto", "Cargo", "Estado_Proyecto"], "Proyectos"
+                        ["Nombre_Proyecto", "Cargo", "Estado_Proyecto"], "Proyectos",
+                        this.Options.DOMManager
                     ), "TabContainer");
                 }
             }
@@ -107,7 +117,7 @@ class WProfileInvestigador extends HTMLElement {
             tabElements.unshift({
                 name: "Datos Laborales", url: "#",
                 action: async (ev) => {
-                    this.DOMManager.NavigateFunction("Tab-DatosLaborales", new ProfileTab(
+                    this.TabManager.NavigateFunction("Tab-DatosLaborales", new ProfileTab(
                         this.response.DatosLaborales,
                         ["Unidad", "Institucion", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
                     ), "TabContainer");
@@ -118,9 +128,10 @@ class WProfileInvestigador extends HTMLElement {
             tabElements.unshift({
                 name: "Formación Académica", url: "#",
                 action: async (ev) => {
-                    this.DOMManager.NavigateFunction("Tab-Formacion", new ProfileTab(
+                    this.TabManager.NavigateFunction("Tab-Formacion", new ProfileTab(
                         this.response.FormacionAcademica,
-                        ["Disciplina", "Id_Cargo", "Fecha_Inicio", "Fecha_Finalizacion"], "none"
+                        ["Disciplina", "Id_Cargo", "Fecha_Inicio", "Fecha_Finalizacion"], "none",
+                        this.Options.DOMManager
                     ), "TabContainer");
                 }
             });
@@ -183,7 +194,7 @@ class WProfileInvestigador extends HTMLElement {
     };
 }
 class ProfileTab extends HTMLElement {
-    constructor(Dataset = [], DisplayData = [], name) { 
+    constructor(Dataset = [], DisplayData = [], name, DOMManager) { 
         super();
         let urlAction;
         let idAction;
@@ -215,14 +226,12 @@ class ProfileTab extends HTMLElement {
             };
             if (action) {
                 TableConfigG.Options.UserActions.push({
-                    name: "Leer..", Function: (element) => {
-                        
+                    name: "Leer..", Function: (element) => {                        
                         switch (idAction) {
                             case "Id_Investigacion":
-                                ChargeInvestigacion(element, this)
+                                ChargeInvestigacion(element, DOMManager)
                                 break;
                             case "Id_Proyecto":
-
                                 break;
                         }                       
                     }

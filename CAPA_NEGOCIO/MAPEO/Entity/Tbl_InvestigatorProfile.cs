@@ -23,7 +23,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Institucion { get; set; }
         public string Indice_H { get; set; }
         public string Estado { get; set; }
-        public string NombreInstitucion { get; set; }     
+        public string NombreInstitucion { get; set; }
 
         public List<Tbl_Investigaciones> Investigaciones { get; set; }
         public List<Tbl_Colaboradores> Colaboraciones { get; set; }
@@ -44,7 +44,7 @@ namespace CAPA_NEGOCIO.MAPEO
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
             return DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[] { "1", "2" });
-        }       
+        }
         public Object TakeInvestigadorProfile()
         {
             try
@@ -63,7 +63,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 ModelProyectos.Id_Investigador = this.Id_Investigador;
                 Investigador.Proyectos = ModelProyectos.Get<Tbl_Participantes_Proyectos>();
                 //Idiomas
-                Investigador.Id_Idiomas = new Tbl_IdiomasInv(){ Id_Investigador = this.Id_Investigador}.Get<Tbl_IdiomasInv>();
+                Investigador.Id_Idiomas = new Tbl_IdiomasInv() { Id_Investigador = this.Id_Investigador }.Get<Tbl_IdiomasInv>();
                 //RedesSociales
                 CatRedesSociales ModelRedes = new CatRedesSociales();
                 ModelRedes.Id_Investigador = this.Id_Investigador;
@@ -90,8 +90,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 tbl_Distinciones.Id_Investigador = this.Id_Investigador;
                 Investigador.Distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
 
-                Investigador.ProcesosEditoriales =
-                    (new TblProcesosEditoriales()).Get_WhereIN<TblProcesosEditoriales>(
+                Investigador.ProcesosEditoriales = new TblProcesosEditoriales().Get_WhereIN<TblProcesosEditoriales>(
                         "Id_Investigador", new string[] { this.Id_Investigador.ToString() }
                         );
                 return Investigador;
@@ -180,7 +179,7 @@ namespace CAPA_NEGOCIO.MAPEO
                     Token = Guid.NewGuid().ToString(),
                     Token_Date = DateTime.Now,
                     Token_Expiration_Date = DateTime.Now.AddMonths(6),
-                    Security_Users_Roles = new List<Security_Users_Roles>(){ 
+                    Security_Users_Roles = new List<Security_Users_Roles>(){
                         new Security_Users_Roles() { Id_Role = 2 }
                     }
                 }.SaveUser();

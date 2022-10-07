@@ -6,12 +6,20 @@ import { ActionFunction } from '../Home.js';
 
 
 class ProyectDetailViewer extends HTMLElement {
-    constructor(response) {
+    constructor(response, DOMManager) {
         super();
+        this.DOMManager = DOMManager;
         this.response = response;
         this.ProyectContainer = WRender.createElement({ type: 'div', props: { class: 'ProyectContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
-        this.append(WRender.createElement(this.styleComponent), this.ProyectContainer);
+        const BtnReturn = WRender.Create({
+            className: "GroupOptions", children: [{
+                tagName: 'input', type: 'button', className: 'BtnSuccess BtnReturn', value: 'Regresar', onclick: async () => {
+                    this.DOMManager.Back();
+                }
+            }]
+        })
+        this.append(BtnReturn, WRender.createElement(this.styleComponent), this.ProyectContainer);
     }
     connectedCallback() {
         if (this.ProyectContainer.innerHTML != "") {
@@ -55,7 +63,7 @@ class ProyectDetailViewer extends HTMLElement {
         });
         const Colaboradores = new WCardCarousel(this.response.Participantes);
         Colaboradores.ActionFunction = (Object) => {
-            ActionFunction(Object.Id_Investigador);
+            ActionFunction(Object.Id_Investigador, this.DOMManager);
         }
         this.ProyectContainer.append(WRender.createElement(Colaboradores));
     }

@@ -14,6 +14,7 @@ class HomeClass extends HTMLElement {
         this.className = "HomeClass DivContainer";
         this.response = response;
         this.contain = WRender.createElement({ type: 'div', props: { id: '', class: 'CardContainer' }, children: [] });
+        this.DOMManager = new ComponentsManager({ MainContainer: this });
         this.append(WRender.createElement(this.Style));
         this.append(this.contain);
     }
@@ -24,7 +25,7 @@ class HomeClass extends HTMLElement {
         this.DrawComponent();
     }
     DrawComponent = async () => {
-        this.append(new InvestigacionesViewer({
+        this.DOMManager.NavigateFunction("InvestigacionesViewer", new InvestigacionesViewer({
             id: "Artcles",
             ArticleHeader: ["Foto", "Nombres", "Apellidos", "Fecha_ejecucion"],
             ArticleBody: ["Titulo", "Investigador", "Resumen"],
@@ -33,12 +34,12 @@ class HomeClass extends HTMLElement {
                 ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                 UserActions: [{
                     name: "Leer...", Function: async (Investigacion) => {
-                        await ChargeInvestigacion(Investigacion, this);
+                        await ChargeInvestigacion(Investigacion, this.DOMManager);
                     }
                 }]
             }
-        }))
-    }    
+        }));
+    }
     Style = {
         type: "w-style",
         props: {
@@ -75,10 +76,10 @@ class HomeClass extends HTMLElement {
                 ]
             }]
         }
-    };    
+    };
 }
 customElements.define("app-home", HomeClass);
-const ActionFunction = async (Id_Investigador, Container) => {
+const ActionFunction = async (Id_Investigador, DOMManager) => {
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
         { Id_Investigador: Id_Investigador }
     );
@@ -99,9 +100,8 @@ const ActionFunction = async (Id_Investigador, Container) => {
             divRedes
         ]
     });
-    const BodyComponents = new WProfileInvestigador(response);
-    const Modal = ModalComp(BodyComponents, dataResume);
-    Container.appendChild(WRender.createElement(Modal));
+    const BodyComponents = new WProfileInvestigador(response, { DOMManager: DOMManager });
+    DOMManager.NavigateFunction("Investigador" + Id_Investigador, BodyComponents);
 }
 
 function ModalComp(BodyComponents, dataResume) {
@@ -118,23 +118,13 @@ function ModalComp(BodyComponents, dataResume) {
         })
     });
 }
-async function ChargeInvestigacion(Investigacion, Container) {
+async function ChargeInvestigacion(Investigacion, DOMManager) {
     const Id_Investigacion = Investigacion.Id_Investigacion;
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
         { Id_Investigacion: Id_Investigacion }
     );
-    const Card = new WCard({
-        titulo: `${response.Investigador.Nombres}`,
-        picture: response.Investigador.Foto,
-        subtitulo: "Autor",
-        descripcion: response.Investigador.NombreInstitucion,
-        id_Investigador: response.Investigador.Id_Investigador
-    }, 2, () => {
-        ActionFunction(response.Id_Investigador, Container);
-    });
-    const Reader = new InvestigacionViewer(response);
-    const Modal = ModalComp(Reader, Card);    
-    Container.append(Modal);
+    const Reader = new InvestigacionViewer(response, DOMManager);
+    DOMManager.NavigateFunction("Investigacion"+Id_Investigacion, Reader);
 }
 
-export { HomeClass, ActionFunction, ModalComp, ChargeInvestigacion}
+export { HomeClass, ActionFunction, ModalComp, ChargeInvestigacion }
