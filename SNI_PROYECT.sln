@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "USAV_WEB", "USAV_WEB", "{0D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI_USAV", "UI_USAV\UI_USAV.csproj", "{1C294730-559B-4C71-BA6A-3A4B1344D0B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGenerator", "AppGenerator\AppGenerator.csproj", "{7F624FF7-A981-435A-A4F7-26268874221C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{1C294730-559B-4C71-BA6A-3A4B1344D0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C294730-559B-4C71-BA6A-3A4B1344D0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C294730-559B-4C71-BA6A-3A4B1344D0B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F624FF7-A981-435A-A4F7-26268874221C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F624FF7-A981-435A-A4F7-26268874221C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F624FF7-A981-435A-A4F7-26268874221C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F624FF7-A981-435A-A4F7-26268874221C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

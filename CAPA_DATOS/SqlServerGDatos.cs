@@ -270,6 +270,68 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + " AND ";
             }
         }
+
+
+        //DATA SQUEMA
+        public List<EntitySchema> databaseSchemas()
+        {
+            string DescribeQuery = @"SELECT TABLE_SCHEMA FROM [INFORMATION_SCHEMA].[TABLES]  group by TABLE_SCHEMA";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            var es = ConvertDataTable<EntitySchema>(Table, new EntitySchema());
+            return es;
+        }
+
+        public List<EntitySchema> databaseTypes()
+        {
+            string DescribeQuery = @"SELECT TABLE_TYPE FROM [INFORMATION_SCHEMA].[TABLES]  group by TABLE_TYPE";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            var es = ConvertDataTable<EntitySchema>(Table, new EntitySchema());
+            return es;
+        }
+        public List<EntitySchema> describeSchema(string schema, string type)
+        {
+            string DescribeQuery = @"SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE 
+                                    FROM [INFORMATION_SCHEMA].[TABLES]  
+                                    where TABLE_SCHEMA = '" + schema + "' and TABLE_TYPE = '" + type + "'";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            var es = ConvertDataTable<EntitySchema>(Table, new EntitySchema());
+            return es;
+        }
+
+        public List<EntityProps> describeEntity(string entityName)
+        {
+            string DescribeQuery = @"SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE
+                                    from [INFORMATION_SCHEMA].[COLUMNS] 
+                                    WHERE [TABLE_NAME] = '" + entityName
+                                   + "' order by [ORDINAL_POSITION]";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            return ConvertDataTable<EntityProps>(Table, new EntityProps());
+        }
+
+        public List<OneToOneSchema> oneToOneKeys(string entityName)
+        {
+            string DescribeQuery = @"SELECT   
+                    f.name AS foreign_key_name  
+                   ,OBJECT_NAME(f.parent_object_id) AS TABLE_NAME  
+                   ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS CONSTRAINT_COLUMN_NAME  
+                   ,OBJECT_NAME (f.referenced_object_id) AS REFERENCE_TABLE_NAME  
+                   ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS REFERENCE_COLUMN_NAME  
+                   ,f.is_disabled, f.is_not_trusted
+                   ,f.delete_referential_action_desc  
+                   ,f.update_referential_action_desc  
+                FROM sys.foreign_keys AS f  
+                INNER JOIN sys.foreign_key_columns AS fc   
+                   ON f.object_id = fc.constraint_object_id   
+                WHERE f.parent_object_id = OBJECT_ID('" + entityName + "')";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            return ConvertDataTable<OneToOneSchema>(Table, new OneToOneSchema());
+        }
+        public List<OneToManySchema> oneToManyKeys(string entityName)
+        {
+            string DescribeQuery = @"exec sp_fkeys '" + entityName + "'";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            return ConvertDataTable<OneToManySchema>(Table, new OneToManySchema());
+        }
     }
 
 }
