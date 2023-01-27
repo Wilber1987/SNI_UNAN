@@ -35,7 +35,12 @@
       "ProjectGuid": "e84f61c0-c447-41b7-9469-689b4770bdc2",
       "DisplayName": "SECURITY",
       "ColorIndex": 5
+    },
+    "7f624ff7-a981-435a-a4f7-26268874221c": {
+      "ProjectGuid": "7f624ff7-a981-435a-a4f7-26268874221c",
+      "DisplayName": "AppGenerator",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 7
 }

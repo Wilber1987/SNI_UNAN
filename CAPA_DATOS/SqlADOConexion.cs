@@ -8,7 +8,7 @@ namespace CAPA_DATOS
     {
         private static string UserSQLConexion = "";
         public static SqlServerGDatos SQLM;
-        public static string DataBaseNameSNIBD = "SNIBD";
+        public static string DataBaseNameSNIBD = "SIGFACT";
         public static string DataBaseNameSIAC_BD = "SIAC_BD";
         public static bool Anonimo = true;
         //static string SQLServer = ".";
