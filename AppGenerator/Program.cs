@@ -36,7 +36,7 @@ namespace AppGenerate
                         controllerString.AppendLine("   }");
                         controllerString.AppendLine("}");
                         createDataBaseModelFile(entityString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
-                        createDataBaseJSModelFile(controllerString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
+                        createDataBaseJSModelFile(jsEntityString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
                         createApiControllerFile(controllerString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
                     }
                 }
