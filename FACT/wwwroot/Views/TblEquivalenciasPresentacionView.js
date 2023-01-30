@@ -6,9 +6,9 @@ class TblEquivalenciasPresentacionView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new TblEquivalenciasPresentacion(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveTblEquivalenciasPresentacion",
-           Edit: true, UrlUpdate: "../api/Admin/updateTblEquivalenciasPresentacion",
-           Search: true, UrlSearch: "../api/Admin/getTblEquivalenciasPresentacion"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveTblEquivalenciasPresentacion",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateTblEquivalenciasPresentacion",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getTblEquivalenciasPresentacion"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class TblEquivalenciasPresentacionView extends HTMLElement {
    }
 }
 export { TblEquivalenciasPresentacionView }
-window.addEventListener('load', async () => {  MainBody.append(new TblEquivalenciasPresentacionView())  }
+window.addEventListener('load', async () => {  MainBody.append(new TblEquivalenciasPresentacionView())  })

@@ -6,9 +6,9 @@ class CatalogoProductoView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new CatalogoProducto(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveCatalogoProducto",
-           Edit: true, UrlUpdate: "../api/Admin/updateCatalogoProducto",
-           Search: true, UrlSearch: "../api/Admin/getCatalogoProducto"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveCatalogoProducto",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateCatalogoProducto",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getCatalogoProducto"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class CatalogoProductoView extends HTMLElement {
    }
 }
 export { CatalogoProductoView }
-window.addEventListener('load', async () => {  MainBody.append(new CatalogoProductoView())  }
+window.addEventListener('load', async () => {  MainBody.append(new CatalogoProductoView())  })

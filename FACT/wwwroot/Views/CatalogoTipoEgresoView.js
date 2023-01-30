@@ -6,9 +6,9 @@ class CatalogoTipoEgresoView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new CatalogoTipoEgreso(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveCatalogoTipoEgreso",
-           Edit: true, UrlUpdate: "../api/Admin/updateCatalogoTipoEgreso",
-           Search: true, UrlSearch: "../api/Admin/getCatalogoTipoEgreso"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveCatalogoTipoEgreso",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateCatalogoTipoEgreso",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getCatalogoTipoEgreso"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class CatalogoTipoEgresoView extends HTMLElement {
    }
 }
 export { CatalogoTipoEgresoView }
-window.addEventListener('load', async () => {  MainBody.append(new CatalogoTipoEgresoView())  }
+window.addEventListener('load', async () => {  MainBody.append(new CatalogoTipoEgresoView())  })

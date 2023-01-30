@@ -1,11 +1,11 @@
-using CAPA_NEGOCIO.MAPEO;
+using DataBaseModel;
+using Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-[Route("api/[controller]/[action]")]
-[ApiController]
-[ApiController]
-namespace MODEL.Controllers {
-   public class EntityController : ControllerBase {
+namespace API.Controllers {
+   [Route("api/[controller]/[action]")]
+   [ApiController]
+   public class securityController : ControllerBase {
        //Security_Permissions
        [HttpPost]
        [AuthController]
@@ -20,6 +20,22 @@ namespace MODEL.Controllers {
        [HttpPost]
        [AuthController]
        public object updateSecurity_Permissions(Security_Permissions inst) {
+           return inst.Update();
+       }
+       //Security_Permissions_Roles
+       [HttpPost]
+       [AuthController]
+       public List<Security_Permissions_Roles> getSecurity_Permissions_Roles() {
+           return new Security_Permissions_Roles().Get<Security_Permissions_Roles>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
            return inst.Update();
        }
        //Security_Roles
@@ -52,22 +68,6 @@ namespace MODEL.Controllers {
        [HttpPost]
        [AuthController]
        public object updateSecurity_Users(Security_Users inst) {
-           return inst.Update();
-       }
-       //Security_Permissions_Roles
-       [HttpPost]
-       [AuthController]
-       public List<Security_Permissions_Roles> getSecurity_Permissions_Roles() {
-           return new Security_Permissions_Roles().Get<Security_Permissions_Roles>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
            return inst.Update();
        }
        //Security_Users_Roles

@@ -6,9 +6,9 @@ class Security_Users_RolesView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new Security_Users_Roles(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveSecurity_Users_Roles",
-           Edit: true, UrlUpdate: "../api/Admin/updateSecurity_Users_Roles",
-           Search: true, UrlSearch: "../api/Admin/getSecurity_Users_Roles"
+           Add: true, UrlAdd: "../api/ApiEntitySECURITY/saveSecurity_Users_Roles",
+           Edit: true, UrlUpdate: "../api/ApiEntitySECURITY/updateSecurity_Users_Roles",
+           Search: true, UrlSearch: "../api/ApiEntitySECURITY/getSecurity_Users_Roles"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class Security_Users_RolesView extends HTMLElement {
    }
 }
 export { Security_Users_RolesView }
-window.addEventListener('load', async () => {  MainBody.append(new Security_Users_RolesView())  }
+window.addEventListener('load', async () => {  MainBody.append(new Security_Users_RolesView())  })

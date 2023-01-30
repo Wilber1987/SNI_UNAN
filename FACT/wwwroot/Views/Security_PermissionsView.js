@@ -6,9 +6,9 @@ class Security_PermissionsView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new Security_Permissions(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveSecurity_Permissions",
-           Edit: true, UrlUpdate: "../api/Admin/updateSecurity_Permissions",
-           Search: true, UrlSearch: "../api/Admin/getSecurity_Permissions"
+           Add: true, UrlAdd: "../api/ApiEntitySECURITY/saveSecurity_Permissions",
+           Edit: true, UrlUpdate: "../api/ApiEntitySECURITY/updateSecurity_Permissions",
+           Search: true, UrlSearch: "../api/ApiEntitySECURITY/getSecurity_Permissions"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class Security_PermissionsView extends HTMLElement {
    }
 }
 export { Security_PermissionsView }
-window.addEventListener('load', async () => {  MainBody.append(new Security_PermissionsView())  }
+window.addEventListener('load', async () => {  MainBody.append(new Security_PermissionsView())  })

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj": {}
+    "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj": {}
   },
   "projects": {
-    "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
+    "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj",
+        "projectUniqueName": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj",
         "projectName": "CAPA_DATOS",
-        "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\obj\\",
+        "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj",
+        "packagesPath": "C:\\Users\\wilbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -82,20 +82,20 @@
         }
       }
     },
-    "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj": {
+    "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj",
+        "projectUniqueName": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj",
         "projectName": "CAPA_MODEL",
-        "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_MODEL\\obj\\",
+        "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_MODEL\\CAPA_MODEL.csproj",
+        "packagesPath": "C:\\Users\\wilbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_MODEL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -110,11 +110,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
-                "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj"
+              "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
+                "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj"
               },
-              "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\SECURITY.csproj": {
-                "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\SECURITY.csproj"
+              "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\SECURITY.csproj": {
+                "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\SECURITY.csproj"
               }
             }
           }
@@ -147,20 +147,20 @@
         }
       }
     },
-    "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\SECURITY.csproj": {
+    "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\SECURITY.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\SECURITY.csproj",
+        "projectUniqueName": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\SECURITY.csproj",
         "projectName": "SECURITY",
-        "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\SECURITY.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\SNI_UNAN\\SECURITY\\obj\\",
+        "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\SECURITY.csproj",
+        "packagesPath": "C:\\Users\\wilbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\SECURITY\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -175,8 +175,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
-                "projectPath": "C:\\xampp\\htdocs\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj"
+              "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj": {
+                "projectPath": "C:\\Users\\wilbe\\source\\repos\\SNI_UNAN\\CAPA_DATOS\\CAPA_DATOS.csproj"
               }
             }
           }

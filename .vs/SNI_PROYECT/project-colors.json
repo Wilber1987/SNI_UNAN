@@ -40,7 +40,22 @@
       "ProjectGuid": "7f624ff7-a981-435a-a4f7-26268874221c",
       "DisplayName": "AppGenerator",
       "ColorIndex": 6
+    },
+    "35f7c267-97ff-4b24-8955-d865f799fe99": {
+      "ProjectGuid": "35f7c267-97ff-4b24-8955-d865f799fe99",
+      "DisplayName": "FACT",
+      "ColorIndex": 7
+    },
+    "5806afe9-5307-4a8d-b02c-25b888b171ed": {
+      "ProjectGuid": "5806afe9-5307-4a8d-b02c-25b888b171ed",
+      "DisplayName": "FACT_NEGOCIO",
+      "ColorIndex": 8
+    },
+    "1c294730-559b-4c71-ba6a-3a4b1344d0b6": {
+      "ProjectGuid": "1c294730-559b-4c71-ba6a-3a4b1344d0b6",
+      "DisplayName": "UI_USAV",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 10
 }

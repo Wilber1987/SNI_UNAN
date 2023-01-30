@@ -6,9 +6,9 @@ class TblDetalleFacturaView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new TblDetalleFactura(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveTblDetalleFactura",
-           Edit: true, UrlUpdate: "../api/Admin/updateTblDetalleFactura",
-           Search: true, UrlSearch: "../api/Admin/getTblDetalleFactura"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveTblDetalleFactura",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateTblDetalleFactura",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getTblDetalleFactura"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class TblDetalleFacturaView extends HTMLElement {
    }
 }
 export { TblDetalleFacturaView }
-window.addEventListener('load', async () => {  MainBody.append(new TblDetalleFacturaView())  }
+window.addEventListener('load', async () => {  MainBody.append(new TblDetalleFacturaView())  })

@@ -36,7 +36,7 @@ namespace CAPA_DATOS
         }
         protected override List<EntityProps> DescribeEntity(string entityName)
         {
-            string DescribeQuery = @"SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE
+            string DescribeQuery = @"SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE, TABLE_SCHEMA
                                     from [INFORMATION_SCHEMA].[COLUMNS] 
                                     WHERE [TABLE_NAME] = '" + entityName
                                    + "' order by [ORDINAL_POSITION]";
@@ -231,7 +231,7 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + " AND ";
             }
             Columns = Columns.TrimEnd(',');
-            string queryString = "SELECT " + Columns + " FROM " + Inst.GetType().Name + CondicionString + CondSQL;
+            string queryString = "SELECT " + Columns + " FROM " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + CondicionString + CondSQL;
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
         }

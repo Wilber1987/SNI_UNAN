@@ -6,9 +6,9 @@ class TblLotesView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new TblLotes(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveTblLotes",
-           Edit: true, UrlUpdate: "../api/Admin/updateTblLotes",
-           Search: true, UrlSearch: "../api/Admin/getTblLotes"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveTblLotes",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateTblLotes",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getTblLotes"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class TblLotesView extends HTMLElement {
    }
 }
 export { TblLotesView }
-window.addEventListener('load', async () => {  MainBody.append(new TblLotesView())  }
+window.addEventListener('load', async () => {  MainBody.append(new TblLotesView())  })

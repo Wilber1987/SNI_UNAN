@@ -6,9 +6,9 @@ class CatalogoOfertaEspecialView extends HTMLElement {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new CatalogoOfertaEspecial(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveCatalogoOfertaEspecial",
-           Edit: true, UrlUpdate: "../api/Admin/updateCatalogoOfertaEspecial",
-           Search: true, UrlSearch: "../api/Admin/getCatalogoOfertaEspecial"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveCatalogoOfertaEspecial",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateCatalogoOfertaEspecial",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getCatalogoOfertaEspecial"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,4 +19,4 @@ class CatalogoOfertaEspecialView extends HTMLElement {
    }
 }
 export { CatalogoOfertaEspecialView }
-window.addEventListener('load', async () => {  MainBody.append(new CatalogoOfertaEspecialView())  }
+window.addEventListener('load', async () => {  MainBody.append(new CatalogoOfertaEspecialView())  })
