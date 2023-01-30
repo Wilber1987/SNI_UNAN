@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { TblCaracteristicasProductos } from "../FrontModel/DBODataBaseModel.js"
 class TblCaracteristicasProductosView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class TblCaracteristicasProductosView extends HTMLElement {
        );
    }
 }
-export { TblCaracteristicasProductosView }
+customElements.define('w-tblcaracteristicasproductos', TblCaracteristicasProductosView );
 window.addEventListener('load', async () => {  MainBody.append(new TblCaracteristicasProductosView())  })

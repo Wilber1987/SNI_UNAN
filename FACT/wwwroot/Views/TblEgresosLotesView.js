@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { TblEgresosLotes } from "../FrontModel/DBODataBaseModel.js"
 class TblEgresosLotesView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class TblEgresosLotesView extends HTMLElement {
        );
    }
 }
-export { TblEgresosLotesView }
+customElements.define('w-tblegresoslotes', TblEgresosLotesView );
 window.addEventListener('load', async () => {  MainBody.append(new TblEgresosLotesView())  })

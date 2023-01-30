@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { TblDetalleFactura } from "../FrontModel/DBODataBaseModel.js"
 class TblDetalleFacturaView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class TblDetalleFacturaView extends HTMLElement {
        );
    }
 }
-export { TblDetalleFacturaView }
+customElements.define('w-tbldetallefactura', TblDetalleFacturaView );
 window.addEventListener('load', async () => {  MainBody.append(new TblDetalleFacturaView())  })

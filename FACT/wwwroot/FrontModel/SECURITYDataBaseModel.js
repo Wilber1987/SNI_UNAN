@@ -1,90 +1,68 @@
-using DataBaseModel;
-using Security;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-namespace API.Controllers {
-   [Route("api/[controller]/[action]")]
-   [ApiController]
-   public class securityController : ControllerBase {
-       //Security_Permissions
-       [HttpPost]
-       [AuthController]
-       public List<Security_Permissions> getSecurity_Permissions() {
-           return new Security_Permissions().Get<Security_Permissions>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Permissions(Security_Permissions inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Permissions(Security_Permissions inst) {
-           return inst.Update();
-       }
-       //Security_Permissions_Roles
-       [HttpPost]
-       [AuthController]
-       public List<Security_Permissions_Roles> getSecurity_Permissions_Roles() {
-           return new Security_Permissions_Roles().Get<Security_Permissions_Roles>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
-           return inst.Update();
-       }
-       //Security_Roles
-       [HttpPost]
-       [AuthController]
-       public List<Security_Roles> getSecurity_Roles() {
-           return new Security_Roles().Get<Security_Roles>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Roles(Security_Roles inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Roles(Security_Roles inst) {
-           return inst.Update();
-       }
-       //Security_Users
-       [HttpPost]
-       [AuthController]
-       public List<Security_Users> getSecurity_Users() {
-           return new Security_Users().Get<Security_Users>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Users(Security_Users inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Users(Security_Users inst) {
-           return inst.Update();
-       }
-       //Security_Users_Roles
-       [HttpPost]
-       [AuthController]
-       public List<Security_Users_Roles> getSecurity_Users_Roles() {
-           return new Security_Users_Roles().Get<Security_Users_Roles>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Users_Roles(Security_Users_Roles inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Users_Roles(Security_Users_Roles inst) {
-           return inst.Update();
+import { EntityClass } from "../WDevCore/WModules/EntityClass.js";
+import { WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
+class Security_Permissions extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
        }
    }
+   Id_Permission = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
 }
+export { Security_Permissions }
+class Security_Permissions_Roles extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Role = { type: 'number' };
+   Id_Permission = { type: 'number' };
+   Estado = { type: 'text' };
+}
+export { Security_Permissions_Roles }
+class Security_Roles extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Role = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
+}
+export { Security_Roles }
+class Security_Users extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_User = { type: 'number' };
+   Nombres = { type: 'text' };
+   Estado = { type: 'text' };
+   Descripcion = { type: 'text' };
+   Password = { type: 'text' };
+   Mail = { type: 'text' };
+   Token = { type: 'text' };
+   Token_Date = { type: 'date' };
+   Token_Expiration_Date = { type: 'date' };
+}
+export { Security_Users }
+class Security_Users_Roles extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Role = { type: 'number' };
+   Id_User = { type: 'number' };
+   Estado = { type: 'text' };
+}
+export { Security_Users_Roles }

@@ -115,7 +115,7 @@ namespace Security
                 const LoginForm = new WForm({
                     ModelObject: { Mail: { type: 'mail'}, Password: { type: 'password' } } ,
                     SaveFunction: async (UserData) => { 
-                        WSecurity.Login(UserData)
+                        WSecurity.Login(UserData, window.location.origin)
                     }
                 });
                 App.appendChild(LoginForm);

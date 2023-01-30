@@ -1,266 +1,268 @@
-using DataBaseModel;
-using Security;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-namespace API.Controllers {
-   [Route("api/[controller]/[action]")]
-   [ApiController]
-   public class dboController : ControllerBase {
-       //CatalogoAlmacen
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoAlmacen> getCatalogoAlmacen() {
-           return new CatalogoAlmacen().Get<CatalogoAlmacen>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoAlmacen(CatalogoAlmacen inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoAlmacen(CatalogoAlmacen inst) {
-           return inst.Update();
-       }
-       //CatalogoCaracteristicas
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoCaracteristicas> getCatalogoCaracteristicas() {
-           return new CatalogoCaracteristicas().Get<CatalogoCaracteristicas>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
-           return inst.Update();
-       }
-       //CatalogoCategorias
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoCategorias> getCatalogoCategorias() {
-           return new CatalogoCategorias().Get<CatalogoCategorias>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoCategorias(CatalogoCategorias inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoCategorias(CatalogoCategorias inst) {
-           return inst.Update();
-       }
-       //CatalogoClientes
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoClientes> getCatalogoClientes() {
-           return new CatalogoClientes().Get<CatalogoClientes>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoClientes(CatalogoClientes inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoClientes(CatalogoClientes inst) {
-           return inst.Update();
-       }
-       //CatalogoOfertaEspecial
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoOfertaEspecial> getCatalogoOfertaEspecial() {
-           return new CatalogoOfertaEspecial().Get<CatalogoOfertaEspecial>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
-           return inst.Update();
-       }
-       //CatalogoPresentacion
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoPresentacion> getCatalogoPresentacion() {
-           return new CatalogoPresentacion().Get<CatalogoPresentacion>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoPresentacion(CatalogoPresentacion inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoPresentacion(CatalogoPresentacion inst) {
-           return inst.Update();
-       }
-       //CatalogoProducto
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoProducto> getCatalogoProducto() {
-           return new CatalogoProducto().Get<CatalogoProducto>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoProducto(CatalogoProducto inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoProducto(CatalogoProducto inst) {
-           return inst.Update();
-       }
-       //CatalogoTipoDetalle
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoTipoDetalle> getCatalogoTipoDetalle() {
-           return new CatalogoTipoDetalle().Get<CatalogoTipoDetalle>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoTipoDetalle(CatalogoTipoDetalle inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoTipoDetalle(CatalogoTipoDetalle inst) {
-           return inst.Update();
-       }
-       //CatalogoTipoEgreso
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoTipoEgreso> getCatalogoTipoEgreso() {
-           return new CatalogoTipoEgreso().Get<CatalogoTipoEgreso>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
-           return inst.Update();
-       }
-       //TblCaracteristicasProductos
-       [HttpPost]
-       [AuthController]
-       public List<TblCaracteristicasProductos> getTblCaracteristicasProductos() {
-           return new TblCaracteristicasProductos().Get<TblCaracteristicasProductos>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblCaracteristicasProductos(TblCaracteristicasProductos inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblCaracteristicasProductos(TblCaracteristicasProductos inst) {
-           return inst.Update();
-       }
-       //TblDetalleFactura
-       [HttpPost]
-       [AuthController]
-       public List<TblDetalleFactura> getTblDetalleFactura() {
-           return new TblDetalleFactura().Get<TblDetalleFactura>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblDetalleFactura(TblDetalleFactura inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblDetalleFactura(TblDetalleFactura inst) {
-           return inst.Update();
-       }
-       //TblDetalleLotes
-       [HttpPost]
-       [AuthController]
-       public List<TblDetalleLotes> getTblDetalleLotes() {
-           return new TblDetalleLotes().Get<TblDetalleLotes>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblDetalleLotes(TblDetalleLotes inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblDetalleLotes(TblDetalleLotes inst) {
-           return inst.Update();
-       }
-       //TblEgresosLotes
-       [HttpPost]
-       [AuthController]
-       public List<TblEgresosLotes> getTblEgresosLotes() {
-           return new TblEgresosLotes().Get<TblEgresosLotes>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblEgresosLotes(TblEgresosLotes inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblEgresosLotes(TblEgresosLotes inst) {
-           return inst.Update();
-       }
-       //TblEquivalenciasPresentacion
-       [HttpPost]
-       [AuthController]
-       public List<TblEquivalenciasPresentacion> getTblEquivalenciasPresentacion() {
-           return new TblEquivalenciasPresentacion().Get<TblEquivalenciasPresentacion>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblEquivalenciasPresentacion(TblEquivalenciasPresentacion inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblEquivalenciasPresentacion(TblEquivalenciasPresentacion inst) {
-           return inst.Update();
-       }
-       //TblFactura
-       [HttpPost]
-       [AuthController]
-       public List<TblFactura> getTblFactura() {
-           return new TblFactura().Get<TblFactura>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblFactura(TblFactura inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblFactura(TblFactura inst) {
-           return inst.Update();
-       }
-       //TblLotes
-       [HttpPost]
-       [AuthController]
-       public List<TblLotes> getTblLotes() {
-           return new TblLotes().Get<TblLotes>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveTblLotes(TblLotes inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateTblLotes(TblLotes inst) {
-           return inst.Update();
+import { EntityClass } from "../WDevCore/WModules/EntityClass.js";
+import { WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
+class sysdiagrams extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
        }
    }
+   name = { type: 'text' };
+   principal_id = { type: 'number' };
+   diagram_id = { type: 'number' };
+   version = { type: 'number' };
+   definition = { type: '' };
 }
+export { sysdiagrams }
+class CatalogoAlmacen extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Almacen = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Ubicacion = { type: 'text' };
+   Estado = { type: 'text' };
+   TblLotes = { type: 'MasterDetail',  ModelObject:  TblLotes.prototype};
+}
+export { CatalogoAlmacen }
+class CatalogoCaracteristicas extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Caracteristica = { type: 'number' };
+   Descripcion = { type: 'text' };
+   EStado = { type: 'text' };
+   TblCaracteristicasProductos = { type: 'MasterDetail',  ModelObject:  TblCaracteristicasProductos.prototype};
+}
+export { CatalogoCaracteristicas }
+class CatalogoCategorias extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Categoria = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
+   CatalogoProducto = { type: 'WMULTYSELECT',  ModelObject:  CatalogoProducto.prototype};
+}
+export { CatalogoCategorias }
+class CatalogoClientes extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Cliente = { type: 'number' };
+   Nombres = { type: 'text' };
+   Apellidos = { type: 'text' };
+   DNI = { type: 'text' };
+   TblFactura = { type: 'MasterDetail',  ModelObject:  TblFactura.prototype};
+}
+export { CatalogoClientes }
+class CatalogoOfertaEspecial extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Oferta = { type: 'number' };
+   Id_Lote = { type: 'number' };
+   Estado = { type: 'text' };
+   Valor = { type: 'number' };
+   Vencimiento = { type: 'date' };
+   TblDetalleFactura = { type: 'MasterDetail',  ModelObject:  TblDetalleFactura.prototype};
+}
+export { CatalogoOfertaEspecial }
+class CatalogoPresentacion extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Presentacion = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
+   Abreviatura = { type: 'text' };
+   TblEquivalenciasPresentacion = { type: 'MasterDetail',  ModelObject:  TblEquivalenciasPresentacion.prototype};
+   TblEquivalenciasPresentacion = { type: 'MasterDetail',  ModelObject:  TblEquivalenciasPresentacion.prototype};
+   TblLotes = { type: 'MasterDetail',  ModelObject:  TblLotes.prototype};
+}
+export { CatalogoPresentacion }
+class CatalogoProducto extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Producto = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Id_Categoria = { type: 'number' };
+   CatalogoCategorias = { type: 'WSELECT',  ModelObject:  CatalogoCategorias.prototype};
+   TblCaracteristicasProductos = { type: 'MasterDetail',  ModelObject:  TblCaracteristicasProductos.prototype};
+   TblLotes = { type: 'MasterDetail',  ModelObject:  TblLotes.prototype};
+}
+export { CatalogoProducto }
+class CatalogoTipoDetalle extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Tipo_Detalle = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
+   TblDetalleLotes = { type: 'MasterDetail',  ModelObject:  TblDetalleLotes.prototype};
+}
+export { CatalogoTipoDetalle }
+class CatalogoTipoEgreso extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Tipo_Egreso = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Estado = { type: 'text' };
+   TblEgresosLotes = { type: 'MasterDetail',  ModelObject:  TblEgresosLotes.prototype};
+}
+export { CatalogoTipoEgreso }
+class TblCaracteristicasProductos extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Producto = { type: 'number' };
+   Id_Caracteristica = { type: 'number' };
+   Descripcion = { type: 'text' };
+   CatalogoCaracteristicas = { type: 'WSELECT',  ModelObject:  CatalogoCaracteristicas.prototype};
+   CatalogoProducto = { type: 'WSELECT',  ModelObject:  CatalogoProducto.prototype};
+}
+export { TblCaracteristicasProductos }
+class TblDetalleFactura extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Detalle_Factura = { type: 'number' };
+   Id_Factura = { type: 'number' };
+   Id_Producto = { type: 'number' };
+   Precio_Venta = { type: 'number' };
+   Cantidad = { type: 'number' };
+   Total = { type: 'number' };
+   Id_Egreso = { type: 'number' };
+   Id_Oferta = { type: 'number' };
+   CatalogoOfertaEspecial = { type: 'WSELECT',  ModelObject:  CatalogoOfertaEspecial.prototype};
+   TblEgresosLotes = { type: 'Model',  ModelObject:  TblEgresosLotes.prototype};
+   TblFactura = { type: 'Model',  ModelObject:  TblFactura.prototype};
+}
+export { TblDetalleFactura }
+class TblDetalleLotes extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Detalle = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Id_Tipo_Detalle = { type: 'number' };
+   Estado = { type: 'text' };
+   Id_Lote = { type: 'number' };
+   CatalogoTipoDetalle = { type: 'WSELECT',  ModelObject:  CatalogoTipoDetalle.prototype};
+   TblLotes = { type: 'Model',  ModelObject:  TblLotes.prototype};
+}
+export { TblDetalleLotes }
+class TblEgresosLotes extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Egreso = { type: 'number' };
+   Descripcion = { type: 'text' };
+   Id_Tipo_Egreso = { type: 'number' };
+   Id_Lote = { type: 'number' };
+   Cantidad = { type: 'number' };
+   Id_Usuario_Gestor = { type: 'number' };
+   CatalogoTipoEgreso = { type: 'WSELECT',  ModelObject:  CatalogoTipoEgreso.prototype};
+   TblLotes = { type: 'Model',  ModelObject:  TblLotes.prototype};
+   TblDetalleFactura = { type: 'MasterDetail',  ModelObject:  TblDetalleFactura.prototype};
+}
+export { TblEgresosLotes }
+class TblEquivalenciasPresentacion extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Presentacion_Inicial = { type: 'number' };
+   Valor_Presentacion_Inicial = { type: 'number' };
+   Id_Presentacion_Final = { type: 'number' };
+   Valor_Presentacion_Final = { type: 'number' };
+   CatalogoPresentacion = { type: 'WSELECT',  ModelObject:  CatalogoPresentacion.prototype};
+   CatalogoPresentacion = { type: 'WSELECT',  ModelObject:  CatalogoPresentacion.prototype};
+}
+export { TblEquivalenciasPresentacion }
+class TblFactura extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Factura = { type: 'number' };
+   Nombre_Cliente = { type: 'text' };
+   Id_Cliente = { type: 'number' };
+   Fecha = { type: 'date' };
+   SubTotal = { type: 'number' };
+   IVA = { type: 'number' };
+   Total = { type: 'number' };
+   No_Factura = { type: 'text' };
+   Estado = { type: 'text' };
+   CatalogoClientes = { type: 'WSELECT',  ModelObject:  CatalogoClientes.prototype};
+   TblDetalleFactura = { type: 'MasterDetail',  ModelObject:  TblDetalleFactura.prototype};
+}
+export { TblFactura }
+class TblLotes extends EntityClass {
+   constructor(props) {
+       super();
+       for (const prop in props) {
+           this[prop] = props[prop];
+       }
+   }
+   Id_Lote = { type: 'number' };
+   Cantidad = { type: 'number' };
+   Id_Producto = { type: 'number' };
+   Cantidad_Inicial = { type: 'number' };
+   Cantidad_Existente = { type: 'number' };
+   Costo = { type: 'number' };
+   Estado = { type: 'text' };
+   Id_Presentacion = { type: 'number' };
+   Id_Almacen = { type: 'number' };
+   CatalogoAlmacen = { type: 'WSELECT',  ModelObject:  CatalogoAlmacen.prototype};
+   CatalogoPresentacion = { type: 'WSELECT',  ModelObject:  CatalogoPresentacion.prototype};
+   CatalogoProducto = { type: 'WSELECT',  ModelObject:  CatalogoProducto.prototype};
+   TblDetalleLotes = { type: 'MasterDetail',  ModelObject:  TblDetalleLotes.prototype};
+   TblEgresosLotes = { type: 'MasterDetail',  ModelObject:  TblEgresosLotes.prototype};
+}
+export { TblLotes }

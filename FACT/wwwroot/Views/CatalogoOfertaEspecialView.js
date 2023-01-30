@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { CatalogoOfertaEspecial } from "../FrontModel/DBODataBaseModel.js"
 class CatalogoOfertaEspecialView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class CatalogoOfertaEspecialView extends HTMLElement {
        );
    }
 }
-export { CatalogoOfertaEspecialView }
+customElements.define('w-catalogoofertaespecial', CatalogoOfertaEspecialView );
 window.addEventListener('load', async () => {  MainBody.append(new CatalogoOfertaEspecialView())  })

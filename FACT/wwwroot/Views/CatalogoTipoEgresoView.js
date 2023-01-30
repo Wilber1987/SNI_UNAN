@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { CatalogoTipoEgreso } from "../FrontModel/DBODataBaseModel.js"
 class CatalogoTipoEgresoView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class CatalogoTipoEgresoView extends HTMLElement {
        );
    }
 }
-export { CatalogoTipoEgresoView }
+customElements.define('w-catalogotipoegreso', CatalogoTipoEgresoView );
 window.addEventListener('load', async () => {  MainBody.append(new CatalogoTipoEgresoView())  })

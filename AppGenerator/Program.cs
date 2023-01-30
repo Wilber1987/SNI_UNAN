@@ -12,6 +12,8 @@ namespace AppGenerate
             try
             {
                 SqlADOConexion.IniciarConexionAnonima();
+                StringBuilder indexBuilder = new StringBuilder();
+                indexBuilder.AppendLine("@page");
                 foreach (var schema in SqlADOConexion.SQLM.databaseSchemas())
                 {
                     foreach (var schemaType in SqlADOConexion.SQLM.databaseTypes())
@@ -30,6 +32,9 @@ namespace AppGenerate
                             buildApiController(schemaType, controllerString, table);
 
                             setJsViewBuilder(schema.TABLE_SCHEMA, table.TABLE_NAME, schemaType.TABLE_TYPE);
+                            indexBuilder.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/"+ 
+                                (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
+                                + table.TABLE_NAME + "View\"> "+ table.TABLE_NAME + "</a>");
 
                         }
                         entityString.AppendLine("}");
@@ -43,6 +48,7 @@ namespace AppGenerate
                 createFile(@"c:\temp\Controllers\SecurityController.cs", buildApiSecurityController());
                 createFile(@"c:\temp\Security\AuthNetcore.cs", AppGenerator.AuthNetcore.body);
                 createFile(@"c:\temp\Pages\LoginView.cshtml", AppGenerator.AuthNetcore.loginString);
+                createFile(@"c:\temp\Pages\Index.cshtml", indexBuilder.ToString());
             }
 
             catch (Exception ex)
@@ -55,7 +61,7 @@ namespace AppGenerate
         {
             entityString = new StringBuilder();
             entityString.AppendLine("import { EntityClass } from \"../WDevCore/WModules/EntityClass.js\";");
-            entityString.AppendLine("import { WAjaxTools } from \".. /WDevCore/WModules/WComponentsTools.js\";");
+            entityString.AppendLine("import { WAjaxTools } from \"../WDevCore/WModules/WComponentsTools.js\";");
         }
         private static void setJsViewBuilder(string schema, string name, string type)
         {
@@ -63,6 +69,7 @@ namespace AppGenerate
             entityString.AppendLine("import { WRender, ComponentsManager, WAjaxTools } from \"../WDevCore/WModules/WComponentsTools.js\";");
             entityString.AppendLine("import { StylesControlsV2, StyleScrolls } from \"../WDevCore/StyleModules/WStyleComponents.js\"");
             entityString.AppendLine("import { WTableComponent } from \"../WDevCore/WComponents/WTableComponent.js\"");
+            entityString.AppendLine("import { " + name + " } from \"../FrontModel/" + schema.ToUpper() + (type == "VIEW" ? "ViewModel.js\"" : "DataBaseModel.js\""));
             entityString.AppendLine("class " + name + "View extends HTMLElement {");
             entityString.AppendLine("   constructor(props) {");
             entityString.AppendLine("       super();");
@@ -84,14 +91,13 @@ namespace AppGenerate
             entityString.AppendLine("       );");
             entityString.AppendLine("   }");
             entityString.AppendLine("}");
-            entityString.AppendLine("}");
             entityString.AppendLine("customElements.define('w-" + name.ToLower() + "', " + name + "View );");
             entityString.AppendLine(@"window.addEventListener('load', async () => {  MainBody.append(new " + name + @"View())  })");
 
             var pageString = new StringBuilder();
             pageString.AppendLine(@"@page
             <script src='~/Views/" + name + @"View.js' type='module'></script>
-            <body id='MainBody'></body>");
+            < id='MainBody'></body>");
 
             createFile(@"c:\temp\Views\" + name + "View.js", entityString.ToString());
             createFile(@"c:\temp\" + (name.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "\\" + name + "View.cshtml", pageString.ToString());
@@ -288,7 +294,7 @@ namespace AppGenerate
 
         private static void createDataBaseJSModelFile(string contain, string name, string type)
         {
-            createFile(@"c:\temp\FrontModel\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.cs" : "DataBaseModel.js"), contain);
+            createFile(@"c:\temp\FrontModel\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.js" : "DataBaseModel.js"), contain);
 
         }
 

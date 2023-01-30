@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { CatalogoCategorias } from "../FrontModel/DBODataBaseModel.js"
 class CatalogoCategoriasView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class CatalogoCategoriasView extends HTMLElement {
        );
    }
 }
-export { CatalogoCategoriasView }
+customElements.define('w-catalogocategorias', CatalogoCategoriasView );
 window.addEventListener('load', async () => {  MainBody.append(new CatalogoCategoriasView())  })

@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { Security_Users } from "../FrontModel/SECURITYDataBaseModel.js"
 class Security_UsersView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class Security_UsersView extends HTMLElement {
        );
    }
 }
-export { Security_UsersView }
+customElements.define('w-security_users', Security_UsersView );
 window.addEventListener('load', async () => {  MainBody.append(new Security_UsersView())  })

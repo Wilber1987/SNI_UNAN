@@ -1,6 +1,7 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { TblEquivalenciasPresentacion } from "../FrontModel/DBODataBaseModel.js"
 class TblEquivalenciasPresentacionView extends HTMLElement {
    constructor(props) {
        super();
@@ -18,5 +19,5 @@ class TblEquivalenciasPresentacionView extends HTMLElement {
        );
    }
 }
-export { TblEquivalenciasPresentacionView }
+customElements.define('w-tblequivalenciaspresentacion', TblEquivalenciasPresentacionView );
 window.addEventListener('load', async () => {  MainBody.append(new TblEquivalenciasPresentacionView())  })

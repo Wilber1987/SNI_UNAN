@@ -1,15 +1,15 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
-import { TblDetalleLotes } from "../FrontModel/DBODataBaseModel.js"
-class TblDetalleLotesView extends HTMLElement {
+import { sysdiagrams } from "../FrontModel/DBODataBaseModel.js"
+class sysdiagramsView extends HTMLElement {
    constructor(props) {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
-       this.MainComponent = new WTableComponent({ ModelObject: new TblDetalleLotes(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/ApiEntityDBO/saveTblDetalleLotes",
-           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateTblDetalleLotes",
-           Search: true, UrlSearch: "../api/ApiEntityDBO/getTblDetalleLotes"
+       this.MainComponent = new WTableComponent({ ModelObject: new sysdiagrams(), Dataset: [], Options: {
+           Add: true, UrlAdd: "../api/ApiEntityDBO/savesysdiagrams",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updatesysdiagrams",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getsysdiagrams"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -19,5 +19,5 @@ class TblDetalleLotesView extends HTMLElement {
        );
    }
 }
-customElements.define('w-tbldetallelotes', TblDetalleLotesView );
-window.addEventListener('load', async () => {  MainBody.append(new TblDetalleLotesView())  })
+customElements.define('w-sysdiagrams', sysdiagramsView );
+window.addEventListener('load', async () => {  MainBody.append(new sysdiagramsView())  })
