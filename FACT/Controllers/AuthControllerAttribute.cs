@@ -1,5 +1,5 @@
 ﻿
-namespace MODEL.Controllers
+namespace API.Controllers
 {
     internal class AuthControllerAttribute : Attribute
     {

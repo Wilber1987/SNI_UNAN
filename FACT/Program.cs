@@ -6,13 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
-var app = builder.Build();
 builder.Services.AddRazorPages();
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest).AddJsonOptions(JsonOptions =>
                      JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

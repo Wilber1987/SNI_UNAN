@@ -1,11 +1,11 @@
-using CAPA_NEGOCIO.MAPEO;
+using DataBaseModel;
+using Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-[Route("api/[controller]/[action]")]
-[ApiController]
-[ApiController]
-namespace MODEL.Controllers {
-   public class EntityController : ControllerBase {
+namespace API.Controllers {
+   [Route("api/[controller]/[action]")]
+   [ApiController]
+   public class  ApiEntitySECURITYController : ControllerBase {
        //Security_Permissions
        [HttpPost]
        [AuthController]

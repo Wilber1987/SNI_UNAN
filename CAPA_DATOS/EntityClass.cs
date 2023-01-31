@@ -71,6 +71,11 @@ namespace CAPA_DATOS
                 return false;
             }
         }
+        public bool Update()
+        {
+            //SqlADOConexion.SQLM.UpdateObject(this, Id);
+            return true;
+        }
         public bool Update(string Id)
         {
             SqlADOConexion.SQLM.UpdateObject(this, Id);

@@ -1,14 +1,15 @@
 import { WRender, ComponentsManager, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { StylesControlsV2, StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js"
 import { WTableComponent } from "../WDevCore/WComponents/WTableComponent.js"
+import { CatalogoTipoEgreso } from "../FrontModel/DBODataBaseModel.js"
 class CatalogoTipoEgresoView extends HTMLElement {
    constructor(props) {
        super();
        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })
        this.MainComponent = new WTableComponent({ ModelObject: new CatalogoTipoEgreso(), Dataset: [], Options: {
-           Add: true, UrlAdd: "../api/Admin/saveCatalogoTipoEgreso",
-           Edit: true, UrlUpdate: "../api/Admin/updateCatalogoTipoEgreso",
-           Search: true, UrlSearch: "../api/Admin/getCatalogoTipoEgreso"
+           Add: true, UrlAdd: "../api/ApiEntityDBO/saveCatalogoTipoEgreso",
+           Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateCatalogoTipoEgreso",
+           Search: true, UrlSearch: "../api/ApiEntityDBO/getCatalogoTipoEgreso"
        }})
        this.TabContainer.append(this.MainComponent)
        this.append(
@@ -18,5 +19,5 @@ class CatalogoTipoEgresoView extends HTMLElement {
        );
    }
 }
-export { CatalogoTipoEgresoView }
-window.addEventListener('load', async () => {  MainBody.append(new CatalogoTipoEgresoView())  }
+customElements.define('w-catalogotipoegreso', CatalogoTipoEgresoView );
+window.addEventListener('load', async () => {  MainBody.append(new CatalogoTipoEgresoView())  })

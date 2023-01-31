@@ -1,10 +1,11 @@
+using DataBaseModel;
+using Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-[Route("api/[controller]/[action]")]
-[ApiController]
-namespace MODEL.Controllers {
-   public class EntityController : ControllerBase {
+namespace API.Controllers {
+   [Route("api/[controller]/[action]")]
+   [ApiController]
+   public class  ApiEntityDBOController : ControllerBase {
        //TblLotes
        [HttpPost]
        [AuthController]
@@ -259,22 +260,6 @@ namespace MODEL.Controllers {
        [HttpPost]
        [AuthController]
        public object updateCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
-           return inst.Update();
-       }
-       //sysdiagrams
-       [HttpPost]
-       [AuthController]
-       public List<sysdiagrams> getsysdiagrams() {
-           return new sysdiagrams().Get<sysdiagrams>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object savesysdiagrams(sysdiagrams inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updatesysdiagrams(sysdiagrams inst) {
            return inst.Update();
        }
    }

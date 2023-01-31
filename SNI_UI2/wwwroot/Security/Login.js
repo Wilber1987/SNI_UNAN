@@ -4,7 +4,6 @@ import { WRender, WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
 
 const OnLoad = async () => {
-    //const { WRender, WAjaxTools } = await import("./WDevCore/WModules/WComponentsTools.js");
     const UserData = {
         mail: null,
         password: null

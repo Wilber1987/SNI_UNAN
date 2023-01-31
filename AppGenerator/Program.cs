@@ -12,35 +12,47 @@ namespace AppGenerate
             try
             {
                 SqlADOConexion.IniciarConexionAnonima();
+                StringBuilder indexBuilder = new StringBuilder();
+                indexBuilder.AppendLine("@page");
                 foreach (var schema in SqlADOConexion.SQLM.databaseSchemas())
                 {
                     foreach (var schemaType in SqlADOConexion.SQLM.databaseTypes())
                     {
                         StringBuilder entityString, controllerString, jsEntityString;
-                        setCSharpHeaders(out entityString, out controllerString, schema.TABLE_SCHEMA);
-                        setJsHeaders(out jsEntityString);                        
+                        setCSharpHeaders(out entityString, out controllerString, schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
+                        AppGenerator.JsEnviroment.setJsHeaders(out jsEntityString);
                         foreach (var table in SqlADOConexion.SQLM.describeSchema(schema.TABLE_SCHEMA, schemaType.TABLE_TYPE))
                         {
+                            if (table.TABLE_NAME == "sysdiagrams")
+                            {
+                                continue;
+                            }
                             //BUILD ENTITY
                             mapCSharpEntity(entityString, table);
 
-                            mapJsEntity(jsEntityString, table);
+                            AppGenerator.JsEnviroment.mapJsEntity(jsEntityString, table);
 
                             //BUILD ENTITY CONTROLLER
                             buildApiController(schemaType, controllerString, table);
 
-                            setJsViewBuilder(schemaType.TABLE_SCHEMA, table.TABLE_NAME);
+                            AppGenerator.JsEnviroment.setJsViewBuilder(schema.TABLE_SCHEMA, table.TABLE_NAME, schemaType.TABLE_TYPE);
+                            indexBuilder.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/"+ 
+                                (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
+                                + table.TABLE_NAME + "View\"> "+ table.TABLE_NAME + "</a>");
 
                         }
                         entityString.AppendLine("}");
                         controllerString.AppendLine("   }");
                         controllerString.AppendLine("}");
                         createDataBaseModelFile(entityString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
-                        createDataBaseJSModelFile(controllerString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
+                        createDataBaseJSModelFile(jsEntityString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
                         createApiControllerFile(controllerString.ToString(), schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
-
                     }
                 }
+                AppGenerator.Utility.createFile(@"c:\temp\Controllers\SecurityController.cs", buildApiSecurityController());
+                AppGenerator.Utility.createFile(@"c:\temp\Security\AuthNetcore.cs", AppGenerator.CSharpEnviroment.body);
+                AppGenerator.Utility.createFile(@"c:\temp\Pages\LoginView.cshtml", AppGenerator.CSharpEnviroment.loginString);
+                AppGenerator.Utility.createFile(@"c:\temp\Pages\Index.cshtml", indexBuilder.ToString());
             }
 
             catch (Exception ex)
@@ -49,44 +61,7 @@ namespace AppGenerate
             }
         }
 
-        private static void setJsHeaders(out StringBuilder entityString)
-        {
-            entityString = new StringBuilder();
-            entityString.AppendLine("import { EntityClass } from \"../WDevCore/WModules/EntityClass.js\";");
-            entityString.AppendLine("import { WAjaxTools } from \".. /WDevCore/WModules/WComponentsTools.js\";");
-        }
-        private static void setJsViewBuilder(string schema, string name)
-        {
-            var entityString = new StringBuilder();
-            entityString.AppendLine("import { WRender, ComponentsManager, WAjaxTools } from \"../WDevCore/WModules/WComponentsTools.js\";");
-            entityString.AppendLine("import { StylesControlsV2, StyleScrolls } from \"../WDevCore/StyleModules/WStyleComponents.js\"");
-            entityString.AppendLine("import { WTableComponent } from \"../WDevCore/WComponents/WTableComponent.js\"");
-            entityString.AppendLine("class " + name + "View extends HTMLElement {");
-            entityString.AppendLine("   constructor(props) {");
-            entityString.AppendLine("       super();");
-            entityString.AppendLine("       this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: 'TabContainer' } })");
-            entityString.AppendLine("       this.MainComponent = new WTableComponent({ ModelObject: new "+ name + "(), Dataset: [], Options: {");
-            entityString.AppendLine("           Add: true, UrlAdd: \"../api/Admin/save" + name+"\",");
-            entityString.AppendLine("           Edit: true, UrlUpdate: \"../api/Admin/update" + name+"\",");
-            entityString.AppendLine("           Search: true, UrlSearch: \"../api/Admin/get" + name+"\"");
-            entityString.AppendLine("       }})");
-            entityString.AppendLine("       this.TabContainer.append(this.MainComponent)");
-            entityString.AppendLine("       this.append(");
-            entityString.AppendLine("           StylesControlsV2.cloneNode(true),");
-            entityString.AppendLine("           StyleScrolls.cloneNode(true),");
-            entityString.AppendLine("           this.TabContainer");
-            entityString.AppendLine("       );");
-            entityString.AppendLine("   }");
-            entityString.AppendLine("}");
-            entityString.AppendLine("export { " + name + "View }");
-            entityString.AppendLine(@"window.addEventListener('load', async () => {  MainBody.append(new "+name+@"View())  }");
-            var pageString = new StringBuilder();
-            pageString.AppendLine(@"@page
-            <script src='~/Views/" + name+ @"View.js' type='module'></script>
-            <body id='MainBody'></body>");
-            createFile(@"c:\temp\Views\" + name + "View.js", entityString.ToString());
-            createFile(@"c:\temp\Pages\" + name + "View.cshtml", pageString.ToString());
-        }
+
 
         private static void buildApiController(EntitySchema schemaType, StringBuilder controllerString, EntitySchema table)
         {
@@ -109,6 +84,28 @@ namespace AppGenerate
                 controllerString.AppendLine("           return inst.Update();");
                 controllerString.AppendLine("       }");
             }
+        }
+        private static string buildApiSecurityController()
+        {
+            StringBuilder controllerString = new StringBuilder();
+            controllerString.AppendLine("using DataBaseModel;");
+            controllerString.AppendLine("using Security;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Http;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Mvc;");
+
+
+            controllerString.AppendLine("namespace API.Controllers {");
+            controllerString.AppendLine("   [Route(\"api/[controller]/[action]\")]");
+            controllerString.AppendLine("   [ApiController]");
+            controllerString.AppendLine("   public class SecurityController : ControllerBase {");
+            controllerString.AppendLine("       [HttpPost]");
+            controllerString.AppendLine("       public object Login(Security_Users Inst) {");
+            controllerString.AppendLine("           return AuthNetCore.loginIN(Inst.Mail, Inst.Password);");
+            controllerString.AppendLine("       }");
+            controllerString.AppendLine("   }");
+            controllerString.AppendLine("}");
+            return controllerString.ToString();
+
         }
 
         private static void mapCSharpEntity(StringBuilder entityString, EntitySchema table)
@@ -136,7 +133,7 @@ namespace AppGenerate
                 }
 
                 entityString.AppendLine("       public " + type
-                    + " " + entity.COLUMN_NAME
+                    + "? " + entity.COLUMN_NAME
                     + " { get; set; }");
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
@@ -170,61 +167,9 @@ namespace AppGenerate
             entityString.AppendLine("   }");
         }
 
-        private static void mapJsEntity(StringBuilder entityString, EntitySchema table)
-        {
-            entityString.AppendLine("class " + table.TABLE_NAME + " extends EntityClass {");
-            entityString.AppendLine("   constructor(props) {");
-            entityString.AppendLine("       super();");
-            entityString.AppendLine("       for (const prop in props) {");
-            entityString.AppendLine("           this[prop] = props[prop];");
-            entityString.AppendLine("       }");
-            entityString.AppendLine("   }");
-            foreach (var entity in SqlADOConexion.SQLM.describeEntity(table.TABLE_NAME))
-            {
-                string type = "";
-                switch (entity.DATA_TYPE)
-                {
-                    case "int": type = "number"; break;
-                    case "smallint": type = "number"; break;
-                    case "bigint": type = "number"; break;
-                    case "decimal": type = "number"; break;
-                    case "money": type = "number"; break;
-                    case "float": type = "number"; break;
-                    case "char": type = "text"; break;
-                    case "nchar": type = "text"; break;
-                    case "varchar": type = "text"; break;
-                    case "nvarchar": type = "text"; break;
-                    case "uniqueidentifier": type = "text"; break;
-                    case "datetime": type = "date"; break;
-                    case "date": type = "date"; break;
-                    case "bit": type = "checkbox"; break;
-                }
+        
 
-                entityString.AppendLine("   " + entity.COLUMN_NAME + " = { type: '" + type + "' };");
-            }
-            foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
-            {
-                string mapType = "Model";
-                if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
-                {
-                    mapType = "WSELECT";
-                }
-                entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: new " + entity.REFERENCE_TABLE_NAME + "()};");
-            }
-            foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
-            {
-                string mapType = "MasterDetail";
-                if (entity.FKTABLE_NAME.Contains("Catalogo"))
-                {
-                    mapType = "WMULTYSELECT";
-                }
-                entityString.AppendLine("   " + entity.FKTABLE_NAME + " = { type: '" + mapType + "',  ModelObject: new " + entity.FKTABLE_NAME + "()};");
-            }
-            entityString.AppendLine("}");
-            entityString.AppendLine("export { " + table.TABLE_NAME + " }");
-        }
-
-        private static void setCSharpHeaders(out StringBuilder entityString, out StringBuilder controllerString, string schema)
+        private static void setCSharpHeaders(out StringBuilder entityString, out StringBuilder controllerString, string schema, string type)
         {
             entityString = new StringBuilder();
             entityString.AppendLine("using CAPA_DATOS;");
@@ -237,59 +182,36 @@ namespace AppGenerate
             entityString.AppendLine("namespace DataBaseModel {");
 
             controllerString = new StringBuilder();
-            controllerString.AppendLine("using CAPA_NEGOCIO.MAPEO;");
+            controllerString.AppendLine("using DataBaseModel;");
+            controllerString.AppendLine("using Security;");
             controllerString.AppendLine("using Microsoft.AspNetCore.Http;");
             controllerString.AppendLine("using Microsoft.AspNetCore.Mvc;");
 
-            
-            controllerString.AppendLine("namespace MODEL.Controllers {");
+
+            controllerString.AppendLine("namespace API.Controllers {");
             controllerString.AppendLine("   [Route(\"api/[controller]/[action]\")]");
             controllerString.AppendLine("   [ApiController]");
-            controllerString.AppendLine("   public class "+ schema + "Controller : ControllerBase {");
+           
+            controllerString.AppendLine("   public class  Api" + (type == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "Controller : ControllerBase {");
         }
 
         private static void createDataBaseModelFile(string contain, string name, string type)
         {
-            createFile(@"c:\temp\Model\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.cs" : "DataBaseModel.cs"), contain);
+           AppGenerator.Utility.createFile(@"c:\temp\Model\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.cs" : "DataBaseModel.cs"), contain);
 
         }
 
         private static void createDataBaseJSModelFile(string contain, string name, string type)
         {
-            createFile(@"c:\temp\FrontModel\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.cs" : "DataBaseModel.js"), contain);
+            AppGenerator.Utility.createFile(@"c:\temp\FrontModel\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.js" : "DataBaseModel.js"), contain);
 
         }
 
         private static void createApiControllerFile(string contain, string name, string type)
         {
-            createFile(@"c:\temp\Controllers\Api" + (type == "VIEW" ? "View" : "Entity") + name.ToUpper() + "Controller.cs", contain);
+            AppGenerator.Utility.createFile(@"c:\temp\Controllers\Api" + (type == "VIEW" ? "View" : "Entity") + name.ToUpper() + "Controller.cs", contain);
 
         }
-        private static void createFile(string path, string text)
-        {
-            DirectoryInfo di = Directory.CreateDirectory(@"c:\temp");
-            DirectoryInfo di1 = Directory.CreateDirectory(@"c:\temp\FrontModel");
-            DirectoryInfo di2 = Directory.CreateDirectory(@"c:\temp\Model");
-            DirectoryInfo di3 = Directory.CreateDirectory(@"c:\temp\Controllers");
-            DirectoryInfo di4 = Directory.CreateDirectory(@"c:\temp\Views");
-            DirectoryInfo di5 = Directory.CreateDirectory(@"c:\temp\Pages");
-            // Create the file, or overwrite if the file exists.
-            using (FileStream fs = File.Create(path))
-            {
-                byte[] info = new UTF8Encoding(true).GetBytes(text);
-                // Add some information to the file.
-                fs.Write(info, 0, info.Length);
-            }
-
-            // Open the stream and read it back.
-            using (StreamReader sr = File.OpenText(path))
-            {
-                string s = "";
-                while ((s = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(s);
-                }
-            }
-        }
+        
     }
 }

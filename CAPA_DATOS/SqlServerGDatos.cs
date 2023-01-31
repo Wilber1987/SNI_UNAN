@@ -36,7 +36,7 @@ namespace CAPA_DATOS
         }
         protected override List<EntityProps> DescribeEntity(string entityName)
         {
-            string DescribeQuery = @"SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE
+            string DescribeQuery = @"SELECT COLUMN_NAME, IS_NULLABLE, DATA_TYPE, TABLE_SCHEMA
                                     from [INFORMATION_SCHEMA].[COLUMNS] 
                                     WHERE [TABLE_NAME] = '" + entityName
                                    + "' order by [ORDINAL_POSITION]";
@@ -231,7 +231,7 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + " AND ";
             }
             Columns = Columns.TrimEnd(',');
-            string queryString = "SELECT " + Columns + " FROM " + Inst.GetType().Name + CondicionString + CondSQL;
+            string queryString = "SELECT " + Columns + " FROM " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + CondicionString + CondSQL;
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
         }
@@ -326,6 +326,26 @@ namespace CAPA_DATOS
             DataTable Table = TraerDatosSQL(DescribeQuery);
             return ConvertDataTable<OneToOneSchema>(Table, new OneToOneSchema());
         }
+
+        public Boolean isPrimary(string entityName, string column)
+        {
+            string DescribeQuery = @"SELECT
+                    Col.Column_Name,  *
+                from
+                    INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab
+                    join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE Col
+                        on Col.Constraint_Name = Tab.Constraint_Name
+                           and Col.Table_Name = Tab.Table_Name
+                where
+                    Constraint_Type = 'PRIMARY KEY'
+                    and Tab.TABLE_NAME = '"+entityName+@"'
+                    and Col.Column_Name = '"+column+"';";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            return ConvertDataTable<OneToOneSchema>(Table, new OneToOneSchema()).Count > 0;
+        }
+
+
+
         public List<OneToManySchema> oneToManyKeys(string entityName)
         {
             string DescribeQuery = @"exec sp_fkeys '" + entityName + "'";
