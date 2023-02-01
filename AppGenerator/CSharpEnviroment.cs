@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CAPA_DATOS;
 
 namespace AppGenerator
 {
@@ -113,7 +114,7 @@ namespace Security
 
             const OnLoad = async () => {                
                 const LoginForm = new WForm({
-                    ModelObject: { Mail: { type: 'mail'}, Password: { type: 'password' } } ,
+                    ModelObject: { Mail: { type: 'email'}, Password: { type: 'password' } } ,
                     SaveFunction: async (UserData) => { 
                         WSecurity.Login(UserData, window.location.origin)
                     }
@@ -127,5 +128,166 @@ namespace Security
     <body id='App'>
     </body>
 </html>";
+
+        public static string buildApiSecurityController()
+        {
+            StringBuilder controllerString = new StringBuilder();
+            controllerString.AppendLine("using DataBaseModel;");
+            controllerString.AppendLine("using Security;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Http;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Mvc;");
+
+
+            controllerString.AppendLine("namespace API.Controllers {");
+            controllerString.AppendLine("   [Route(\"api/[controller]/[action]\")]");
+            controllerString.AppendLine("   [ApiController]");
+            controllerString.AppendLine("   public class SecurityController : ControllerBase {");
+            controllerString.AppendLine("       [HttpPost]");
+            controllerString.AppendLine("       public object Login(Security_Users Inst) {");
+            controllerString.AppendLine("           return AuthNetCore.loginIN(Inst.Mail, Inst.Password);");
+            controllerString.AppendLine("       }");
+            controllerString.AppendLine("       public  static bool Auth() {");
+            controllerString.AppendLine("           return AuthNetCore.Authenticate();");
+            controllerString.AppendLine("       }");
+            controllerString.AppendLine("       public  static bool HavePermission(string permission) {");
+            controllerString.AppendLine("           return AuthNetCore.HavePermission(permission);");
+            controllerString.AppendLine("       }");
+            controllerString.AppendLine("   }");
+
+            controllerString.AppendLine("}");
+            return controllerString.ToString();
+
+        }
+
+        public static void buildApiController(EntitySchema schemaType, StringBuilder controllerString, EntitySchema table)
+        {
+            controllerString.AppendLine("       //" + table.TABLE_NAME);
+            controllerString.AppendLine("       [HttpPost]");
+            controllerString.AppendLine("       [AuthController]");
+            controllerString.AppendLine("       public List<" + table.TABLE_NAME + "> get" + table.TABLE_NAME + "() {");
+            controllerString.AppendLine("           return new " + table.TABLE_NAME + "().Get<" + table.TABLE_NAME + ">();");
+            controllerString.AppendLine("       }");
+            if (schemaType.TABLE_TYPE == "BASE TABLE")
+            {
+                controllerString.AppendLine("       [HttpPost]");
+                controllerString.AppendLine("       [AuthController]");
+                controllerString.AppendLine("       public object save" + table.TABLE_NAME + "(" + table.TABLE_NAME + " inst) {");
+                controllerString.AppendLine("           return inst.Save();");
+                controllerString.AppendLine("       }");
+                controllerString.AppendLine("       [HttpPost]");
+                controllerString.AppendLine("       [AuthController]");
+                controllerString.AppendLine("       public object update" + table.TABLE_NAME + "(" + table.TABLE_NAME + " inst) {");
+                controllerString.AppendLine("           return inst.Update();");
+                controllerString.AppendLine("       }");
+            }
+        }
+
+        public static void mapCSharpEntity(StringBuilder entityString, EntitySchema table)
+        {
+            entityString.AppendLine("   public class " + table.TABLE_NAME + " : EntityClass {");
+            foreach (var entity in SqlADOConexion.SQLM.describeEntity(table.TABLE_NAME))
+            {
+                string type = "";
+                switch (entity.DATA_TYPE)
+                {
+                    case "int": type = "int"; break;
+                    case "smallint": type = "short"; break;
+                    case "bigint": type = "long"; break;
+                    case "decimal": type = "Double"; break;
+                    case "money": type = "Double"; break;
+                    case "float": type = "Double"; break;
+                    case "char": type = "string"; break;
+                    case "nchar": type = "string"; break;
+                    case "varchar": type = "string"; break;
+                    case "nvarchar": type = "string"; break;
+                    case "uniqueidentifier": type = "string"; break;
+                    case "datetime": type = "DateTime"; break;
+                    case "date": type = "DateTime"; break;
+                    case "bit": type = "bool"; break;
+                }
+
+                entityString.AppendLine("       public " + type
+                    + "? " + entity.COLUMN_NAME
+                    + " { get; set; }");
+            }
+            foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
+            {
+                entityString.AppendLine("       [OneToOne("
+                    + "TableName = \""
+                    + entity.REFERENCE_TABLE_NAME + "\", "
+                    + "KeyColumn = \""
+                    + entity.CONSTRAINT_COLUMN_NAME + "\", "
+                    + "ForeignKeyColumn = \""
+                    + entity.REFERENCE_COLUMN_NAME + "\")]");
+
+                entityString.AppendLine("       public " + entity.REFERENCE_TABLE_NAME
+                    + " " + entity.REFERENCE_TABLE_NAME
+                    + " { get; set; }");
+            }
+            foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
+            {
+                entityString.AppendLine("       [OneToMany("
+                    + "TableName = \""
+                    + entity.FKTABLE_NAME + "\", "
+                    + "KeyColumn = \""
+                    + entity.PKCOLUMN_NAME + "\", "
+                    + "ForeignKeyColumn = \""
+                    + entity.FKCOLUMN_NAME + "\")]");
+
+                entityString.AppendLine("       public List<" + entity.FKTABLE_NAME
+                    + "> " + entity.FKTABLE_NAME
+                    + " { get; set; }");
+            }
+            entityString.AppendLine("   }");
+        }
+
+        public static void setCSharpHeaders(out StringBuilder entityString, out StringBuilder controllerString, string schema, string type)
+        {
+            entityString = new StringBuilder();
+            entityString.AppendLine("using CAPA_DATOS;");
+            entityString.AppendLine("using System;");
+            entityString.AppendLine("using System.Collections.Generic;");
+            entityString.AppendLine("using System.Linq;");
+            entityString.AppendLine("using System.Text;");
+            entityString.AppendLine("using System.Threading.Tasks;");
+
+            entityString.AppendLine("namespace DataBaseModel {");
+
+            controllerString = new StringBuilder();
+            controllerString.AppendLine("using DataBaseModel;");
+            controllerString.AppendLine("using Security;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Http;");
+            controllerString.AppendLine("using Microsoft.AspNetCore.Mvc;");
+
+
+            controllerString.AppendLine("namespace API.Controllers {");
+            controllerString.AppendLine("   [Route(\"api/[controller]/[action]\")]");
+            controllerString.AppendLine("   [ApiController]");
+
+            controllerString.AppendLine("   public class  Api" + (type == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "Controller : ControllerBase {");
+        }
+        public static void createCSharpView(string name)
+        {
+            var pageString = new StringBuilder();
+            pageString.AppendLine(@"@page
+@using API.Controllers
+@{
+    if (!SecurityController.Auth())
+    {
+        Response.Redirect(" + "\"../LoginView\");" + @"
+        return;
     }
+    if (!SecurityController.HavePermission(" + "\"HOME_ACCESS\"))" + @"
+    {
+        //Response.Redirect(" + "\"../permission_error\");" + @"
+        //return;
+    }
+}
+<script src='~/Views/" + name + @"View.js' type='module'></script>
+<div id='MainBody'></div>");
+            AppGenerator.Utility.createFile(@"c:\temp\" + (name.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "\\" + name + "View.cshtml", pageString.ToString());
+        }
+
+    }
+
 }

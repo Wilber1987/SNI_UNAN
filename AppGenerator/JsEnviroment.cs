@@ -44,9 +44,12 @@ namespace AppGenerator
                     case "date": type = "date"; break;
                     case "bit": type = "checkbox"; break;
                 }
-
-                entityString.AppendLine("   " + entity.COLUMN_NAME + " = { type: '" + type + "'"
-                    + ( SqlADOConexion.SQLM.isPrimary(table.TABLE_NAME, entity.COLUMN_NAME )? ", primary: true": "") +" };");
+                if (!SqlADOConexion.SQLM.isForeinKey(table.TABLE_NAME, entity.COLUMN_NAME))
+                {
+                    entityString.AppendLine("   " + entity.COLUMN_NAME + " = { type: '" + type + "'"
+                    + (SqlADOConexion.SQLM.isPrimary(table.TABLE_NAME, entity.COLUMN_NAME) ? ", primary: true" : "") + " };");
+                }
+                
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
             {
@@ -103,13 +106,9 @@ namespace AppGenerator
             entityString.AppendLine("customElements.define('w-" + name.ToLower() + "', " + name + "View );");
             entityString.AppendLine(@"window.addEventListener('load', async () => {  MainBody.append(new " + name + @"View())  })");
 
-            var pageString = new StringBuilder();
-            pageString.AppendLine(@"@page
-            <script src='~/Views/" + name + @"View.js' type='module'></script>
-            < id='MainBody'></body>");
-
+            AppGenerator.CSharpEnviroment.createCSharpView(name);
             AppGenerator.Utility.createFile(@"c:\temp\Views\" + name + "View.js", entityString.ToString());
-            AppGenerator.Utility.createFile(@"c:\temp\" + (name.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "\\" + name + "View.cshtml", pageString.ToString());
+
         }
     }
 }
