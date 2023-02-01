@@ -15,7 +15,7 @@
 
             const OnLoad = async () => {                
                 const LoginForm = new WForm({
-                    ModelObject: { Mail: { type: 'mail'}, Password: { type: 'password' } } ,
+                    ModelObject: { Mail: { type: 'email'}, Password: { type: 'password' } } ,
                     SaveFunction: async (UserData) => { 
                         WSecurity.Login(UserData, window.location.origin)
                     }

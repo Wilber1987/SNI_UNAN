@@ -329,6 +329,14 @@ namespace CAPA_DATOS
 
         public Boolean isPrimary(string entityName, string column)
         {
+            return evalKeyType(entityName, column, "PRIMARY KEY");
+        }
+        public Boolean isForeinKey(string entityName, string column)
+        {
+            return evalKeyType(entityName, column, "FOREIGN KEY");
+        }
+        private bool evalKeyType(string entityName, string column, string keyType)
+        {
             string DescribeQuery = @"SELECT
                     Col.Column_Name,  *
                 from
@@ -337,14 +345,12 @@ namespace CAPA_DATOS
                         on Col.Constraint_Name = Tab.Constraint_Name
                            and Col.Table_Name = Tab.Table_Name
                 where
-                    Constraint_Type = 'PRIMARY KEY'
-                    and Tab.TABLE_NAME = '"+entityName+@"'
-                    and Col.Column_Name = '"+column+"';";
+                    Constraint_Type = '"+ keyType + @"'
+                    and Tab.TABLE_NAME = '" + entityName + @"'
+                    and Col.Column_Name = '" + column + "';";
             DataTable Table = TraerDatosSQL(DescribeQuery);
-            return ConvertDataTable<OneToOneSchema>(Table, new OneToOneSchema()).Count > 0;
+            return Table.Rows.Count > 0;
         }
-
-
 
         public List<OneToManySchema> oneToManyKeys(string entityName)
         {

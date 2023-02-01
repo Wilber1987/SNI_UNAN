@@ -10,5 +10,11 @@ namespace API.Controllers {
        public object Login(Security_Users Inst) {
            return AuthNetCore.loginIN(Inst.Mail, Inst.Password);
        }
+       public  static bool Auth() {
+           return AuthNetCore.Authenticate();
+       }
+       public  static bool HavePermission(string permission) {
+           return AuthNetCore.HavePermission(permission);
+       }
    }
 }
