@@ -30,7 +30,7 @@ namespace AppGenerate
                             //BUILD ENTITY
                             AppGenerator.CSharpEnviroment.mapCSharpEntity(entityString, table);
 
-                            AppGenerator.JsEnviroment.mapJsEntity(jsEntityString, table);
+                            AppGenerator.JsEnviroment.mapJsEntity(jsEntityString, table, schema.TABLE_SCHEMA, schemaType.TABLE_TYPE);
 
                             //BUILD ENTITY CONTROLLER
                             AppGenerator.CSharpEnviroment.buildApiController(schemaType, controllerString, table);

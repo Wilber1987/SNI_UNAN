@@ -15,15 +15,16 @@ namespace AppGenerator
             entityString.AppendLine("import { EntityClass } from \"../WDevCore/WModules/EntityClass.js\";");
             entityString.AppendLine("import { WAjaxTools } from \"../WDevCore/WModules/WComponentsTools.js\";");
         }
-        public static void mapJsEntity(StringBuilder entityString, EntitySchema table)
+        public static void mapJsEntity(StringBuilder entityString, EntitySchema table, string schema, string typeshema)
         {
             entityString.AppendLine("class " + table.TABLE_NAME + " extends EntityClass {");
             entityString.AppendLine("   constructor(props) {");
-            entityString.AppendLine("       super(props);");
+            entityString.AppendLine("       super(props);");           
             //entityString.AppendLine("       for (const prop in props) {");
             //entityString.AppendLine("           this[prop] = props[prop];");
             //entityString.AppendLine("       }");
             entityString.AppendLine("   }");
+            entityString.AppendLine("   Namespace = '" + (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "';");
             foreach (var entity in SqlADOConexion.SQLM.describeEntity(table.TABLE_NAME))
             {
                 string type = "";

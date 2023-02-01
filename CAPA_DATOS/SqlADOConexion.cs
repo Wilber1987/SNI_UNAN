@@ -12,8 +12,8 @@ namespace CAPA_DATOS
         public static string DataBaseNameSIAC_BD = "SIAC_BD";
         public static bool Anonimo = true;
         //static string SQLServer = ".";
-        //static string SQLServer = "DESKTOP-2GLH51Q\\SQLEXPRESS";
-        static string SQLServer = "localhost";
+        static string SQLServer = "localhost\\SQLEXPRESS";
+        //static string SQLServer = "localhost";
         static public bool IniciarConexionSNIBD(string user, string password)
         {
             try

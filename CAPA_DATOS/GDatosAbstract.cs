@@ -23,6 +23,7 @@ namespace CAPA_DATOS
         protected abstract string BuildUpdateQueryByObject(object Inst, string IdObject);
         protected abstract string BuildUpdateQueryByObject(object Inst, string[] WhereProps);
         protected abstract string BuildDeleteQuery(object Inst);
+        //ADO.NET METHODS
         public bool TestConnection()
         {
             try
@@ -33,29 +34,51 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
-
                 throw;
             }
+        }
+        public void BeginTransaction()
+        {
+            SQLMCon.Open();
+            this.MTransaccion = SQLMCon.BeginTransaction();
+        }
+        public void CommitTransaction()
+        {
+            this.MTransaccion.Commit();
+            SQLMCon.Close();
+        }
+        public void RollBackTransaction()
+        {
+            this.MTransaccion.Rollback();
+            SQLMCon.Close();
         }
         public object ExcuteSqlQuery(string strQuery)
         {
-            try
-            {
-                SQLMCon.Open();
-                var com = ComandoSql(strQuery, SQLMCon);
-                var scalar = com.ExecuteScalar();
-                SQLMCon.Close();
-                if (scalar == (object)DBNull.Value) return true;
-                else return Convert.ToInt32(scalar);
-            }
-            catch (Exception)
-            {
-                SQLMCon.Close();
-                throw;
-            }
+            var com = ComandoSql(strQuery, SQLMCon);
+            com.Transaction = this.MTransaccion;
+            var scalar = com.ExecuteScalar();
+            if (scalar == (object)DBNull.Value) return true;
+            else return Convert.ToInt32(scalar);
 
         }
-        //INSERT, DELETE, UPDATES METHODS
+        public DataTable TraerDatosSQL(string queryString)
+        {
+
+            DataSet ObjDS = new DataSet();
+            var comando = ComandoSql(queryString, SQLMCon);
+            comando.Transaction = this.MTransaccion;
+            CrearDataAdapterSql(comando).Fill(ObjDS);
+            return ObjDS.Tables[0].Copy();
+
+        }
+        public DataTable TraerDatosSQL(IDbCommand Command)
+        {
+            DataSet ObjDS = new DataSet();
+            Command.Transaction = this.MTransaccion;
+            CrearDataAdapterSql(Command).Fill(ObjDS);
+            return ObjDS.Tables[0].Copy();
+        }
+        //ORM INSERT, DELETE, UPDATES METHODS
         public Object InsertObject(Object Inst)
         {
             try
@@ -118,7 +141,6 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-
         private static void FindRelationatedsEntitys<T>(T item)
         {
             Type _type = item.GetType();
@@ -205,20 +227,7 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        //LECTURA Y CONVERSION DE DATOS
-        public DataTable TraerDatosSQL(string queryString)
-        {
-            DataSet ObjDS = new DataSet();
-            CrearDataAdapterSql(queryString, SQLMCon).Fill(ObjDS);
-            return ObjDS.Tables[0].Copy();
-
-        }
-        public DataTable TraerDatosSQL(IDbCommand Command)
-        {
-            DataSet ObjDS = new DataSet();
-            CrearDataAdapterSql(Command).Fill(ObjDS);
-            return ObjDS.Tables[0].Copy();
-        }
+        //LECTURA Y CONVERSION DE DATOS       
         protected List<T> ConvertDataTable<T>(DataTable dt, Object Inst)
         {
             List<T> data = new List<T>();
