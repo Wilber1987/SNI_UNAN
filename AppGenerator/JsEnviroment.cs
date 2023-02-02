@@ -54,12 +54,17 @@ namespace AppGenerator
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
             {
-                string mapType = "Model";
-                if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
+                var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
+                var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
+                if (find == null && !entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
                 {
-                    mapType = "WSELECT";
+                    string mapType = "Model";
+                    if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
+                    {
+                        mapType = "WSELECT";
+                    }
+                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
                 }
-                entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
             {

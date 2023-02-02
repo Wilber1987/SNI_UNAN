@@ -212,17 +212,23 @@ namespace Security
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
             {
-                entityString.AppendLine("       [OneToOne("
-                    + "TableName = \""
-                    + entity.REFERENCE_TABLE_NAME + "\", "
-                    + "KeyColumn = \""
-                    + entity.CONSTRAINT_COLUMN_NAME + "\", "
-                    + "ForeignKeyColumn = \""
-                    + entity.REFERENCE_COLUMN_NAME + "\")]");
 
-                entityString.AppendLine("       public " + entity.REFERENCE_TABLE_NAME
-                    + " " + entity.REFERENCE_TABLE_NAME
-                    + " { get; set; }");
+                //var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
+                //var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
+                //if (find == null)
+                //{
+                    entityString.AppendLine("       [OneToOne("
+                                      + "TableName = \""
+                                      + entity.REFERENCE_TABLE_NAME + "\", "
+                                      + "KeyColumn = \""
+                                      + entity.CONSTRAINT_COLUMN_NAME + "\", "
+                                      + "ForeignKeyColumn = \""
+                                      + entity.REFERENCE_COLUMN_NAME + "\")]");
+                    entityString.AppendLine("       public " + entity.REFERENCE_TABLE_NAME
+                        + "? " + entity.REFERENCE_TABLE_NAME
+                        + " { get; set; }");
+                //}
+
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
             {
@@ -235,7 +241,7 @@ namespace Security
                     + entity.FKCOLUMN_NAME + "\")]");
 
                 entityString.AppendLine("       public List<" + entity.FKTABLE_NAME
-                    + "> " + entity.FKTABLE_NAME
+                    + ">? " + entity.FKTABLE_NAME
                     + " { get; set; }");
             }
             entityString.AppendLine("   }");

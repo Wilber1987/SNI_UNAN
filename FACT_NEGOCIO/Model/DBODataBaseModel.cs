@@ -50,9 +50,9 @@ namespace DataBaseModel {
        public string? Estado { get; set; }
        public string? Abreviatura { get; set; }
        [OneToMany(TableName = "TblEquivalenciasPresentacion", KeyColumn = "Id_Presentacion", ForeignKeyColumn = "Id_Presentacion_Final")]
-       public List<TblEquivalenciasPresentacion>? TblEquivalenciasPresentacionFinal { get; set; }
+       public List<TblEquivalenciasPresentacion>? TblEquivalenciasPresentacion { get; set; }
        [OneToMany(TableName = "TblEquivalenciasPresentacion", KeyColumn = "Id_Presentacion", ForeignKeyColumn = "Id_Presentacion_Inicial")]
-       public List<TblEquivalenciasPresentacion>? TblEquivalenciasPresentacionInicial { get; set; }
+       public List<TblEquivalenciasPresentacion>? TblEquivalenciasPresentacion2 { get; set; }
        [OneToMany(TableName = "TblLotes", KeyColumn = "Id_Presentacion", ForeignKeyColumn = "Id_Presentacion")]
        public List<TblLotes>? TblLotes { get; set; }
    }
@@ -60,8 +60,6 @@ namespace DataBaseModel {
        public int? Id_Producto { get; set; }
        public string? Descripcion { get; set; }
        public int? Id_Categoria { get; set; }
-       [OneToOne(TableName = "CatalogoCategorias", KeyColumn = "Id_Categoria", ForeignKeyColumn = "Id_Categoria")]
-       public CatalogoCategorias CatalogoCategorias { get; set; }
        [OneToMany(TableName = "TblCaracteristicasProductos", KeyColumn = "Id_Producto", ForeignKeyColumn = "Id_Producto")]
        public List<TblCaracteristicasProductos>? TblCaracteristicasProductos { get; set; }
        [OneToMany(TableName = "TblLotes", KeyColumn = "Id_Producto", ForeignKeyColumn = "Id_Producto")]
@@ -85,10 +83,6 @@ namespace DataBaseModel {
        public int? Id_Producto { get; set; }
        public int? Id_Caracteristica { get; set; }
        public string? Descripcion { get; set; }
-       [OneToOne(TableName = "CatalogoCaracteristicas", KeyColumn = "Id_Caracteristica", ForeignKeyColumn = "Id_Caracteristica")]
-       public CatalogoCaracteristicas CatalogoCaracteristicas { get; set; }
-       [OneToOne(TableName = "CatalogoProducto", KeyColumn = "Id_Producto", ForeignKeyColumn = "Id_Producto")]
-       public CatalogoProducto CatalogoProducto { get; set; }
    }
    public class TblDetalleFactura : EntityClass {
        public int? Id_Detalle_Factura { get; set; }
@@ -99,12 +93,6 @@ namespace DataBaseModel {
        public Double? Total { get; set; }
        public int? Id_Egreso { get; set; }
        public int? Id_Oferta { get; set; }
-       [OneToOne(TableName = "CatalogoOfertaEspecial", KeyColumn = "Id_Oferta", ForeignKeyColumn = "Id_Oferta")]
-       public CatalogoOfertaEspecial CatalogoOfertaEspecial { get; set; }
-       [OneToOne(TableName = "TblEgresosLotes", KeyColumn = "Id_Egreso", ForeignKeyColumn = "Id_Egreso")]
-       public TblEgresosLotes TblEgresosLotes { get; set; }
-       [OneToOne(TableName = "TblFactura", KeyColumn = "Id_Factura", ForeignKeyColumn = "Id_Factura")]
-       public TblFactura TblFactura { get; set; }
    }
    public class TblDetalleLotes : EntityClass {
        public int? Id_Detalle { get; set; }
@@ -112,10 +100,6 @@ namespace DataBaseModel {
        public int? Id_Tipo_Detalle { get; set; }
        public string? Estado { get; set; }
        public int? Id_Lote { get; set; }
-       [OneToOne(TableName = "CatalogoTipoDetalle", KeyColumn = "Id_Tipo_Detalle", ForeignKeyColumn = "Id_Tipo_Detalle")]
-       public CatalogoTipoDetalle CatalogoTipoDetalle { get; set; }
-       [OneToOne(TableName = "TblLotes", KeyColumn = "Id_Lote", ForeignKeyColumn = "Id_Lote")]
-       public TblLotes TblLotes { get; set; }
    }
    public class TblEgresosLotes : EntityClass {
        public int? Id_Egreso { get; set; }
@@ -124,10 +108,6 @@ namespace DataBaseModel {
        public int? Id_Lote { get; set; }
        public int? Cantidad { get; set; }
        public int? Id_Usuario_Gestor { get; set; }
-       [OneToOne(TableName = "CatalogoTipoEgreso", KeyColumn = "Id_Tipo_Egreso", ForeignKeyColumn = "Id_Tipo_Egreso")]
-       public CatalogoTipoEgreso CatalogoTipoEgreso { get; set; }
-       [OneToOne(TableName = "TblLotes", KeyColumn = "Id_Lote", ForeignKeyColumn = "Id_Lote")]
-       public TblLotes TblLotes { get; set; }
        [OneToMany(TableName = "TblDetalleFactura", KeyColumn = "Id_Egreso", ForeignKeyColumn = "Id_Egreso")]
        public List<TblDetalleFactura>? TblDetalleFactura { get; set; }
    }
@@ -136,10 +116,6 @@ namespace DataBaseModel {
        public int? Valor_Presentacion_Inicial { get; set; }
        public int? Id_Presentacion_Final { get; set; }
        public int? Valor_Presentacion_Final { get; set; }
-       [OneToOne(TableName = "CatalogoPresentacion", KeyColumn = "Id_Presentacion_Inicial", ForeignKeyColumn = "Id_Presentacion")]
-       public CatalogoPresentacion CatalogoPresentacionInicial { get; set; }
-       [OneToOne(TableName = "CatalogoPresentacion", KeyColumn = "Id_Presentacion_Final", ForeignKeyColumn = "Id_Presentacion")]
-       public CatalogoPresentacion CatalogoPresentacionFinal { get; set; }
    }
    public class TblFactura : EntityClass {
        public int? Id_Factura { get; set; }
@@ -151,8 +127,6 @@ namespace DataBaseModel {
        public Double? Total { get; set; }
        public string? No_Factura { get; set; }
        public string? Estado { get; set; }
-       [OneToOne(TableName = "CatalogoClientes", KeyColumn = "Id_Cliente", ForeignKeyColumn = "Id_Cliente")]
-       public CatalogoClientes CatalogoClientes { get; set; }
        [OneToMany(TableName = "TblDetalleFactura", KeyColumn = "Id_Factura", ForeignKeyColumn = "Id_Factura")]
        public List<TblDetalleFactura>? TblDetalleFactura { get; set; }
    }
@@ -166,12 +140,6 @@ namespace DataBaseModel {
        public string? Estado { get; set; }
        public int? Id_Presentacion { get; set; }
        public int? Id_Almacen { get; set; }
-       [OneToOne(TableName = "CatalogoAlmacen", KeyColumn = "Id_Almacen", ForeignKeyColumn = "Id_Almacen")]
-       public CatalogoAlmacen CatalogoAlmacen { get; set; }
-       [OneToOne(TableName = "CatalogoPresentacion", KeyColumn = "Id_Presentacion", ForeignKeyColumn = "Id_Presentacion")]
-       public CatalogoPresentacion CatalogoPresentacion { get; set; }
-       [OneToOne(TableName = "CatalogoProducto", KeyColumn = "Id_Producto", ForeignKeyColumn = "Id_Producto")]
-       public CatalogoProducto CatalogoProducto { get; set; }
        [OneToMany(TableName = "TblDetalleLotes", KeyColumn = "Id_Lote", ForeignKeyColumn = "Id_Lote")]
        public List<TblDetalleLotes>? TblDetalleLotes { get; set; }
        [OneToMany(TableName = "TblEgresosLotes", KeyColumn = "Id_Lote", ForeignKeyColumn = "Id_Lote")]

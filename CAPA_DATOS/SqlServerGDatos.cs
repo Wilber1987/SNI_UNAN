@@ -13,7 +13,15 @@ namespace CAPA_DATOS
     {
         public SqlServerGDatos(string ConexionString)
         {
-            SQLMCon = CrearConexion(ConexionString);
+            this.ConexionString = ConexionString;
+        }
+        protected override IDbConnection SQLMCon()
+        {
+            if (this.MTConnection != null)
+            {
+                return this.MTConnection;
+            }
+            return CrearConexion(ConexionString);
         }
         protected override IDbConnection CrearConexion(string ConexionString)
         {
@@ -358,6 +366,8 @@ namespace CAPA_DATOS
             DataTable Table = TraerDatosSQL(DescribeQuery);
             return ConvertDataTable<OneToManySchema>(Table, new OneToManySchema());
         }
+
+       
     }
 
 }

@@ -13,9 +13,9 @@ namespace CAPA_DATOS
 
         public List<T> Get<T>()
         {
-            SqlADOConexion.SQLM.BeginTransaction();
+            //SqlADOConexion.SQLM.BeginTransaction();
             var Data = SqlADOConexion.SQLM.TakeList<T>(this);
-            SqlADOConexion.SQLM.CommitTransaction();
+            //SqlADOConexion.SQLM.CommitTransaction();
             return Data;
         }
         public static List<T> EndpointMethod<T>()
@@ -26,16 +26,16 @@ namespace CAPA_DATOS
         }
         public T Find<T>()
         {
-            SqlADOConexion.SQLM.BeginTransaction();
+            //SqlADOConexion.SQLM.BeginTransaction();
             var Data = SqlADOConexion.SQLM.TakeObject<T>(this);
-            SqlADOConexion.SQLM.CommitTransaction();
+            //SqlADOConexion.SQLM.CommitTransaction();
             return Data;
         }
         public List<T> Get<T>(string condition)
         {
-            SqlADOConexion.SQLM.BeginTransaction();
+            //SqlADOConexion.SQLM.BeginTransaction();
             var Data = SqlADOConexion.SQLM.TakeList<T>(this, condition);
-            SqlADOConexion.SQLM.CommitTransaction();
+            //SqlADOConexion.SQLM.CommitTransaction();
             return Data;
         }
         public List<T> Get_WhereIN<T>(string Field, string[] conditions)

@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace CAPA_DATOS
 {
     public abstract class GDatosAbstract
-    {
-        protected IDbConnection SQLMCon;
+    {        
+        protected abstract IDbConnection SQLMCon();
+        protected String ConexionString;
         protected IDbTransaction MTransaccion;
         protected bool EnTransaccion;
+        protected IDbConnection MTConnection;
         protected abstract IDbConnection CrearConexion(string cadena);
         protected abstract IDbCommand ComandoSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(string comandoSql, IDbConnection connection);
@@ -28,8 +30,8 @@ namespace CAPA_DATOS
         {
             try
             {
-                SQLMCon.Open();
-                SQLMCon.Close();
+                SQLMCon().Open();
+                SQLMCon().Close();
                 return true;
             }
             catch (Exception)
@@ -39,22 +41,25 @@ namespace CAPA_DATOS
         }
         public void BeginTransaction()
         {
-            SQLMCon.Open();
-            this.MTransaccion = SQLMCon.BeginTransaction();
+            MTConnection = SQLMCon();
+            SQLMCon().Open();
+            this.MTransaccion = SQLMCon().BeginTransaction();
         }
         public void CommitTransaction()
         {
             this.MTransaccion.Commit();
-            SQLMCon.Close();
+            SQLMCon().Close();
+            MTConnection = null;
         }
         public void RollBackTransaction()
         {
             this.MTransaccion.Rollback();
-            SQLMCon.Close();
+            SQLMCon().Close();
+            MTConnection = null;
         }
         public object ExcuteSqlQuery(string strQuery)
         {
-            var com = ComandoSql(strQuery, SQLMCon);
+            var com = ComandoSql(strQuery, SQLMCon());
             com.Transaction = this.MTransaccion;
             var scalar = com.ExecuteScalar();
             if (scalar == (object)DBNull.Value) return true;
@@ -65,7 +70,7 @@ namespace CAPA_DATOS
         {
 
             DataSet ObjDS = new DataSet();
-            var comando = ComandoSql(queryString, SQLMCon);
+            var comando = ComandoSql(queryString, SQLMCon());
             comando.Transaction = this.MTransaccion;
             CrearDataAdapterSql(comando).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
@@ -137,7 +142,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
-                SQLMCon.Close();
+                SQLMCon().Close();
                 throw;
             }
         }
@@ -223,7 +228,6 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
-                SQLMCon.Close();
                 throw;
             }
         }
