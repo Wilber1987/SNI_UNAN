@@ -19,12 +19,12 @@ namespace AppGenerator
         {
             entityString.AppendLine("class " + table.TABLE_NAME + " extends EntityClass {");
             entityString.AppendLine("   constructor(props) {");
-            entityString.AppendLine("       super(props);");           
+            entityString.AppendLine("       super(props, '"+ (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "');");           
             //entityString.AppendLine("       for (const prop in props) {");
             //entityString.AppendLine("           this[prop] = props[prop];");
             //entityString.AppendLine("       }");
             entityString.AppendLine("   }");
-            entityString.AppendLine("   Namespace = '" + (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "';");
+            //entityString.AppendLine("   Namespace = '" + (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "';");
             foreach (var entity in SqlADOConexion.SQLM.describeEntity(table.TABLE_NAME))
             {
                 string type = "";
@@ -56,13 +56,13 @@ namespace AppGenerator
             {
                 var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
                 var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
-                if (find == null && !entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
+                string mapType = "Model";
+                if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
                 {
-                    string mapType = "Model";
-                    if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
-                    {
-                        mapType = "WSELECT";
-                    }
+                    mapType = "WSELECT";
+                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                }else if (find == null)
+                {                   
                     entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
                 }
             }

@@ -2,9 +2,8 @@ import { EntityClass } from "../WDevCore/WModules/EntityClass.js";
 import { WAjaxTools } from "../WDevCore/WModules/WComponentsTools.js";
 class Security_Permissions extends EntityClass {
    constructor(props) {
-       super(props);
+       super(props, 'EntitySECURITY');
    }
-   Namespace = 'EntitySECURITY';
    Id_Permission = { type: 'number', primary: true };
    Descripcion = { type: 'text' };
    Estado = { type: 'text' };
@@ -12,17 +11,15 @@ class Security_Permissions extends EntityClass {
 export { Security_Permissions }
 class Security_Permissions_Roles extends EntityClass {
    constructor(props) {
-       super(props);
+       super(props, 'EntitySECURITY');
    }
-   Namespace = 'EntitySECURITY';
    Estado = { type: 'text' };
 }
 export { Security_Permissions_Roles }
 class Security_Roles extends EntityClass {
    constructor(props) {
-       super(props);
+       super(props, 'EntitySECURITY');
    }
-   Namespace = 'EntitySECURITY';
    Id_Role = { type: 'number', primary: true };
    Descripcion = { type: 'text' };
    Estado = { type: 'text' };
@@ -30,9 +27,8 @@ class Security_Roles extends EntityClass {
 export { Security_Roles }
 class Security_Users extends EntityClass {
    constructor(props) {
-       super(props);
+       super(props, 'EntitySECURITY');
    }
-   Namespace = 'EntitySECURITY';
    Id_User = { type: 'number', primary: true };
    Nombres = { type: 'text' };
    Estado = { type: 'text' };
@@ -46,9 +42,8 @@ class Security_Users extends EntityClass {
 export { Security_Users }
 class Security_Users_Roles extends EntityClass {
    constructor(props) {
-       super(props);
+       super(props, 'EntitySECURITY');
    }
-   Namespace = 'EntitySECURITY';
    Estado = { type: 'text' };
 }
 export { Security_Users_Roles }
