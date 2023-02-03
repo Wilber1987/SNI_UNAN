@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace CAPA_DATOS
 {
     public abstract class GDatosAbstract
     {
-        protected IDbConnection SQLMCon;
+        protected abstract IDbConnection SQLMCon();
+        protected String ConexionString;
         protected IDbTransaction MTransaccion;
         protected bool EnTransaccion;
+        protected IDbConnection MTConnection;
         protected abstract IDbConnection CrearConexion(string cadena);
         protected abstract IDbCommand ComandoSql(string comandoSql, IDbConnection connection);
         protected abstract IDataAdapter CrearDataAdapterSql(string comandoSql, IDbConnection connection);
@@ -28,8 +31,8 @@ namespace CAPA_DATOS
         {
             try
             {
-                SQLMCon.Open();
-                SQLMCon.Close();
+                SQLMCon().Open();
+                SQLMCon().Close();
                 return true;
             }
             catch (Exception)
@@ -39,22 +42,27 @@ namespace CAPA_DATOS
         }
         public void BeginTransaction()
         {
-            SQLMCon.Open();
-            this.MTransaccion = SQLMCon.BeginTransaction();
+
+            MTConnection = SQLMCon();
+            SQLMCon().Open();
+            this.MTransaccion = SQLMCon().BeginTransaction();
+
         }
         public void CommitTransaction()
         {
             this.MTransaccion.Commit();
-            SQLMCon.Close();
+            SQLMCon().Close();
+            MTConnection = null;
         }
         public void RollBackTransaction()
         {
             this.MTransaccion.Rollback();
-            SQLMCon.Close();
+            SQLMCon().Close();
+            MTConnection = null;
         }
         public object ExcuteSqlQuery(string strQuery)
         {
-            var com = ComandoSql(strQuery, SQLMCon);
+            var com = ComandoSql(strQuery, SQLMCon());
             com.Transaction = this.MTransaccion;
             var scalar = com.ExecuteScalar();
             if (scalar == (object)DBNull.Value) return true;
@@ -65,7 +73,7 @@ namespace CAPA_DATOS
         {
 
             DataSet ObjDS = new DataSet();
-            var comando = ComandoSql(queryString, SQLMCon);
+            var comando = ComandoSql(queryString, SQLMCon());
             comando.Transaction = this.MTransaccion;
             CrearDataAdapterSql(comando).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
@@ -84,12 +92,79 @@ namespace CAPA_DATOS
             try
             {
                 string strQuery = BuildInsertQueryByObject(Inst);
-                return ExcuteSqlQuery(strQuery);
+                Type _type = Inst.GetType();
+                List<PropertyInfo> lst = _type.GetProperties().ToList();
+                var pkPropiertys = lst.Where(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
+                PrimaryKey pkInfo = (PrimaryKey)Attribute.GetCustomAttribute(pkPropiertys[0], typeof(PrimaryKey));
+                int idGenerated = 0;
+                if (pkInfo?.Identity == true)
+                {
+                    idGenerated = (Int32)ExcuteSqlQuery(strQuery);
+                    var pk = Nullable.GetUnderlyingType(pkPropiertys[0].PropertyType);                   
+                    pkPropiertys[0].SetValue(Inst, Convert.ChangeType(idGenerated, pk));
+                }
+                else { ExcuteSqlQuery(strQuery); }
+                //
+                foreach (PropertyInfo oProperty in lst)
+                {
+                    string AtributeName = oProperty.Name;
+                    var AtributeValue = oProperty.GetValue(Inst);
+                    if (AtributeValue != null)
+                    {
+                        OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
+                        if (oneToOne != null)
+                        {
+                            InsertRelationatedObject(pkPropiertys[0].GetValue(Inst), AtributeValue, oneToOne.KeyColumn, oneToOne.ForeignKeyColumn);
+                        }
+                        ManyToOne manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
+                        if (manyToOne != null)
+                        {
+                            PropertyInfo KeyColumn = AtributeValue.GetType().GetProperty(manyToOne.KeyColumn);
+                            PropertyInfo ForeignKeyColumn = AtributeValue.GetType().GetProperty(manyToOne.ForeignKeyColumn);
+
+                            if (ForeignKeyColumn != null)
+                            {
+                                var t = Nullable.GetUnderlyingType(ForeignKeyColumn.PropertyType);
+                                var FK = Inst.GetType().GetProperty(ForeignKeyColumn.Name);
+                                FK.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(ForeignKeyColumn.Name).GetValue(AtributeValue), t));
+                                UpdateObject(Inst, pkPropiertys[0].Name);
+
+                            }
+                        }
+                        OneToMany oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
+                        if (oneToMany != null)
+                        {
+                            foreach (var value in (AtributeValue as IEnumerable))
+                            {
+                                InsertRelationatedObject(pkPropiertys[0].GetValue(Inst), value, oneToMany.KeyColumn, oneToMany.ForeignKeyColumn);
+                            }
+                        }
+                    }
+                    else continue;
+                }
+                return idGenerated;
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        private void InsertRelationatedObject(object idGenerated, object AtributeValue, string keyColumn, string foreignKeyColumn)
+        {
+            // var method = AtributeValue.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Save" && mi.GetParameters().Count() == 0);
+            // if (method != null)
+            // {
+            PropertyInfo KeyColumn = AtributeValue.GetType().GetProperty(keyColumn);
+            PropertyInfo ForeignKeyColumn = AtributeValue.GetType().GetProperty(foreignKeyColumn);
+            if (ForeignKeyColumn != null)
+            {
+                ForeignKeyColumn.SetValue(AtributeValue, idGenerated);
+                // method.GetGenericMethodDefinition().MakeGenericMethod(AtributeValue.GetType()).Invoke(AtributeValue, new object[] { });
+                this.InsertObject(AtributeValue);
+
+            }
+            // }
         }
 
         public Object UpdateObject(Object Inst, string[] IdObject)
@@ -137,7 +212,7 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
-                SQLMCon.Close();
+                SQLMCon().Close();
                 throw;
             }
         }
@@ -223,7 +298,6 @@ namespace CAPA_DATOS
             }
             catch (Exception)
             {
-                SQLMCon.Close();
                 throw;
             }
         }

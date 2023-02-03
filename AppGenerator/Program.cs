@@ -12,8 +12,7 @@ namespace AppGenerate
             try
             {
                 SqlADOConexion.IniciarConexionAnonima();
-                StringBuilder indexBuilder = new StringBuilder();
-                indexBuilder.AppendLine("@page");
+                StringBuilder indexBuilder = AppGenerator.CSharpEnviroment.CSharpIndexBuilder();
                 foreach (var schema in SqlADOConexion.SQLM.databaseSchemas())
                 {
                     foreach (var schemaType in SqlADOConexion.SQLM.databaseTypes())
@@ -36,9 +35,7 @@ namespace AppGenerate
                             AppGenerator.CSharpEnviroment.buildApiController(schemaType, controllerString, table);
 
                             AppGenerator.JsEnviroment.setJsViewBuilder(schema.TABLE_SCHEMA, table.TABLE_NAME, schemaType.TABLE_TYPE);
-                            indexBuilder.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/"+ 
-                                (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
-                                + table.TABLE_NAME + "View\"> "+ table.TABLE_NAME + "</a>");
+                            AppGenerator.CSharpEnviroment.CSharpIndexBuilder(indexBuilder, table);
 
                         }
                         entityString.AppendLine("}");
@@ -61,7 +58,6 @@ namespace AppGenerate
             }
         }
 
-        
         public static void createDataBaseModelFile(string contain, string name, string type)
         {
            AppGenerator.Utility.createFile(@"c:\temp\Model\" + name.ToUpper() + (type == "VIEW" ? "ViewModel.cs" : "DataBaseModel.cs"), contain);

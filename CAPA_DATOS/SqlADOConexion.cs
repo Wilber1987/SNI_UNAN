@@ -21,13 +21,18 @@ namespace CAPA_DATOS
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
                     "; Initial Catalog=" + DataBaseNameSNIBD + "; User ID="
-                    + user + ";Password=" + password;
+                    + user + ";Password=" + password + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 if (SQLM.TestConnection()) return true;
-               else return false;
+                else
+                {
+                    SQLM = null;
+                    return false;
+                }
             }
             catch (Exception)
             {
+                SQLM = null;
                 Anonimo = true;
                 return false;
                 throw;
@@ -40,7 +45,7 @@ namespace CAPA_DATOS
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
                     "; Initial Catalog=" + DataBaseNameSIAC_BD + "; User ID="
-                    + user + ";Password=" + password;
+                    + user + ";Password=" + password + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;
             }
@@ -57,7 +62,8 @@ namespace CAPA_DATOS
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
-                    "; Initial Catalog=" + DataBaseNameSNIBD + "; User ID=sa;Password=zaxscd";
+                    "; Initial Catalog=" + DataBaseNameSNIBD +
+                    "; User ID=sa;Password=zaxscd;MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;
             }

@@ -129,6 +129,37 @@ namespace Security
     </body>
 </html>";
 
+        public static StringBuilder CSharpIndexBuilder()
+        {
+            StringBuilder indexBuilder = new StringBuilder();
+            indexBuilder.AppendLine("@page");
+            indexBuilder.AppendLine(@"@using API.Controllers
+@{
+    if (!SecurityController.Auth())
+    {
+        Response.Redirect(" + "\"../LoginView\");" + @"
+        return;
+    }
+    if (!SecurityController.HavePermission(" + "\"HOME_ACCESS\"))" + @"
+    {
+        //Response.Redirect(" + "\"../permission_error\");" + @"
+        //return;
+    }
+}");
+            return indexBuilder;
+        }
+
+        public static void CSharpIndexBuilder(StringBuilder indexBuilder, EntitySchema table)
+        {
+            if (table.TABLE_NAME.ToLower().StartsWith("relational") || table.TABLE_NAME.ToLower().StartsWith("detail"))
+            {
+                return;
+            }
+            indexBuilder.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/" +
+                (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
+                + table.TABLE_NAME + "View\"> " + table.TABLE_NAME + "</a>");
+        }
+
         public static string buildApiSecurityController()
         {
             StringBuilder controllerString = new StringBuilder();
@@ -206,23 +237,35 @@ namespace Security
                     case "bit": type = "bool"; break;
                 }
 
+                if (SqlADOConexion.SQLM.isPrimary(table.TABLE_NAME, entity.COLUMN_NAME))
+                {
+                    var columnProps = SqlADOConexion.SQLM.describePrimaryKey(table.TABLE_NAME, entity.COLUMN_NAME);
+                    entityString.AppendLine("       [PrimaryKey(Identity = " +  columnProps != null ? "true" : "false" +")]");                  
+                }
                 entityString.AppendLine("       public " + type
-                    + "? " + entity.COLUMN_NAME
-                    + " { get; set; }");
-            }
-            foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
-            {
-                entityString.AppendLine("       [OneToOne("
-                    + "TableName = \""
-                    + entity.REFERENCE_TABLE_NAME + "\", "
-                    + "KeyColumn = \""
-                    + entity.CONSTRAINT_COLUMN_NAME + "\", "
-                    + "ForeignKeyColumn = \""
-                    + entity.REFERENCE_COLUMN_NAME + "\")]");
+                                     + "? " + entity.COLUMN_NAME
+                                     + " { get; set; }");
 
+            }
+            foreach (var entity in SqlADOConexion.SQLM.ManyToOneKeys(table.TABLE_NAME))
+            {
+
+                //var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
+                //var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
+                //if (find == null)
+                //{
+                entityString.AppendLine("       [ManyToOne("
+                                  + "TableName = \""
+                                  + entity.REFERENCE_TABLE_NAME + "\", "
+                                  + "KeyColumn = \""
+                                  + entity.CONSTRAINT_COLUMN_NAME + "\", "
+                                  + "ForeignKeyColumn = \""
+                                  + entity.REFERENCE_COLUMN_NAME + "\")]");
                 entityString.AppendLine("       public " + entity.REFERENCE_TABLE_NAME
-                    + " " + entity.REFERENCE_TABLE_NAME
+                    + "? " + entity.REFERENCE_TABLE_NAME
                     + " { get; set; }");
+                //}
+
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
             {
@@ -235,7 +278,7 @@ namespace Security
                     + entity.FKCOLUMN_NAME + "\")]");
 
                 entityString.AppendLine("       public List<" + entity.FKTABLE_NAME
-                    + "> " + entity.FKTABLE_NAME
+                    + ">? " + entity.FKTABLE_NAME
                     + " { get; set; }");
             }
             entityString.AppendLine("   }");
@@ -268,6 +311,10 @@ namespace Security
         }
         public static void createCSharpView(string name)
         {
+            if (name.ToLower().StartsWith("relational") || name.ToLower().StartsWith("detail"))
+            {
+                return;
+            }
             var pageString = new StringBuilder();
             pageString.AppendLine(@"@page
 @using API.Controllers
