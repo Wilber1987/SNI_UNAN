@@ -6,6 +6,10 @@ using System.Text;
 namespace CAPA_DATOS
 {
 
+    public class PrimaryKey : Attribute
+    {
+        public bool Identity { get; set; }
+    }
     public class OneToMany : Attribute
     {
         public string TableName { get; set; }
@@ -60,6 +64,14 @@ namespace CAPA_DATOS
         public string DATA_TYPE { get; set; }
         public string IS_NULLABLE { get; set; }
         public string TABLE_SCHEMA { get; set; }
+    }
+    public class EntityColumn
+    {
+        public string TABLE_NAME { get; set; }
+        public string COLUMN_NAME { get; set; }
+        public string DATA_TYPE { get; set; }
+        public string TYPE_NAME { get; set; }
+        public bool NULLABLE { get; set; }
     }
 
 }

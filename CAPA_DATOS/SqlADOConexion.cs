@@ -11,9 +11,9 @@ namespace CAPA_DATOS
         public static string DataBaseNameSNIBD = "SIGFACT";
         public static string DataBaseNameSIAC_BD = "SIAC_BD";
         public static bool Anonimo = true;
-        static string SQLServer = ".";
+        //static string SQLServer = ".";
         //static string SQLServer = "localhost\\SQLEXPRESS";
-        //static string SQLServer = "localhost";
+        static string SQLServer = "localhost";
         static public bool IniciarConexionSNIBD(string user, string password)
         {
             try
@@ -24,7 +24,8 @@ namespace CAPA_DATOS
                     + user + ";Password=" + password + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 if (SQLM.TestConnection()) return true;
-                else {
+                else
+                {
                     SQLM = null;
                     return false;
                 }

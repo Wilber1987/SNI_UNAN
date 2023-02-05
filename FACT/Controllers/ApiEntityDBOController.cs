@@ -6,20 +6,20 @@ namespace API.Controllers {
    [Route("api/[controller]/[action]")]
    [ApiController]
    public class  ApiEntityDBOController : ControllerBase {
-       //TblLotes
+       //TransactionLotes
        [HttpPost]
        [AuthController]
-       public List<TblLotes> getTblLotes() {
-           return new TblLotes().Get<TblLotes>();
+       public List<TransactionLotes> getTransactionLotes() {
+           return new TransactionLotes().Get<TransactionLotes>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblLotes(TblLotes inst) {
+       public object saveTransactionLotes(TransactionLotes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblLotes(TblLotes inst) {
+       public object updateTransactionLotes(TransactionLotes inst) {
            return inst.Update();
        }
        //CatalogoCategorias
@@ -54,68 +54,68 @@ namespace API.Controllers {
        public object updateCatalogoPresentacion(CatalogoPresentacion inst) {
            return inst.Update();
        }
-       //CatalogoTipoDetalle
+       //CatalogoTipoDetalleLote
        [HttpPost]
        [AuthController]
-       public List<CatalogoTipoDetalle> getCatalogoTipoDetalle() {
-           return new CatalogoTipoDetalle().Get<CatalogoTipoDetalle>();
+       public List<CatalogoTipoDetalleLote> getCatalogoTipoDetalleLote() {
+           return new CatalogoTipoDetalleLote().Get<CatalogoTipoDetalleLote>();
        }
        [HttpPost]
        [AuthController]
-       public object saveCatalogoTipoDetalle(CatalogoTipoDetalle inst) {
+       public object saveCatalogoTipoDetalleLote(CatalogoTipoDetalleLote inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCatalogoTipoDetalle(CatalogoTipoDetalle inst) {
+       public object updateCatalogoTipoDetalleLote(CatalogoTipoDetalleLote inst) {
            return inst.Update();
        }
-       //TblDetalleLotes
+       //RelationalDetalleLotes
        [HttpPost]
        [AuthController]
-       public List<TblDetalleLotes> getTblDetalleLotes() {
-           return new TblDetalleLotes().Get<TblDetalleLotes>();
+       public List<RelationalDetalleLotes> getRelationalDetalleLotes() {
+           return new RelationalDetalleLotes().Get<RelationalDetalleLotes>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblDetalleLotes(TblDetalleLotes inst) {
+       public object saveRelationalDetalleLotes(RelationalDetalleLotes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblDetalleLotes(TblDetalleLotes inst) {
+       public object updateRelationalDetalleLotes(RelationalDetalleLotes inst) {
            return inst.Update();
        }
-       //TblEquivalenciasPresentacion
+       //RelationalTbl_EquivalenciasPresentacion
        [HttpPost]
        [AuthController]
-       public List<TblEquivalenciasPresentacion> getTblEquivalenciasPresentacion() {
-           return new TblEquivalenciasPresentacion().Get<TblEquivalenciasPresentacion>();
+       public List<RelationalTbl_EquivalenciasPresentacion> getRelationalTbl_EquivalenciasPresentacion() {
+           return new RelationalTbl_EquivalenciasPresentacion().Get<RelationalTbl_EquivalenciasPresentacion>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblEquivalenciasPresentacion(TblEquivalenciasPresentacion inst) {
+       public object saveRelationalTbl_EquivalenciasPresentacion(RelationalTbl_EquivalenciasPresentacion inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblEquivalenciasPresentacion(TblEquivalenciasPresentacion inst) {
+       public object updateRelationalTbl_EquivalenciasPresentacion(RelationalTbl_EquivalenciasPresentacion inst) {
            return inst.Update();
        }
-       //TblEgresosLotes
+       //TransactionEgresosLotes
        [HttpPost]
        [AuthController]
-       public List<TblEgresosLotes> getTblEgresosLotes() {
-           return new TblEgresosLotes().Get<TblEgresosLotes>();
+       public List<TransactionEgresosLotes> getTransactionEgresosLotes() {
+           return new TransactionEgresosLotes().Get<TransactionEgresosLotes>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblEgresosLotes(TblEgresosLotes inst) {
+       public object saveTransactionEgresosLotes(TransactionEgresosLotes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblEgresosLotes(TblEgresosLotes inst) {
+       public object updateTransactionEgresosLotes(TransactionEgresosLotes inst) {
            return inst.Update();
        }
        //CatalogoTipoEgreso
@@ -150,36 +150,36 @@ namespace API.Controllers {
        public object updateCatalogoAlmacen(CatalogoAlmacen inst) {
            return inst.Update();
        }
-       //TblFactura
+       //TransactionFactura
        [HttpPost]
        [AuthController]
-       public List<TblFactura> getTblFactura() {
-           return new TblFactura().Get<TblFactura>();
+       public List<TransactionFactura> getTransactionFactura() {
+           return new TransactionFactura().Get<TransactionFactura>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblFactura(TblFactura inst) {
+       public object saveTransactionFactura(TransactionFactura inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblFactura(TblFactura inst) {
+       public object updateTransactionFactura(TransactionFactura inst) {
            return inst.Update();
        }
-       //TblDetalleFactura
+       //DetailFactura
        [HttpPost]
        [AuthController]
-       public List<TblDetalleFactura> getTblDetalleFactura() {
-           return new TblDetalleFactura().Get<TblDetalleFactura>();
+       public List<DetailFactura> getDetailFactura() {
+           return new DetailFactura().Get<DetailFactura>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblDetalleFactura(TblDetalleFactura inst) {
+       public object saveDetailFactura(DetailFactura inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblDetalleFactura(TblDetalleFactura inst) {
+       public object updateDetailFactura(DetailFactura inst) {
            return inst.Update();
        }
        //CatalogoOfertaEspecial
@@ -214,20 +214,20 @@ namespace API.Controllers {
        public object updateCatalogoClientes(CatalogoClientes inst) {
            return inst.Update();
        }
-       //TblCaracteristicasProductos
+       //RelationalCaracteristicasProductos
        [HttpPost]
        [AuthController]
-       public List<TblCaracteristicasProductos> getTblCaracteristicasProductos() {
-           return new TblCaracteristicasProductos().Get<TblCaracteristicasProductos>();
+       public List<RelationalCaracteristicasProductos> getRelationalCaracteristicasProductos() {
+           return new RelationalCaracteristicasProductos().Get<RelationalCaracteristicasProductos>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTblCaracteristicasProductos(TblCaracteristicasProductos inst) {
+       public object saveRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblCaracteristicasProductos(TblCaracteristicasProductos inst) {
+       public object updateRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
            return inst.Update();
        }
        //CatalogoProducto

@@ -1,0 +1,16 @@
+@page
+@using API.Controllers
+@{
+    if (!SecurityController.Auth())
+    {
+        Response.Redirect("../LoginView");
+        return;
+    }
+    if (!SecurityController.HavePermission("HOME_ACCESS"))
+    {
+        //Response.Redirect("../permission_error");
+        //return;
+    }
+}
+<script src='~/Views/CatalogoTipoDetalleLoteView.js' type='module'></script>
+<div id='MainBody'></div>

@@ -305,6 +305,13 @@ namespace CAPA_DATOS
             var es = ConvertDataTable<EntitySchema>(Table, new EntitySchema());
             return es;
         }
+        public EntityColumn describePrimaryKey(string table, string column)
+        {
+            string DescribeQuery = @"exec sp_columns'" + table + "'";
+            DataTable Table = TraerDatosSQL(DescribeQuery);
+            var es = ConvertDataTable<EntityColumn>(Table, new EntitySchema());
+            return es.Find(e => e.COLUMN_NAME == column);
+        }
 
         public List<EntityProps> describeEntity(string entityName)
         {
@@ -316,7 +323,7 @@ namespace CAPA_DATOS
             return ConvertDataTable<EntityProps>(Table, new EntityProps());
         }
 
-        public List<OneToOneSchema> oneToOneKeys(string entityName)
+        public List<OneToOneSchema> ManyToOneKeys(string entityName)
         {
             string DescribeQuery = @"SELECT   
                     f.name AS foreign_key_name  

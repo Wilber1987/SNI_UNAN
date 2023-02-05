@@ -19,10 +19,10 @@ namespace AppGenerator
         {
             entityString.AppendLine("class " + table.TABLE_NAME + " extends EntityClass {");
             entityString.AppendLine("   constructor(props) {");
-            entityString.AppendLine("       super(props, '"+ (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "');");           
-            //entityString.AppendLine("       for (const prop in props) {");
-            //entityString.AppendLine("           this[prop] = props[prop];");
-            //entityString.AppendLine("       }");
+            entityString.AppendLine("       super(props, '" + (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "');");
+            entityString.AppendLine("       for (const prop in props) {");
+            entityString.AppendLine("           this[prop] = props[prop];");
+            entityString.AppendLine("       }");
             entityString.AppendLine("   }");
             //entityString.AppendLine("   Namespace = '" + (typeshema == "VIEW" ? "View" : "Entity") + schema.ToUpper() + "';");
             foreach (var entity in SqlADOConexion.SQLM.describeEntity(table.TABLE_NAME))
@@ -50,30 +50,45 @@ namespace AppGenerator
                     entityString.AppendLine("   " + entity.COLUMN_NAME + " = { type: '" + type + "'"
                     + (SqlADOConexion.SQLM.isPrimary(table.TABLE_NAME, entity.COLUMN_NAME) ? ", primary: true" : "") + " };");
                 }
-                
+
             }
-            foreach (var entity in SqlADOConexion.SQLM.oneToOneKeys(table.TABLE_NAME))
+            foreach (var entity in SqlADOConexion.SQLM.ManyToOneKeys(table.TABLE_NAME))
             {
                 var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
                 var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
-                string mapType = "Model";
-                if (entity.REFERENCE_TABLE_NAME.Contains("Catalogo"))
+                string controlType = "WSELECT";
+                if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalogo") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalg"))
                 {
-                    mapType = "WSELECT";
-                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
-                }else if (find == null)
-                {                   
-                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                    controlType = "WSELECT";
                 }
+                else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("detail") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("detalle"))
+                {
+                    //controlType = "WSELECT";
+                }
+                else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaction") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaccion"))
+                {
+                    controlType = "Model";
+                }
+                else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("relational") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("relacional"))
+                {
+                    controlType = "Model";
+                }
+                if (!table.TABLE_NAME.ToLower().StartsWith("detail") && !entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transactional"))
+                {
+                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + controlType
+                        + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                }
+
+
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
             {
                 string mapType = "MasterDetail";
-                if (entity.FKTABLE_NAME.Contains("Catalogo"))
+                if (entity.FKTABLE_NAME.StartsWith("Catalogo"))
                 {
                     mapType = "WMULTYSELECT";
                 }
-                if (!table.TABLE_NAME.Contains("Catalogo"))
+                if (!table.TABLE_NAME.StartsWith("Catalogo") || entity.FKTABLE_NAME.ToLower().StartsWith("relational"))
                 {
                     entityString.AppendLine("   " + entity.FKTABLE_NAME + " = { type: '" + mapType + "',  ModelObject: ()=> new " + entity.FKTABLE_NAME + "()};");
                 }
@@ -83,6 +98,10 @@ namespace AppGenerator
         }
         public static void setJsViewBuilder(string schema, string name, string type)
         {
+            if (name.ToLower().StartsWith("relational") || name.ToLower().StartsWith("detail"))
+            {
+                return;
+            }
             var entityString = new StringBuilder();
             entityString.AppendLine("import { WRender, ComponentsManager, WAjaxTools } from \"../WDevCore/WModules/WComponentsTools.js\";");
             entityString.AppendLine("import { StylesControlsV2, StyleScrolls } from \"../WDevCore/StyleModules/WStyleComponents.js\"");

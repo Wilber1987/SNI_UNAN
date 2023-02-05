@@ -10,12 +10,9 @@ namespace CAPA_DATOS
 {
     public abstract class EntityClass
     {
-
         public List<T> Get<T>()
         {
-            //SqlADOConexion.SQLM.BeginTransaction();
             var Data = SqlADOConexion.SQLM.TakeList<T>(this);
-            //SqlADOConexion.SQLM.CommitTransaction();
             return Data;
         }
         public static List<T> EndpointMethod<T>()
@@ -26,16 +23,18 @@ namespace CAPA_DATOS
         }
         public T Find<T>()
         {
-            //SqlADOConexion.SQLM.BeginTransaction();
-            var Data = SqlADOConexion.SQLM.TakeObject<T>(this);
-            //SqlADOConexion.SQLM.CommitTransaction();
+            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, true);
+            return Data;
+        }
+
+        public T SimpleFind<T>()
+        {
+            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, false);
             return Data;
         }
         public List<T> Get<T>(string condition)
         {
-            //SqlADOConexion.SQLM.BeginTransaction();
             var Data = SqlADOConexion.SQLM.TakeList<T>(this, condition);
-            //SqlADOConexion.SQLM.CommitTransaction();
             return Data;
         }
         public List<T> Get_WhereIN<T>(string Field, string[] conditions)
@@ -73,30 +72,38 @@ namespace CAPA_DATOS
             try
             {
                 SqlADOConexion.SQLM.BeginTransaction();
-                //var method = this.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
                 var result = SqlADOConexion.SQLM.InsertObject(this);
                 SqlADOConexion.SQLM.CommitTransaction();
                 return result;
             }
-            catch (Exception)
+            catch (Exception E)
             {
                 SqlADOConexion.SQLM.RollBackTransaction();
-                return false;
+                throw E;
             }
         }
         public object Update()
         {
             try
             {
-                SqlADOConexion.SQLM.BeginTransaction();
-                //var method = this.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
-                //var result = SqlADOConexion.SQLM.InsertObject(this);
-                SqlADOConexion.SQLM.CommitTransaction();
+                PropertyInfo[] lst = this.GetType().GetProperties();
+                //PrimaryKey primaryKey;
+                //foreach (PropertyInfo oProperty in lst)
+                //{
+                //    primaryKey = (PrimaryKey)Attribute.GetCustomAttribute(oProperty, typeof(PrimaryKey));
+                //    if (primaryKey != null)
+                //    {
+                //        this.Update(oProperty.Name);
+                //        break;
+                //    }
+                //}
+                PropertyInfo propierty = lst.FirstOrDefault(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null);
+                if (propierty != null && propierty.GetValue(this) != null) this.Update(propierty.Name);
+                else return false;
                 return true;
             }
             catch (Exception)
             {
-                SqlADOConexion.SQLM.RollBackTransaction();
                 return false;
             }
         }
