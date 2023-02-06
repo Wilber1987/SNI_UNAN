@@ -1,0 +1,11 @@
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.csproj.AssemblyReference.cache
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.AssemblyInfoInputs.cache
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.AssemblyInfo.cs
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.MvcApplicationPartsAssemblyInfo.cache
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.RazorAssemblyInfo.cache
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.RazorAssemblyInfo.cs
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.dll
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\ref\UI_USAV.dll
+C:\xampp\htdocs\SNI_UNAN\UI_USAV\obj\Debug\net5.0\UI_USAV.pdb

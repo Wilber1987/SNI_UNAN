@@ -49,6 +49,8 @@ namespace AppGenerate
                 AppGenerator.Utility.createFile(@"c:\temp\Controllers\SecurityController.cs", AppGenerator.CSharpEnviroment.buildApiSecurityController());
                 AppGenerator.Utility.createFile(@"c:\temp\Security\AuthNetcore.cs", AppGenerator.CSharpEnviroment.body);
                 AppGenerator.Utility.createFile(@"c:\temp\Pages\LoginView.cshtml", AppGenerator.CSharpEnviroment.loginString);
+                indexBuilder.Append(AppGenerator.CSharpEnviroment.transactionalMenu);
+                indexBuilder.Append(AppGenerator.CSharpEnviroment.catalogoMenu);
                 AppGenerator.Utility.createFile(@"c:\temp\Pages\Index.cshtml", indexBuilder.ToString());
             }
 

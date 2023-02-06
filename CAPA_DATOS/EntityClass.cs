@@ -23,7 +23,13 @@ namespace CAPA_DATOS
         }
         public T Find<T>()
         {
-            var Data = SqlADOConexion.SQLM.TakeObject<T>(this);
+            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, true);
+            return Data;
+        }
+
+        public T SimpleFind<T>()
+        {
+            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, false);
             return Data;
         }
         public List<T> Get<T>(string condition)

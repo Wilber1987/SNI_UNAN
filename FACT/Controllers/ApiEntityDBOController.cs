@@ -6,20 +6,52 @@ namespace API.Controllers {
    [Route("api/[controller]/[action]")]
    [ApiController]
    public class  ApiEntityDBOController : ControllerBase {
-       //TransactionLotes
+       //CatalogoOfertaEspecial
        [HttpPost]
        [AuthController]
-       public List<TransactionLotes> getTransactionLotes() {
-           return new TransactionLotes().Get<TransactionLotes>();
+       public List<CatalogoOfertaEspecial> getCatalogoOfertaEspecial() {
+           return new CatalogoOfertaEspecial().Get<CatalogoOfertaEspecial>();
        }
        [HttpPost]
        [AuthController]
-       public object saveTransactionLotes(TransactionLotes inst) {
+       public object saveCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTransactionLotes(TransactionLotes inst) {
+       public object updateCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
+           return inst.Update();
+       }
+       //CatalogoAlmacen
+       [HttpPost]
+       [AuthController]
+       public List<CatalogoAlmacen> getCatalogoAlmacen() {
+           return new CatalogoAlmacen().Get<CatalogoAlmacen>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveCatalogoAlmacen(CatalogoAlmacen inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateCatalogoAlmacen(CatalogoAlmacen inst) {
+           return inst.Update();
+       }
+       //CatalogoCaracteristicas
+       [HttpPost]
+       [AuthController]
+       public List<CatalogoCaracteristicas> getCatalogoCaracteristicas() {
+           return new CatalogoCaracteristicas().Get<CatalogoCaracteristicas>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
            return inst.Update();
        }
        //CatalogoCategorias
@@ -38,6 +70,22 @@ namespace API.Controllers {
        public object updateCatalogoCategorias(CatalogoCategorias inst) {
            return inst.Update();
        }
+       //CatalogoClientes
+       [HttpPost]
+       [AuthController]
+       public List<CatalogoClientes> getCatalogoClientes() {
+           return new CatalogoClientes().Get<CatalogoClientes>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveCatalogoClientes(CatalogoClientes inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateCatalogoClientes(CatalogoClientes inst) {
+           return inst.Update();
+       }
        //CatalogoPresentacion
        [HttpPost]
        [AuthController]
@@ -54,6 +102,22 @@ namespace API.Controllers {
        public object updateCatalogoPresentacion(CatalogoPresentacion inst) {
            return inst.Update();
        }
+       //CatalogoProducto
+       [HttpPost]
+       [AuthController]
+       public List<CatalogoProducto> getCatalogoProducto() {
+           return new CatalogoProducto().Get<CatalogoProducto>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveCatalogoProducto(CatalogoProducto inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateCatalogoProducto(CatalogoProducto inst) {
+           return inst.Update();
+       }
        //CatalogoTipoDetalleLote
        [HttpPost]
        [AuthController]
@@ -68,6 +132,54 @@ namespace API.Controllers {
        [HttpPost]
        [AuthController]
        public object updateCatalogoTipoDetalleLote(CatalogoTipoDetalleLote inst) {
+           return inst.Update();
+       }
+       //CatalogoTipoEgreso
+       [HttpPost]
+       [AuthController]
+       public List<CatalogoTipoEgreso> getCatalogoTipoEgreso() {
+           return new CatalogoTipoEgreso().Get<CatalogoTipoEgreso>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
+           return inst.Update();
+       }
+       //DetailFactura
+       [HttpPost]
+       [AuthController]
+       public List<DetailFactura> getDetailFactura() {
+           return new DetailFactura().Get<DetailFactura>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveDetailFactura(DetailFactura inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateDetailFactura(DetailFactura inst) {
+           return inst.Update();
+       }
+       //RelationalCaracteristicasProductos
+       [HttpPost]
+       [AuthController]
+       public List<RelationalCaracteristicasProductos> getRelationalCaracteristicasProductos() {
+           return new RelationalCaracteristicasProductos().Get<RelationalCaracteristicasProductos>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
            return inst.Update();
        }
        //RelationalDetalleLotes
@@ -118,38 +230,6 @@ namespace API.Controllers {
        public object updateTransactionEgresosLotes(TransactionEgresosLotes inst) {
            return inst.Update();
        }
-       //CatalogoTipoEgreso
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoTipoEgreso> getCatalogoTipoEgreso() {
-           return new CatalogoTipoEgreso().Get<CatalogoTipoEgreso>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoTipoEgreso(CatalogoTipoEgreso inst) {
-           return inst.Update();
-       }
-       //CatalogoAlmacen
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoAlmacen> getCatalogoAlmacen() {
-           return new CatalogoAlmacen().Get<CatalogoAlmacen>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoAlmacen(CatalogoAlmacen inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoAlmacen(CatalogoAlmacen inst) {
-           return inst.Update();
-       }
        //TransactionFactura
        [HttpPost]
        [AuthController]
@@ -166,100 +246,20 @@ namespace API.Controllers {
        public object updateTransactionFactura(TransactionFactura inst) {
            return inst.Update();
        }
-       //DetailFactura
+       //TransactionLotes
        [HttpPost]
        [AuthController]
-       public List<DetailFactura> getDetailFactura() {
-           return new DetailFactura().Get<DetailFactura>();
+       public List<TransactionLotes> getTransactionLotes() {
+           return new TransactionLotes().Get<TransactionLotes>();
        }
        [HttpPost]
        [AuthController]
-       public object saveDetailFactura(DetailFactura inst) {
+       public object saveTransactionLotes(TransactionLotes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateDetailFactura(DetailFactura inst) {
-           return inst.Update();
-       }
-       //CatalogoOfertaEspecial
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoOfertaEspecial> getCatalogoOfertaEspecial() {
-           return new CatalogoOfertaEspecial().Get<CatalogoOfertaEspecial>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoOfertaEspecial(CatalogoOfertaEspecial inst) {
-           return inst.Update();
-       }
-       //CatalogoClientes
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoClientes> getCatalogoClientes() {
-           return new CatalogoClientes().Get<CatalogoClientes>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoClientes(CatalogoClientes inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoClientes(CatalogoClientes inst) {
-           return inst.Update();
-       }
-       //RelationalCaracteristicasProductos
-       [HttpPost]
-       [AuthController]
-       public List<RelationalCaracteristicasProductos> getRelationalCaracteristicasProductos() {
-           return new RelationalCaracteristicasProductos().Get<RelationalCaracteristicasProductos>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateRelationalCaracteristicasProductos(RelationalCaracteristicasProductos inst) {
-           return inst.Update();
-       }
-       //CatalogoProducto
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoProducto> getCatalogoProducto() {
-           return new CatalogoProducto().Get<CatalogoProducto>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoProducto(CatalogoProducto inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoProducto(CatalogoProducto inst) {
-           return inst.Update();
-       }
-       //CatalogoCaracteristicas
-       [HttpPost]
-       [AuthController]
-       public List<CatalogoCaracteristicas> getCatalogoCaracteristicas() {
-           return new CatalogoCaracteristicas().Get<CatalogoCaracteristicas>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateCatalogoCaracteristicas(CatalogoCaracteristicas inst) {
+       public object updateTransactionLotes(TransactionLotes inst) {
            return inst.Update();
        }
    }

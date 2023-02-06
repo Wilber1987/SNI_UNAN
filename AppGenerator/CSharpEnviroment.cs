@@ -129,6 +129,8 @@ namespace Security
     </body>
 </html>";
 
+        public static StringBuilder catalogoMenu = new StringBuilder();
+        public static StringBuilder transactionalMenu = new StringBuilder();
         public static StringBuilder CSharpIndexBuilder()
         {
             StringBuilder indexBuilder = new StringBuilder();
@@ -155,9 +157,19 @@ namespace Security
             {
                 return;
             }
-            indexBuilder.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/" +
-                (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
-                + table.TABLE_NAME + "View\"> " + table.TABLE_NAME + "</a>");
+            if (table.TABLE_NAME.ToLower().StartsWith("transaction"))
+            {
+                transactionalMenu.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/" +
+                  (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
+                  + table.TABLE_NAME + "View\"> " + table.TABLE_NAME + "</a>");
+            }
+            if (table.TABLE_NAME.ToLower().StartsWith("catalogo"))
+            {
+                catalogoMenu.AppendLine("<a class=\"nav-link text-dark\" asp-area=\"\" asp-page=\"/" +
+               (table.TABLE_NAME.Contains("Catalogo") ? "PagesCatalogos" : "PagesViews") + "/"
+               + table.TABLE_NAME + "View\"> " + table.TABLE_NAME + "</a>");
+            }
+           
         }
 
         public static string buildApiSecurityController()
@@ -240,7 +252,7 @@ namespace Security
                 if (SqlADOConexion.SQLM.isPrimary(table.TABLE_NAME, entity.COLUMN_NAME))
                 {
                     var columnProps = SqlADOConexion.SQLM.describePrimaryKey(table.TABLE_NAME, entity.COLUMN_NAME);
-                    entityString.AppendLine("       [PrimaryKey(Identity = " +  columnProps != null ? "true" : "false" +")]");                  
+                    entityString.AppendLine("       [PrimaryKey(Identity = " + ( columnProps != null ? "true" : "false" )+")]");                  
                 }
                 entityString.AppendLine("       public " + type
                                      + "? " + entity.COLUMN_NAME
@@ -268,18 +280,18 @@ namespace Security
 
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
-            {
-                entityString.AppendLine("       [OneToMany("
-                    + "TableName = \""
-                    + entity.FKTABLE_NAME + "\", "
-                    + "KeyColumn = \""
-                    + entity.PKCOLUMN_NAME + "\", "
-                    + "ForeignKeyColumn = \""
-                    + entity.FKCOLUMN_NAME + "\")]");
+            {                
+                    entityString.AppendLine("       [OneToMany("
+                  + "TableName = \""
+                  + entity.FKTABLE_NAME + "\", "
+                  + "KeyColumn = \""
+                  + entity.PKCOLUMN_NAME + "\", "
+                  + "ForeignKeyColumn = \""
+                  + entity.FKCOLUMN_NAME + "\")]");
 
-                entityString.AppendLine("       public List<" + entity.FKTABLE_NAME
-                    + ">? " + entity.FKTABLE_NAME
-                    + " { get; set; }");
+                    entityString.AppendLine("       public List<" + entity.FKTABLE_NAME
+                        + ">? " + entity.FKTABLE_NAME
+                        + " { get; set; }");                              
             }
             entityString.AppendLine("   }");
         }

@@ -22,6 +22,22 @@ namespace API.Controllers {
        public object updateSecurity_Permissions(Security_Permissions inst) {
            return inst.Update();
        }
+       //Security_Permissions_Roles
+       [HttpPost]
+       [AuthController]
+       public List<Security_Permissions_Roles> getSecurity_Permissions_Roles() {
+           return new Security_Permissions_Roles().Get<Security_Permissions_Roles>();
+       }
+       [HttpPost]
+       [AuthController]
+       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
+           return inst.Save();
+       }
+       [HttpPost]
+       [AuthController]
+       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
+           return inst.Update();
+       }
        //Security_Roles
        [HttpPost]
        [AuthController]
@@ -52,22 +68,6 @@ namespace API.Controllers {
        [HttpPost]
        [AuthController]
        public object updateSecurity_Users(Security_Users inst) {
-           return inst.Update();
-       }
-       //Security_Permissions_Roles
-       [HttpPost]
-       [AuthController]
-       public List<Security_Permissions_Roles> getSecurity_Permissions_Roles() {
-           return new Security_Permissions_Roles().Get<Security_Permissions_Roles>();
-       }
-       [HttpPost]
-       [AuthController]
-       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
-           return inst.Save();
-       }
-       [HttpPost]
-       [AuthController]
-       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
            return inst.Update();
        }
        //Security_Users_Roles

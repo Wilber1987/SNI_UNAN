@@ -42,11 +42,9 @@ namespace CAPA_DATOS
         }
         public void BeginTransaction()
         {
-
             MTConnection = SQLMCon();
             SQLMCon().Open();
             this.MTransaccion = SQLMCon().BeginTransaction();
-
         }
         public void CommitTransaction()
         {
@@ -67,17 +65,14 @@ namespace CAPA_DATOS
             var scalar = com.ExecuteScalar();
             if (scalar == (object)DBNull.Value) return true;
             else return Convert.ToInt32(scalar);
-
         }
         public DataTable TraerDatosSQL(string queryString)
         {
-
             DataSet ObjDS = new DataSet();
             var comando = ComandoSql(queryString, SQLMCon());
             comando.Transaction = this.MTransaccion;
             CrearDataAdapterSql(comando).Fill(ObjDS);
             return ObjDS.Tables[0].Copy();
-
         }
         public DataTable TraerDatosSQL(IDbCommand Command)
         {
@@ -89,107 +84,113 @@ namespace CAPA_DATOS
         //ORM INSERT, DELETE, UPDATES METHODS
         public Object InsertObject(Object Inst)
         {
-            try
+            string strQuery = BuildInsertQueryByObject(Inst);
+            Type _type = Inst.GetType();
+            List<PropertyInfo> lst = _type.GetProperties().ToList();
+            var pkPropiertys = lst.Where(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
+            PrimaryKey pkInfo = (PrimaryKey)Attribute.GetCustomAttribute(pkPropiertys[0], typeof(PrimaryKey));
+            object idGenerated = 0;
+            if (pkPropiertys.Count == 1 && pkInfo?.Identity == true)
             {
-                string strQuery = BuildInsertQueryByObject(Inst);
-                Type _type = Inst.GetType();
-                List<PropertyInfo> lst = _type.GetProperties().ToList();
-                var pkPropiertys = lst.Where(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
-                PrimaryKey pkInfo = (PrimaryKey)Attribute.GetCustomAttribute(pkPropiertys[0], typeof(PrimaryKey));
-                int idGenerated = 0;
-                if (pkInfo?.Identity == true)
+                idGenerated = (Int32)ExcuteSqlQuery(strQuery);
+                var pk = Nullable.GetUnderlyingType(pkPropiertys[0].PropertyType);
+                pkPropiertys[0].SetValue(Inst, Convert.ChangeType(idGenerated, pk));
+            }//llaves compuestas
+            else if (pkPropiertys.Count > 1)
+            {
+                foreach (var prop in pkPropiertys)
                 {
-                    idGenerated = (Int32)ExcuteSqlQuery(strQuery);
-                    var pk = Nullable.GetUnderlyingType(pkPropiertys[0].PropertyType);                   
-                    pkPropiertys[0].SetValue(Inst, Convert.ChangeType(idGenerated, pk));
-                }
-                else { ExcuteSqlQuery(strQuery); }
-                //
-                foreach (PropertyInfo oProperty in lst)
-                {
-                    string AtributeName = oProperty.Name;
-                    var AtributeValue = oProperty.GetValue(Inst);
-                    if (AtributeValue != null)
+                    var AtributeProp = Inst.GetType().GetProperties()
+                        .FirstOrDefault(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null
+                            && p.GetValue(Inst)?.GetType().GetProperty(prop.Name) != null);
+                    if (AtributeProp != null && prop.GetValue(Inst) == null)
                     {
-                        OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
-                        if (oneToOne != null)
+                        var AtributeValue = AtributeProp.GetValue(Inst, null);
+                        var t = Nullable.GetUnderlyingType(prop.PropertyType);
+                        prop.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(prop.Name).GetValue(AtributeValue), t));
+                    }
+                }
+                strQuery = BuildInsertQueryByObject(Inst);
+                idGenerated = ExcuteSqlQuery(strQuery);
+            }
+            else
+            {
+                idGenerated = ExcuteSqlQuery(strQuery);
+                var pk = Nullable.GetUnderlyingType(pkPropiertys[0].PropertyType);
+                pkPropiertys[0].SetValue(Inst, Convert.ChangeType(idGenerated, pk));
+            }
+            //entidades
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(Inst);
+                if (AtributeValue != null)
+                {
+                    OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
+                    if (oneToOne != null)
+                    {
+                        InsertRelationatedObject(idGenerated, AtributeValue, oneToOne.KeyColumn, oneToOne.ForeignKeyColumn);
+                    }
+                    ManyToOne manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
+                    if (manyToOne != null)
+                    {
+                        PropertyInfo KeyColumn = AtributeValue.GetType().GetProperty(manyToOne.KeyColumn);
+                        PropertyInfo ForeignKeyColumn = AtributeValue.GetType().GetProperty(manyToOne.ForeignKeyColumn);
+                        if (ForeignKeyColumn != null)
                         {
-                            InsertRelationatedObject(pkPropiertys[0].GetValue(Inst), AtributeValue, oneToOne.KeyColumn, oneToOne.ForeignKeyColumn);
-                        }
-                        ManyToOne manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
-                        if (manyToOne != null)
-                        {
-                            PropertyInfo KeyColumn = AtributeValue.GetType().GetProperty(manyToOne.KeyColumn);
-                            PropertyInfo ForeignKeyColumn = AtributeValue.GetType().GetProperty(manyToOne.ForeignKeyColumn);
-
-                            if (ForeignKeyColumn != null)
+                            var t = Nullable.GetUnderlyingType(ForeignKeyColumn.PropertyType);
+                            var FK = Inst.GetType().GetProperty(ForeignKeyColumn.Name);
+                            if (FK.GetValue(Inst) == null)
                             {
-                                var t = Nullable.GetUnderlyingType(ForeignKeyColumn.PropertyType);
-                                var FK = Inst.GetType().GetProperty(ForeignKeyColumn.Name);
                                 FK.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(ForeignKeyColumn.Name).GetValue(AtributeValue), t));
                                 UpdateObject(Inst, pkPropiertys[0].Name);
 
                             }
                         }
-                        OneToMany oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
-                        if (oneToMany != null)
+                    }
+                    OneToMany oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
+                    if (oneToMany != null)
+                    {
+                        foreach (var value in (AtributeValue as IEnumerable))
                         {
-                            foreach (var value in (AtributeValue as IEnumerable))
-                            {
-                                InsertRelationatedObject(pkPropiertys[0].GetValue(Inst), value, oneToMany.KeyColumn, oneToMany.ForeignKeyColumn);
-                            }
+                            InsertRelationatedObject(idGenerated, value, oneToMany.KeyColumn, oneToMany.ForeignKeyColumn);
                         }
                     }
-                    else continue;
                 }
-                return idGenerated;
+                else continue;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            return idGenerated;
         }
 
         private void InsertRelationatedObject(object idGenerated, object AtributeValue, string keyColumn, string foreignKeyColumn)
         {
-            // var method = AtributeValue.GetType().GetMethods().FirstOrDefault(mi => mi.Name == "Save" && mi.GetParameters().Count() == 0);
-            // if (method != null)
-            // {
             PropertyInfo KeyColumn = AtributeValue.GetType().GetProperty(keyColumn);
             PropertyInfo ForeignKeyColumn = AtributeValue.GetType().GetProperty(foreignKeyColumn);
             if (ForeignKeyColumn != null)
             {
                 ForeignKeyColumn.SetValue(AtributeValue, idGenerated);
-                // method.GetGenericMethodDefinition().MakeGenericMethod(AtributeValue.GetType()).Invoke(AtributeValue, new object[] { });
                 this.InsertObject(AtributeValue);
-
             }
-            // }
         }
 
         public Object UpdateObject(Object Inst, string[] IdObject)
         {
-            try
-            {
-                string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
-                return ExcuteSqlQuery(strQuery);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
+            return ExcuteSqlQuery(strQuery);
+
         }
         public Object UpdateObject(Object Inst, string IdObject)
         {
-            try
+
+            if (Inst.GetType().GetProperty(IdObject).GetValue(Inst) == null)
             {
-                string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
-                return ExcuteSqlQuery(strQuery);
+                throw new Exception("Valor de la propiedad "
+                    + IdObject + " en la instancia "
+                    + Inst.GetType().Name + " esta en nulo y no es posible actualizar");
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
+            return ExcuteSqlQuery(strQuery);
         }
         public Object Delete(Object Inst)
         {
@@ -216,7 +217,7 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        private static void FindRelationatedsEntitys<T>(T item)
+        private void FindRelationatedsEntitys<T>(T item)
         {
             Type _type = item.GetType();
             PropertyInfo[] lst = _type.GetProperties();
@@ -225,44 +226,38 @@ namespace CAPA_DATOS
                 string AtributeName = oProperty.Name;
                 var AtributeValue = oProperty.GetValue(item);
                 Type relationatedEntityType = oProperty.PropertyType;
-                var methods = relationatedEntityType.GetMethods();
-                var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
-                if (method != null && relationatedEntityType.Name != _type.Name)
+                var oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
+                var manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
+                var oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
+                if (oneToOne != null || manyToOne != null)
                 {
-                    OneToOne oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
-                    if (oneToOne != null)
+                    PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne?.KeyColumn
+                        ?? manyToOne?.KeyColumn);
+                    PropertyInfo ForeingKeyPropRelationated = relationatedEntityType.GetProperty(oneToOne?.ForeignKeyColumn
+                        ?? manyToOne?.ForeignKeyColumn);
+                    if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
                     {
-                        PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne.KeyColumn ?? oneToOne.ForeignKeyColumn);
-                        PropertyInfo ForeingKeyPropRelationated = relationatedEntityType.GetProperty(oneToOne.ForeignKeyColumn);
-                        if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
-                        {
-                            ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
-                            TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
-                        }
+                        ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
+                        var method = relationatedEntityType.GetMethods()
+                            .FirstOrDefault(mi => mi.Name == "SimpleFind" && mi.GetParameters().Count() == 0);
+                        if (method != null) TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
                     }
-                    else
-                    {
-                        bool relationated = false;
-                        foreach (PropertyInfo prop in relationatedEntityType.GetProperties())
-                        {
-                            var relationatedProp = lst.FirstOrDefault(lstProp =>
-                            lstProp.Name == prop.Name && lstProp.GetType() == prop.GetType()
-                                && (lstProp.Name.ToUpper().Contains("ID_") || lstProp.Name.ToUpper().Contains("KEY_")));
-                            if (relationatedProp != null)
-                            {
-                                relationated = true;
-                                prop.SetValue(relationatedEntityInstance, relationatedProp.GetValue(item), null);
-                            }
-                        }
-                        if (relationated)
-                        {
-                            TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
-                        }
-                    }
-
                 }
+                else if (oneToMany != null)
+                {
+                    var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType.GetGenericArguments()[0]);
+                    PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToMany.KeyColumn);
+                    PropertyInfo ForeingKeyPropRelationated = relationatedEntityInstance.GetType().GetProperty(oneToMany.ForeignKeyColumn);
+                    if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
+                    {
+                        ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
+                        var method = relationatedEntityInstance.GetType().GetMethods()
+                            .FirstOrDefault(mi => mi.Name == "Get" && mi.GetParameters().Count() == 0);
+                        if (method != null) TakeRelationatedObject(item, oProperty, relationatedEntityInstance.GetType(), method, relationatedEntityInstance);
 
+                    }
+                }
             }
 
             static void TakeRelationatedObject<T>(T item, PropertyInfo oProperty, Type relationatedEntityType, MethodInfo method, object relationatedEntityInstance)
@@ -278,7 +273,7 @@ namespace CAPA_DATOS
             }
         }
 
-        public T TakeObject<T>(Object Inst, string CondSQL = "")
+        public T TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = "")
         {
             try
             {
@@ -287,7 +282,10 @@ namespace CAPA_DATOS
                 if (Table.Rows.Count != 0)
                 {
                     var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
-                    FindRelationatedsEntitys(Inst);
+                    if (fullEntity)
+                    {
+                        FindRelationatedsEntitys(Inst);
+                    }
                     return CObject;
                 }
                 else
@@ -324,7 +322,9 @@ namespace CAPA_DATOS
                     {
                         if (pro.Name == column.ColumnName)
                         {
-                            pro.SetValue(obj, GetValue(dr[column.ColumnName], pro.PropertyType));
+                            var val = dr[column.ColumnName];
+                            var getVal = GetValue(val, pro.PropertyType);
+                            pro.SetValue(obj, getVal);
                         }
                         else continue;
                     }

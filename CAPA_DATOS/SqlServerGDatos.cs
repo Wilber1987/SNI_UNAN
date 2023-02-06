@@ -15,6 +15,7 @@ namespace CAPA_DATOS
         {
             this.ConexionString = ConexionString;
         }
+
         protected override IDbConnection SQLMCon()
         {
             if (this.MTConnection != null)
@@ -309,8 +310,8 @@ namespace CAPA_DATOS
         {
             string DescribeQuery = @"exec sp_columns'" + table + "'";
             DataTable Table = TraerDatosSQL(DescribeQuery);
-            var es = ConvertDataTable<EntityColumn>(Table, new EntitySchema());
-            return es.Find(e => e.COLUMN_NAME == column);
+            var es = ConvertDataTable<EntityColumn>(Table, new EntityColumn());
+            return es.Find(e => e.COLUMN_NAME == column && e.TYPE_NAME.Contains("identity"));
         }
 
         public List<EntityProps> describeEntity(string entityName)
