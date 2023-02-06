@@ -68,15 +68,14 @@ namespace AppGenerator
                 {
                     //controlType = "WSELECT";
                 }
-                else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaction") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaccion"))
+                else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaction"))
                 {
                     controlType = "Model";
-                    if (!table.TABLE_NAME.ToLower().StartsWith("transaction"))
+                    if (table.TABLE_NAME.ToLower().StartsWith("transaction"))
                     {
                         controlType = "WSELECT";
                     }
-                    if (!table.TABLE_NAME.ToLower().StartsWith("detail")
-                   && !table.TABLE_NAME.ToLower().StartsWith("catalogo"))
+                    if (!table.TABLE_NAME.ToLower().StartsWith("detail")  && !table.TABLE_NAME.ToLower().StartsWith("catalogo"))
                     {
                         entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + controlType
                             + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
@@ -96,7 +95,8 @@ namespace AppGenerator
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))
             {
                 string mapType = "MasterDetail";
-                if (entity.FKTABLE_NAME.StartsWith("Catalogo"))
+                if (entity.FKTABLE_NAME.StartsWith("Catalogo") || (table.TABLE_NAME.ToLower().StartsWith("transaction")
+                    && entity.FKTABLE_NAME.ToLower().StartsWith("transaction")))
                 {
                     mapType = "WMULTYSELECT";
                 }
