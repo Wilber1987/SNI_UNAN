@@ -57,9 +57,12 @@ namespace AppGenerator
                 var oneToMany = SqlADOConexion.SQLM.oneToManyKeys(entity.REFERENCE_TABLE_NAME);
                 var find = oneToMany.Find(o => o.FKTABLE_NAME == table.TABLE_NAME);
                 string controlType = "WSELECT";
-                if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalogo") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalg"))
+                if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalogo") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("catalog"))
                 {
                     controlType = "WSELECT";
+                    entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + controlType
+                       + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                    continue;
                 }
                 else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("detail") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("detalle"))
                 {
@@ -68,17 +71,26 @@ namespace AppGenerator
                 else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaction") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transaccion"))
                 {
                     controlType = "Model";
+                    if (!table.TABLE_NAME.ToLower().StartsWith("transaction"))
+                    {
+                        controlType = "WSELECT";
+                    }
+                    if (!table.TABLE_NAME.ToLower().StartsWith("detail")
+                   && !table.TABLE_NAME.ToLower().StartsWith("catalogo"))
+                    {
+                        entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + controlType
+                            + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                    }
+                    continue;
                 }
                 else if (entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("relational") || entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("relacional"))
                 {
                     controlType = "Model";
-                }
-                if (!table.TABLE_NAME.ToLower().StartsWith("detail") && !entity.REFERENCE_TABLE_NAME.ToLower().StartsWith("transactional"))
-                {
                     entityString.AppendLine("   " + entity.REFERENCE_TABLE_NAME + " = { type: '" + controlType
-                        + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
-                }
-
+                            + "',  ModelObject: ()=> new " + entity.REFERENCE_TABLE_NAME + "()};");
+                    controlType = "Model";
+                    continue;
+                }          
 
             }
             foreach (var entity in SqlADOConexion.SQLM.oneToManyKeys(table.TABLE_NAME))

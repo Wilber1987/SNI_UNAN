@@ -322,7 +322,9 @@ namespace CAPA_DATOS
                     {
                         if (pro.Name == column.ColumnName)
                         {
-                            pro.SetValue(obj, GetValue(dr[column.ColumnName], pro.PropertyType));
+                            var val = dr[column.ColumnName];
+                            var getVal = GetValue(val, pro.PropertyType);
+                            pro.SetValue(obj, getVal);
                         }
                         else continue;
                     }
