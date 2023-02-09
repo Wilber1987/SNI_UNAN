@@ -114,7 +114,7 @@ namespace Security
 
             const OnLoad = async () => {                
                 const LoginForm = new WForm({
-                    ModelObject: { Mail: { type: 'email'}, Password: { type: 'password' } } ,
+                    ModelObject: { Mail: { type: 'text'}, Password: { type: 'password' } } ,
                     SaveFunction: async (UserData) => { 
                         WSecurity.Login(UserData, window.location.origin)
                     }
