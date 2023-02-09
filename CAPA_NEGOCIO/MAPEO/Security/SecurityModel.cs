@@ -11,7 +11,8 @@ namespace CAPA_NEGOCIO.Security
         public int? Id_Role { get; set; }
         public string Descripcion { get; set; }
         public string Estado { get; set; }
-        public List<Security_Permissions_Roles> Security_Permissions_Roles { get; set; }
+        [OneToMany(TableName = "Security_Permissions_Roles", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
+        public List<Security_Permissions_Roles>? Security_Permissions_Roles { get; set; }
         public Object SaveRole()
         {
             if (this.Id_Role == null)
@@ -49,7 +50,7 @@ namespace CAPA_NEGOCIO.Security
             return this.Security_Permissions_Roles;
 
         }
-        public List<Security_Roles> GetRoles()
+        public List<Security_Roles>? GetRoles()
         {
             var roles = this.Get<Security_Roles>();
             foreach (Security_Roles role in roles)
@@ -61,6 +62,7 @@ namespace CAPA_NEGOCIO.Security
     }
     public class Security_Users : EntityClass
     {
+        [PrimaryKey(Identity = true)]
         public int? Id_User { get; set; }
         public string Nombres { get; set; }
         public string Estado { get; set; }
@@ -70,7 +72,8 @@ namespace CAPA_NEGOCIO.Security
         public string Token { get; set; }
         public DateTime? Token_Date { get; set; }
         public DateTime? Token_Expiration_Date { get; set; }
-        public List<Security_Users_Roles> Security_Users_Roles { get; set; }
+        [OneToMany(TableName = "Security_Users_Roles", KeyColumn = "Id_User", ForeignKeyColumn = "Id_User")]
+        public List<Security_Users_Roles>? Security_Users_Roles { get; set; }
         public Security_Users GetUserData()
         {
             Security_Users user = this.Find<Security_Users>();
@@ -122,23 +125,30 @@ namespace CAPA_NEGOCIO.Security
     }
     public class Security_Permissions : EntityClass
     {
+        [PrimaryKey(Identity = true)]
         public int? Id_Permission { get; set; }
         public string Descripcion { get; set; }
         public string Estado { get; set; }
     }
     public class Security_Permissions_Roles : EntityClass
     {
+        [PrimaryKey(Identity = false)]
         public int? Id_Role { get; set; }
+        [PrimaryKey(Identity = false)]
         public int? Id_Permission { get; set; }
         public string Estado { get; set; }
-        public Security_Permissions Security_Permissions { get; set; }
+        [ManyToOne(TableName = "Security_Permissions", KeyColumn = "Id_Permission", ForeignKeyColumn = "Id_Permission")]
+        public Security_Permissions? Security_Permissions { get; set; }
     }
     public class Security_Users_Roles : EntityClass
     {
+        [PrimaryKey(Identity = false)]
         public int? Id_Role { get; set; }
+        [PrimaryKey(Identity = false)]
         public int? Id_User { get; set; }
         public string Estado { get; set; }
-        public Security_Roles  Security_Role  { get; set; }
+        [ManyToOne(TableName = "Security_Role", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
+        public Security_Roles?  Security_Role  { get; set; }
           
     }
 }

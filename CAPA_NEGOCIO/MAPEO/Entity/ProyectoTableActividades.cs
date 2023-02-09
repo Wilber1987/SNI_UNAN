@@ -1,5 +1,5 @@
 ﻿using CAPA_DATOS;
-using CAPA_NEGOCIO.Entity;
+using CAPA_NEGOCIO.MAPEO;
 using CAPA_NEGOCIO.Security;
 using System;
 using System.Collections.Generic;
@@ -8,19 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace CAPA_NEGOCIO
+namespace CAPA_NEGOCIO.MAPEO
 {
     public class ProyectoTableActividades : EntityClass
     {
+        [PrimaryKey(Identity = true)]
         public int? IdActividad { get; set; }
-        public string Titulo   { get; set; }
-        public string Descripcion { get; set; }
-        public string Estado { get; set; }
+        public string? Titulo { get; set; }
+        public string? Descripcion { get; set; }
+        public int? Id_Investigador { get; set; }
+        public string? Estado { get; set; }
+        public int? Id_Dependencia { get; set; }
         public DateTime? Fecha_Inicial { get; set; }
         public DateTime? Fecha_Final { get; set; }
-        public int? Id_Investigador { get; set; }
-        public int? Id_Dependencia { get; set; }
         public int? Id_Proyecto { get; set; }
+        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador", ForeignKeyColumn = "Id_Investigador")]
+        public Tbl_InvestigatorProfile? Tbl_InvestigatorProfile { get; set; }
+        [ManyToOne(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
+        public ProyectoCatDependencias? ProyectoCatDependencias { get; set; }
+        [ManyToOne(TableName = "Tbl_Proyectos", KeyColumn = "Id_Proyecto", ForeignKeyColumn = "Id_Proyecto")]
+        public Tbl_Proyectos? Tbl_Proyectos { get; set; }
+        [OneToMany(TableName = "ProyectoTableTareas", KeyColumn = "IdActividad", ForeignKeyColumn = "IdActividad")]
+        public List<ProyectoTableTareas>? ProyectoTableTareas { get; set; }
         public List<ProyectoTableTareas> Tareas { get; set; }
         public bool SaveActividades()
         {
@@ -32,7 +41,7 @@ namespace CAPA_NEGOCIO
                 foreach (ProyectoTableTareas obj in this.Tareas)
                 {
                     obj.IdActividad = this.IdActividad;
-                    obj.SaveTarea();
+                    obj.Save();
                 }
                 return true;
             }            
@@ -57,7 +66,7 @@ namespace CAPA_NEGOCIO
             foreach (ProyectoTableTareas obj in this.Tareas)
             {
                 obj.IdActividad = this.IdActividad;
-                obj.SaveTarea();
+                obj.Save();
             }
             return true;
         }
@@ -66,7 +75,7 @@ namespace CAPA_NEGOCIO
             this.Tareas = (new ProyectoTableTareas()).Get<ProyectoTableTareas>("IdActividad = " + this.IdActividad.ToString());
             foreach (ProyectoTableTareas tarea in this.Tareas)
             {
-                tarea.Calendarios = (new ProyectoTableCalendario()).Get<ProyectoTableCalendario>("IdTarea = " + tarea.IdTarea.ToString());
+                tarea.ProyectoTableCalendario = (new ProyectoTableCalendario()).Get<ProyectoTableCalendario>("IdTarea = " + tarea.IdTarea.ToString());
             }
             return this;
         }

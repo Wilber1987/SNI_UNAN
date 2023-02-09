@@ -50,7 +50,12 @@
       "ProjectGuid": "5806afe9-5307-4a8d-b02c-25b888b171ed",
       "DisplayName": "FACT_NEGOCIO",
       "ColorIndex": 8
+    },
+    "1c294730-559b-4c71-ba6a-3a4b1344d0b6": {
+      "ProjectGuid": "1c294730-559b-4c71-ba6a-3a4b1344d0b6",
+      "DisplayName": "UI_USAV",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }

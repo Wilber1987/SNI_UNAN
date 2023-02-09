@@ -9,7 +9,6 @@ using System.IO;
 using System.Text;
 using CAPA_NEGOCIO;
 using CAPA_NEGOCIO.Security;
-using CAPA_NEGOCIO.Entity;
 using CAPA_NEGOCIO.Views;
 using CAPA_NEGOCIO.MAPEO;
 
@@ -52,7 +51,7 @@ namespace SNI_UI2.Controllers
         }
         public Object SaveTarea(ProyectoTableTareas Act)
         {
-            return Act.SaveTarea();
+            return Act.Save();
         }
         public Object SolicitarActividad(ProyectoTableActividades Act)
         {
