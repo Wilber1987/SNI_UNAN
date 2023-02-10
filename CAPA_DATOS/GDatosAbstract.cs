@@ -275,28 +275,20 @@ namespace CAPA_DATOS
 
         public T TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = "")
         {
-            try
+            DataTable Table = BuildTable(Inst, ref CondSQL);               
+            if (Table.Rows.Count != 0)
             {
-                DataTable Table = BuildTable(Inst, ref CondSQL);
-                //List<T> ListD = ConvertDataTable<T>(Table, Inst);                
-                if (Table.Rows.Count != 0)
+                var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
+                if (fullEntity)
                 {
-                    var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
-                    if (fullEntity)
-                    {
-                        FindRelationatedsEntitys(Inst);
-                    }
-                    return CObject;
+                    FindRelationatedsEntitys(Inst);
                 }
-                else
-                {
-                    throw new NullReferenceException("El objeto no fue encontrado");
-
-                }
+                return CObject;
             }
-            catch (Exception)
+            else
             {
-                throw;
+               return default(T);
+
             }
         }
         //LECTURA Y CONVERSION DE DATOS       

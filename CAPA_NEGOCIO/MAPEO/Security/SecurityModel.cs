@@ -38,7 +38,8 @@ namespace CAPA_NEGOCIO.Security
         }
         public Object GetRolData()
         {
-            this.Security_Permissions_Roles = new Security_Permissions_Roles(){
+            this.Security_Permissions_Roles = new Security_Permissions_Roles()
+            {
                 Id_Role = this.Id_Role
             }.Get<Security_Permissions_Roles>();
             //foreach (Security_Roles role in Security_Roles_List)
@@ -55,7 +56,7 @@ namespace CAPA_NEGOCIO.Security
             var roles = this.Get<Security_Roles>();
             foreach (Security_Roles role in roles)
             {
-               role.GetRolData();
+                role.GetRolData();
             }
             return roles;
         }
@@ -77,13 +78,17 @@ namespace CAPA_NEGOCIO.Security
         public Security_Users GetUserData()
         {
             Security_Users user = this.Find<Security_Users>();
-            user.Security_Users_Roles = new Security_Users_Roles() { 
-                Id_User = this.Id_User 
-            }.Get<Security_Users_Roles>();
-            foreach (Security_Users_Roles role in user.Security_Users_Roles)
+            if (user != null)
             {
-                role.Security_Role.GetRolData();
-            }
+                user.Security_Users_Roles = new Security_Users_Roles()
+                {
+                    Id_User = this.Id_User
+                }.Get<Security_Users_Roles>();
+                foreach (Security_Users_Roles role in user.Security_Users_Roles)
+                {
+                    role.Security_Role.GetRolData();
+                }
+            }   
             return user;
         }
         public Object SaveUser()
@@ -119,9 +124,7 @@ namespace CAPA_NEGOCIO.Security
                          "Id_User", new string[] { User.Id_User.ToString() });
             }
             return Security_Users_List;
-
         }
-
     }
     public class Security_Permissions : EntityClass
     {
@@ -148,7 +151,7 @@ namespace CAPA_NEGOCIO.Security
         public int? Id_User { get; set; }
         public string Estado { get; set; }
         [ManyToOne(TableName = "Security_Role", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
-        public Security_Roles?  Security_Role  { get; set; }
-          
+        public Security_Roles? Security_Role { get; set; }
+
     }
 }

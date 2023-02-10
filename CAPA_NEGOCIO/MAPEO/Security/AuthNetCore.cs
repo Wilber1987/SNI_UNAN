@@ -28,9 +28,10 @@ namespace CAPA_NEGOCIO.Security
             SqlADOConexion.IniciarConexionAnonima();
             return true;
         }
-        static public bool loginIN(string mail, string password)
+        static public object loginIN(string mail, string password)
         {
-            if (mail == null || password == null)  throw new Exception("Datos requeridos");
+            if (mail == null ||  mail.Equals("") || password == null || password.Equals("")) 
+                return new UserModel() { success= false, message= "Usuario y contraseña son requeridos.",  status = 500 };
             try
             {
                 SqlADOConexion.IniciarConexionSNIBD(SGBD_USER, SWGBD_PASSWORD);
@@ -39,17 +40,12 @@ namespace CAPA_NEGOCIO.Security
                     Mail = mail,
                     Password = password
                 }.GetUserData();
-                if (security_User.Id_User == null)
-                {
-                    security_User = null;
-                    SqlADOConexion.SQLM = null;
-                    throw new Exception("El usuario no a sido encontrado");
-                }
-                return true;
+                if (security_User == null) ClearSeason();
+                return User();
             }
             catch (Exception)
             {
-                return false;
+                return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 }; ;
             }
         }
         static public bool ClearSeason()
@@ -61,33 +57,37 @@ namespace CAPA_NEGOCIO.Security
         }
         public static UserModel User()
         {
-            try
+            if (security_User != null)
             {
-                if (security_User != null)
+                return new UserModel()
                 {
-                    UserModel Model = new UserModel();
-                    Model.UserId = security_User.Id_User;
-                    Model.mail = security_User.Mail;
-                    Model.password = "PROTECTED";
-                    Model.success = true;
-                    return Model;
-                }
-                else
-                {
-                    throw new Exception("El usuario no a sido encontrado");
-                }
+                    UserId = security_User.Id_User,
+                    mail = security_User.Mail,
+                    password = "PROTECTED",
+                    status = 200,
+                    success = true,
+                    message = "Inicio de sesión exitoso."
+                };
             }
-            catch (Exception)
+            else
             {
-                throw;
-            }          
+                return new UserModel()
+                {
+                    UserId = 0,
+                    mail = "FAILD",
+                    password = "FAILD",
+                    status = 500,
+                    success = false,
+                    message = "Inicio de sesión incorrecto, usuario y contraseña incorrectos."
+                };
+            }
         }
         public static bool HavePermission(string permission)
         {
             if (Authenticate())
             {
                 var roleHavePermision = security_User.Security_Users_Roles.Where(r => RoleHavePermission(permission, r).Count != 0).ToList();
-                if (roleHavePermision.Count != 0 ) return true;
+                if (roleHavePermision.Count != 0) return true;
                 return false;
             }
             else
@@ -100,5 +100,14 @@ namespace CAPA_NEGOCIO.Security
         {
             return r.Security_Role.Security_Permissions_Roles.Where(p => p.Security_Permissions.Descripcion == permission).ToList();
         }
+    }
+    public class UserModel
+    {
+        public int? UserId { get; set; }
+        public int? status { get; set; }
+        public string mail { get; set; }
+        public string password { get; set; }
+        public string? message { get; set; }
+        public bool? success { get; set; }
     }
 }
