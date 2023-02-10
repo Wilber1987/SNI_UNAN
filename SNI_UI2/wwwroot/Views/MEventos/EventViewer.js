@@ -68,7 +68,7 @@ class EventViewer extends HTMLElement {
         return WRender.Create({
             className: "ParticipantesCard",
             children: [
-                { tagName: 'img', src: "data:image/png;base64," + Participacion.Investigador.Foto },
+                { tagName: 'img', src: "data:image/png;base64," + Participacion.Tbl_InvestigatorProfile?.Foto },
                 { tagName: 'h4', innerText: Participacion.Titulo },
                 { tagName: 'p', innerText: Participacion.Descripcion },
                 { tagName: "label", innerText: `Fecha y Hora:  ${Participacion.Fecha_Participacion?.toDateTimeFormatEs()}` },

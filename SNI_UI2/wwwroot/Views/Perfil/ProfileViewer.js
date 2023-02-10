@@ -85,11 +85,11 @@ class WProfileInvestigador extends HTMLElement {
                 name: "Colaboraciones", url: "#",
                 action: async (ev) => {
                     this.TabManager.NavigateFunction("Tab-Colaboraciones", new ProfileTab(
-                        this.response.Colaboraciones.map(c => {
+                        this.response.Tbl_Colaboradores?.map(c => {
                             return {
-                                Titulo: c.Investigacion.Titulo,
-                                TipoColaboracion: c.TipoColaboracion.Descripcion,
-                                Fecha_ejecucion: c.Investigacion.Fecha_ejecucion
+                                Titulo: c.Tbl_Investigaciones?.Titulo,
+                                TipoColaboracion: c.Cat_Tipo_Colaborador?.Descripcion,
+                                Fecha_ejecucion: c.Tbl_Investigaciones?.Fecha_ejecucion
                             }
                         }),
                         ["Titulo", "TipoColaboracion", "Fecha_ejecucion"], "Colaboraciones",
@@ -100,7 +100,7 @@ class WProfileInvestigador extends HTMLElement {
                 name: "Proyectos", url: "#",
                 action: async (ev) => {
                     this.TabManager.NavigateFunction("Tab-Proyectos", new ProfileTab(
-                        this.response.Proyectos.map(c => {
+                        this.response.Tbl_Proyectos?.map(c => {
                             return {
                                 Nombre_Proyecto: c.Proyecto.Nombre_Proyecto,
                                 Cargo: c.Cargo.Descripcion,
@@ -280,7 +280,7 @@ class ProfileCard extends HTMLElement {
     DraProfileCard = async (response) => {
         this.container.innerHTML = "";
         const divIdiomas = WRender.createElement({ type: 'div', props: { id: '', class: 'divIdiomas' } });
-        response.Id_Idiomas.forEach(element => {
+        response.Tbl_IdiomasInv?.forEach(element => {
             divIdiomas.append(WRender.createElement(element.Idioma?.Descripcion ?? element.Descripcion));
         });
         this.container.append(WRender.Create({

@@ -130,7 +130,7 @@ class PerfilClass extends HTMLElement {
                     this.response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
                         { Id_Investigador: this.Id_Investigador }
                     );
-                    this.response.Id_Idiomas = this.response.Id_Idiomas.map(i => i.Idioma)
+                    this.response.Id_Idiomas = this.response.Tbl_IdiomasInv?.map(i => i.Idioma)
                     this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
                 }
             }, {
@@ -197,7 +197,7 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
         const Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividades", DataPost);
-        this.response.Proyectos.forEach(proy => {
+        this.response.Tbl_Proyectos?.forEach(proy => {
             Tab.append(WRender.Create({
                 className: "DivProy", children: [
                     { tagName: "h3", innerText: proy.Nombre_Proyecto },

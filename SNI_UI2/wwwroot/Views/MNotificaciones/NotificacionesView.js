@@ -170,17 +170,17 @@ class NotificacionesView extends HTMLElement {
         } 
     `
     EventDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion?.toDateFormatEs()}.
+        return `${E.Evento.Tbl_InvestigatorProfile?.Nombres} ${E.Evento.Tbl_InvestigatorProfile?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion?.toDateFormatEs()}.
         
         ¿Desea confirmar su participación?`;
     }
     EventInvitadosDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion?.toDateFormatEs()} que se realizara de forma ${E.Evento.Modalidad}.
+        return `${E.Evento.Tbl_InvestigatorProfile?.Nombres} ${E.Evento.Tbl_InvestigatorProfile?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion?.toDateFormatEs()} que se realizara de forma ${E.Evento.Modalidad}.
         
         ¿Desea confirmar su asistencia?`;
     }
     InvestigacionesDescripcion(E = (new Tbl_Investigaciones())) {
-        return `${E.Investigador?.Nombres} ${E.Investigador?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion?.toDateFormatEs()}.
+        return `${E.Tbl_InvestigatorProfile?.Nombres} ${E.Tbl_InvestigatorProfile?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion?.toDateFormatEs()}.
         
         ¿Desea revisar la publicación?`;
     }

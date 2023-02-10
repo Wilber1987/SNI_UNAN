@@ -62,7 +62,7 @@ class EventsView extends HTMLElement {
                 WRender.Create({
                     tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => ({
                         tagName: 'img',
-                        src: "data:image/png;base64," + I.Investigador.Foto
+                        src: "data:image/png;base64," + I.Tbl_InvestigatorProfile?.Foto
                     }))
                 }),
             ]

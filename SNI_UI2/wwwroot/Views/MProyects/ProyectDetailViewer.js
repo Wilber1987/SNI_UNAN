@@ -41,10 +41,10 @@ class ProyectDetailViewer extends HTMLElement {
                         WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.Fecha_Inicio}</label>`),
                         WRender.CreateStringNode("<h4>Instituciones<hr></h4>"),
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
-                            this.response.Instituciones.map(x=>{
+                            this.response.Cat_Instituciones?.map(x=>{
                                 return `<div class="InstitucionDiv">
-                                    <img src="${x.Institucion.Logo}"/>
-                                    <label>${x.Institucion.Nombre}</label>
+                                    <img src="${x.Cat_instituciones?.Logo}"/>
+                                    <label>${x.Cat_instituciones?.Nombre}</label>
                                     <label>${x.Asociacion.Descripcion}</label>
                                 </div>`;
                             }).join('')
