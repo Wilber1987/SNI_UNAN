@@ -55,7 +55,7 @@ class ProyectDetailViewer extends HTMLElement {
         });
         this.ProyectContainer.append(WRender.createElement(Detaills));
         this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes<hr></h4>"));
-        this.response.Participantes.forEach(element => {
+        this.response.Tbl_Participantes_Proyectos?.forEach(element => {
             element.titulo = `${element.Perfil.Nombres} ${element.Perfil.Apellidos}`;
             element.picture = element.Perfil.Foto;
             element.subtitulo = element.Cargo.Descripcion;

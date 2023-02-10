@@ -13,10 +13,8 @@ class InvestigadorProfile {
     Sexo = ["Masculino", "Femenino"];
     DNI = { type: "TEXT" };
     Correo_institucional = { type: "EMAIL" };
-    Id_Pais_Origen = ["Nicaragua"];
-    Id_Institucion = ["CONICIT", "UNI", "CNU", "UNAN"];
-    Id_Idiomas = {
-        type: "MULTISELECT", Dataset: [{ Descripcion: "Español" }, { Descripcion: "Ingles" }]
-    };
+    //Id_Pais_Origen = ["Nicaragua"];
+   // Id_Institucion = ["CONICIT", "UNI", "CNU", "UNAN"];
+   // Id_Idiomas = { type: "MULTISELECT", Dataset: [{ Descripcion: "Español" }, { Descripcion: "Ingles" }] };
 }
 export { InvestigadorProfile }

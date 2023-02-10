@@ -8,7 +8,8 @@ import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js
 import { WProfileInvestigador } from "./ProfileViewer.js";
 import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_InvestigatorProfile, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
+import { Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -281,10 +282,10 @@ class PerfilClass extends HTMLElement {
         const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
         const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");
-        const InvestigadorModel = new InvestigadorProfile({
-            Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
-            Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
-            Id_Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
+        const InvestigadorModel = new Tbl_InvestigatorProfile({
+            //Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
+            //Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
+            //Id_Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
         });
         const EditForm = WRender.Create({
             className: "FormContainer", style: {
