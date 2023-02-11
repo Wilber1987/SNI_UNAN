@@ -45,7 +45,7 @@ namespace CAPA_NEGOCIO.Security
             }
             catch (Exception)
             {
-                return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 }; ;
+                return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 };
             }
         }
         static public bool ClearSeason()
@@ -78,7 +78,7 @@ namespace CAPA_NEGOCIO.Security
                     password = "FAILD",
                     status = 500,
                     success = false,
-                    message = "Inicio de sesión incorrecto, usuario y contraseña incorrectos."
+                    message = "Usuario o contraseña incorrectos."
                 };
             }
         }
@@ -95,7 +95,6 @@ namespace CAPA_NEGOCIO.Security
                 return false;
             }
         }
-
         private static List<Security_Permissions_Roles> RoleHavePermission(string permission, Security_Users_Roles r)
         {
             return r.Security_Role.Security_Permissions_Roles.Where(p => p.Security_Permissions.Descripcion == permission).ToList();

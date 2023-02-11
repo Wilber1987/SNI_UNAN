@@ -43,7 +43,7 @@ class EventViewer extends HTMLElement {
                 WRender.Create({ tagName: "p", innerText: Evento.Datos_Adicionales }),
                 WRender.Create({ tagName: "h3", innerText: "Participaciones" }),
                 WRender.Create({
-                    tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => (this.ParticipacionesCard(I)))
+                    tagName: "InvestigadoresACont", children: Evento.Tbl_Participantes_Eventos?.map(I => (this.ParticipacionesCard(I)))
                 })
             ]
         })
