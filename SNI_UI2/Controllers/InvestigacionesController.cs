@@ -53,7 +53,7 @@ namespace SNI_UI.Controllers
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();
             Data.Add(Inst.GetInvestigaciones());
-            Data.Add(Dis.TakeDisciplinas());
+            Data.Add(Dis.Get<Cat_Disciplinas>());
             return Data;
         }
         public object TakeInvestigacionesPorDisciplina(Object ObjInst)
@@ -62,7 +62,7 @@ namespace SNI_UI.Controllers
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();
             Data.Add(Inst.TakeInvestigacionesPorDisciplinas());
-            Data.Add(Dis.TakeDisciplinas());
+            Data.Add(Dis.Get<Cat_Disciplinas>());
             return Data;
         }
         public object TakeInvestigacion(Tbl_Investigaciones ObjInst)
@@ -74,10 +74,9 @@ namespace SNI_UI.Controllers
             var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
             return Inst.TakeInvestigadorProfile();
         }
-        public object TakeDisciplinas(Object ObjInst)
+        public object TakeDisciplinas(Cat_Disciplinas Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<Cat_Disciplinas>(ObjInst.ToString());
-            return Inst.TakeDisciplinas();
+            return Inst.Get<Cat_Disciplinas>();
         }
         public object TakeKnowledgeMap(Object ObjInst)
         {

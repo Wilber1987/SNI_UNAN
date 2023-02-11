@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using CAPA_NEGOCIO;
-using CAPA_NEGOCIO.Security;
-using CAPA_NEGOCIO.Entity;
+using CAPA_NEGOCIO.Security; 
 using CAPA_NEGOCIO.Views;
 using CAPA_NEGOCIO.MAPEO;
 

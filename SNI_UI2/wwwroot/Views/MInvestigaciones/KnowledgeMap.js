@@ -233,7 +233,7 @@ class KnowledgeMapTab {
                 DivAside.querySelector(".DivAsideInvestigations").innerHTML = "";
                 investigaciones[0].forEach(inv => {
                     const DisplineDiv = { type: 'div', props: { class: 'DisplineDiv' }, children: [] };
-                    inv.disciplinas.forEach(dis => {
+                    inv.Tbl_Investigaciones_Disciplinas?.forEach(dis => {
                         DisplineDiv.children.push({
                             type: 'div', props: { style: 'background:' + dis.color },
                             children: [

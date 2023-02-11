@@ -41,10 +41,10 @@ class ProyectDetailViewer extends HTMLElement {
                         WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.Fecha_Inicio}</label>`),
                         WRender.CreateStringNode("<h4>Instituciones<hr></h4>"),
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
-                            this.response.Instituciones.map(x=>{
+                            this.response.Cat_Instituciones?.map(x=>{
                                 return `<div class="InstitucionDiv">
-                                    <img src="${x.Institucion.Logo}"/>
-                                    <label>${x.Institucion.Nombre}</label>
+                                    <img src="${x.Cat_instituciones?.Logo}"/>
+                                    <label>${x.Cat_instituciones?.Nombre}</label>
                                     <label>${x.Asociacion.Descripcion}</label>
                                 </div>`;
                             }).join('')
@@ -55,7 +55,7 @@ class ProyectDetailViewer extends HTMLElement {
         });
         this.ProyectContainer.append(WRender.createElement(Detaills));
         this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes<hr></h4>"));
-        this.response.Participantes.forEach(element => {
+        this.response.Tbl_Participantes_Proyectos?.forEach(element => {
             element.titulo = `${element.Perfil.Nombres} ${element.Perfil.Apellidos}`;
             element.picture = element.Perfil.Foto;
             element.subtitulo = element.Cargo.Descripcion;

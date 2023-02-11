@@ -7,9 +7,10 @@ namespace CAPA_DATOS
     public class SqlADOConexion
     {
         private static string UserSQLConexion = "";
-        public static SqlServerGDatos SQLM;
-        public static string DataBaseNameSNIBD = "SIGFACT";
-        public static string DataBaseNameSIAC_BD = "SIAC_BD";
+        public static SqlServerGDatos? SQLM;
+        //public static string DataBaseName = "SIGFACT";
+        //public static string DataBaseName = "SIAC_BD";
+        public static string DataBaseName = "SNIBD";
         public static bool Anonimo = true;
         //static string SQLServer = ".";
         //static string SQLServer = "localhost\\SQLEXPRESS";
@@ -20,7 +21,7 @@ namespace CAPA_DATOS
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
-                    "; Initial Catalog=" + DataBaseNameSNIBD + "; User ID="
+                    "; Initial Catalog=" + DataBaseName + "; User ID="
                     + user + ";Password=" + password + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 if (SQLM.TestConnection()) return true;
@@ -44,7 +45,7 @@ namespace CAPA_DATOS
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
-                    "; Initial Catalog=" + DataBaseNameSIAC_BD + "; User ID="
+                    "; Initial Catalog=" + DataBaseName + "; User ID="
                     + user + ";Password=" + password + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;
@@ -62,7 +63,7 @@ namespace CAPA_DATOS
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
-                    "; Initial Catalog=" + DataBaseNameSNIBD +
+                    "; Initial Catalog=" + DataBaseName +
                     "; User ID=sa;Password=zaxscd;MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;

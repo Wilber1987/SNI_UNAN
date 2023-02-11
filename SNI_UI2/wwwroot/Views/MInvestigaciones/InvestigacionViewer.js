@@ -13,11 +13,11 @@ class InvestigacionViewer extends HTMLElement {
         this.InvestigacionContainer = WRender.createElement({ type: 'div', props: { class: 'InvestigacionContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
         this.profileCard = new WCard({
-            titulo: `${response.Investigador.Nombres}`,
-            picture: response.Investigador.Foto,
+            titulo: `${response.Tbl_InvestigatorProfile?.Nombres}`,
+            picture: response.Tbl_InvestigatorProfile?.Foto,
             subtitulo: "Autor",
-            descripcion: response.Investigador.NombreInstitucion,
-            id_Investigador: response.Investigador.Id_Investigador
+            descripcion: response.Tbl_InvestigatorProfile?.NombreInstitucion,
+            id_Investigador: response.Tbl_InvestigatorProfile?.Id_Investigador
         }, 2, () => {
             ActionFunction(response.Id_Investigador, DomManager);
         });
@@ -55,10 +55,10 @@ class InvestigacionViewer extends HTMLElement {
                             }
                         }], WRender.CreateStringNode("<div class='DetailsHeader'>Disciplinas</div>"), {
                             class: 'InvestigationDisciplineContainer',
-                            children: this.response.Disciplinas.map(element => {
+                            children: this.response.Tbl_Investigaciones_Disciplinas?.map(element => {
                                 return {
-                                    tagName: 'label', style: { background: element.Disciplina.Color },
-                                    innerText: element.Disciplina.DescripcionDisciplina
+                                    tagName: 'label', style: { background: element.Cat_Disciplinas?.Color },
+                                    innerText: element.Cat_Disciplinas?.DescripcionDisciplina
                                 }
                             })
                         }
@@ -83,7 +83,7 @@ class InvestigacionViewer extends HTMLElement {
                 }
             ]
         });
-        this.response.Colaboradores.forEach(element => {
+        this.response.Tbl_Colaboradores?.forEach(element => {
             element.titulo = `${element.Nombres} ${element.Apellidos}`;
             element.picture = element.Foto;
             element.subtitulo = element.TipoColaboracion;
@@ -100,7 +100,7 @@ class InvestigacionViewer extends HTMLElement {
         }
         this.InvestigacionContainer.append(WRender.createElement(Card));
         this.InvestigacionContainer.append(WRender.createElement(Detaills));
-        if (this.response.Colaboradores.length > 0) {
+        if (this.response.Tbl_Colaboradores?.length > 0) {
             const Colaboradores = new WCardCarousel(this.response.Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
                 ActionFunction(Object.Id_Investigador, this.DomManager)

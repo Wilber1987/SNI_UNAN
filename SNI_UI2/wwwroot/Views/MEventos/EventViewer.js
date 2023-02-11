@@ -43,7 +43,7 @@ class EventViewer extends HTMLElement {
                 WRender.Create({ tagName: "p", innerText: Evento.Datos_Adicionales }),
                 WRender.Create({ tagName: "h3", innerText: "Participaciones" }),
                 WRender.Create({
-                    tagName: "InvestigadoresACont", children: Evento.Participantes.map(I => (this.ParticipacionesCard(I)))
+                    tagName: "InvestigadoresACont", children: Evento.Tbl_Participantes_Eventos?.map(I => (this.ParticipacionesCard(I)))
                 })
             ]
         })
@@ -68,7 +68,7 @@ class EventViewer extends HTMLElement {
         return WRender.Create({
             className: "ParticipantesCard",
             children: [
-                { tagName: 'img', src: "data:image/png;base64," + Participacion.Investigador.Foto },
+                { tagName: 'img', src: "data:image/png;base64," + Participacion.Tbl_InvestigatorProfile?.Foto },
                 { tagName: 'h4', innerText: Participacion.Titulo },
                 { tagName: 'p', innerText: Participacion.Descripcion },
                 { tagName: "label", innerText: `Fecha y Hora:  ${Participacion.Fecha_Participacion?.toDateTimeFormatEs()}` },

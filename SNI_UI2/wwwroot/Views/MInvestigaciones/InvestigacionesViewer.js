@@ -221,18 +221,18 @@ class InvestigacionesViewer extends HTMLElement {
             const Card = WRender.Create({
                 className: "InvestigadorCard",
                 children: [
-                    { tagName: 'img', src: "data:image/png;base64," + element.Investigador.Foto },
+                    { tagName: 'img', src: "data:image/png;base64," + element.Tbl_InvestigatorProfile?.Foto },
                     "Autor: ",
-                    element.Investigador.Nombres + ' ' + element.Investigador.Apellidos
+                    element.Tbl_InvestigatorProfile?.Nombres + ' ' + element.Tbl_InvestigatorProfile?.Apellidos
                 ]
             })
             ArticleBody.append(
                 WRender.Create({ tagName: 'label', className: "LabelTitle", innerText: element.Titulo }),
                 WRender.Create({
-                    className: "DisciplinasCard", children: element.Disciplinas.map(d => ({
+                    className: "DisciplinasCard", children: element.Tbl_Investigaciones_Disciplinas?.map(d => ({
                         tagName: 'label',
-                        innerText: d.Disciplina.DescripcionDisciplina,
-                        style: { background: d.Disciplina.Color }
+                        innerText: d.Cat_Disciplinas?.DescripcionDisciplina,
+                        style: { background: d.Cat_Disciplinas?.Color }
                     }))
                 }),
                 WRender.Create({ tagName: 'p', className: "p", innerText: element.Resumen }),

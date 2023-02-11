@@ -1,41 +1,31 @@
 @page
 @{
-    Layout = null;
+     Layout = null;
 }
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset='utf-8' />
+        <title> Login </title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>  
+        <script type='module'>
+            import { WRender, WAjaxTools } from './WDevCore/WModules/WComponentsTools.js';
+            import { WSecurity } from './WDevCore/WModules/WSecurity.js';
+            import { WForm } from './WDevCore/WComponents/WForm.js';
 
-<head>
-    <meta charset='utf-8' />
-    <title> Login </title>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <script type='module'>
-        import { WRender, WAjaxTools } from './WDevCore/WModules/WComponentsTools.js';
-        import { WSecurity } from './WDevCore/WModules/WSecurity.js';
-        import { WForm } from './WDevCore/WComponents/WForm.js';
-
-        const OnLoad = async () => {
-            const LoginForm = new WForm({
-                ModelObject: {
-                    Mail: {
-                        type: 'text',
-                        placeholder: 'Correo'
-                    }, Password: {
-                        type: 'password'
+            const OnLoad = async () => {                
+                const LoginForm = new WForm({
+                    ModelObject: { Mail: { type: 'text'}, Password: { type: 'password' } } ,
+                    SaveFunction: async (UserData) => { 
+                        WSecurity.Login(UserData, window.location.origin)
                     }
-                }, EditObject: {
-                    Mail: 'sa', Password: 'zaxscd'
-                }, SaveFunction: async (UserData) => {
-                    WSecurity.Login(UserData, window.location.origin)
-                }
-            });
-            App.appendChild(LoginForm);
-        }
-        window.onload = OnLoad;
-    </script>
-</head>
+                });
+                App.appendChild(LoginForm);
+            }
+            window.onload = OnLoad;
 
-<body id='App'>
-</body>
-
+        </script>
+    </head>
+    <body id='App'>
+    </body>
 </html>

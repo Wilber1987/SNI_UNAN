@@ -30,15 +30,15 @@ class GroupView extends HTMLElement {
             }, children: [
                 WRender.Create({ tagName: "h4", innerText: group.Nombre, style: { background: type == "RECOMENDACION" ? "#044f8f": undefined} }),
                 WRender.Create({ tagName: "P", innerText: group.Descripcion }),
-                WRender.Create({ tagName: "label", innerText: "Tipo: " + group.Tipo.Descripcion }),
+                WRender.Create({ tagName: "label", innerText: "Tipo: " + group.Cat_TipoGrupo?.Descripcion }),
                 WRender.Create({ tagName: "h5", innerText: "Instituciones" }),
-                WRender.Create({ tagName: "InstitucionesACont", children: group.Instituciones_Asociadas.map(I => ({ tagName: 'img',
-                 src: I.Institucion.Logo })) }),
+                WRender.Create({ tagName: "InstitucionesACont", children: group.Tbl_InstitucionesAsociadasGrupos?.map(I => ({ tagName: 'img',
+                 src: I.Cat_instituciones?.Logo })) }),
                 WRender.Create({ tagName: "h5", innerText: "Miembros" }),
                 WRender.Create({
-                    tagName: "InvestigadoresACont", children: group.Investigadores_Asociados.map(I => ({
+                    tagName: "InvestigadoresACont", children: group.Tbl_InvestigadoresAsociados?.map(I => ({
                         tagName: 'img',
-                        src: "data:image/png;base64," + I.Investigador.Foto
+                        src: "data:image/png;base64," + I.Tbl_InvestigatorProfile?.Foto
                     }))
                 }),
             ]

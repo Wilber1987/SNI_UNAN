@@ -25,20 +25,17 @@ namespace SNI_UI.Controllers
             }
         }
         [HttpPost]
-        public object TakeProyect(Object ObjInst)
+        public object TakeProyect(Tbl_Proyectos Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<Tbl_Proyectos>(ObjInst.ToString());
-            return Inst.TakeProyect();
+            return Inst.Get<Tbl_Proyectos>();
         }
-        public object TakeProyects(Object ObjInst)
+        public object TakeProyects(Tbl_Proyectos Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<Tbl_Proyectos>(ObjInst.ToString());
-            return Inst.TakeProyects();
+            return Inst.Get<Tbl_Proyectos>();
         }
-        public object TakeTypeProyects(Object ObjInst)
+        public object TakeTypeProyects(Cat_Tipo_Proyecto Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<Cat_Tipo_Proyecto>(ObjInst.ToString());
-            return Inst.TakeTipoProyecto();
+            return Inst.Get<Cat_Tipo_Proyecto>();
         }
     }
 }

@@ -83,9 +83,10 @@ const ActionFunction = async (Id_Investigador, DOMManager) => {
     const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigadorProfile",
         { Id_Investigador: Id_Investigador }
     );
+    console.log(response);
     const divRedes = WRender.createElement({ type: 'div', props: { id: '', class: 'divRedes' } });
     const cadenaB64 = "data:image/png;base64,";
-    response.RedesSociales.forEach(element => {
+    response.Tbl_Invest_RedS?.forEach(element => {
         divRedes.append(WRender.createElement([{ type: 'img', props: { src: cadenaB64 + element.Icon, class: 'RedsIcon' } },
         { type: 'a', props: { innerText: element.Descripcion, href: element.Url_red_inv, target: "_blank" } }]));
     });

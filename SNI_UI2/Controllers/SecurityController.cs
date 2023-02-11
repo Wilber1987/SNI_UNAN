@@ -17,11 +17,9 @@ namespace SNI_UI2.Controllers
     public class SecurityController : ControllerBase
     {
         [HttpPost]
-        public object Login(Object ObjInst)
+        public object Login(UserModel Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<UserModel>(ObjInst.ToString());
-            AuthNetCore.loginIN(Inst.mail, Inst.password);
-            return AuthNetCore.User();
+            return AuthNetCore.loginIN(Inst.mail, Inst.password);
         }
         public object LogOut()
         {

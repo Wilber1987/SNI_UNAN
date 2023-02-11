@@ -57,7 +57,7 @@ class NotificacionesView extends HTMLElement {
                         return {
                             TextAction: E.Estado,
                             Object: E,
-                            Titulo: `Invitación al evento ${E.Evento.Nombre}`,
+                            Titulo: `Invitación al evento ${E.Tbl_Evento?.Nombre}`,
                             Descripcion: this.EventInvitadosDescripcion(E),
                             Fecha: E.Fecha_Invitacion?.toDateFormatEs(),
                             Actions: [
@@ -88,7 +88,7 @@ class NotificacionesView extends HTMLElement {
                         return {
                             TextAction: E.Estado,
                             Object: E,
-                            Titulo: `Participación en el evento ${E.Evento.Nombre} pendiente de aprobar`,
+                            Titulo: `Participación en el evento ${E.Tbl_Evento?.Nombre} pendiente de aprobar`,
                             Descripcion: this.EventDescripcion(E),
                             Fecha: E.Fecha_Participacion?.toDateFormatEs(),
                             Actions: [
@@ -170,17 +170,17 @@ class NotificacionesView extends HTMLElement {
         } 
     `
     EventDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} Indico que participarias en el evento ${E.Evento.Nombre} que se realizara de forma ${E.Evento.Modalidad}, con el rol de ${E.Tipo_Participacion.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion?.toDateFormatEs()}.
+        return `${E.Tbl_Evento?.Tbl_InvestigatorProfile?.Nombres} ${E.Tbl_Evento?.Tbl_InvestigatorProfile?.Apellidos} Indico que participarias en el evento ${E.Tbl_Evento?.Nombre} que se realizara de forma ${E.Tbl_Evento?.Modalidad}, con el rol de ${E.Cat_Tipo_Participacion_Eventos?.Descripcion} de ${E.Titulo} el ${E.Fecha_Participacion?.toDateFormatEs()}.
         
         ¿Desea confirmar su participación?`;
     }
     EventInvitadosDescripcion(E) {
-        return `${E.Evento.Investigador?.Nombres} ${E.Evento.Investigador?.Apellidos} le esta invitando a asistir al evento ${E.Evento.Nombre} en la fecha ${E.Fecha_Invitacion?.toDateFormatEs()} que se realizara de forma ${E.Evento.Modalidad}.
+        return `${E.Tbl_Evento?.Tbl_InvestigatorProfile?.Nombres} ${E.Tbl_Evento?.Tbl_InvestigatorProfile?.Apellidos} le esta invitando a asistir al evento ${E.Tbl_Evento?.Nombre} en la fecha ${E.Fecha_Invitacion?.toDateFormatEs()} que se realizara de forma ${E.Tbl_Evento?.Modalidad}.
         
         ¿Desea confirmar su asistencia?`;
     }
     InvestigacionesDescripcion(E = (new Tbl_Investigaciones())) {
-        return `${E.Investigador?.Nombres} ${E.Investigador?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion?.toDateFormatEs()}.
+        return `${E.Tbl_InvestigatorProfile?.Nombres} ${E.Tbl_InvestigatorProfile?.Apellidos} publico una nueva investigación con el titulo "${E.Titulo}" ejecutada el ${E.Fecha_ejecucion?.toDateFormatEs()}.
         
         ¿Desea revisar la publicación?`;
     }
