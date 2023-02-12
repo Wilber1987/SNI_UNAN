@@ -177,6 +177,8 @@ class Tbl_Distinciones extends EntityClass {
    Descripcion = { type: 'text' };
    fecha = { type: 'date' };
    Montos = { type: 'number' };
+   CatTipoDistincion = { type: 'WSelect',  ModelObject: ()=> new CatTipoDistincion()};
+   Cat_instituciones = { type: 'WSelect',  ModelObject: ()=> new Cat_instituciones()};
 }
 export { Tbl_Distinciones }
 class Tbl_Evento extends EntityClass {
@@ -225,6 +227,9 @@ class Tbl_Formacion_Academica extends EntityClass {
    Disciplina = { type: 'text' };
    Fecha_Inicio = { type: 'date' };
    Fecha_Finalizacion = { type: 'date' };
+   Cat_TipoEstudio = { type: 'WSelect',  ModelObject: ()=> new Cat_TipoEstudio()};
+   Cat_instituciones = { type: 'WSelect',  ModelObject: ()=> new Cat_instituciones()};
+   
 }
 export { Tbl_Formacion_Academica }
 class Tbl_Grupos extends EntityClass {
@@ -288,6 +293,7 @@ class Tbl_Patentes extends EntityClass {
    fecha = { type: 'date' };
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
    Descripcion = { type: 'text' };
+   Cat_instituciones = { type: 'WSelect',  ModelObject: ()=> new Cat_instituciones()};
 }
 export { Tbl_Patentes }
 class TblProcesosEditoriales extends EntityClass {
@@ -300,6 +306,7 @@ class TblProcesosEditoriales extends EntityClass {
    Id_Proceso_Editorial = { type: 'number', primary: true };
    Descripcion = { type: 'text' };
    Fecha = { type: 'date' };
+   Cat_Tipo_Proceso_Editorial = { type: 'WSelect',  ModelObject: ()=> new Cat_Tipo_Proceso_Editorial()};
 }
 export { TblProcesosEditoriales }
 class Cat_Tipo_Participacion_Eventos extends EntityClass {
@@ -415,7 +422,7 @@ class Cat_instituciones extends EntityClass {
    Nombre = { type: 'text' };
    Direccion = { type: 'text' };
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-   Logo = { type: 'text' };
+   Logo = { type: 'img' };
    ProyectoCatDependencias = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoCatDependencias()};
    Tbl_Distinciones = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Distinciones()};
    Tbl_Formacion_Academica = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Formacion_Academica()};
@@ -467,7 +474,7 @@ class Tbl_InvestigatorProfile extends EntityClass {
    Tbl_Formacion_Academica = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Formacion_Academica()};
    //Tbl_Grupos = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Grupos()};
    Tbl_Invest_RedS = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Invest_RedS()};
-   Tbl_Investigaciones = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Investigaciones()};
+   //Tbl_Investigaciones = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Investigaciones()};
    //Tbl_InvestigadoresAsociados = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_InvestigadoresAsociados()};
    //Tbl_Invitaciones = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Invitaciones()};
    //Tbl_Participantes_Eventos = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Participantes_Eventos()};
@@ -591,7 +598,7 @@ class CatRedesSociales extends EntityClass {
    Id_RedSocial = { type: 'number', primary: true };
    Descripcion = { type: 'text' };
    url = { type: 'text' };
-   Icon = { type: 'text' };
+   Icon = { type: 'img' };
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
    Tbl_Invest_RedS = { type: 'MasterDetail',  ModelObject: ()=> new Tbl_Invest_RedS()};
 }
@@ -604,6 +611,7 @@ class Tbl_Invest_RedS extends EntityClass {
        }
    }
    url_red_inv = { type: 'text' };
+   CatRedesSociales = { type: 'WSelect',  ModelObject: ()=> new CatRedesSociales()};
 }
 export { Tbl_Invest_RedS }
 class Tbl_IdiomasInv extends EntityClass {
@@ -613,6 +621,7 @@ class Tbl_IdiomasInv extends EntityClass {
            this[prop] = props[prop];
        }
    }
+   Cat_Idiomas = { type: 'WSelect',  ModelObject: ()=> new Cat_Idiomas()};
 }
 export { Tbl_IdiomasInv }
 class ProyectoTableActividades extends EntityClass {

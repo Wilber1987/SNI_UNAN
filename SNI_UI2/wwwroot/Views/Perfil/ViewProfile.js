@@ -10,6 +10,7 @@ import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js"
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
 import { Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
+import { WDetailObject } from '../../WDevCore/WComponents/WDetailObject.js';
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -35,59 +36,6 @@ class PerfilClass extends HTMLElement {
     EditarPerfilNav = () => {
         return [{
             name: "Perfil", action: async (ev) => { this.EditProfile(); }
-        }, {
-            name: "Datos Académicos",
-            action: async (ev) => {
-                const Id_TipoEstudio = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEstudio");
-                const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
-                const Model = new Tbl_Formacion_Academica({
-                    Id_TipoEstudio: {
-                        type: "Select",
-                        Dataset: Id_TipoEstudio.map(x => ({ id: x.Id_TipoEstudio, desc: x.Descripcion }))
-                    },
-                    Id_Institucion: {
-                        type: "Select",
-                        Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
-                    }
-                });
-                this.NavSaveCatalogo("Tab-Académicos", { add: "SaveFormacionAcademica" }, this.response.FormacionAcademica, Model);
-            }
-        }, {
-            name: "Patentes",
-            action: async (ev) => {
-                const Id_Institucion = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
-                const Model = new Tbl_Patentes({
-                    Id_Institucion: {
-                        type: "Select",
-                        Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
-                    }
-                });
-                this.NavSaveCatalogo("Tab-Patentes", { add: "SavePatente" }, this.response.Patentes, Model);
-            }
-        }, {
-            name: "Datos Laborales",
-            action: async (ev) => {
-                const Id_Cargo = await WAjaxTools.PostRequest("../../api/PublicCat/GetCargos");
-                const Model = new Tbl_Datos_Laborales({
-                    Id_Cargo: {
-                        type: "Select",
-                        Dataset: Id_Cargo.map(x => ({ id: x.Id_Cargo, desc: x.Descripcion }))
-                    }
-                });
-                this.NavSaveCatalogo("Tab-Laborales", { add: "SaveDatoLaboral" }, this.response.DatosLaborales, Model);
-            }
-        }, {
-            name: "Redes Sociales",
-            action: async (ev) => {
-                const Id_RedSocial = await WAjaxTools.PostRequest("../../api/PublicCat/GetRedesSociales");
-                const Model = new Tbl_Invest_RedS({
-                    Id_RedSocial: {
-                        type: "Select",
-                        Dataset: Id_RedSocial.map(x => ({ id: x.Id_RedSocial, desc: x.Descripcion }))
-                    }
-                });
-                this.NavSaveCatalogo("Tab-RedesS", { add: "SaveRedSocialP" }, this.response.RedesSociales, Model);
-            }
         }, {
             name: "Procesos editoriales científicos",
             action: async (ev) => {
@@ -132,7 +80,8 @@ class PerfilClass extends HTMLElement {
                         { Id_Investigador: this.Id_Investigador }
                     );
                     this.response.Id_Idiomas = this.response.Tbl_IdiomasInv?.map(i => i.Idioma)
-                    this.TabManager.NavigateFunction("Tab-Generales", new WProfileInvestigador(this.response));
+                    this.TabManager.NavigateFunction("Tab-Generales",
+                        new WDetailObject({ ObjectDetail: this.response, ModelObject: new Tbl_InvestigatorProfile() }));
                 }
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }

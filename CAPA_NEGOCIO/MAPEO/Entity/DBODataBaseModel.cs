@@ -560,7 +560,7 @@ namespace CAPA_NEGOCIO.MAPEO
             }
             else
             {
-                throw new Exception("Invitación no existe");
+                throw new Exception("Invitaciï¿½n no existe");
             }
         }
     }
