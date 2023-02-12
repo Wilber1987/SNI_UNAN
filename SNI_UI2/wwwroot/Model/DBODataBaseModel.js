@@ -213,6 +213,7 @@ class Tbl_Participantes_Eventos extends EntityClass {
    Fecha_Participacion = { type: 'date' };
    Titulo = { type: 'text' };
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+   Tbl_InvestigatorProfile = { type: 'WSelect',  ModelObject: ()=> new Tbl_InvestigatorProfile()};
 }
 export { Tbl_Participantes_Eventos }
 class Tbl_Formacion_Academica extends EntityClass {
@@ -280,6 +281,7 @@ class Tbl_Invitaciones extends EntityClass {
    Id_Invitacion = { type: 'number', primary: true };
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
    Fecha_Invitacion = { type: 'date' };
+   Tbl_InvestigatorProfile = { type: 'WSelect',  ModelObject: ()=> new Tbl_InvestigatorProfile()};
 }
 export { Tbl_Invitaciones }
 class Tbl_Patentes extends EntityClass {

@@ -207,7 +207,7 @@ namespace CAPA_DATOS
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
                 foreach (T item in ListD)
                 {
-                    FindRelationatedsEntitys(item);
+                    FindRelationatedsEntitys(item, false);
                 }
                 return ListD;
             }
@@ -217,7 +217,7 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        private void FindRelationatedsEntitys<T>(T item)
+        private void FindRelationatedsEntitys<T>(T item, bool fullEntity = true)
         {
             Type _type = item.GetType();
             PropertyInfo[] lst = _type.GetProperties();
@@ -244,7 +244,7 @@ namespace CAPA_DATOS
                         if (method != null) TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
                     }
                 }
-                else if (oneToMany != null)
+                else if (oneToMany != null && fullEntity)
                 {
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType.GetGenericArguments()[0]);
                     PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToMany.KeyColumn);
@@ -281,7 +281,7 @@ namespace CAPA_DATOS
                 var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
                 if (fullEntity)
                 {
-                    FindRelationatedsEntitys(Inst);
+                    FindRelationatedsEntitys(CObject);
                 }
                 return CObject;
             }

@@ -805,7 +805,7 @@ namespace CAPA_NEGOCIO.MAPEO
         [OneToMany(TableName = "Tbl_Patentes", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
         public List<Tbl_Patentes>? Tbl_Patentes { get; set; }
 
-       
+
     }
     public class Cat_Tipo_Investigacion : EntityClass
     {
@@ -887,51 +887,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             try
             {
-                var List = this.Get<Tbl_InvestigatorProfile>();// SqlADOConexion.SQLM.TakeList<Tbl_InvestigatorProfile>( this);
-                Tbl_InvestigatorProfile Investigador = (Tbl_InvestigatorProfile)List[0];
-                //Investigaciones
-                //Tbl_Investigaciones ModelInvestigacion = new Tbl_Investigaciones();
-                //ModelInvestigacion.Id_Investigador = this.Id_Investigador;
-                //Investigador.Tb = ModelInvestigacion.Get<Tbl_Investigaciones>();
-
-                //Investigador.Colaboraciones = new Tbl_Colaboradores() { Id_Investigador = this.Id_Investigador }.Get<Tbl_Colaboradores>();
-
-                ////Proyectos
-                //Tbl_Participantes_Proyectos ModelProyectos = new Tbl_Participantes_Proyectos();
-                //ModelProyectos.Id_Investigador = this.Id_Investigador;
-                //Investigador.Proyectos = ModelProyectos.Get<Tbl_Participantes_Proyectos>();
-                ////Idiomas
-                //Investigador.Id_Idiomas = new Tbl_IdiomasInv() { Id_Investigador = this.Id_Investigador }.Get<Tbl_IdiomasInv>();
-                ////RedesSociales
-                //CatRedesSociales ModelRedes = new CatRedesSociales();
-                //ModelRedes.Id_Investigador = this.Id_Investigador;
-                //Investigador.RedesSociales = ModelRedes.TakeRedesInv();
-
-                ////Formacion Academica
-                //Tbl_Formacion_Academica Fa = new Tbl_Formacion_Academica();
-                //Fa.Id_Investigador = this.Id_Investigador;
-                //Investigador.FormacionAcademica = Fa.Get<Tbl_Formacion_Academica>();
-
-                //Tbl_Patentes tbl_Patentes = new Tbl_Patentes();
-                //tbl_Patentes.Id_Investigador = this.Id_Investigador;
-                //Investigador.Patentes = tbl_Patentes.Get<Tbl_Patentes>();
-
-                //Tbl_Datos_Laborales dl = new Tbl_Datos_Laborales();
-                //dl.Id_Investigador = this.Id_Investigador;
-                //Investigador.DatosLaborales = dl.Get<Tbl_Datos_Laborales>();
-
-                //Tbl_Evento tbl_Evento = new Tbl_Evento();
-                //tbl_Evento.Id_Investigador = this.Id_Investigador;
-                //Investigador.Eventos = tbl_Evento.Get<Tbl_Evento>();
-
-                //Tbl_Distinciones tbl_Distinciones = new Tbl_Distinciones();
-                //tbl_Distinciones.Id_Investigador = this.Id_Investigador;
-                //Investigador.Distinciones = tbl_Distinciones.Get<Tbl_Distinciones>();
-
-                //Investigador.ProcesosEditoriales = new TblProcesosEditoriales().Get_WhereIN<TblProcesosEditoriales>(
-                //        "Id_Investigador", new string[] { this.Id_Investigador.ToString() }
-                //        );
-                return Investigador;
+                return this.Find<Tbl_InvestigatorProfile>();
             }
             catch (Exception)
             {
@@ -976,7 +932,15 @@ namespace CAPA_NEGOCIO.MAPEO
                 foreach (Tbl_Formacion_Academica obj in this.Tbl_Formacion_Academica)
                 {
                     obj.Id_Investigador = this.Id_Investigador;
-                    obj.Save();
+                    if (obj.IdFormacion == null)
+                    {
+                        obj.Save();
+                    }
+                    else
+                    {
+                        obj.Update();
+                    }
+
                 }
             }
             if (this.Tbl_Datos_Laborales != null)
@@ -984,15 +948,29 @@ namespace CAPA_NEGOCIO.MAPEO
                 foreach (Tbl_Datos_Laborales obj in this.Tbl_Datos_Laborales)
                 {
                     obj.Id_Investigador = this.Id_Investigador;
-                    obj.Save();
+                     if (obj.Id_DatoL == null)
+                    {
+                        obj.Save();
+                    }
+                    else
+                    {
+                        obj.Update();
+                    }
                 }
             }
             if (this.Tbl_Investigaciones != null)
             {
                 foreach (Tbl_Investigaciones obj in this.Tbl_Investigaciones)
                 {
-                    obj.Id_Investigador = this.Id_Investigador;
-                    obj.Save();
+                    obj.Id_Investigador = this.Id_Investigador;                   
+                    if (obj.Id_Investigacion == null)
+                    {
+                        obj.Save();
+                    }
+                    else
+                    {
+                        obj.Update();
+                    }
                 }
             }
             return this;

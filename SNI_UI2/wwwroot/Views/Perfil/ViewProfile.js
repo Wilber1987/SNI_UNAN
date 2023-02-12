@@ -8,8 +8,13 @@ import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js
 import { WProfileInvestigador } from "./ProfileViewer.js";
 import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
-import { Cat_Cargo_Proyecto, ProyectoTableActividades, TblProcesosEditoriales, Tbl_Datos_Laborales, Tbl_Distinciones, Tbl_Evento, Tbl_Formacion_Academica, Tbl_Grupos, Tbl_Investigaciones, Tbl_Invest_RedS, Tbl_Participantes_Eventos, Tbl_Patentes } from "../../Model/ModelDatabase.js";
-import { Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
+import {
+    ProyectoTableActividades,
+    TblProcesosEditoriales,
+    Tbl_Distinciones,
+    Tbl_Grupos, Tbl_Investigaciones
+} from "../../Model/ModelDatabase.js";
+import { Tbl_Evento, Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
 import { WDetailObject } from '../../WDevCore/WComponents/WDetailObject.js';
 
 const OnLoad = async () => {
@@ -46,7 +51,7 @@ class PerfilClass extends HTMLElement {
                         Dataset: Id_Tipo_Proceso_Editoriales.map(x => ({ id: x.Id_Tipo_Proceso_Editorial, desc: x.Descripcion }))
                     }
                 });
-                this.NavSaveCatalogo("Tab-editoriales", { add: "SaveProcesoEditorial" }, this.response.ProcesosEditoriales, Model);
+                this.NavSaveCatalogo("Tab-editoriales", { add: "SaveProcesoEditorial" }, this.response.TblProcesosEditoriales, Model);
             }
         }, {
             name: "Premios, Distinciones, Reconocimientos, Becas",
@@ -63,7 +68,7 @@ class PerfilClass extends HTMLElement {
                         Dataset: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre }))
                     }
                 });
-                this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.Distinciones, Model);
+                this.NavSaveCatalogo("Tab-Distinciones", { add: "SaveDistincion" }, this.response.Tbl_Distinciones, Model);
             }
         }];
     }
@@ -177,14 +182,14 @@ class PerfilClass extends HTMLElement {
     }
     NavGrupos = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
+        //const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
         const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");
         const Tbl_Instituciones_Asociadas = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         Tab.append(WRender.Create({
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Grupos" },
                 new WTableComponent({
-                    Dataset: Dataset,
+                    Dataset: [],
                     ModelObject: new Tbl_Grupos({
                         Id_TipoGrupo: { type: "Select", Dataset: Id_TipoGrupo.map(x => ({ id: x.Id_TipoGrupo, desc: x.Descripcion })) },
                         Instituciones_Asociadas: {
@@ -194,7 +199,7 @@ class PerfilClass extends HTMLElement {
                         }
                     }),
                     Options: {
-                        Search: true, UrlSearch: 'api_route',
+                        Search: true, UrlSearch: '../../api/Group/GetGruposInvestigador',
                         Add: true, UrlAdd: '../../api/Group/SaveGroup',
                         UserActions: [{
                             name: 'Ver Detalle', Function: async (TableElement) => {
@@ -247,23 +252,6 @@ class PerfilClass extends HTMLElement {
                     ModelObject: InvestigadorModel,
                     EditObject: this.response,
                     ObjectOptions: { Url: "../../api/Profile/SaveProfile" },
-                    DisplayData: [
-                        "Apellidos",
-                        "Correo_institucional",
-                        "Dependencias",
-                        "DNI",
-                        "Eventos",
-                        "FechaNac",
-                        "Foto",
-                        "Grupos",
-                        "Id_Institucion",
-                        "Id_Pais_Origen",
-                        "Id_Idiomas",
-                        "NombreInstitucion",
-                        "Nombres",
-                        "RedesSociales",
-                        "Sexo"
-                    ]
                 })
             ]
         });
@@ -271,32 +259,8 @@ class PerfilClass extends HTMLElement {
     }
     async SetEventos() {
         const Eventos = await WAjaxTools.PostRequest("../../api/Events/GetEventosPropiosGestion");
-        const Id_Tipo_Evento = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoEventos");
-        const Id_Pais = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
-        const Id_Tipo_Participacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoParticipacionEventos");
         const Id_Investigador = await WAjaxTools.PostRequest("../../api/PublicCat/GetInvestigadores");
-        const Model = new Tbl_Evento({
-            Id_Tipo_Evento: {
-                type: "WSelect",
-                Dataset: Id_Tipo_Evento.map(x => ({ id: x.Id_Tipo_Evento, Descripcion: x.Descripcion }))
-            }, Id_Pais: {
-                type: "WSelect",
-                Dataset: Id_Pais.map(x => ({ id: x.Id_Pais, Descripcion: x.Descripcion }))
-            }, Participantes: {
-                type: "Masterdetail",
-                MinimunRequired: 1,
-                MaxRequired: undefined,
-                ModelObject: new Tbl_Participantes_Eventos({
-                    Id_Tipo_Participacion: {
-                        type: "select",
-                        Dataset: Id_Tipo_Participacion.map(x => ({ id: x.Id_Tipo_Participacion, Descripcion: x.Descripcion }))
-                    }, Id_Investigador: {
-                        type: "WSelect",
-                        Dataset: Id_Investigador.map(x => ({ id: x.Id_Investigador, Descripcion: `${x.Nombres} ${x.Apellidos}` }))
-                    }
-                })
-            }
-        });
+        const Model = new Tbl_Evento();
         this.NavSaveCatalogo("Tab-Eventos",
             { add: "SaveEvento" },
             Eventos, Model,
