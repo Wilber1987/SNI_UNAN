@@ -216,6 +216,7 @@ namespace CAPA_DATOS
             PropertyInfo[] lst = _type.GetProperties();
             int index = 0;
             List<EntityProps> entityProps = DescribeEntity(Inst.GetType().Name);
+            if (entityProps.Count == 0) return new DataTable();
             foreach (PropertyInfo oProperty in lst)
             {
                 string AtributeName = oProperty.Name;
@@ -361,7 +362,7 @@ namespace CAPA_DATOS
                         on Col.Constraint_Name = Tab.Constraint_Name
                            and Col.Table_Name = Tab.Table_Name
                 where
-                    Constraint_Type = '"+ keyType + @"'
+                    Constraint_Type = '" + keyType + @"'
                     and Tab.TABLE_NAME = '" + entityName + @"'
                     and Col.Column_Name = '" + column + "';";
             DataTable Table = TraerDatosSQL(DescribeQuery);
@@ -375,7 +376,7 @@ namespace CAPA_DATOS
             return ConvertDataTable<OneToManySchema>(Table, new OneToManySchema());
         }
 
-       
+
     }
 
 }
