@@ -12,9 +12,9 @@ import {
     ProyectoTableActividades,
     TblProcesosEditoriales,
     Tbl_Distinciones,
-    Tbl_Grupos, Tbl_Investigaciones
+    Tbl_Grupos
 } from "../../Model/ModelDatabase.js";
-import { Tbl_Evento, Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
+import { Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../Model/DBODataBaseModel.js';
 import { WDetailObject } from '../../WDevCore/WComponents/WDetailObject.js';
 
 const OnLoad = async () => {
@@ -110,10 +110,10 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
         const Dataset = await WAjaxTools.PostRequest("../../api/Investigaciones/GetInvestigaciones", DataPost);
-        const tipoInvestigacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoInvestigaciones", {});
-        const tipoLocalidad = await WAjaxTools.PostRequest("../../api/PublicCat/GetLocalidades", {});
-        const disciplinas = await WAjaxTools.PostRequest("../../api/PublicCat/GetDisciplinas", {});
-        const ModelInvestigacion = new Tbl_Investigaciones({
+        //const tipoInvestigacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoInvestigaciones", {});
+       // const tipoLocalidad = await WAjaxTools.PostRequest("../../api/PublicCat/GetLocalidades", {});
+       // const disciplinas = await WAjaxTools.PostRequest("../../api/PublicCat/GetDisciplinas", {});
+        const ModelInvestigacion = new Tbl_Investigaciones(/* {
             Id_Tipo_Investigacion: { type: "SELECT", Dataset: tipoInvestigacion.map(x => ({ id: x.Id_Tipo_Investigacion, desc: x.Descripcion })) },
             Id_Localidad: { type: "SELECT", Dataset: tipoLocalidad.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad })) },
             Disciplinas: {
@@ -122,14 +122,14 @@ class PerfilClass extends HTMLElement {
                     return x;
                 })
             }
-        });
-        console.log(ModelInvestigacion);
-        ModelInvestigacion.Abstract.hidden = true;
-        ModelInvestigacion.Resumen.hidden = true;
-        ModelInvestigacion.Repositorio.hidden = true;
-        ModelInvestigacion.Referencias.hidden = true;
-        ModelInvestigacion.Photo.hidden = true;
-        ModelInvestigacion.Estado.hidden = true;
+        } */);
+        // console.log(ModelInvestigacion);
+        // ModelInvestigacion.Abstract.hidden = true;
+        // ModelInvestigacion.Resumen.hidden = true;
+        // ModelInvestigacion.Repositorio.hidden = true;
+        // ModelInvestigacion.Referencias.hidden = true;
+        // ModelInvestigacion.Photo.hidden = true;
+        // ModelInvestigacion.Estado.hidden = true;
         Tab.append(WRender.Create({
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Investigaciones" },

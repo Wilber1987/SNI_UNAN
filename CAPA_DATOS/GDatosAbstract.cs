@@ -229,7 +229,7 @@ namespace CAPA_DATOS
                 var oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
                 var manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
                 var oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
-                if (oneToOne != null || manyToOne != null)
+                if (oneToOne != null || manyToOne != null )
                 {
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
                     PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne?.KeyColumn

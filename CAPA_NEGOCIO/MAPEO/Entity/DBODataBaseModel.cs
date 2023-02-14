@@ -698,6 +698,8 @@ namespace CAPA_NEGOCIO.MAPEO
                 {
                     inv.Tbl_Investigaciones_Disciplinas = (new Tbl_Investigaciones_Disciplinas()).Get_WhereIN<Tbl_Investigaciones_Disciplinas>(
                         "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
+                    inv.Tbl_Colaboradores = (new Tbl_Colaboradores()).Get_WhereIN<Tbl_Colaboradores>(
+                        "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
 
                 }
                 return Investigaciones;
@@ -707,37 +709,37 @@ namespace CAPA_NEGOCIO.MAPEO
                 throw;
             }
         }
-        public Object SaveInvestigacion()
-        {
-            try
-            {
-                if (this.Id_Investigacion == null)
-                {
-                    this.Fecha_publicacion = DateTime.Now;
-                    this.Id_Investigacion = (Int32)this.Save();
-                }
-                else
-                {
-                    this.Update("Id_Investigacion");
-                }
-                if (this.Tbl_Investigaciones_Disciplinas != null)
-                {
-                    Tbl_Investigaciones_Disciplinas IdI = new Tbl_Investigaciones_Disciplinas();
-                    IdI.Id_Investigacion = this.Id_Investigacion;
-                    IdI.Delete();
-                    foreach (Tbl_Investigaciones_Disciplinas obj in this.Tbl_Investigaciones_Disciplinas)
-                    {
-                        obj.Id_Investigacion = this.Id_Investigacion;
-                        obj.Save();
-                    }
-                }
-                return this;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //public Object SaveInvestigacion()
+        //{
+        //    try
+        //    {
+        //        if (this.Id_Investigacion == null)
+        //        {
+        //            this.Fecha_publicacion = DateTime.Now;
+        //            this.Id_Investigacion = (Int32)this.Save();
+        //        }
+        //        else
+        //        {
+        //            this.Update("Id_Investigacion");
+        //        }
+        //        if (this.Tbl_Investigaciones_Disciplinas != null)
+        //        {
+        //            Tbl_Investigaciones_Disciplinas IdI = new Tbl_Investigaciones_Disciplinas();
+        //            IdI.Id_Investigacion = this.Id_Investigacion;
+        //            IdI.Delete();
+        //            foreach (Tbl_Investigaciones_Disciplinas obj in this.Tbl_Investigaciones_Disciplinas)
+        //            {
+        //                obj.Id_Investigacion = this.Id_Investigacion;
+        //                obj.Save();
+        //            }
+        //        }
+        //        return this;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
     public class Cat_Paises : EntityClass
     {
