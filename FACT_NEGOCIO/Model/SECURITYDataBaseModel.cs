@@ -74,7 +74,7 @@ namespace DataBaseModel {
         public DateTime? Token_Expiration_Date { get; set; }
         [OneToMany(TableName = "Security_Users_Roles", KeyColumn = "Id_User", ForeignKeyColumn = "Id_User")]
         public List<Security_Users_Roles>? Security_Users_Roles { get; set; }
-        public Security_Users GetUserData()
+        public Security_Users? GetUserData()
         {
             Security_Users user = this.Find<Security_Users>();
             if (user != null)
@@ -85,7 +85,7 @@ namespace DataBaseModel {
                 }.Get<Security_Users_Roles>();
                 foreach (Security_Users_Roles role in user.Security_Users_Roles)
                 {
-                    role.Security_Role.GetRolData();
+                    role.Security_Role?.GetRolData();
                 }
             }
             return user;
