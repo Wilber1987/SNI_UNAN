@@ -103,6 +103,7 @@ C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Error.
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\mail.cshtml.g.cs
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Perfil\PerfilView.cshtml.g.cs
+C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Perfil\Proyectos.cshtml.g.cs
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Security\Confirmacion_Registro.cshtml.g.cs
 C:\Users\wilbe\source\repos\SNI_UNAN\SNI_UI2\obj\Debug\net5.0\Razor\Pages\Security\Login.cshtml.g.cs

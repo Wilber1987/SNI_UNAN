@@ -7,7 +7,7 @@ class Tbl_Distinciones {
 	Id_Distincion = { type: "number", primary: true };
 	Id_Investigador = { type: "number", hidden: true };
 	Id_Tipo_Distincion = { type: "number" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	fecha = { type: "date" };
 	Id_Institucion = { type: "number" };
 	Montos = { type: "number" };
@@ -23,7 +23,7 @@ class Tbl_Evento {
 	Id_Evento = { type: "number", primary: true };
 	Id_Tipo_Evento = { type: "number" };
 	Nombre = { type: "text" };
-	Descripcion = { type: "textarea" };
+	Descripcion = { type: "textarea", hiddenInTable: true };
 	Id_Pais = { type: "number" };
 	Fecha_Inicio = { type: "date" };
 	Fecha_Finalizacion = { type: "date" };
@@ -32,7 +32,7 @@ class Tbl_Evento {
 	Link = { type: "text" };
 	Datos_Adicionales = { type: "text" };
 	Id_Investigador = { type: "number", hidden: true };
-	Participantes = { type: "MasterDetail"};
+	Participantes = { type: "MasterDetail" };
 }
 export { Tbl_Evento }
 class Tbl_Participantes_Eventos {
@@ -41,24 +41,24 @@ class Tbl_Participantes_Eventos {
 			this[prop] = props[prop];
 		}
 	}
-	Id_Investigador = { type: "number" , hidden: true  };
-	Id_Evento = { type: "number"  , primary: true };
-	Titulo = { type: "text"  };
-	Descripcion = { type: "text"  };
-	Id_Tipo_Participacion = { type: "number"  };
-	Fecha_Participacion = { type: "date"  };
+	Id_Investigador = { type: "number", hidden: true };
+	Id_Evento = { type: "number", primary: true };
+	Titulo = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
+	Id_Tipo_Participacion = { type: "number" };
+	Fecha_Participacion = { type: "date" };
 }
-export{Tbl_Participantes_Eventos}
+export { Tbl_Participantes_Eventos }
 class Cat_Tipo_Participacion_Eventos {
 	constructor(props) {
 		for (const prop in props) {
 			this[prop] = props[prop];
 		}
 	}
-	Id_Tipo_Participacion = { type: "number" , primary: true  };
-	Descripcion = { type: "text"  };
+	Id_Tipo_Participacion = { type: "number", primary: true };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
-export{Cat_Tipo_Participacion_Eventos}
+export { Cat_Tipo_Participacion_Eventos }
 class Tbl_Formacion_Academica {
 	constructor(props) {
 		for (const prop in props) {
@@ -83,7 +83,7 @@ class Tbl_Grupos {
 		}
 	}
 	Id_Grupo = { type: "number", primary: true };
-	Descripcion = { type: "text" };ED
+	Descripcion = { type: "text", hiddenInTable: true }; ED
 	Id_Investigador_Crea = { type: "number", hidden: true };
 	Id_TipoGrupo = { type: "number" };
 	Fecha_Creacion = { type: "date" };
@@ -137,7 +137,7 @@ class Tbl_Patentes {
 	Id_Patente = { type: "number", primary: true };
 	fecha = { type: "date" };
 	Id_Institucion = { type: "number" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Id_Investigador = { type: "number", hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
@@ -215,7 +215,7 @@ class Cat_Paises {
 	}
 	Id_Pais = { type: "number", primary: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
 export { Cat_Paises }
 class Cat_TipoLocalidad {
@@ -264,7 +264,7 @@ class Cat_Tipo_Investigacion {
 		}
 	}
 	Id_Tipo_Investigacion = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Investigacion }
@@ -294,18 +294,18 @@ class Tbl_Investigaciones {
 			this[prop] = props[prop];
 		}
 	}
-	Id_Investigacion = { type: "number", primary: true };	
+	Id_Investigacion = { type: "number", primary: true };
 	Id_Tipo_Investigacion = { type: "number" };
 	Titulo = { type: "text" };
-	Abstract = { type: "text" };
-	Resumen = { type: "text" };
-	Repositorio = { type: "string" };
+	Abstract = { type: "text", hiddenInTable: true };
+	Resumen = { type: "text", hiddenInTable: true };
+	Repositorio = { type: "text" };
 	Referencias = { type: "text" };
 	url_publicacion = { type: "text" };
 	Fecha_ejecucion = { type: "date" };
 	Id_Investigador = { type: "number", hidden: true };
-	Photo = { type: "text" };
-	Visibilidad = { type: "Select", Dataset: ["Pública", "Privada"]};
+	Photo = { type: "IMG" };
+	Visibilidad = { type: "Select", Dataset: ["Pública", "Privada"] };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "Finalizada", "En Proceso"] };
 	Id_Localidad = { type: "number" };
 }
@@ -318,7 +318,7 @@ class ViewInvestigacionesPhoto {
 	}
 	Titulo = { type: "text", primary: true };
 	Repositorio = { type: "string" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Fecha_ejecucion = { type: "text" };
 	Id_Investigacion = { type: "number" };
 	Resumen = { type: "text" };
@@ -344,7 +344,7 @@ class ViewInvestigacionesPorDisciplinas {
 	}
 	Titulo = { type: "text", primary: true };
 	Repositorio = { type: "string" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Fecha_ejecucion = { type: "text" };
 	Id_Investigacion = { type: "number" };
 	Resumen = { type: "text" };
@@ -371,7 +371,7 @@ class ViewInvestigaciones {
 	}
 	Titulo = { type: "text", primary: true };
 	Repositorio = { type: "string" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Fecha_ejecucion = { type: "text" };
 	Id_Investigacion = { type: "number" };
 	Resumen = { type: "text" };
@@ -395,7 +395,7 @@ class Cat_Tipo_Asociacion {
 		}
 	}
 	Id_Tipo_Asociacion = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Asociacion }
@@ -423,7 +423,7 @@ class ViewGPInstitucionesAsociadas {
 	Logo = { type: "text" };
 	Id_Proyecto = { type: "number" };
 	Id_Tipo_Asociacion = { type: "number" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 	Fecha_Ingreso = { type: "date" };
 }
@@ -448,7 +448,7 @@ class Cat_Tipo_Colaborador {
 		}
 	}
 	Id_Tipo_Colaboracion = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Colaborador }
@@ -524,7 +524,7 @@ class Cat_Cargo_Proyecto {
 		}
 	}
 	Id_Cargo_Proyecto = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Cargo_Proyecto }
@@ -569,7 +569,7 @@ class CatRedesSociales {
 		}
 	}
 	Id_RedSocial = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	url = { type: "text" };
 	Icon = { type: "IMAGE" };
 }
@@ -592,7 +592,7 @@ class ViewRedesInvestigadores {
 		}
 	}
 	Id_RedSocial = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	url = { type: "text" };
 	Icon = { type: "text" };
 	url_red_inv = { type: "text" };
@@ -607,7 +607,7 @@ class ProyectoTableActividades {
 	}
 	IdActividad = { type: "number", primary: true };
 	Titulo = { type: "text" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Id_Investigador = { type: "number", hidden: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 	Id_Dependencia = { type: "number" };
@@ -646,7 +646,7 @@ class Cat_Idiomas {
 		}
 	}
 	Id_Idioma = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
 export { Cat_Idiomas }
 class ProyectoTableTareas {
@@ -659,7 +659,7 @@ class ProyectoTableTareas {
 	Titulo = { type: "text" };
 	IdTareaPadre = { type: "number" };
 	IdActividad = { type: "number" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { ProyectoTableTareas }
@@ -670,7 +670,7 @@ class ViewIdiomasInvestigadores {
 		}
 	}
 	Id_Idioma = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Id_Investigador = { type: "number", hidden: true };
 }
 export { ViewIdiomasInvestigadores }
@@ -731,7 +731,7 @@ class ViewActividadesParticipantes {
 	}
 	IdActividad = { type: "number", primary: true };
 	Titulo = { type: "text" };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 	IdUsuario = { type: "number" };
 }
@@ -755,7 +755,7 @@ class ProyectoCatCargosDependencias {
 		}
 	}
 	IdCargo = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
 export { ProyectoCatCargosDependencias }
 class AspNetUserClaims {
@@ -777,7 +777,7 @@ class ProyectoCatDependencias {
 		}
 	}
 	Id_Dependencia = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Id_Dependencia_Padre = { type: "number" };
 	Id_Institucion = { type: "number" };
 }
@@ -801,7 +801,7 @@ class ProyectoCatTipoParticipaciones {
 		}
 	}
 	IdTipoParticipacion = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
 export { ProyectoCatTipoParticipaciones }
 class AspNetUserRoles {
@@ -894,7 +894,7 @@ class Cat_Cargos {
 		}
 	}
 	Id_Cargo = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Cargos }
@@ -905,7 +905,7 @@ class Cat_Tipo_Evento {
 		}
 	}
 	Id_Tipo_Evento = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Evento }
@@ -916,7 +916,7 @@ class Cat_TipoEstudio {
 		}
 	}
 	Id_TipoEstudio = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 }
 export { Cat_TipoEstudio }
 class Cat_TipoGrupo {
@@ -926,7 +926,7 @@ class Cat_TipoGrupo {
 		}
 	}
 	Id_TipoGrupo = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_TipoGrupo }
@@ -937,7 +937,7 @@ class Cat_TipoMiembro {
 		}
 	}
 	Id_TipoMiembro = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_TipoMiembro }
@@ -948,7 +948,7 @@ class CatTipoDistincion {
 		}
 	}
 	Id_Tipo_Distincion = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 
@@ -963,7 +963,7 @@ class TblProcesosEditoriales {
 	}
 	Id_Proceso_Editorial = { type: "number", primary: true };
 	Id_Investigador = { type: "number", hidden: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Fecha = { type: "date" };
 	Id_Tipo_Proceso_Editorial = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
@@ -977,7 +977,7 @@ class Cat_Tipo_Proceso_Editorial {
 		}
 	}
 	Id_Tipo_Proceso_Editorial = { type: "number", primary: true };
-	Descripcion = { type: "text" };
+	Descripcion = { type: "text", hiddenInTable: true };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
 }
 export { Cat_Tipo_Proceso_Editorial }

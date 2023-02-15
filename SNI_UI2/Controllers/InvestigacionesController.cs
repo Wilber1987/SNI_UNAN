@@ -39,13 +39,13 @@ namespace SNI_UI.Controllers
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             Inst.Estado = "PENDIENTE";
-            return Inst.SaveInvestigacion();
+            return Inst.Save();
         }
         public object UpdateInvestigacion(Tbl_Investigaciones Inst)
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             Inst.Estado = null;
-            return Inst.SaveInvestigacion();
+            return Inst.Update();
         }
         //PUBLIC CONTROLLER INVESTIGACIONES
         public object TakeInvestigaciones(Tbl_Investigaciones Inst)
