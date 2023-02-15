@@ -25,9 +25,9 @@ namespace SNI_UI2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest)
-            .AddJsonOptions(JsonOptions =>
-                    JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
+            // services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest)
+            // .AddJsonOptions(JsonOptions =>
+            //         JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddControllersWithViews();
         }
 

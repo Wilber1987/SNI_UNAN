@@ -12,7 +12,7 @@ namespace Security
         static private string SGBD_USER = "sa";
         static private string SWGBD_PASSWORD = "zaxscd";
         static public bool AuthAttribute = false;
-        static private Security_Users security_User;
+        static private Security_Users? security_User;
         static public bool Authenticate()
         {
             if (SqlADOConexion.SQLM == null || SqlADOConexion.Anonimo || security_User == null)
@@ -29,7 +29,7 @@ namespace Security
             SqlADOConexion.IniciarConexionAnonima();
             return true;
         }
-        static public bool loginIN(string mail, string password)
+        static public bool loginIN(string? mail, string? password)
         {
             if (mail == null || password == null) throw new Exception();
             try
