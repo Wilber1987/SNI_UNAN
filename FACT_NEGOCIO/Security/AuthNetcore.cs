@@ -29,9 +29,10 @@ namespace Security
             SqlADOConexion.IniciarConexionAnonima();
             return true;
         }
-        static public bool loginIN(string? mail, string? password)
+        static public object loginIN(string? mail, string? password)
         {
-            if (mail == null || password == null) throw new Exception();
+            if (mail == null || mail.Equals("") || password == null || password.Equals(""))
+                return new UserModel() { success = false, message = "Usuario y contrase�a son requeridos.", status = 500 };
             try
             {
                 SqlADOConexion.IniciarConexionSNIBD(SGBD_USER, SWGBD_PASSWORD);
@@ -39,21 +40,15 @@ namespace Security
                 {
                     Mail = mail,
                     Password = password
-                }.Find<Security_Users>();
-                if (security_User.Id_User == null)
-                {
-                    security_User = null;
-                    SqlADOConexion.SQLM = null;
-                    throw new Exception();
-                }
-                return true;
+                }.GetUserData();
+                if (security_User == null) ClearSeason();
+                return User();
             }
             catch (Exception)
             {
-                return false;
+                return new UserModel() { success = false, message = "Error al intentar iniciar sesi�n, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 };
             }
         }
-
         static public bool ClearSeason()
         {
             SqlADOConexion.SQLM = null;
@@ -61,13 +56,39 @@ namespace Security
             return true;
 
         }
-
-        public static bool HavePermission(string permission)
+        public static UserModel User()
+        {
+            if (security_User != null)
+            {
+                return new UserModel()
+                {
+                    UserId = security_User.Id_User,
+                    mail = security_User.Mail,
+                    password = "PROTECTED",
+                    status = 200,
+                    success = true,
+                    message = "Inicio de sesi�n exitoso."
+                };
+            }
+            else
+            {
+                return new UserModel()
+                {
+                    UserId = 0,
+                    mail = "FAILD",
+                    password = "FAILD",
+                    status = 500,
+                    success = false,
+                    message = "Usuario o contrase�a incorrectos."
+                };
+            }
+        }
+        public static bool HavePermission(string? permission)
         {
             if (Authenticate())
             {
-            //    var roleHavePermision = security_User.Security_Users_Roles.Where(r => RoleHavePermission(permission, r).Count != 0).ToList();
-            //    if (roleHavePermision.Count != 0) return true;
+                var roleHavePermision = security_User?.Security_Users_Roles?.Where(r => RoleHavePermission(permission, r)?.Count != 0).ToList();
+                if (roleHavePermision?.Count != 0) return true;
                 return false;
             }
             else
@@ -75,10 +96,18 @@ namespace Security
                 return false;
             }
         }
-
-        //private static List<Security_Permissions_Roles> RoleHavePermission(string permission, Security_Users_Roles r)
-        //{
-        //    return r.Security_Role.Security_Permissions_Roles.Where(p => p.Security_Permissions.Descripcion == permission).ToList();
-        //}
+        private static List<Security_Permissions_Roles>? RoleHavePermission(string? permission, Security_Users_Roles? r)
+        {
+            return r?.Security_Role?.Security_Permissions_Roles?.Where(p => p?.Security_Permissions?.Descripcion == permission).ToList();
+        }
+    }
+    public class UserModel
+    {
+        public int? UserId { get; set; }
+        public int? status { get; set; }
+        public string? mail { get; set; }
+        public string? password { get; set; }
+        public string? message { get; set; }
+        public bool? success { get; set; }
     }
 }
