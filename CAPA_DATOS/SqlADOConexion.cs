@@ -7,7 +7,7 @@ namespace CAPA_DATOS
     public class SqlADOConexion
     {
         private static string UserSQLConexion = "";
-        public static SqlServerGDatos? SQLM;
+        public static SqlServerGDatos SQLM;
         //public static string DataBaseName = "SIGFACT";
         //public static string DataBaseName = "SIAC_BD";
         public static string DataBaseName = "SNIBD";
