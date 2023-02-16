@@ -87,18 +87,9 @@ namespace CAPA_DATOS
             try
             {
                 PropertyInfo[] lst = this.GetType().GetProperties();
-                //PrimaryKey primaryKey;
-                //foreach (PropertyInfo oProperty in lst)
-                //{
-                //    primaryKey = (PrimaryKey)Attribute.GetCustomAttribute(oProperty, typeof(PrimaryKey));
-                //    if (primaryKey != null)
-                //    {
-                //        this.Update(oProperty.Name);
-                //        break;
-                //    }
-                //}
-                PropertyInfo propierty = lst.FirstOrDefault(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null);
-                if (propierty != null && propierty.GetValue(this) != null) this.Update(propierty.Name);
+                var pkPropiertys = lst.Where(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList(); 
+                var values = pkPropiertys.Where(p => p.GetValue(this) != null).ToList();
+                if (pkPropiertys.Count == values.Count) this.Update(pkPropiertys.Select(p => p.Name).ToArray());
                 else return false;
                 return true;
             }

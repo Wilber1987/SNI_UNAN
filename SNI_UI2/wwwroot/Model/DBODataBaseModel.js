@@ -140,6 +140,18 @@ class ProyectoTableDependencias_Usuarios extends EntityClass {
    }
 }
 export { ProyectoTableDependencias_Usuarios }
+class CatalogoTipoEvidencia extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }   
+    IdTipo = { type: 'number', primary: true };
+    Descripcion = { type: 'text' };
+    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] }; 
+ }
+ export { CatalogoTipoEvidencia }
 class ProyectoTableEvidencias extends EntityClass {
    constructor(props) {
        super(props, 'EntityDBO');
@@ -147,9 +159,10 @@ class ProyectoTableEvidencias extends EntityClass {
            this[prop] = props[prop];
        }
    }
-   IdEvidencia = { type: 'number', primary: true };
-   IdTipo = { type: 'number' };
-   Data = { type: 'text' };
+   IdEvidencia = { type: 'number', primary: true };  
+   CatalogoTipoEvidencia = { type: 'WSelect',  ModelObject: ()=> new CatalogoTipoEvidencia()};
+   Data = { type: 'file' };
+
 }
 export { ProyectoTableEvidencias }
 class Tbl_Datos_Laborales extends EntityClass {
@@ -668,11 +681,12 @@ class ProyectoTableTareas extends EntityClass {
    IdTarea = { type: 'number', primary: true };
    Titulo = { type: 'text' };
    Descripcion = { type: 'text', hiddenInTable : true };
+   ProyectoTableTareas = { type: 'WSelect',  ModelObject: ()=> new ProyectoTableTareas()};
    Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
-   ProyectoTableCalendario = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableCalendario()};
-   ProyectoTableEvidencias = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableEvidencias()};
    ProyectoTableParticipantes = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableParticipantes()};
-   ProyectoTableTareas = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableTareas()};
+   //ProyectoTableCalendario = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableCalendario()};
+   ProyectoTableEvidencias = { type: 'MasterDetail', require: false,  ModelObject: ()=> new ProyectoTableEvidencias()};   
+   
 }
 export { ProyectoTableTareas }
 class ProyectoTableParticipantes extends EntityClass {
@@ -682,6 +696,9 @@ class ProyectoTableParticipantes extends EntityClass {
            this[prop] = props[prop];
        }
    }
+   Tbl_InvestigatorProfile = {type: 'WSelect',  ModelObject: ()=> new ProyectoTableParticipantes()}
+   ProyectoCatTipoParticipaciones = {type: 'WSelect',  ModelObject: ()=> new ProyectoCatTipoParticipaciones()}
+
 }
 export { ProyectoTableParticipantes }
 class Cat_Cargos extends EntityClass {

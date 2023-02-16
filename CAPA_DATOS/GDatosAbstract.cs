@@ -59,7 +59,7 @@ namespace CAPA_DATOS
             MTConnection = null;
         }
         public object ExcuteSqlQuery(string strQuery)
-        {
+        {            
             var com = ComandoSql(strQuery, SQLMCon());
             com.Transaction = this.MTransaccion;
             var scalar = com.ExecuteScalar();
@@ -67,7 +67,7 @@ namespace CAPA_DATOS
             else return Convert.ToInt32(scalar);
         }
         public DataTable TraerDatosSQL(string queryString)
-        {
+        {           
             DataSet ObjDS = new DataSet();
             var comando = ComandoSql(queryString, SQLMCon());
             comando.Transaction = this.MTransaccion;
@@ -75,15 +75,16 @@ namespace CAPA_DATOS
             return ObjDS.Tables[0].Copy();
         }
         public DataTable TraerDatosSQL(IDbCommand Command)
-        {
+        {            
             DataSet ObjDS = new DataSet();
             Command.Transaction = this.MTransaccion;
-            CrearDataAdapterSql(Command).Fill(ObjDS);
+            CrearDataAdapterSql(Command).Fill(ObjDS);            
             return ObjDS.Tables[0].Copy();
         }
         //ORM INSERT, DELETE, UPDATES METHODS
         public Object InsertObject(Object Inst)
         {
+            Console.WriteLine("=================================>  InsertObject(Object Inst)");
             string strQuery = BuildInsertQueryByObject(Inst);
             Type _type = Inst.GetType();
             List<PropertyInfo> lst = _type.GetProperties().ToList();
@@ -98,6 +99,7 @@ namespace CAPA_DATOS
             }//llaves compuestas
             else if (pkPropiertys.Count > 1)
             {
+                bool flag = false;
                 foreach (var prop in pkPropiertys)
                 {
                     var AtributeProp = Inst.GetType().GetProperties()
@@ -110,8 +112,12 @@ namespace CAPA_DATOS
                         prop.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(prop.Name).GetValue(AtributeValue), t));
                     }
                 }
-                strQuery = BuildInsertQueryByObject(Inst);
-                idGenerated = ExcuteSqlQuery(strQuery);
+                if (true)
+                {
+                    strQuery = BuildInsertQueryByObject(Inst);
+                    idGenerated = ExcuteSqlQuery(strQuery);
+                }
+            
             }
             else
             {
@@ -142,9 +148,9 @@ namespace CAPA_DATOS
                             var FK = Inst.GetType().GetProperty(ForeignKeyColumn.Name);
                             if (FK.GetValue(Inst) == null)
                             {
-                                FK.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(ForeignKeyColumn.Name).GetValue(AtributeValue), t));
-                                UpdateObject(Inst, pkPropiertys[0].Name);
-
+                                FK.SetValue(Inst, Convert.ChangeType(AtributeValue.GetType().GetProperty(ForeignKeyColumn.Name).GetValue(AtributeValue), t));                              
+                                var values = pkPropiertys.Where(p => p.GetValue(Inst) != null).ToList();
+                                if (pkPropiertys.Count == values.Count) UpdateObject(Inst, pkPropiertys.Select(p => p.Name).ToArray());
                             }
                         }
                     }
@@ -175,14 +181,14 @@ namespace CAPA_DATOS
 
         public Object UpdateObject(Object Inst, string[] IdObject)
         {
-
+            Console.WriteLine("=================================> UpdateObject(Object Inst, string[] IdObject)");
             string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
             return ExcuteSqlQuery(strQuery);
 
         }
         public Object UpdateObject(Object Inst, string IdObject)
         {
-
+            Console.WriteLine("=================================> UpdateObject(Object Inst, string IdObject)");
             if (Inst.GetType().GetProperty(IdObject).GetValue(Inst) == null)
             {
                 throw new Exception("Valor de la propiedad "
@@ -194,6 +200,7 @@ namespace CAPA_DATOS
         }
         public Object Delete(Object Inst)
         {
+            Console.WriteLine("=================================> Delete(Object Inst)");
             string strQuery = BuildDeleteQuery(Inst);
             return ExcuteSqlQuery(strQuery);
         }
@@ -203,11 +210,12 @@ namespace CAPA_DATOS
         {
             try
             {
+                Console.WriteLine("=================================> TakeList<T>(Object Inst, string CondSQL)");
                 DataTable Table = BuildTable(Inst, ref CondSQL);
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
                 foreach (T item in ListD)
                 {
-                    FindRelationatedsEntitys(item, false);
+                    FindRelationatedsEntitys(item);
                 }
                 return ListD;
             }
@@ -274,6 +282,7 @@ namespace CAPA_DATOS
 
         public T TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = "")
         {
+            Console.WriteLine("=================================> TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = )");
             DataTable Table = BuildTable(Inst, ref CondSQL);
             if (Table.Rows.Count != 0)
             {

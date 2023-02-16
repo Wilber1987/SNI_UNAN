@@ -6,7 +6,7 @@ import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModul
 import { WModalForm } from "../../../WDevCore/WComponents/WModalForm.js";
 import { ModalVericateAction, WForm } from "../../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../../Model/InvestigadorProfile.js";
-import { ProyectoTableActividades, Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../../Model/DBODataBaseModel.js';
+import { ProyectoTableActividades, ProyectoTableTareas, Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../../Model/DBODataBaseModel.js';
 import { WDetailObject } from '../../../WDevCore/WComponents/WDetailObject.js';
 import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
 import { WTableDynamicComp } from '../../../WDevCore/WComponents/WTableDynamic.js';
@@ -131,12 +131,12 @@ class MainProyects extends HTMLElement {
             WRender.Create({ className: "dashBoardView", children: [radialChartDependencias, radialChart, columChart] }));
     }
     actividadesManager = async () => {
-        const dataset = await new ProyectoTableActividades().Get();
+        const dataset = await new ProyectoTableActividades().Get();      
         const datasetMap = dataset.map(actividad => {
-            actividad.Dependencia = actividad.ProyectoCatDependencias.Descripcion;
-            actividad.Progreso = actividad.ProyectoTableTareas?.filter(tarea => tarea.Estado.contains("Finalizada")).length;
-            return this.actividadDetail(actividad);
-        });
+            actividad.Dependencia = actividad.ProyectoCatDependencias.Descripcion;           
+            actividad.Progreso = actividad.ProyectoTableTareas?.filter(tarea => tarea.Estado?.includes("Finalizada")).length;
+            return this.actividadElement(actividad);
+        });        
         const columChart = new ColumChart({
             Title: "Estado de las actividades por dependencia",
             Dataset: datasetMap, percentCalc: true,
@@ -147,9 +147,9 @@ class MainProyects extends HTMLElement {
         this.TabManager.NavigateFunction("Tab-Actividades-Manager",
             WRender.Create({ className: "actividadesView", children: [new WPaginatorViewer({ Dataset: datasetMap, userStyles: [StylesControlsV2] })] }));
     }
-    actividadDetail = (actividad) => {
+    actividadElement = (actividad, nameAction = "Detalles") => {
         return WRender.Create({
-            className: "actividad", object: actividad,  children: [
+            className: "actividad", object: actividad, children: [
                 { tagName: 'h4', innerText: actividad.Descripcion },
                 {
                     className: "propiedades", children: [
@@ -159,17 +159,32 @@ class MainProyects extends HTMLElement {
                         { tagName: 'label', innerText: "Fecha de finalización: " + actividad.Fecha_Final?.toString().toDateFormatEs() },
                     ]
                 },
-                { tagName: 'h5', innerText: "Progreso" },
+                { tagName: 'h4', innerText: "Progreso" },
                 ControlBuilder.BuildProgressBar(actividad.Progreso, actividad.ProyectoTableTareas?.length),
                 {
                     className: "options", children: [
-                        { tagName: 'button', className: 'Btn-Mini', innerText: 'Detalles', onclick: this.action },
+                        { tagName: 'button', className: 'Btn-Mini', innerText: nameAction, onclick: async () => await this.actividadDetail(actividad, nameAction) },
                         { tagName: 'button', className: 'Btn-Mini', innerText: 'Ok', onclick: this.action }
                     ]
                 },
             ]
         })
     }
+    actividadDetail = async (actividad, nameAction = "Detalle") => {
+        if (nameAction == "Regresar") { this.actividadesManager(); return }
+        const actividadDetailView = WRender.Create({ className: "", children: [this.actividadElement(actividad, "Regresar")] });
+        actividadDetailView.append(new WTableComponent({
+            Dataset: await new ProyectoTableTareas({ IdActividad: actividad.IdActividad }).Get(),
+            ModelObject: new ProyectoTableTareas(), Options: {
+                Add: true, UrlAdd: "../api/ApiEntityDBO/saveProyectoTableTareas",
+                Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateProyectoTableTareas",
+                Search: true, UrlSearch: "../api/ApiEntityDBO/getProyectoTableTareas",
+                UserActions: []
+            }
+        }))
+        this.TabManager.NavigateFunction("Tab-Actividades-Viewer" + actividad.IdActividad, actividadDetailView);
+    }
+
     WStyle = css`
         .dashBoardView{
             display: grid;
@@ -188,6 +203,9 @@ class MainProyects extends HTMLElement {
             margin-bottom: 10px;           
             color: #0a2542;
         }
+        .actividad h4 {
+            margin: 5px 0px;
+         }
         .actividad .propiedades {
             font-size: 14px;
             display: flex;

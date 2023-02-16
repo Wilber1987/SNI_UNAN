@@ -137,6 +137,17 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? IdTarea { get; set; }
         [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
         public ProyectoTableTareas? ProyectoTableTareas { get; set; }
+        [ManyToOne(TableName = "CatalogoTipoEvidencia", KeyColumn = "IdTipo", ForeignKeyColumn = "IdTipo")]
+        public CatalogoTipoEvidencia? CatalogoTipoEvidencia { get; set; }
+
+    }
+    public class CatalogoTipoEvidencia : EntityClass
+    {
+        [PrimaryKey(Identity = true)]
+        public int? IdTipo { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Estado { get; set; }
+       
     }
     public class Tbl_Datos_Laborales : EntityClass
     {
