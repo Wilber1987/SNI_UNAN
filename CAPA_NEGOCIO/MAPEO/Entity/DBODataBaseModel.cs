@@ -807,7 +807,6 @@ namespace CAPA_NEGOCIO.MAPEO
         [OneToMany(TableName = "Tbl_Patentes", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
         public List<Tbl_Patentes>? Tbl_Patentes { get; set; }
 
-
     }
     public class Cat_Tipo_Investigacion : EntityClass
     {

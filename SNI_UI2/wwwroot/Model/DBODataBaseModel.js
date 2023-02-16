@@ -639,7 +639,7 @@ class ProyectoTableActividades extends EntityClass {
    IdActividad = { type: 'number', primary: true };
    Titulo = { type: 'text' };
    Descripcion = { type: 'text', hiddenInTable : true };
-   Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+   Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "En Proceso", "Pendientes", "Finalizada"] };
    Fecha_Inicial = { type: 'date' };
    Fecha_Final = { type: 'date' };
    ProyectoTableTareas = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableTareas()};
@@ -668,7 +668,7 @@ class ProyectoTableTareas extends EntityClass {
    IdTarea = { type: 'number', primary: true };
    Titulo = { type: 'text' };
    Descripcion = { type: 'text', hiddenInTable : true };
-   Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+   Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
    ProyectoTableCalendario = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableCalendario()};
    ProyectoTableEvidencias = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableEvidencias()};
    ProyectoTableParticipantes = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableParticipantes()};

@@ -229,7 +229,7 @@ namespace CAPA_DATOS
                 var oneToOne = (OneToOne)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
                 var manyToOne = (ManyToOne)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
                 var oneToMany = (OneToMany)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
-                if (oneToOne != null || manyToOne != null )
+                if (oneToOne != null || manyToOne != null)
                 {
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
                     PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne?.KeyColumn
@@ -259,23 +259,22 @@ namespace CAPA_DATOS
                     }
                 }
             }
-
-            static void TakeRelationatedObject<T>(T item, PropertyInfo oProperty, Type relationatedEntityType, MethodInfo method, object relationatedEntityInstance)
+        }
+        static void TakeRelationatedObject<T>(T item, PropertyInfo oProperty, Type relationatedEntityType, MethodInfo method, object relationatedEntityInstance)
+        {
+            try
             {
-                try
-                {
-                    var result = method.GetGenericMethodDefinition().MakeGenericMethod(relationatedEntityType).Invoke(relationatedEntityInstance, new object[] { });
-                    oProperty.SetValue(item, result, null);
-                }
-                catch (Exception ext)
-                {
-                }
+                var result = method.GetGenericMethodDefinition().MakeGenericMethod(relationatedEntityType).Invoke(relationatedEntityInstance, new object[] { });
+                oProperty.SetValue(item, result, null);
+            }
+            catch (Exception)
+            {
             }
         }
 
         public T TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = "")
         {
-            DataTable Table = BuildTable(Inst, ref CondSQL);               
+            DataTable Table = BuildTable(Inst, ref CondSQL);
             if (Table.Rows.Count != 0)
             {
                 var CObject = ConvertRow<T>(Inst, Table.Rows[0]);
@@ -287,7 +286,7 @@ namespace CAPA_DATOS
             }
             else
             {
-               return default(T);
+                return default(T);
 
             }
         }
