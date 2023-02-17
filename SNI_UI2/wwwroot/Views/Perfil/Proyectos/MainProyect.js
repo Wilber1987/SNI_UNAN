@@ -6,12 +6,13 @@ import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModul
 import { WModalForm } from "../../../WDevCore/WComponents/WModalForm.js";
 import { ModalVericateAction, WForm } from "../../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../../Model/InvestigadorProfile.js";
-import { ProyectoTableActividades, ProyectoTableTareas, Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../../Model/DBODataBaseModel.js';
+import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableTareas, Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../../Model/DBODataBaseModel.js';
 import { WDetailObject } from '../../../WDevCore/WComponents/WDetailObject.js';
 import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
 import { WTableDynamicComp } from '../../../WDevCore/WComponents/WTableDynamic.js';
 import { WPaginatorViewer } from '../../../WDevCore/WComponents/WPaginatorViewer.js';
 import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
+import { ViewCalendarioByDependencia } from '../../../Model/DBOViewModel.js';
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -97,9 +98,9 @@ class MainProyects extends HTMLElement {
     connectedCallback() { }
     DrawMainProyects = async () => {
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Basic', value: 'Estadística', onclick: this.dashBoardView }))
-        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Alert', value: 'Actividades', onclick: this.actividadesManager }))
-        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Success', value: 'Nueva Actividad', onclick: this.action }))
-        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Secundary', value: 'Ok', onclick: this.action }))
+        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Alert', value: 'Actividades', onclick: this.actividadesManager }))       
+        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Secundary', value: 'Dependencias', onclick: this.dependenciasViewer }))
+        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Success', value: 'Nueva Actividad', onclick: this.nuevaActividad }))
         this.shadowRoot.append(this.OptionContainer, this.TabContainer);
         //this.dashBoardView();
         this.actividadesManager();
@@ -136,14 +137,7 @@ class MainProyects extends HTMLElement {
             actividad.Dependencia = actividad.ProyectoCatDependencias.Descripcion;           
             actividad.Progreso = actividad.ProyectoTableTareas?.filter(tarea => tarea.Estado?.includes("Finalizada")).length;
             return this.actividadElement(actividad);
-        });        
-        const columChart = new ColumChart({
-            Title: "Estado de las actividades por dependencia",
-            Dataset: datasetMap, percentCalc: true,
-            EvalValue: "val",
-            AttNameEval: "Estado",
-            groupParams: ["Dependencia"]
-        });
+        });  
         this.TabManager.NavigateFunction("Tab-Actividades-Manager",
             WRender.Create({ className: "actividadesView", children: [new WPaginatorViewer({ Dataset: datasetMap, userStyles: [StylesControlsV2] })] }));
     }
@@ -170,12 +164,22 @@ class MainProyects extends HTMLElement {
             ]
         })
     }
-    actividadDetail = async (actividad, nameAction = "Detalle") => {
+    actividadDetail = async (actividad = (new ProyectoTableActividades()), nameAction = "Detalle") => {
         if (nameAction == "Regresar") { this.actividadesManager(); return }
         const actividadDetailView = WRender.Create({ className: "", children: [this.actividadElement(actividad, "Regresar")] });
+        const tareasActividad = await new ProyectoTableTareas({ IdActividad: actividad.IdActividad }).Get();
         actividadDetailView.append(new WTableComponent({
-            Dataset: await new ProyectoTableTareas({ IdActividad: actividad.IdActividad }).Get(),
-            ModelObject: new ProyectoTableTareas(), Options: {
+            Dataset: tareasActividad,
+            ModelObject: new ProyectoTableTareas({
+                IdActividad : { type: 'number', hidden: true, value: actividad.IdActividad },
+                ProyectoTableTareas : { type: 'WSelect',  Dataset: tareasActividad } , 
+                ProyectoTableCalendario : { type: 'CALENDAR',  CalendarFunction: async ()=> {
+                    return {
+                        Agenda: await new ProyectoTableAgenda({Id_Dependencia: actividad.ProyectoCatDependencias.Id_Dependencia}).Get(),
+                        Calendario: await new ViewCalendarioByDependencia({Id_Dependencia: actividad.ProyectoCatDependencias.Id_Dependencia}).Get()
+                    }
+                }, require: false}
+            }), Options: {
                 Add: true, UrlAdd: "../api/ApiEntityDBO/saveProyectoTableTareas",
                 Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateProyectoTableTareas",
                 Search: true, UrlSearch: "../api/ApiEntityDBO/getProyectoTableTareas",
@@ -184,6 +188,27 @@ class MainProyects extends HTMLElement {
         }))
         this.TabManager.NavigateFunction("Tab-Actividades-Viewer" + actividad.IdActividad, actividadDetailView);
     }
+    dependenciasViewer = async () => {
+        const dependenciasDetailView = WRender.Create({ className: "", children: [] });
+        const tareasActividad = await new ProyectoCatDependencias().Get();
+        dependenciasDetailView.append(new WTableComponent({
+            ModelObject: new ProyectoCatDependencias({ }), Options: {
+                Add: true, UrlAdd: "../api/ApiEntityDBO/saveProyectoCatDependencias",
+                Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateProyectoCatDependencias",
+                Search: true, UrlSearch: "../api/ApiEntityDBO/getProyectoCatDependencias",
+                UserActions: []
+            }
+        }))
+        this.TabManager.NavigateFunction("Tab-Dependencias-Viewer", dependenciasDetailView);
+    }
+    nuevaActividad = async () =>{
+        const form = new WForm({
+            ModelObject: new ProyectoTableActividades()
+        })
+        this.TabManager.NavigateFunction("Tab-nuevaActividadView",
+        WRender.Create({ className: "nuevaActividadView", children: [form] }));
+    }
+
 
     WStyle = css`
         .dashBoardView{

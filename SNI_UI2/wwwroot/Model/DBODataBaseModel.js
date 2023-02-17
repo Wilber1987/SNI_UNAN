@@ -655,6 +655,7 @@ class ProyectoTableActividades extends EntityClass {
    Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "En Proceso", "Pendientes", "Finalizada"] };
    Fecha_Inicial = { type: 'date' };
    Fecha_Final = { type: 'date' };
+   ProyectoCatDependencias =  { type: 'WSelect',  ModelObject: ()=> new ProyectoCatDependencias()};
    ProyectoTableTareas = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableTareas()};
 }
 export { ProyectoTableActividades }
@@ -680,11 +681,12 @@ class ProyectoTableTareas extends EntityClass {
    }
    IdTarea = { type: 'number', primary: true };
    Titulo = { type: 'text' };
-   Descripcion = { type: 'text', hiddenInTable : true };
+   IdActividad = { type: 'number', hidden: true, value: undefined };
+   Descripcion = { type: 'text', hiddenInTable : true };   
    ProyectoTableTareas = { type: 'WSelect',  ModelObject: ()=> new ProyectoTableTareas()};
    Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
+   ProyectoTableCalendario = { type: 'CALENDAR',  ModelObject: ()=> new ProyectoTableCalendario(), require: false};
    ProyectoTableParticipantes = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableParticipantes()};
-   //ProyectoTableCalendario = { type: 'MasterDetail',  ModelObject: ()=> new ProyectoTableCalendario()};
    ProyectoTableEvidencias = { type: 'MasterDetail', require: false,  ModelObject: ()=> new ProyectoTableEvidencias()};   
    
 }
@@ -698,7 +700,6 @@ class ProyectoTableParticipantes extends EntityClass {
    }
    Tbl_InvestigatorProfile = {type: 'WSelect',  ModelObject: ()=> new ProyectoTableParticipantes()}
    ProyectoCatTipoParticipaciones = {type: 'WSelect',  ModelObject: ()=> new ProyectoCatTipoParticipaciones()}
-
 }
 export { ProyectoTableParticipantes }
 class Cat_Cargos extends EntityClass {
