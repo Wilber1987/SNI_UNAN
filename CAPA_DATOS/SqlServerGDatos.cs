@@ -97,7 +97,9 @@ namespace CAPA_DATOS
             }
             ColumnNames = ColumnNames.TrimEnd(',');
             Values = Values.TrimEnd(',');
-            return "INSERT INTO " + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+            string QUERY = "INSERT INTO " + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+            Console.WriteLine(QUERY);
+            return QUERY;
         }
         protected override string BuildUpdateQueryByObject(object Inst, string IdObject)
         {
@@ -125,6 +127,7 @@ namespace CAPA_DATOS
             }
             Values = Values.TrimEnd(',');
             string strQuery = "UPDATE  " + TableName + " SET " + Values + Conditions;
+            Console.WriteLine(strQuery);
             return strQuery;
         }
         protected override string BuildUpdateQueryByObject(object Inst, string[] WhereProps)
@@ -153,6 +156,7 @@ namespace CAPA_DATOS
             }
             Values = Values.TrimEnd(',');
             string strQuery = "UPDATE  " + TableName + " SET " + Values + Conditions;
+            Console.WriteLine(strQuery);
             return strQuery;
         }
 
@@ -204,6 +208,7 @@ namespace CAPA_DATOS
             }
             CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
             string strQuery = "DELETE FROM  " + TableName + CondicionString;
+            Console.WriteLine(strQuery); 
             return strQuery;
         }
 
@@ -242,6 +247,7 @@ namespace CAPA_DATOS
             }
             Columns = Columns.TrimEnd(',');
             string queryString = "SELECT " + Columns + " FROM " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + CondicionString + CondSQL;
+            Console.WriteLine(queryString);
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
         }

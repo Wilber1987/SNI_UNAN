@@ -11,56 +11,56 @@ namespace API.Controllers {
        //ViewInvestigacionesDisciplinas
        [HttpPost]
        [AuthController]
-       public List<ViewInvestigacionesDisciplinas> getViewInvestigacionesDisciplinas() {
-           return new ViewInvestigacionesDisciplinas().Get<ViewInvestigacionesDisciplinas>();
+       public List<ViewInvestigacionesDisciplinas> getViewInvestigacionesDisciplinas(ViewInvestigacionesDisciplinas Inst) {
+           return Inst.Get<ViewInvestigacionesDisciplinas>();
        }
        //ViewInvestigacionesPhoto
        [HttpPost]
        [AuthController]
-       public List<ViewInvestigacionesPhoto> getViewInvestigacionesPhoto() {
-           return new ViewInvestigacionesPhoto().Get<ViewInvestigacionesPhoto>();
+       public List<ViewInvestigacionesPhoto> getViewInvestigacionesPhoto(ViewInvestigacionesPhoto Inst) {
+           return Inst.Get<ViewInvestigacionesPhoto>();
        }
        //ViewInvestigaciones
        [HttpPost]
        [AuthController]
-       public List<ViewInvestigaciones> getViewInvestigaciones() {
-           return new ViewInvestigaciones().Get<ViewInvestigaciones>();
+       public List<ViewInvestigaciones> getViewInvestigaciones(ViewInvestigaciones Inst) {
+           return Inst.Get<ViewInvestigaciones>();
        }
        //ViewColaboradores
        [HttpPost]
        [AuthController]
-       public List<ViewColaboradores> getViewColaboradores() {
-           return new ViewColaboradores().Get<ViewColaboradores>();
+       public List<ViewColaboradores> getViewColaboradores(ViewColaboradores Inst) {
+           return Inst.Get<ViewColaboradores>();
        }
        //ViewParticipantesProyectos
        [HttpPost]
        [AuthController]
-       public List<ViewParticipantesProyectos> getViewParticipantesProyectos() {
-           return new ViewParticipantesProyectos().Get<ViewParticipantesProyectos>();
+       public List<ViewParticipantesProyectos> getViewParticipantesProyectos(ViewParticipantesProyectos Inst) {
+           return Inst.Get<ViewParticipantesProyectos>();
        }
        //ViewRedesInvestigadores
        [HttpPost]
        [AuthController]
-       public List<ViewRedesInvestigadores> getViewRedesInvestigadores() {
-           return new ViewRedesInvestigadores().Get<ViewRedesInvestigadores>();
+       public List<ViewRedesInvestigadores> getViewRedesInvestigadores(ViewRedesInvestigadores Inst) {
+           return Inst.Get<ViewRedesInvestigadores>();
        }
        //ViewIdiomasInvestigadores
        [HttpPost]
        [AuthController]
-       public List<ViewIdiomasInvestigadores> getViewIdiomasInvestigadores() {
-           return new ViewIdiomasInvestigadores().Get<ViewIdiomasInvestigadores>();
+       public List<ViewIdiomasInvestigadores> getViewIdiomasInvestigadores(ViewIdiomasInvestigadores Inst) {
+           return Inst.Get<ViewIdiomasInvestigadores>();
        }
        //ViewCalendarioByDependencia
        [HttpPost]
        [AuthController]
-       public List<ViewCalendarioByDependencia> getViewCalendarioByDependencia() {
-           return new ViewCalendarioByDependencia().Get<ViewCalendarioByDependencia>();
+       public List<ViewCalendarioByDependencia> getViewCalendarioByDependencia(ViewCalendarioByDependencia Inst) {
+           return Inst.Get<ViewCalendarioByDependencia>();
        }
        //ViewActividadesParticipantes
        [HttpPost]
        [AuthController]
-       public List<ViewActividadesParticipantes> getViewActividadesParticipantes() {
-           return new ViewActividadesParticipantes().Get<ViewActividadesParticipantes>();
+       public List<ViewActividadesParticipantes> getViewActividadesParticipantes(ViewActividadesParticipantes Inst) {
+           return Inst.Get<ViewActividadesParticipantes>();
        }
    }
 }

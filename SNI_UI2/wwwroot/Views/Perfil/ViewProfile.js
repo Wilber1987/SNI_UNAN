@@ -4,7 +4,6 @@ import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.
 import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
-import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
 import { WProfileInvestigador } from "./ProfileViewer.js";
 import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
 import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
@@ -91,8 +90,6 @@ class PerfilClass extends HTMLElement {
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
             }, {
-                name: "Proyectos", action: async (ev) => { this.NavProyectos("Tab-TareasProyectos"); }
-            }, {
                 name: "Grupos", action: async (ev) => { this.NavGrupos("Tab-Grupos"); }
             }, {
                 name: "Eventos",
@@ -146,38 +143,6 @@ class PerfilClass extends HTMLElement {
                 })
             ]
         }));
-        this.TabManager.NavigateFunction(TabId, Tab);
-    }
-    NavProyectos = async (TabId) => {
-        const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        const DataPost = { Id_Investigador: this.Id_Investigador };
-        const Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividades", DataPost);
-        this.response.Tbl_Proyectos?.forEach(proy => {
-            Tab.append(WRender.Create({
-                className: "DivProy", children: [
-                    { tagName: "h3", innerText: proy.Nombre_Proyecto },
-                    new WTableComponent({
-                        Dataset: Dataset.filter(x => x.Id_Proyecto == proy.Id_Proyecto),
-                        ModelObject: new ProyectoTableActividades(),
-                        //DisplayData: ['Titulo', 'Estado'],
-                        Options: {
-                            Search: true, UrlSearch: 'api_route',
-                            Add: true, UrlAdd: 'api_route',
-                            UserActions: [{
-                                name: 'Ver Detalle', Function: async (TableElement) => {
-                                    this.append(new WModalForm({
-                                        ObjectModal: new ViewActivityComponent(TableElement),
-                                        ShadowRoot: false,
-                                        title: TableElement.titulo,
-                                        StyleForm: "FullScreen"
-                                    }))
-                                }
-                            }]
-                        }
-                    })
-                ]
-            }))
-        });
         this.TabManager.NavigateFunction(TabId, Tab);
     }
     NavGrupos = async (TabId) => {

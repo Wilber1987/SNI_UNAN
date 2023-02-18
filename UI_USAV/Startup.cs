@@ -25,7 +25,7 @@ namespace UI_USAV
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest)
+            services.AddControllers()
             .AddJsonOptions(JsonOptions =>
                     JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddControllersWithViews();

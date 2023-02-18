@@ -28,31 +28,31 @@ class ViewActivityComponent extends HTMLElement {
     async NewTarea() {
         const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeData");
         const tareaModel = new TareaModel({ Participantes: response[1], Tareas: this.Dataset.Tareas });
-        const ReservaComp = new ReservarComponent({
-            Form: new WForm({
-                StyleForm: "columnX1",
-                className: "Form",
-                ModelObject: tareaModel,
-                SaveFunction: async (Object, Reservaciones = []) => {
-                    Object.Calendarios = ReservaComp.Reservaciones;
-                    Object.IdActividad = this.Dataset.IdActividad;
-                    const FunctionName = this.TypeReserva == "New" ? "" : "SaveActividad";
-                    Object.Evidencias = Object.Evidencias.map(e => ({IdTipo: 1, Data: e}));
-                    const response = await WAjaxTools.PostRequest( "../../api/Calendar/SaveTarea", Object);
-                    if (response) {
-                        modal.close();
-                        this.Dataset.tareas.push(Object);
-                        this.Draw();
-                        return;
-                    } else {
-                        alert("error...");
-                    }
-                }
-            }), CalendarFunction: async () => {
-                const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeCalendar", this.Dataset);
-                return response;
-            }
-        });
+        // const ReservaComp = new ReservarComponent({
+        //     Form: new WForm({
+        //         StyleForm: "columnX1",
+        //         className: "Form",
+        //         ModelObject: tareaModel,
+        //         SaveFunction: async (Object, Reservaciones = []) => {
+        //             Object.Calendarios = ReservaComp.Reservaciones;
+        //             Object.IdActividad = this.Dataset.IdActividad;
+        //             const FunctionName = this.TypeReserva == "New" ? "" : "SaveActividad";
+        //             Object.Evidencias = Object.Evidencias.map(e => ({IdTipo: 1, Data: e}));
+        //             const response = await WAjaxTools.PostRequest( "../../api/Calendar/SaveTarea", Object);
+        //             if (response) {
+        //                 modal.close();
+        //                 this.Dataset.tareas.push(Object);
+        //                 this.Draw();
+        //                 return;
+        //             } else {
+        //                 alert("error...");
+        //             }
+        //         }
+        //     }), CalendarFunction: async () => {
+        //         const response = await WAjaxTools.PostRequest("../../api/Calendar/TakeCalendar", this.Dataset);
+        //         return response;
+        //     }
+        // });
         const modal = new WModalForm({
             ObjectModal: ReservaComp,
             title: "Nueva Tarea",

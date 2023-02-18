@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddRazorPages();
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
-builder.Services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest).AddJsonOptions(JsonOptions =>
+builder.Services.AddControllers().AddJsonOptions(JsonOptions =>
                      JsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 var app = builder.Build();
