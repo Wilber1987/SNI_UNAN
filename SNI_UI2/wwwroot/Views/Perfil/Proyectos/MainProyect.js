@@ -190,7 +190,7 @@ class MainProyects extends HTMLElement {
     }
     dependenciasViewer = async () => {
         const dependenciasDetailView = WRender.Create({ className: "", children: [] });
-        const tareasActividad = await new ProyectoCatDependencias().Get();
+        //const tareasActividad = await new ProyectoCatDependencias().Get();
         dependenciasDetailView.append(new WTableComponent({
             ModelObject: new ProyectoCatDependencias({ }), Options: {
                 Add: true, UrlAdd: "../api/ApiEntityDBO/saveProyectoCatDependencias",
@@ -238,7 +238,7 @@ class MainProyects extends HTMLElement {
         }
         .actividad .options {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end;            
         }
     `
 }

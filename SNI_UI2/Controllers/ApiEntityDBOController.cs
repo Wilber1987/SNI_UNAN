@@ -17,12 +17,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Evento(Cat_Tipo_Evento inst) {
+       public object? saveCat_Tipo_Evento(Cat_Tipo_Evento inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Evento(Cat_Tipo_Evento inst) {
+       public object? updateCat_Tipo_Evento(Cat_Tipo_Evento inst) {
            return inst.Update();
        }
 
@@ -34,13 +34,13 @@ namespace API.Controllers {
         }
         [HttpPost]
         [AuthController]
-        public object saveCatalogoTipoEvidencia(CatalogoTipoEvidencia inst)
+        public object? saveCatalogoTipoEvidencia(CatalogoTipoEvidencia inst)
         {
             return inst.Save();
         }
         [HttpPost]
         [AuthController]
-        public object updateCatalogoTipoEvidencia(CatalogoTipoEvidencia inst)
+        public object? updateCatalogoTipoEvidencia(CatalogoTipoEvidencia inst)
         {
             return inst.Update();
         }
@@ -52,12 +52,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Idiomas(Cat_Idiomas inst) {
+       public object? saveCat_Idiomas(Cat_Idiomas inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Idiomas(Cat_Idiomas inst) {
+       public object? updateCat_Idiomas(Cat_Idiomas inst) {
            return inst.Update();
        }
        //Cat_TipoEstudio
@@ -68,12 +68,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_TipoEstudio(Cat_TipoEstudio inst) {
+       public object? saveCat_TipoEstudio(Cat_TipoEstudio inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_TipoEstudio(Cat_TipoEstudio inst) {
+       public object? updateCat_TipoEstudio(Cat_TipoEstudio inst) {
            return inst.Update();
        }
        //Cat_TipoGrupo
@@ -84,12 +84,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_TipoGrupo(Cat_TipoGrupo inst) {
+       public object? saveCat_TipoGrupo(Cat_TipoGrupo inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_TipoGrupo(Cat_TipoGrupo inst) {
+       public object? updateCat_TipoGrupo(Cat_TipoGrupo inst) {
            return inst.Update();
        }
        //Cat_TipoMiembro
@@ -100,12 +100,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_TipoMiembro(Cat_TipoMiembro inst) {
+       public object? saveCat_TipoMiembro(Cat_TipoMiembro inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_TipoMiembro(Cat_TipoMiembro inst) {
+       public object? updateCat_TipoMiembro(Cat_TipoMiembro inst) {
            return inst.Update();
        }
        //CatTipoDistincion
@@ -116,12 +116,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCatTipoDistincion(CatTipoDistincion inst) {
+       public object? saveCatTipoDistincion(CatTipoDistincion inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCatTipoDistincion(CatTipoDistincion inst) {
+       public object? updateCatTipoDistincion(CatTipoDistincion inst) {
            return inst.Update();
        }
        //ProyectoCatCargosDependencias
@@ -132,12 +132,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoCatCargosDependencias(ProyectoCatCargosDependencias inst) {
+       public object? saveProyectoCatCargosDependencias(ProyectoCatCargosDependencias inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoCatCargosDependencias(ProyectoCatCargosDependencias inst) {
+       public object? updateProyectoCatCargosDependencias(ProyectoCatCargosDependencias inst) {
            return inst.Update();
        }
        //ProyectoCatDependencias
@@ -148,12 +148,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoCatDependencias(ProyectoCatDependencias inst) {
+       public object? saveProyectoCatDependencias(ProyectoCatDependencias inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoCatDependencias(ProyectoCatDependencias inst) {
+       public object? updateProyectoCatDependencias(ProyectoCatDependencias inst) {
            return inst.Update();
        }
        //ProyectoCatTipoParticipaciones
@@ -164,12 +164,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoCatTipoParticipaciones(ProyectoCatTipoParticipaciones inst) {
+       public object? saveProyectoCatTipoParticipaciones(ProyectoCatTipoParticipaciones inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoCatTipoParticipaciones(ProyectoCatTipoParticipaciones inst) {
+       public object? updateProyectoCatTipoParticipaciones(ProyectoCatTipoParticipaciones inst) {
            return inst.Update();
        }
        //ProyectoTableAgenda
@@ -180,12 +180,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableAgenda(ProyectoTableAgenda inst) {
+       public object? saveProyectoTableAgenda(ProyectoTableAgenda inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableAgenda(ProyectoTableAgenda inst) {
+       public object? updateProyectoTableAgenda(ProyectoTableAgenda inst) {
            return inst.Update();
        }
        //ProyectoTableDependencias_Usuarios
@@ -196,12 +196,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableDependencias_Usuarios(ProyectoTableDependencias_Usuarios inst) {
+       public object? saveProyectoTableDependencias_Usuarios(ProyectoTableDependencias_Usuarios inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableDependencias_Usuarios(ProyectoTableDependencias_Usuarios inst) {
+       public object? updateProyectoTableDependencias_Usuarios(ProyectoTableDependencias_Usuarios inst) {
            return inst.Update();
        }
        //ProyectoTableEvidencias
@@ -212,12 +212,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableEvidencias(ProyectoTableEvidencias inst) {
+       public object? saveProyectoTableEvidencias(ProyectoTableEvidencias inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableEvidencias(ProyectoTableEvidencias inst) {
+       public object? updateProyectoTableEvidencias(ProyectoTableEvidencias inst) {
            return inst.Update();
        }
        //Tbl_Datos_Laborales
@@ -228,12 +228,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Datos_Laborales(Tbl_Datos_Laborales inst) {
+       public object? saveTbl_Datos_Laborales(Tbl_Datos_Laborales inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Datos_Laborales(Tbl_Datos_Laborales inst) {
+       public object? updateTbl_Datos_Laborales(Tbl_Datos_Laborales inst) {
            return inst.Update();
        }
        //Tbl_Distinciones
@@ -244,12 +244,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Distinciones(Tbl_Distinciones inst) {
+       public object? saveTbl_Distinciones(Tbl_Distinciones inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Distinciones(Tbl_Distinciones inst) {
+       public object? updateTbl_Distinciones(Tbl_Distinciones inst) {
            return inst.Update();
        }
        //Tbl_Evento
@@ -260,12 +260,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Evento(Tbl_Evento inst) {
+       public object? saveTbl_Evento(Tbl_Evento inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Evento(Tbl_Evento inst) {
+       public object? updateTbl_Evento(Tbl_Evento inst) {
            return inst.Update();
        }
        //Tbl_Participantes_Eventos
@@ -276,12 +276,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Participantes_Eventos(Tbl_Participantes_Eventos inst) {
+       public object? saveTbl_Participantes_Eventos(Tbl_Participantes_Eventos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Participantes_Eventos(Tbl_Participantes_Eventos inst) {
+       public object? updateTbl_Participantes_Eventos(Tbl_Participantes_Eventos inst) {
            return inst.Update();
        }
        //Tbl_Formacion_Academica
@@ -292,12 +292,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Formacion_Academica(Tbl_Formacion_Academica inst) {
+       public object? saveTbl_Formacion_Academica(Tbl_Formacion_Academica inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Formacion_Academica(Tbl_Formacion_Academica inst) {
+       public object? updateTbl_Formacion_Academica(Tbl_Formacion_Academica inst) {
            return inst.Update();
        }
        //Tbl_Grupos
@@ -308,12 +308,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Grupos(Tbl_Grupos inst) {
+       public object? saveTbl_Grupos(Tbl_Grupos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Grupos(Tbl_Grupos inst) {
+       public object? updateTbl_Grupos(Tbl_Grupos inst) {
            return inst.Update();
        }
        //Tbl_InstitucionesAsociadasGrupos
@@ -324,12 +324,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_InstitucionesAsociadasGrupos(Tbl_InstitucionesAsociadasGrupos inst) {
+       public object? saveTbl_InstitucionesAsociadasGrupos(Tbl_InstitucionesAsociadasGrupos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_InstitucionesAsociadasGrupos(Tbl_InstitucionesAsociadasGrupos inst) {
+       public object? updateTbl_InstitucionesAsociadasGrupos(Tbl_InstitucionesAsociadasGrupos inst) {
            return inst.Update();
        }
        //Tbl_InvestigadoresAsociados
@@ -340,12 +340,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_InvestigadoresAsociados(Tbl_InvestigadoresAsociados inst) {
+       public object? saveTbl_InvestigadoresAsociados(Tbl_InvestigadoresAsociados inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_InvestigadoresAsociados(Tbl_InvestigadoresAsociados inst) {
+       public object? updateTbl_InvestigadoresAsociados(Tbl_InvestigadoresAsociados inst) {
            return inst.Update();
        }
        //Tbl_Invitaciones
@@ -356,12 +356,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Invitaciones(Tbl_Invitaciones inst) {
+       public object? saveTbl_Invitaciones(Tbl_Invitaciones inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Invitaciones(Tbl_Invitaciones inst) {
+       public object? updateTbl_Invitaciones(Tbl_Invitaciones inst) {
            return inst.Update();
        }
        //Tbl_Patentes
@@ -372,12 +372,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Patentes(Tbl_Patentes inst) {
+       public object? saveTbl_Patentes(Tbl_Patentes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Patentes(Tbl_Patentes inst) {
+       public object? updateTbl_Patentes(Tbl_Patentes inst) {
            return inst.Update();
        }
        //TblProcesosEditoriales
@@ -388,12 +388,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTblProcesosEditoriales(TblProcesosEditoriales inst) {
+       public object? saveTblProcesosEditoriales(TblProcesosEditoriales inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTblProcesosEditoriales(TblProcesosEditoriales inst) {
+       public object? updateTblProcesosEditoriales(TblProcesosEditoriales inst) {
            return inst.Update();
        }
        //Cat_Tipo_Participacion_Eventos
@@ -404,12 +404,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Participacion_Eventos(Cat_Tipo_Participacion_Eventos inst) {
+       public object? saveCat_Tipo_Participacion_Eventos(Cat_Tipo_Participacion_Eventos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Participacion_Eventos(Cat_Tipo_Participacion_Eventos inst) {
+       public object? updateCat_Tipo_Participacion_Eventos(Cat_Tipo_Participacion_Eventos inst) {
            return inst.Update();
        }
        //Tbl_Investigaciones_Disciplinas
@@ -420,12 +420,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Investigaciones_Disciplinas(Tbl_Investigaciones_Disciplinas inst) {
+       public object? saveTbl_Investigaciones_Disciplinas(Tbl_Investigaciones_Disciplinas inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Investigaciones_Disciplinas(Tbl_Investigaciones_Disciplinas inst) {
+       public object? updateTbl_Investigaciones_Disciplinas(Tbl_Investigaciones_Disciplinas inst) {
            return inst.Update();
        }
        //Cat_Disciplinas
@@ -436,12 +436,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Disciplinas(Cat_Disciplinas inst) {
+       public object? saveCat_Disciplinas(Cat_Disciplinas inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Disciplinas(Cat_Disciplinas inst) {
+       public object? updateCat_Disciplinas(Cat_Disciplinas inst) {
            return inst.Update();
        }
        //Tbl_Investigaciones
@@ -452,12 +452,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Investigaciones(Tbl_Investigaciones inst) {
+       public object? saveTbl_Investigaciones(Tbl_Investigaciones inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Investigaciones(Tbl_Investigaciones inst) {
+       public object? updateTbl_Investigaciones(Tbl_Investigaciones inst) {
            return inst.Update();
        }
        //Cat_Paises
@@ -468,12 +468,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Paises(Cat_Paises inst) {
+       public object? saveCat_Paises(Cat_Paises inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Paises(Cat_Paises inst) {
+       public object? updateCat_Paises(Cat_Paises inst) {
            return inst.Update();
        }
        //Cat_TipoLocalidad
@@ -484,12 +484,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_TipoLocalidad(Cat_TipoLocalidad inst) {
+       public object? saveCat_TipoLocalidad(Cat_TipoLocalidad inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_TipoLocalidad(Cat_TipoLocalidad inst) {
+       public object? updateCat_TipoLocalidad(Cat_TipoLocalidad inst) {
            return inst.Update();
        }
        //Cat_Localidad
@@ -500,12 +500,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Localidad(Cat_Localidad inst) {
+       public object? saveCat_Localidad(Cat_Localidad inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Localidad(Cat_Localidad inst) {
+       public object? updateCat_Localidad(Cat_Localidad inst) {
            return inst.Update();
        }
        //Cat_instituciones
@@ -516,12 +516,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_instituciones(Cat_instituciones inst) {
+       public object? saveCat_instituciones(Cat_instituciones inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_instituciones(Cat_instituciones inst) {
+       public object? updateCat_instituciones(Cat_instituciones inst) {
            return inst.Update();
        }
        //Cat_Tipo_Investigacion
@@ -532,12 +532,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Investigacion(Cat_Tipo_Investigacion inst) {
+       public object? saveCat_Tipo_Investigacion(Cat_Tipo_Investigacion inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Investigacion(Cat_Tipo_Investigacion inst) {
+       public object? updateCat_Tipo_Investigacion(Cat_Tipo_Investigacion inst) {
            return inst.Update();
        }
        //Tbl_InvestigatorProfile
@@ -548,12 +548,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_InvestigatorProfile(Tbl_InvestigatorProfile inst) {
+       public object? saveTbl_InvestigatorProfile(Tbl_InvestigatorProfile inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_InvestigatorProfile(Tbl_InvestigatorProfile inst) {
+       public object? updateTbl_InvestigatorProfile(Tbl_InvestigatorProfile inst) {
            return inst.Update();
        }
        //Cat_Tipo_Asociacion
@@ -564,12 +564,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Asociacion(Cat_Tipo_Asociacion inst) {
+       public object? saveCat_Tipo_Asociacion(Cat_Tipo_Asociacion inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Asociacion(Cat_Tipo_Asociacion inst) {
+       public object? updateCat_Tipo_Asociacion(Cat_Tipo_Asociacion inst) {
            return inst.Update();
        }
        //Tbl_Instituciones_Asociadas
@@ -580,12 +580,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Instituciones_Asociadas(Tbl_Instituciones_Asociadas inst) {
+       public object? saveTbl_Instituciones_Asociadas(Tbl_Instituciones_Asociadas inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Instituciones_Asociadas(Tbl_Instituciones_Asociadas inst) {
+       public object? updateTbl_Instituciones_Asociadas(Tbl_Instituciones_Asociadas inst) {
            return inst.Update();
        }
        //Cat_Tipo_Colaborador
@@ -596,12 +596,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Colaborador(Cat_Tipo_Colaborador inst) {
+       public object? saveCat_Tipo_Colaborador(Cat_Tipo_Colaborador inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Colaborador(Cat_Tipo_Colaborador inst) {
+       public object? updateCat_Tipo_Colaborador(Cat_Tipo_Colaborador inst) {
            return inst.Update();
        }
        //Tbl_Colaboradores
@@ -612,12 +612,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Colaboradores(Tbl_Colaboradores inst) {
+       public object? saveTbl_Colaboradores(Tbl_Colaboradores inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Colaboradores(Tbl_Colaboradores inst) {
+       public object? updateTbl_Colaboradores(Tbl_Colaboradores inst) {
            return inst.Update();
        }
        //Cat_Tipo_Proyecto
@@ -628,12 +628,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Proyecto(Cat_Tipo_Proyecto inst) {
+       public object? saveCat_Tipo_Proyecto(Cat_Tipo_Proyecto inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Proyecto(Cat_Tipo_Proyecto inst) {
+       public object? updateCat_Tipo_Proyecto(Cat_Tipo_Proyecto inst) {
            return inst.Update();
        }
        //Tbl_Proyectos
@@ -644,12 +644,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Proyectos(Tbl_Proyectos inst) {
+       public object? saveTbl_Proyectos(Tbl_Proyectos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Proyectos(Tbl_Proyectos inst) {
+       public object? updateTbl_Proyectos(Tbl_Proyectos inst) {
            return inst.Update();
        }
        //Cat_Cargo_Proyecto
@@ -660,12 +660,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Cargo_Proyecto(Cat_Cargo_Proyecto inst) {
+       public object? saveCat_Cargo_Proyecto(Cat_Cargo_Proyecto inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Cargo_Proyecto(Cat_Cargo_Proyecto inst) {
+       public object? updateCat_Cargo_Proyecto(Cat_Cargo_Proyecto inst) {
            return inst.Update();
        }
        //Tbl_Participantes_Proyectos
@@ -676,12 +676,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Participantes_Proyectos(Tbl_Participantes_Proyectos inst) {
+       public object? saveTbl_Participantes_Proyectos(Tbl_Participantes_Proyectos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Participantes_Proyectos(Tbl_Participantes_Proyectos inst) {
+       public object? updateTbl_Participantes_Proyectos(Tbl_Participantes_Proyectos inst) {
            return inst.Update();
        }
        //CatRedesSociales
@@ -692,12 +692,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCatRedesSociales(CatRedesSociales inst) {
+       public object? saveCatRedesSociales(CatRedesSociales inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCatRedesSociales(CatRedesSociales inst) {
+       public object? updateCatRedesSociales(CatRedesSociales inst) {
            return inst.Update();
        }
        //Tbl_Invest_RedS
@@ -708,12 +708,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_Invest_RedS(Tbl_Invest_RedS inst) {
+       public object? saveTbl_Invest_RedS(Tbl_Invest_RedS inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_Invest_RedS(Tbl_Invest_RedS inst) {
+       public object? updateTbl_Invest_RedS(Tbl_Invest_RedS inst) {
            return inst.Update();
        }
        //Tbl_IdiomasInv
@@ -724,12 +724,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveTbl_IdiomasInv(Tbl_IdiomasInv inst) {
+       public object? saveTbl_IdiomasInv(Tbl_IdiomasInv inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateTbl_IdiomasInv(Tbl_IdiomasInv inst) {
+       public object? updateTbl_IdiomasInv(Tbl_IdiomasInv inst) {
            return inst.Update();
        }
        //ProyectoTableActividades
@@ -740,12 +740,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableActividades(ProyectoTableActividades inst) {
+       public object? saveProyectoTableActividades(ProyectoTableActividades inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableActividades(ProyectoTableActividades inst) {
+       public object? updateProyectoTableActividades(ProyectoTableActividades inst) {
            return inst.Update();
        }
        //ProyectoTableCalendario
@@ -756,12 +756,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableCalendario(ProyectoTableCalendario inst) {
+       public object? saveProyectoTableCalendario(ProyectoTableCalendario inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableCalendario(ProyectoTableCalendario inst) {
+       public object? updateProyectoTableCalendario(ProyectoTableCalendario inst) {
            return inst.Update();
        }
        //ProyectoTableTareas
@@ -772,12 +772,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableTareas(ProyectoTableTareas inst) {
+       public object? saveProyectoTableTareas(ProyectoTableTareas inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableTareas(ProyectoTableTareas inst) {
+       public object? updateProyectoTableTareas(ProyectoTableTareas inst) {
            return inst.Update();
        }
        //ProyectoTableParticipantes
@@ -788,12 +788,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveProyectoTableParticipantes(ProyectoTableParticipantes inst) {
+       public object? saveProyectoTableParticipantes(ProyectoTableParticipantes inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateProyectoTableParticipantes(ProyectoTableParticipantes inst) {
+       public object? updateProyectoTableParticipantes(ProyectoTableParticipantes inst) {
            return inst.Update();
        }
        //Cat_Cargos
@@ -804,12 +804,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Cargos(Cat_Cargos inst) {
+       public object? saveCat_Cargos(Cat_Cargos inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Cargos(Cat_Cargos inst) {
+       public object? updateCat_Cargos(Cat_Cargos inst) {
            return inst.Update();
        }
        //Cat_Tipo_Proceso_Editorial
@@ -820,12 +820,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inst) {
+       public object? saveCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inst) {
+       public object? updateCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inst) {
            return inst.Update();
        }
    }

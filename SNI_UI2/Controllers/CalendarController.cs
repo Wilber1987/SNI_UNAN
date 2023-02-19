@@ -47,9 +47,9 @@ namespace SNI_UI2.Controllers
         }
         public Object SaveActividad(ProyectoTableActividades Act)
         {            
-            return Act.SaveActividades();
+            return true;
         }
-        public Object SaveTarea(ProyectoTableTareas Act)
+        public Object? SaveTarea(ProyectoTableTareas Act)
         {
             return Act.Save();
         }
@@ -65,7 +65,7 @@ namespace SNI_UI2.Controllers
             ag.Id_Investigador = AuthNetCore.User().UserId;
             return ag.Get<ProyectoTableAgenda>();
         }
-        public Object SaveAgendaUsuarioDependencia(ProyectoTableAgenda Act)
+        public Object? SaveAgendaUsuarioDependencia(ProyectoTableAgenda Act)
         {
             if (Act.IdAgenda != null)
             {
@@ -78,9 +78,9 @@ namespace SNI_UI2.Controllers
     {
         public int Id_Dependencia { get; set; }
         public int IdUsuario { get; set; }
-        public Object Actividades { get; set; }
-        public Object Agenda { get; set; }
-        public Object Calendario { get; set; }
+        public Object? Actividades { get; set; }
+        public Object? Agenda { get; set; }
+        public Object? Calendario { get; set; }
 
         public void TakeAgenda()
         {

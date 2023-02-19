@@ -12,51 +12,46 @@ namespace CAPA_DATOS
     {
         public List<T> Get<T>()
         {
-            var Data = SqlADOConexion.SQLM.TakeList<T>(this);
-            return Data;
+            var Data = SqlADOConexion.SQLM?.TakeList<T>(this);
+            return Data ?? new List<T>();
         }
         public static List<T> EndpointMethod<T>()
         {
             List<T> list = new List<T>();
-
             return list;
         }
-        public T Find<T>()
+        public T? Find<T>()
         {
-            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, true);
+            var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this, true) : default(T);
             return Data;
         }
 
-        public T SimpleFind<T>()
+        public T? SimpleFind<T>()
         {
-            var Data = SqlADOConexion.SQLM.TakeObject<T>(this, false);
+            var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this, false) : default(T);
             return Data;
         }
         public List<T> Get<T>(string condition)
         {
-            var Data = SqlADOConexion.SQLM.TakeList<T>(this, condition);
-            return Data;
+            var Data = SqlADOConexion.SQLM?.TakeList<T>(this, condition);
+            return Data ?? new List<T>();
         }
-        public List<T> Get_WhereIN<T>(string Field, string[] conditions)
+        public List<T> Get_WhereIN<T>(string Field, string?[]? conditions)
         {
-            SqlADOConexion.SQLM.BeginTransaction();
             string condition = BuildArrayIN(conditions);
-            var Data = SqlADOConexion.SQLM.TakeList<T>(this, Field + " IN (" + condition + ")");
-            SqlADOConexion.SQLM.CommitTransaction();
-            return Data;
+            var Data = SqlADOConexion.SQLM?.TakeList<T>(this, Field + " IN (" + condition + ")");
+             return Data ?? new List<T>();
         }
         public List<T> Get_WhereNotIN<T>(string Field, string[] conditions)
         {
-            SqlADOConexion.SQLM.BeginTransaction();
             string condition = BuildArrayIN(conditions);
-            var Data = SqlADOConexion.SQLM.TakeList<T>(this, Field + " NOT IN (" + condition + ")");
-            SqlADOConexion.SQLM.CommitTransaction();
-            return Data;
+            var Data = SqlADOConexion.SQLM?.TakeList<T>(this, Field + " NOT IN (" + condition + ")");
+            return Data ?? new List<T>();
         }
-        private static string BuildArrayIN(string[] conditions)
+        private static string BuildArrayIN(string?[]? conditions)
         {
             string condition = "";
-            foreach (string Value in conditions)
+            foreach (string? Value in conditions ?? new string?[0])
             {
                 condition = condition + Value + ",";
             }
@@ -67,27 +62,27 @@ namespace CAPA_DATOS
             }
             return condition;
         }
-        public object Save()
+        public object? Save()
         {
             try
             {
-                SqlADOConexion.SQLM.BeginTransaction();
-                var result = SqlADOConexion.SQLM.InsertObject(this);
-                SqlADOConexion.SQLM.CommitTransaction();
+                SqlADOConexion.SQLM?.BeginTransaction();
+                var result = SqlADOConexion.SQLM?.InsertObject(this);
+                SqlADOConexion.SQLM?.CommitTransaction();
                 return result;
             }
             catch (Exception E)
             {
-                SqlADOConexion.SQLM.RollBackTransaction();
+                SqlADOConexion.SQLM?.RollBackTransaction();
                 throw E;
             }
         }
-        public object Update()
+        public object? Update()
         {
             try
             {
                 PropertyInfo[] lst = this.GetType().GetProperties();
-                var pkPropiertys = lst.Where(p => (PrimaryKey)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList(); 
+                var pkPropiertys = lst.Where(p => (PrimaryKey?)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
                 var values = pkPropiertys.Where(p => p.GetValue(this) != null).ToList();
                 if (pkPropiertys.Count == values.Count) this.Update(pkPropiertys.Select(p => p.Name).ToArray());
                 else return false;
@@ -102,14 +97,14 @@ namespace CAPA_DATOS
         {
             try
             {
-                SqlADOConexion.SQLM.BeginTransaction();
-                SqlADOConexion.SQLM.UpdateObject(this, Id);
-                SqlADOConexion.SQLM.CommitTransaction();
+                SqlADOConexion.SQLM?.BeginTransaction();
+                SqlADOConexion.SQLM?.UpdateObject(this, Id);
+                SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
             catch (Exception)
             {
-                SqlADOConexion.SQLM.RollBackTransaction();
+                SqlADOConexion.SQLM?.RollBackTransaction();
                 return false;
             }
         }
@@ -117,14 +112,14 @@ namespace CAPA_DATOS
         {
             try
             {
-                SqlADOConexion.SQLM.BeginTransaction();
-                SqlADOConexion.SQLM.UpdateObject(this, Id);
-                SqlADOConexion.SQLM.CommitTransaction();
+                SqlADOConexion.SQLM?.BeginTransaction();
+                SqlADOConexion.SQLM?.UpdateObject(this, Id);
+                SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
             catch (Exception)
             {
-                SqlADOConexion.SQLM.RollBackTransaction();
+                SqlADOConexion.SQLM?.RollBackTransaction();
                 return false;
             }
         }
@@ -132,14 +127,14 @@ namespace CAPA_DATOS
         {
             try
             {
-                SqlADOConexion.SQLM.BeginTransaction();
-                SqlADOConexion.SQLM.Delete(this);
-                SqlADOConexion.SQLM.CommitTransaction();
+                SqlADOConexion.SQLM?.BeginTransaction();
+                SqlADOConexion.SQLM?.Delete(this);
+                SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
             catch (Exception)
             {
-                SqlADOConexion.SQLM.RollBackTransaction();
+                SqlADOConexion.SQLM?.RollBackTransaction();
                 return false;
             }
         }

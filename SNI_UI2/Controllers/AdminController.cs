@@ -70,25 +70,25 @@ namespace SNI_UI2.Controllers
         public Object TakeCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Get<Cat_TipoMiembro>(); }
         public Object TakeCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Get<Cat_Tipo_Proceso_Editorial>(); }
         //SAVESSS
-        public Object SaveCat_instituciones(Cat_instituciones inv) { return inv.Save(); }
-        public Object SaveCat_Paises(Cat_Paises inv) { return inv.Save(); }
-        public Object SaveCat_Localidad(Cat_Localidad inv) { return inv.Save(); }
-        public Object SaveCat_TipoLocalidad(Cat_TipoLocalidad inv) { return inv.Save(); }
-        public Object SaveCatRedesSociales(CatRedesSociales inv) { return inv.Save(); }
-        public Object SaveCat_Idiomas(Cat_Idiomas inv) { return inv.Save(); }
-        public Object SaveCat_Cargos(Cat_Cargos inv) { return inv.Save(); }
-        public Object SaveCatTipoDistincion(CatTipoDistincion inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Save(); }
-        public Object SaveCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Save(); }
-        public Object SaveCat_Disciplinas(Cat_Disciplinas inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Save(); }
-        public Object SaveCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Proyecto(Cat_Tipo_Proyecto inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Save(); }
-        public Object SaveCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Save(); }
-        public Object SaveCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Save(); }
-        public Object SaveCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Save(); }
+        public Object? SaveCat_instituciones(Cat_instituciones inv) { return inv.Save(); }
+        public Object? SaveCat_Paises(Cat_Paises inv) { return inv.Save(); }
+        public Object? SaveCat_Localidad(Cat_Localidad inv) { return inv.Save(); }
+        public Object? SaveCat_TipoLocalidad(Cat_TipoLocalidad inv) { return inv.Save(); }
+        public Object? SaveCatRedesSociales(CatRedesSociales inv) { return inv.Save(); }
+        public Object? SaveCat_Idiomas(Cat_Idiomas inv) { return inv.Save(); }
+        public Object? SaveCat_Cargos(Cat_Cargos inv) { return inv.Save(); }
+        public Object? SaveCatTipoDistincion(CatTipoDistincion inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Investigacion(Cat_Tipo_Investigacion inv) { return inv.Save(); }
+        public Object? SaveCat_TipoEstudio(Cat_TipoEstudio inv) { return inv.Save(); }
+        public Object? SaveCat_Disciplinas(Cat_Disciplinas inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Colaborador(Cat_Tipo_Colaborador inv) { return inv.Save(); }
+        public Object? SaveCat_Cargo_Proyecto(Cat_Cargo_Proyecto inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Asociacion(Cat_Tipo_Asociacion inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Proyecto(Cat_Tipo_Proyecto inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Evento(Cat_Tipo_Evento inv) { return inv.Save(); }
+        public Object? SaveCat_TipoGrupo(Cat_TipoGrupo inv) { return inv.Save(); }
+        public Object? SaveCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Save(); }
+        public Object? SaveCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Save(); }
         //UPDATES
         public Object UpdateCat_instituciones(Cat_instituciones inv) { return inv.Update("Id_Institucion"); }
         public Object UpdateCat_Paises(Cat_Paises inv) { return inv.Update("Id_Pais"); }
@@ -113,10 +113,10 @@ namespace SNI_UI2.Controllers
 
         #region SECURITY
         public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get<Security_Permissions>(); }
-        public Object TakeSecurity_Roles(Security_Roles inv) { return inv.GetRoles(); }
+        public Object? TakeSecurity_Roles(Security_Roles inv) { return inv.GetRoles(); }
         public Object TakeSecurity_Users(Security_Users inv) { return inv.GetUsers(); }
 
-        public Object SaveSecurity_Permissions(Security_Permissions inv) { return inv.Save(); }
+        public Object? SaveSecurity_Permissions(Security_Permissions inv) { return inv.Save(); }
         public Object SaveSecurity_Roles(Security_Roles inv) { return inv.SaveRole(); }
         public Object SaveSecurity_Users(Security_Users inv) { return inv.SaveUser(); }
 

@@ -63,84 +63,7 @@ namespace CAPA_NEGOCIO.MAPEO
         [OneToMany(TableName = "Tbl_Distinciones", KeyColumn = "Id_Tipo_Distincion", ForeignKeyColumn = "Id_Tipo_Distincion")]
         public List<Tbl_Distinciones>? Tbl_Distinciones { get; set; }
     }
-    public class ProyectoCatCargosDependencias : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdCargo { get; set; }
-        public string? Descripcion { get; set; }
-        [OneToMany(TableName = "ProyectoTableDependencias_Usuarios", KeyColumn = "IdCargo", ForeignKeyColumn = "Id_Cargo")]
-        public List<ProyectoTableDependencias_Usuarios>? ProyectoTableDependencias_Usuarios { get; set; }
-    }
-    public class ProyectoCatDependencias : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? Id_Dependencia { get; set; }
-        public string? Descripcion { get; set; }
-        public int? Id_Dependencia_Padre { get; set; }
-        public int? Id_Institucion { get; set; }
-        [ManyToOne(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia_Padre", ForeignKeyColumn = "Id_Dependencia")]
-        public ProyectoCatDependencias? ProyectoCatDependencia { get; set; }
-        [ManyToOne(TableName = "Cat_instituciones", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public Cat_instituciones? Cat_instituciones { get; set; }
-        [OneToMany(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia_Padre")]
-        public List<ProyectoCatDependencias>? ProyectoCatDependencias_Padre { get; set; }
-        [OneToMany(TableName = "ProyectoTableActividades", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
-        public List<ProyectoTableActividades>? ProyectoTableActividades { get; set; }
-        [OneToMany(TableName = "ProyectoTableAgenda", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
-        public List<ProyectoTableAgenda>? ProyectoTableAgenda { get; set; }
-        [OneToMany(TableName = "ProyectoTableDependencias_Usuarios", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
-        public List<ProyectoTableDependencias_Usuarios>? ProyectoTableDependencias_Usuarios { get; set; }
-    }
-    public class ProyectoCatTipoParticipaciones : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdTipoParticipacion { get; set; }
-        public string? Descripcion { get; set; }
-        [OneToMany(TableName = "ProyectoTableParticipantes", KeyColumn = "IdTipoParticipacion", ForeignKeyColumn = "IdTipoParticipacion")]
-        public List<ProyectoTableParticipantes>? ProyectoTableParticipantes { get; set; }
-    }
-    public class ProyectoTableAgenda : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdAgenda { get; set; }
-        public int? Id_Investigador { get; set; }
-        public int? Id_Dependencia { get; set; }
-        public string? Dia { get; set; }
-        public string? Hora_Inicial { get; set; }
-        public string? Hora_Final { get; set; }
-        public DateTime? Fecha_Caducidad { get; set; }
-        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador", ForeignKeyColumn = "Id_Investigador")]
-        public Tbl_InvestigatorProfile? Tbl_InvestigatorProfile { get; set; }
-        [ManyToOne(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
-        public ProyectoCatDependencias? ProyectoCatDependencias { get; set; }
-    }
-    public class ProyectoTableDependencias_Usuarios : EntityClass
-    {
-        [PrimaryKey(Identity = false)]
-        public int? Id_Investigador { get; set; }
-        [PrimaryKey(Identity = false)]
-        public int? Id_Dependencia { get; set; }
-        public int? Id_Cargo { get; set; }
-        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador", ForeignKeyColumn = "Id_Investigador")]
-        public Tbl_InvestigatorProfile? Tbl_InvestigatorProfile { get; set; }
-        [ManyToOne(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
-        public ProyectoCatDependencias? ProyectoCatDependencias { get; set; }
-        [ManyToOne(TableName = "ProyectoCatCargosDependencias", KeyColumn = "Id_Cargo", ForeignKeyColumn = "IdCargo")]
-        public ProyectoCatCargosDependencias? ProyectoCatCargosDependencias { get; set; }
-    }
-    public class ProyectoTableEvidencias : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdEvidencia { get; set; }
-        public int? IdTipo { get; set; }
-        public string? Data { get; set; }
-        public int? IdTarea { get; set; }
-        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public ProyectoTableTareas? ProyectoTableTareas { get; set; }
-        [ManyToOne(TableName = "CatalogoTipoEvidencia", KeyColumn = "IdTipo", ForeignKeyColumn = "IdTipo")]
-        public CatalogoTipoEvidencia? CatalogoTipoEvidencia { get; set; }
-
-    }
+    
     public class CatalogoTipoEvidencia : EntityClass
     {
         [PrimaryKey(Identity = true)]
@@ -214,7 +137,7 @@ namespace CAPA_NEGOCIO.MAPEO
             {
                 if (this.Id_Evento == null)
                 {
-                    this.Id_Evento = (Int32)this.Save();
+                    this.Id_Evento = (Int32?)this.Save();
                 }
                 else
                 {
@@ -303,7 +226,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             evento.Tbl_Participantes_Eventos =
                             new Tbl_Participantes_Eventos() { Estado = "APROBADO" }.Get_WhereIN<Tbl_Participantes_Eventos>(
-                                    "Id_Evento", new string[] { evento.Id_Evento.ToString() });
+                                    "Id_Evento", new string?[] { evento.Id_Evento?.ToString() });
         }
         public Object InvitarInvestigadores()
         {
@@ -412,7 +335,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             if (this.Id_Grupo == null)
             {
-                this.Id_Grupo = (Int32)this.Save();
+                this.Id_Grupo = (Int32?)this.Save();
                 //INVESTIGADOR CREA ES ASOCIADO POR DEFECTO
                 Tbl_InvestigadoresAsociados invCreador = new Tbl_InvestigadoresAsociados()
                 {
@@ -455,11 +378,11 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             grupo.Tbl_InstitucionesAsociadasGrupos =
                             (new Tbl_InstitucionesAsociadasGrupos()).Get_WhereIN<Tbl_InstitucionesAsociadasGrupos>(
-                                    "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
+                                    "Id_Grupo", new string?[] { grupo.Id_Grupo.ToString() });
             var Ives = new Tbl_InvestigadoresAsociados();
             Ives.Estado = "Activo";
             grupo.Tbl_InvestigadoresAsociados = Ives.Get_WhereIN<Tbl_InvestigadoresAsociados>(
-                        "Id_Grupo", new string[] { grupo.Id_Grupo.ToString() });
+                        "Id_Grupo", new string?[] { grupo.Id_Grupo.ToString() });
         }
 
         public List<Tbl_Grupos> GetGroups()
@@ -474,7 +397,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<Tbl_Grupos> GetGroupsByInvestigator(Tbl_InvestigatorProfile Inv)
         {
             var Ids = (new Tbl_InvestigadoresAsociados()).Get_WhereIN<Tbl_InvestigadoresAsociados>(
-                "Id_Investigador", new string[] { Inv.Id_Investigador.ToString() }
+                "Id_Investigador", new string?[] { Inv.Id_Investigador.ToString() }
                 ).Select(g => g.Id_Grupo.ToString()).ToArray();
             List<Tbl_Grupos> groups = this.Get_WhereIN<Tbl_Grupos>("Id_Grupo", Ids);
             foreach (var group in groups)
@@ -708,9 +631,9 @@ namespace CAPA_NEGOCIO.MAPEO
                 foreach (Tbl_Investigaciones inv in Investigaciones)
                 {
                     inv.Tbl_Investigaciones_Disciplinas = (new Tbl_Investigaciones_Disciplinas()).Get_WhereIN<Tbl_Investigaciones_Disciplinas>(
-                        "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
+                        "Id_Investigacion", new string?[] { inv.Id_Investigacion.ToString() });
                     inv.Tbl_Colaboradores = (new Tbl_Colaboradores()).Get_WhereIN<Tbl_Colaboradores>(
-                        "Id_Investigacion", new string[] { inv.Id_Investigacion.ToString() });
+                        "Id_Investigacion", new string?[] { inv.Id_Investigacion.ToString() });
 
                 }
                 return Investigaciones;
@@ -719,38 +642,7 @@ namespace CAPA_NEGOCIO.MAPEO
             {
                 throw;
             }
-        }
-        //public Object SaveInvestigacion()
-        //{
-        //    try
-        //    {
-        //        if (this.Id_Investigacion == null)
-        //        {
-        //            this.Fecha_publicacion = DateTime.Now;
-        //            this.Id_Investigacion = (Int32)this.Save();
-        //        }
-        //        else
-        //        {
-        //            this.Update("Id_Investigacion");
-        //        }
-        //        if (this.Tbl_Investigaciones_Disciplinas != null)
-        //        {
-        //            Tbl_Investigaciones_Disciplinas IdI = new Tbl_Investigaciones_Disciplinas();
-        //            IdI.Id_Investigacion = this.Id_Investigacion;
-        //            IdI.Delete();
-        //            foreach (Tbl_Investigaciones_Disciplinas obj in this.Tbl_Investigaciones_Disciplinas)
-        //            {
-        //                obj.Id_Investigacion = this.Id_Investigacion;
-        //                obj.Save();
-        //            }
-        //        }
-        //        return this;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        }       
     }
     public class Cat_Paises : EntityClass
     {
@@ -895,7 +787,7 @@ namespace CAPA_NEGOCIO.MAPEO
             DU.Id_Investigador = this.Id_Investigador;
             return DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[] { "1", "2" });
         }
-        public Object TakeInvestigadorProfile()
+        public Object? TakeInvestigadorProfile()
         {
             try
             {
@@ -922,7 +814,7 @@ namespace CAPA_NEGOCIO.MAPEO
         {
             if (this.Id_Investigador == null)
             {
-                this.Id_Investigador = (Int32)this.Save();
+                this.Id_Investigador = (Int32?)this.Save();
             }
             else
             {
@@ -1153,53 +1045,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public Cat_Idiomas? Cat_Idiomas { get; set; }
     }
 
-    public class ProyectoTableCalendario : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdCalendario { get; set; }
-        public int? IdTarea { get; set; }
-        public string? Estado { get; set; }
-        public DateTime? Fecha_Inicial { get; set; }
-        public DateTime? Fecha_Final { get; set; }
-        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public ProyectoTableTareas? ProyectoTableTareas { get; set; }
-    }
-    public class ProyectoTableTareas : EntityClass
-    {
-        [PrimaryKey(Identity = true)]
-        public int? IdTarea { get; set; }
-        public string? Titulo { get; set; }
-        public int? IdTareaPadre { get; set; }
-        public int? IdActividad { get; set; }
-        public string? Descripcion { get; set; }
-        public string? Estado { get; set; }
-        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTareaPadre", ForeignKeyColumn = "IdTarea")]
-        public ProyectoTableTareas? ProyectoTableTarea { get; set; }
-        [ManyToOne(TableName = "ProyectoTableActividades", KeyColumn = "IdActividad", ForeignKeyColumn = "IdActividad")]
-        public ProyectoTableActividades? ProyectoTableActividades { get; set; }
-        [OneToMany(TableName = "ProyectoTableCalendario", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public List<ProyectoTableCalendario>? ProyectoTableCalendario { get; set; }
-        [OneToMany(TableName = "ProyectoTableEvidencias", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public List<ProyectoTableEvidencias>? ProyectoTableEvidencias { get; set; }
-        [OneToMany(TableName = "ProyectoTableParticipantes", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public List<ProyectoTableParticipantes>? ProyectoTableParticipantes { get; set; }
-        [OneToMany(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTareaPadre")]
-        public List<ProyectoTableTareas>? ProyectoTableTareasHijas { get; set; }
-    }
-    public class ProyectoTableParticipantes : EntityClass
-    {
-        [PrimaryKey(Identity = false)]
-        public int? Id_Investigador { get; set; }
-        [PrimaryKey(Identity = false)]
-        public int? IdTarea { get; set; }
-        public int? IdTipoParticipacion { get; set; }
-        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador", ForeignKeyColumn = "Id_Investigador")]
-        public Tbl_InvestigatorProfile? Tbl_InvestigatorProfile { get; set; }
-        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
-        public ProyectoTableTareas? ProyectoTableTareas { get; set; }
-        [ManyToOne(TableName = "ProyectoCatTipoParticipaciones", KeyColumn = "IdTipoParticipacion", ForeignKeyColumn = "IdTipoParticipacion")]
-        public ProyectoCatTipoParticipaciones? ProyectoCatTipoParticipaciones { get; set; }
-    }
+
     public class Cat_Cargos : EntityClass
     {
         [PrimaryKey(Identity = true)]

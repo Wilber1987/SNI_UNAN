@@ -13,12 +13,12 @@ namespace SNI_UI2.Controllers
         [HttpPost]
         [AuthController]
         //Save
-        public object SaveProfile(Tbl_InvestigatorProfile Inst)
+        public object? SaveProfile(Tbl_InvestigatorProfile Inst)
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             return Inst.SaveProfile();
         }
-        public object SaveFormacionAcademica(Tbl_Formacion_Academica Inst)
+        public object? SaveFormacionAcademica(Tbl_Formacion_Academica Inst)
         {
             if (Inst.IdFormacion == null)
             {
@@ -30,7 +30,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("IdFormacion");
             }
         }
-        public object SavePatente(Tbl_Patentes Inst)
+        public object? SavePatente(Tbl_Patentes Inst)
         {
             if (Inst.Id_Patente == null)
             {
@@ -42,7 +42,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("Id_Patente");
             }
         }
-        public object SaveDistincion(Tbl_Distinciones Inst)
+        public object? SaveDistincion(Tbl_Distinciones Inst)
         {
             if (Inst.Id_Distincion == null)
             {
@@ -54,7 +54,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("Id_Distincion");
             }
         }
-        public object SaveDatoLaboral(Tbl_Datos_Laborales Inst)
+        public object? SaveDatoLaboral(Tbl_Datos_Laborales Inst)
         {
             if (Inst.Id_DatoL == null)
             {
@@ -66,7 +66,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update("Id_DatoL");
             }
         }
-        public object SaveEvento(Tbl_Evento Inst)
+        public object? SaveEvento(Tbl_Evento Inst)
         {
             if (Inst.Id_Evento == null)
             {
@@ -79,7 +79,7 @@ namespace SNI_UI2.Controllers
             }
         }
 
-        public object SaveRedSocialP(Tbl_Invest_RedS Inst)
+        public object? SaveRedSocialP(Tbl_Invest_RedS Inst)
         {
             if (Inst.Id_Investigador == null)
             {
@@ -91,7 +91,7 @@ namespace SNI_UI2.Controllers
                 return Inst.Update(new string[]{ "Id_Investigador", "Id_RedSocial"});
             }
         }
-        public object SaveProcesoEditorial(TblProcesosEditoriales Inst)
+        public object? SaveProcesoEditorial(TblProcesosEditoriales Inst)
         {
             if (Inst.Id_Investigador == null)
             {
