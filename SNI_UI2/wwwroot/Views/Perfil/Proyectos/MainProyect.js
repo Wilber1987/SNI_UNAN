@@ -118,11 +118,11 @@ class MainProyects extends HTMLElement {
         });
         const radialChartDependencias = new RadialChart({
             Title: "Actividades por dependencia",
-            Dataset: WArrayF.ArrayUnique(datasetMap, "Dependencia"), EvalValue: "count", AttNameEval: "Dependencia"
+            Dataset: WArrayF.GroupBy(datasetMap, "Dependencia"), EvalValue: "count", AttNameEval: "Dependencia"
         });
         const radialChart = new RadialChart({
             Title: "Estado de las actividades",
-            Dataset: WArrayF.ArrayUnique(dataset, "Estado"), EvalValue: "count", AttNameEval: "Estado"
+            Dataset: WArrayF.GroupBy(dataset, "Estado"), EvalValue: "count", AttNameEval: "Estado"
         });
         //new WTableDynamicComp({Dataset: dataset})
         this.TabManager.NavigateFunction("Tab-Generales",

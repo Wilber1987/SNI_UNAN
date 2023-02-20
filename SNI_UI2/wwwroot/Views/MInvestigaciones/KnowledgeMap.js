@@ -172,7 +172,7 @@ class KnowledgeMapTab {
         const fo = {};
         fo[EvalValue] = null;
         fo[PropFilter] = null;
-        const ArrayLocalidad = WArrayF.ArrayUniqueByObject(Dataset, fo);
+        const ArrayLocalidad = WArrayF.GroupByByObject(Dataset, fo);
         //console.log(ArrayLocalidad);
         let ArrayChart = ArrayLocalidad;
         const DivLocation = { type: 'div', props: { class: 'DivLocation' }, children: [] }
