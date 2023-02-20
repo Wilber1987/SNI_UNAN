@@ -35,13 +35,13 @@ namespace SNI_UI.Controllers
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             return Inst.Get<Tbl_Investigaciones>("Visibilidad = 'public' Order by Id_Investigacion desc");
         }
-        public object SaveInvestigacion(Tbl_Investigaciones Inst)
+        public object? SaveInvestigacion(Tbl_Investigaciones Inst)
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             Inst.Estado = "PENDIENTE";
             return Inst.Save();
         }
-        public object UpdateInvestigacion(Tbl_Investigaciones Inst)
+        public object? UpdateInvestigacion(Tbl_Investigaciones Inst)
         {
             Inst.Id_Investigador = AuthNetCore.User().UserId;
             Inst.Estado = null;
@@ -56,9 +56,8 @@ namespace SNI_UI.Controllers
             Data.Add(Dis.Get<Cat_Disciplinas>());
             return Data;
         }
-        public object TakeInvestigacionesPorDisciplina(Object ObjInst)
+        public object TakeInvestigacionesPorDisciplina(InvestigacionesClass Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<InvestigacionesClass>(ObjInst.ToString());
             Cat_Disciplinas Dis = new Cat_Disciplinas();
             List<Object> Data = new List<Object>();
             Data.Add(Inst.TakeInvestigacionesPorDisciplinas());
@@ -69,19 +68,17 @@ namespace SNI_UI.Controllers
         {
             return ObjInst.GetInvestigacion();
         }
-        public object TakeInvestigadorProfile(Object ObjInst)
+        public object? TakeInvestigadorProfile(Tbl_InvestigatorProfile Inst)
         {
-            var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
             return Inst.TakeInvestigadorProfile();
         }
         public object TakeDisciplinas(Cat_Disciplinas Inst)
         {
             return Inst.Get<Cat_Disciplinas>();
         }
-        public object TakeKnowledgeMap(Object ObjInst)
+        public object? TakeKnowledgeMap(Tbl_InvestigatorProfile ObjInst)
         {
-            var Inst = JsonConvert.DeserializeObject<Tbl_InvestigatorProfile>(ObjInst.ToString());
-            return Inst.TakeInvestigadorProfile();
+            return ObjInst.TakeInvestigadorProfile();
         }
     }
 }

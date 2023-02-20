@@ -4,11 +4,8 @@ import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.
 import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
-import { WProfileInvestigador } from "./ProfileViewer.js";
 import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
-import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import {
-    ProyectoTableActividades,
     TblProcesosEditoriales,
     Tbl_Distinciones,
     Tbl_Grupos
@@ -107,26 +104,7 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
         const Dataset = await WAjaxTools.PostRequest("../../api/Investigaciones/GetInvestigaciones", DataPost);
-        //const tipoInvestigacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoInvestigaciones", {});
-       // const tipoLocalidad = await WAjaxTools.PostRequest("../../api/PublicCat/GetLocalidades", {});
-       // const disciplinas = await WAjaxTools.PostRequest("../../api/PublicCat/GetDisciplinas", {});
-        const ModelInvestigacion = new Tbl_Investigaciones(/* {
-            Id_Tipo_Investigacion: { type: "SELECT", Dataset: tipoInvestigacion.map(x => ({ id: x.Id_Tipo_Investigacion, desc: x.Descripcion })) },
-            Id_Localidad: { type: "SELECT", Dataset: tipoLocalidad.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad })) },
-            Disciplinas: {
-                type: "MultiSelect", Dataset: disciplinas.map(x => {
-                    x.Descripcion = x.DescripcionDisciplina
-                    return x;
-                })
-            }
-        } */);
-        // console.log(ModelInvestigacion);
-        // ModelInvestigacion.Abstract.hidden = true;
-        // ModelInvestigacion.Resumen.hidden = true;
-        // ModelInvestigacion.Repositorio.hidden = true;
-        // ModelInvestigacion.Referencias.hidden = true;
-        // ModelInvestigacion.Photo.hidden = true;
-        // ModelInvestigacion.Estado.hidden = true;
+        const ModelInvestigacion = new Tbl_Investigaciones();
         Tab.append(WRender.Create({
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Investigaciones" },
@@ -147,7 +125,6 @@ class PerfilClass extends HTMLElement {
     }
     NavGrupos = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        //const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
         const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");
         const Tbl_Instituciones_Asociadas = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         Tab.append(WRender.Create({
@@ -181,7 +158,6 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         Tab.append(WRender.Create({
             className: "DivProy", children: [
-                //{ tagName: "h3", innerText:  },
                 new WTableComponent({
                     Dataset: Dataset,
                     ModelObject: Model,
@@ -202,9 +178,6 @@ class PerfilClass extends HTMLElement {
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
         const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");
         const InvestigadorModel = new Tbl_InvestigatorProfile({
-            //Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
-            //Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
-            //Id_Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
         });
         const EditForm = WRender.Create({
             className: "FormContainer", style: {

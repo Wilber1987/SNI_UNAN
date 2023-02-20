@@ -8,7 +8,7 @@ namespace CAPA_NEGOCIO
     class ViewInforme1
     {
         public int Num { get; set; }
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
         public DateTime Fecha { get; set; }
         public Object TakeInforme(DateTime date1, DateTime date2)
         {

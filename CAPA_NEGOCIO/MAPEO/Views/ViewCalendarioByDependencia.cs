@@ -14,7 +14,7 @@ namespace CAPA_NEGOCIO.Views
         public int? IdActividad { get; set; }
         public int? IdTarea { get; set; }
         public int? IdTareaPadre { get; set; }
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
         public DateTime? Fecha_Inicial { get; set; }
         public DateTime? Fecha_Final { get; set; }
 

@@ -6,7 +6,7 @@ namespace CAPA_NEGOCIO.Services
 {
     public class MailServices
     {
-        public static bool SendMail(string Mail)
+        public static bool SendMail(string? Mail)
         {
             try
             {

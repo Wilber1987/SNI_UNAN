@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CAPA_DATOS\CAPA_DATOS.csproj" />
-    <ProjectReference Include="..\SECURITY\SECURITY.csproj" />
   </ItemGroup>
 
 </Project>

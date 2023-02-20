@@ -1,6 +1,5 @@
 ﻿using CAPA_DATOS;
 using CAPA_MODEL.Entity;
-using SECURITY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,15 +47,7 @@ namespace CAPA_MODEL
         //    return true;
         //}
         public bool SolicitarActividades()
-        {
-            this.IdUsuario = AuthNetCore.User().UserId;
-            this.Estado = "Pendiente";
-            this.IdActividad = (Int32)SqlADOConexion.SQLM.InsertObject(this);
-            foreach (TblTareas obj in this.Tareas)
-            {
-                obj.IdActividad = this.IdActividad;
-                obj.SaveTarea();
-            }
+        {           
             return true;
         }
         public TblActividades GetActividad()
