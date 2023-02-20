@@ -1,18 +1,14 @@
-import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
-import { WRender, ComponentsManager, WAjaxTools, WArrayF } from '../../../WDevCore/WModules/WComponentsTools.js';
-import { WCssClass, WStyledRender, css } from '../../../WDevCore/WModules/WStyledRender.js';
-import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.js";
-import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
-import { WModalForm } from "../../../WDevCore/WComponents/WModalForm.js";
-import { ModalVericateAction, WForm } from "../../../WDevCore/WComponents/WForm.js";
-import { InvestigadorProfile } from "../../../Model/InvestigadorProfile.js";
-import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableTareas, Tbl_Evento, Tbl_Investigaciones, Tbl_InvestigatorProfile } from '../../../Model/DBODataBaseModel.js';
-import { WDetailObject } from '../../../WDevCore/WComponents/WDetailObject.js';
-import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
-import { WTableDynamicComp } from '../../../WDevCore/WComponents/WTableDynamic.js';
-import { WPaginatorViewer } from '../../../WDevCore/WComponents/WPaginatorViewer.js';
-import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
+import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
 import { ViewCalendarioByDependencia } from '../../../Model/DBOViewModel.js';
+import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
+import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
+import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
+import { WForm } from "../../../WDevCore/WComponents/WForm.js";
+import { WPaginatorViewer } from '../../../WDevCore/WComponents/WPaginatorViewer.js';
+import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.js";
+import { ComponentsManager, WArrayF, WRender } from '../../../WDevCore/WModules/WComponentsTools.js';
+import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
+import { WCssClass, WStyledRender, css } from '../../../WDevCore/WModules/WStyledRender.js';
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -22,6 +18,7 @@ const OnLoad = async () => {
 
 }
 window.onload = OnLoad;
+
 class MainProyect extends HTMLElement {
     constructor() {
         super();
@@ -243,4 +240,4 @@ class MainProyects extends HTMLElement {
     `
 }
 customElements.define('w-main-proyects', MainProyects);
-export { MainProyects }
+export { MainProyects };
