@@ -694,22 +694,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Nombre { get; set; }
         public string? Direccion { get; set; }
         public string? Estado { get; set; }
-        public string? Logo { get; set; }
-        [OneToMany(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<ProyectoCatDependencias>? ProyectoCatDependencias { get; set; }
-        [OneToMany(TableName = "Tbl_Distinciones", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_Distinciones>? Tbl_Distinciones { get; set; }
-        [OneToMany(TableName = "Tbl_Formacion_Academica", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_Formacion_Academica>? Tbl_Formacion_Academica { get; set; }
-        [OneToMany(TableName = "Tbl_Instituciones_Asociadas", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_Instituciones_Asociadas>? Tbl_Instituciones_Asociadas { get; set; }
-        [OneToMany(TableName = "Tbl_InstitucionesAsociadasGrupos", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_InstitucionesAsociadasGrupos>? Tbl_InstitucionesAsociadasGrupos { get; set; }
-        [OneToMany(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_InvestigatorProfile>? Tbl_InvestigatorProfile { get; set; }
-        [OneToMany(TableName = "Tbl_Patentes", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
-        public List<Tbl_Patentes>? Tbl_Patentes { get; set; }
-
+        public string? Logo { get; set; }    
     }
     public class Cat_Tipo_Investigacion : EntityClass
     {

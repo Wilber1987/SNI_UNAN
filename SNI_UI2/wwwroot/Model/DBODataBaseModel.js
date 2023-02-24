@@ -86,7 +86,7 @@ class ProyectoCatCargosDependencias extends EntityClass {
         }
     }
     IdCargo = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text'};
     ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios() };
 }
 export { ProyectoCatCargosDependencias }
@@ -139,7 +139,7 @@ class ProyectoTableDependencias_Usuarios extends EntityClass {
             this[prop] = props[prop];
         }
     }
-    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new ProyectoTableParticipantes() }
+    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
     ProyectoCatCargosDependencias = { type: 'WSelect', ModelObject: () => new ProyectoCatCargosDependencias() }
 }
 export { ProyectoTableDependencias_Usuarios }
@@ -686,12 +686,12 @@ class ProyectoTableTareas extends EntityClass {
     Titulo = { type: 'text' };
     IdActividad = { type: 'number', hidden: true, value: undefined };
     Descripcion = { type: 'text', hiddenInTable: true };
-    ProyectoTableTareas = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
+    ProyectoTableTarea = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
     Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
     ProyectoTableCalendario = { type: 'CALENDAR', ModelObject: () => new ProyectoTableCalendario(), require: false };
     ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
     ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
-
+    ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };    
 }
 export { ProyectoTableTareas }
 class ProyectoTableParticipantes extends EntityClass {

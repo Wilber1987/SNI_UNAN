@@ -147,7 +147,8 @@ namespace CAPA_DATOS
                             var FK = Inst.GetType().GetProperty(ForeignKeyColumn.Name);
                             if (FK?.GetValue(Inst) == null)
                             {
-                                var keyVal = Convert.ChangeType(AtributeValue?.GetType()?.GetProperty(KeyColumn.Name).GetValue(AtributeValue), t);
+                                //var keyVal = Convert.ChangeType(AtributeValue?.GetType()?.GetProperty(KeyColumn.Name).GetValue(AtributeValue), t);
+                                var keyVal =AtributeValue?.GetType()?.GetProperty(KeyColumn.Name).GetValue(AtributeValue);
                                 FK?.SetValue(Inst, keyVal);
                                 var values = pkPropiertys.Where(p => p.GetValue(Inst) != null).ToList();
                                 if (pkPropiertys.Count == values.Count) UpdateObject(Inst, pkPropiertys.Select(p => p.Name).ToArray());
@@ -255,20 +256,22 @@ namespace CAPA_DATOS
                         ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
                         var method = relationatedEntityType.GetMethods()
                             .FirstOrDefault(mi => mi.Name == "SimpleFind" && mi.GetParameters().Count() == 0);
-                        if (method != null && item.GetType() != relationatedEntityInstance.GetType())
+                        if (method != null )
                             TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
                     }
                 }
                 else if (oneToMany != null && fullEntity)
                 {
                     var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType.GetGenericArguments()[0]);
-                    PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToMany.KeyColumn);
+                    PropertyInfo ForeingKeyPropMain = _type?.GetProperty(oneToMany.KeyColumn);
                     PropertyInfo ForeingKeyPropRelationated = relationatedEntityInstance?.GetType().GetProperty(oneToMany?.ForeignKeyColumn);
                     if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
                     {
+                       
                         ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
-                        var method = relationatedEntityInstance.GetType().GetMethods()
-                            .FirstOrDefault(mi => mi.Name == "SimpleGet" && mi.GetParameters().Count() == 0);
+                        string methodName = item.GetType() == relationatedEntityInstance?.GetType() ? "SimpleGet" : "Get";
+                        MethodInfo method = relationatedEntityInstance?.GetType()?.GetMethods()?
+                            .FirstOrDefault(mi => mi.Name == methodName && mi.GetParameters().Count() == 0);
                         if (method != null) TakeRelationatedObject(item, oProperty, relationatedEntityInstance.GetType(), method, relationatedEntityInstance);
 
                     }
