@@ -13,6 +13,32 @@ class Cat_Tipo_Evento extends EntityClass {
     Tbl_Evento = { type: 'MasterDetail', ModelObject: () => new Tbl_Evento() };
 }
 export { Cat_Tipo_Evento }
+class Cat_Cargos extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }
+    Id_Cargo = { type: 'number', primary: true };
+    Descripcion = { type: 'text', hiddenInTable: true };
+    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+    Tbl_Datos_Laborales = { type: 'MasterDetail', ModelObject: () => new Tbl_Datos_Laborales() };
+}
+export { Cat_Cargos }
+class Cat_Tipo_Proceso_Editorial extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }
+    Id_Tipo_Proceso_Editorial = { type: 'number', primary: true };
+    Descripcion = { type: 'text', hiddenInTable: true };
+    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+    TblProcesosEditoriales = { type: 'MasterDetail', ModelObject: () => new TblProcesosEditoriales() };
+}
+export { Cat_Tipo_Proceso_Editorial }
 class Cat_Idiomas extends EntityClass {
     constructor(props) {
         super(props, 'EntityDBO');
@@ -78,71 +104,7 @@ class CatTipoDistincion extends EntityClass {
     Tbl_Distinciones = { type: 'MasterDetail', ModelObject: () => new Tbl_Distinciones() };
 }
 export { CatTipoDistincion }
-class ProyectoCatCargosDependencias extends EntityClass {
-    constructor(props) {
-        super(props, 'EntityDBO');
-        for (const prop in props) {
-            this[prop] = props[prop];
-        }
-    }
-    IdCargo = { type: 'number', primary: true };
-    Descripcion = { type: 'text'};
-    ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios() };
-}
-export { ProyectoCatCargosDependencias }
-class ProyectoCatDependencias extends EntityClass {
-    constructor(props) {
-        super(props, 'EntityDBO');
-        for (const prop in props) {
-            this[prop] = props[prop];
-        }
-    }
-    Id_Dependencia = { type: 'number', primary: true };
-    Descripcion = { type: 'text' };
-    ProyectoCatDependencia = { type: 'WSelect', ModelObject: () => new ProyectoCatDependencias() , require: false };
-    Cat_instituciones = { type: 'WSelect', ModelObject: () => new Cat_instituciones() };
-    ProyectoCatDependencias_Hijas = { type: 'Multiselect', ModelObject: () => new ProyectoCatDependencias(), require: false };
-    ProyectoTableAgenda = { type: 'MasterDetail', ModelObject: () => new ProyectoTableAgenda() , require: false};
-    ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios() , require: false};
-}
-export { ProyectoCatDependencias }
-class ProyectoCatTipoParticipaciones extends EntityClass {
-    constructor(props) {
-        super(props, 'EntityDBO');
-        for (const prop in props) {
-            this[prop] = props[prop];
-        }
-    }
-    IdTipoParticipacion = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
-    ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
-}
-export { ProyectoCatTipoParticipaciones }
-class ProyectoTableAgenda extends EntityClass {
-    constructor(props) {
-        super(props, 'EntityDBO');
-        for (const prop in props) {
-            this[prop] = props[prop];
-        }
-    }
-    IdAgenda = { type: 'number', primary: true };
-    Dia = { type: 'Select', Dataset: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] };
-    Hora_Inicial = { type: 'HORA' };
-    Hora_Final = { type: 'HORA' };
-    Fecha_Caducidad = { type: 'date' };
-}
-export { ProyectoTableAgenda }
-class ProyectoTableDependencias_Usuarios extends EntityClass {
-    constructor(props) {
-        super(props, 'EntityDBO');
-        for (const prop in props) {
-            this[prop] = props[prop];
-        }
-    }
-    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
-    ProyectoCatCargosDependencias = { type: 'WSelect', ModelObject: () => new ProyectoCatCargosDependencias() }
-}
-export { ProyectoTableDependencias_Usuarios }
+
 class CatalogoTipoEvidencia extends EntityClass {
     constructor(props) {
         super(props, 'EntityDBO');
@@ -669,6 +631,7 @@ class ProyectoTableCalendario extends EntityClass {
             this[prop] = props[prop];
         }
     }
+    Id_Dependencia = { type: 'number', hidden: true };
     IdCalendario = { type: 'number', primary: true };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     Fecha_Inicial = { type: 'date' };
@@ -687,11 +650,16 @@ class ProyectoTableTareas extends EntityClass {
     IdActividad = { type: 'number', hidden: true, value: undefined };
     Descripcion = { type: 'text', hiddenInTable: true };
     ProyectoTableTarea = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
+    ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
     Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
-    ProyectoTableCalendario = { type: 'CALENDAR', ModelObject: () => new ProyectoTableCalendario(), require: false };
     ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
-    ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
-    ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };    
+    //ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
+    ProyectoTableCalendario = {
+        type: 'CALENDAR',
+        ModelObject: () => new ProyectoTableCalendario(),
+        require: false,
+        CalendarFunction: () => { }
+    };
 }
 export { ProyectoTableTareas }
 class ProyectoTableParticipantes extends EntityClass {
@@ -701,33 +669,73 @@ class ProyectoTableParticipantes extends EntityClass {
             this[prop] = props[prop];
         }
     }
-    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new ProyectoTableParticipantes() }
+    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
     ProyectoCatTipoParticipaciones = { type: 'WSelect', ModelObject: () => new ProyectoCatTipoParticipaciones() }
 }
 export { ProyectoTableParticipantes }
-class Cat_Cargos extends EntityClass {
+class ProyectoCatCargosDependencias extends EntityClass {
     constructor(props) {
         super(props, 'EntityDBO');
         for (const prop in props) {
             this[prop] = props[prop];
         }
     }
-    Id_Cargo = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
-    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-    Tbl_Datos_Laborales = { type: 'MasterDetail', ModelObject: () => new Tbl_Datos_Laborales() };
+    IdCargo = { type: 'number', primary: true };
+    Descripcion = { type: 'text' };
+    ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios() };
 }
-export { Cat_Cargos }
-class Cat_Tipo_Proceso_Editorial extends EntityClass {
+export { ProyectoCatCargosDependencias }
+class ProyectoCatDependencias extends EntityClass {
     constructor(props) {
         super(props, 'EntityDBO');
         for (const prop in props) {
             this[prop] = props[prop];
         }
     }
-    Id_Tipo_Proceso_Editorial = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
-    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-    TblProcesosEditoriales = { type: 'MasterDetail', ModelObject: () => new TblProcesosEditoriales() };
+    Id_Dependencia = { type: 'number', primary: true };
+    Descripcion = { type: 'text' };
+    ProyectoCatDependencia = { type: 'WSelect', ModelObject: () => new ProyectoCatDependencias(), require: false };
+    Cat_instituciones = { type: 'WSelect', ModelObject: () => new Cat_instituciones() };
+    ProyectoCatDependencias_Hijas = { type: 'Multiselect', ModelObject: () => new ProyectoCatDependencias(), require: false };
+    ProyectoTableAgenda = { type: 'MasterDetail', ModelObject: () => new ProyectoTableAgenda(), require: false };
+    ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios(), require: false };
 }
-export { Cat_Tipo_Proceso_Editorial }
+export { ProyectoCatDependencias }
+class ProyectoCatTipoParticipaciones extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }
+    IdTipoParticipacion = { type: 'number', primary: true };
+    Descripcion = { type: 'text', hiddenInTable: true };
+    ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
+}
+export { ProyectoCatTipoParticipaciones }
+class ProyectoTableAgenda extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }
+    Id_Dependencia = { type: 'number', hidden: true };
+    IdAgenda = { type: 'number', primary: true };
+    Dia = { type: 'Select', Dataset: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] };
+    Hora_Inicial = { type: 'HORA' };
+    Hora_Final = { type: 'HORA' };
+    Fecha_Caducidad = { type: 'date' };
+}
+export { ProyectoTableAgenda }
+class ProyectoTableDependencias_Usuarios extends EntityClass {
+    constructor(props) {
+        super(props, 'EntityDBO');
+        for (const prop in props) {
+            this[prop] = props[prop];
+        }
+    }
+    Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
+    ProyectoCatCargosDependencias = { type: 'WSelect', ModelObject: () => new ProyectoCatCargosDependencias() }
+}
+export { ProyectoTableDependencias_Usuarios }

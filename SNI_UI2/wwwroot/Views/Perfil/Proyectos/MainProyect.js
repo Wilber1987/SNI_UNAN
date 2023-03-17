@@ -1,4 +1,4 @@
-import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableEvidencias, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
+import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableCalendario, ProyectoTableEvidencias, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
 import { ViewCalendarioByDependencia } from '../../../Model/DBOViewModel.js';
 import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
 import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
@@ -223,8 +223,25 @@ class MainProyects extends HTMLElement {
         this.TabManager.NavigateFunction("Tab-Dependencias-Viewer", dependenciasDetailView);
     }
     nuevaActividad = async () => {
+        const ModelCalendar = {
+            type: 'CALENDAR',
+            ModelObject: () => new ProyectoTableCalendario(),
+            require: false,
+            CalendarFunction: async () => {
+                return {
+                    Agenda: await new ProyectoTableAgenda({ Id_Dependencia: form.FormObject.ProyectoCatDependencias?.Id_Dependencia }).Get(),
+                    Calendario: await new ProyectoTableCalendario({ Id_Dependencia: form.FormObject.ProyectoCatDependencias?.Id_Dependencia }).Get()
+                }
+            }
+        }
+
         const form = new WForm({
-            ModelObject: new ProyectoTableActividades()
+            ModelObject: new ProyectoTableActividades({
+                ProyectoTableTareas: {
+                    type: 'MasterDetail',
+                    ModelObject: () => new ProyectoTableTareas({ ProyectoTableCalendario: ModelCalendar })
+                }
+            })
         })
         this.TabManager.NavigateFunction("Tab-nuevaActividadView",
             WRender.Create({ className: "nuevaActividadView", children: [form] }));

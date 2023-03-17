@@ -43,7 +43,7 @@ namespace CAPA_NEGOCIO.MAPEO
                     obj.Save();
                 }
                 return true;
-            }            
+            }
             return false;
         }
         public bool CheckCanSaveAct()
@@ -51,7 +51,7 @@ namespace CAPA_NEGOCIO.MAPEO
             ProyectoTableDependencias_Usuarios DU = new ProyectoTableDependencias_Usuarios();
             DU.Id_Investigador = this.Id_Investigador;
             DU.Id_Dependencia = this.Id_Dependencia;
-            if (DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[]{ "1", "2"}).Count == 0)
+            if (DU.Get_WhereIN<ProyectoTableDependencias_Usuarios>("Id_Cargo", new string[] { "1", "2" }).Count == 0)
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace CAPA_NEGOCIO.MAPEO
         }
         public ProyectoTableActividades GetActividad()
         {
-            this.ProyectoTableTareas  = (new ProyectoTableTareas()).Get<ProyectoTableTareas>("IdActividad = " + this.IdActividad.ToString());
+            this.ProyectoTableTareas = (new ProyectoTableTareas()).Get<ProyectoTableTareas>("IdActividad = " + this.IdActividad.ToString());
             foreach (ProyectoTableTareas tarea in this.ProyectoTableTareas ?? new List<ProyectoTableTareas>())
             {
                 tarea.ProyectoTableCalendario = (new ProyectoTableCalendario()).Get<ProyectoTableCalendario>("IdTarea = " + tarea.IdTarea.ToString());
@@ -164,11 +164,15 @@ namespace CAPA_NEGOCIO.MAPEO
         [PrimaryKey(Identity = true)]
         public int? IdCalendario { get; set; }
         public int? IdTarea { get; set; }
+        public int? Id_Dependencia { get; set; }
         public string? Estado { get; set; }
         public DateTime? Fecha_Inicial { get; set; }
         public DateTime? Fecha_Final { get; set; }
         [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTarea")]
         public ProyectoTableTareas? ProyectoTableTareas { get; set; }
+        [ManyToOne(TableName = "ProyectoCatDependencias", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
+        public ProyectoCatDependencias? ProyectoCatDependencias { get; set; }
+
     }
     public class ProyectoTableTareas : EntityClass
     {
