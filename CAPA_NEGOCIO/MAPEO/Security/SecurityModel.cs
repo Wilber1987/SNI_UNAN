@@ -13,7 +13,7 @@ namespace CAPA_NEGOCIO.Security
         public string? Estado { get; set; }
         [OneToMany(TableName = "Security_Permissions_Roles", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
         public List<Security_Permissions_Roles>? Security_Permissions_Roles { get; set; }
-        public Object SaveRole()
+        public object SaveRole()
         {
             if (this.Id_Role == null)
             {
@@ -36,18 +36,12 @@ namespace CAPA_NEGOCIO.Security
             }
             return this;
         }
-        public Object GetRolData()
+        public object GetRolData()
         {
             this.Security_Permissions_Roles = new Security_Permissions_Roles()
             {
                 Id_Role = this.Id_Role
             }.Get<Security_Permissions_Roles>();
-            //foreach (Security_Roles role in Security_Roles_List)
-            //{
-            //    role.Security_Permissions_Roles =
-            //        (new Security_Permissions_Roles()).Get_WhereIN<Security_Permissions_Roles>(
-            //             "Id_Role", new string[] { role.Id_Role.ToString() });
-            //}
             return this.Security_Permissions_Roles;
 
         }
@@ -91,7 +85,7 @@ namespace CAPA_NEGOCIO.Security
             }   
             return user;
         }
-        public Object SaveUser()
+        public object SaveUser()
         {
             if (this.Id_User == null)
             {
@@ -114,7 +108,7 @@ namespace CAPA_NEGOCIO.Security
             }
             return this;
         }
-        public Object GetUsers()
+        public object GetUsers()
         {
             var Security_Users_List = this.Get<Security_Users>();
             foreach (Security_Users User in Security_Users_List)

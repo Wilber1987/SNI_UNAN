@@ -183,7 +183,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? IdActividad { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTareaPadre", ForeignKeyColumn = "IdTarea")]
+        [ManyToOne(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTareaPadre")]
         public ProyectoTableTareas? ProyectoTableTarea { get; set; }
         [ManyToOne(TableName = "ProyectoTableActividades", KeyColumn = "IdActividad", ForeignKeyColumn = "IdActividad")]
         public ProyectoTableActividades? ProyectoTableActividades { get; set; }

@@ -751,8 +751,8 @@ namespace API.Controllers {
        //ProyectoTableCalendario
        [HttpPost]
        [AuthController]
-       public List<ProyectoTableCalendario> getProyectoTableCalendario(ProyectoTableCalendario Inst) {
-           return Inst.Get<ProyectoTableCalendario>();
+       public List<ViewCalendarioByDependencia> getProyectoTableCalendario(ViewCalendarioByDependencia Inst) {
+           return Inst.Get<ViewCalendarioByDependencia>();
        }
        [HttpPost]
        [AuthController]

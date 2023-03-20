@@ -178,7 +178,7 @@ class MainProyects extends HTMLElement {
                             Agenda: await new ProyectoTableAgenda({ Id_Dependencia: actividad.ProyectoCatDependencias.Id_Dependencia }).Get(),
                             Calendario: await new ViewCalendarioByDependencia({ Id_Dependencia: actividad.ProyectoCatDependencias.Id_Dependencia }).Get()
                         }
-                    }, require: false
+                    }, require: false, hiddenInTable: true
                 }
             }), Options: {
                 Add: true, UrlAdd: "../api/ApiEntityDBO/saveProyectoTableTareas",

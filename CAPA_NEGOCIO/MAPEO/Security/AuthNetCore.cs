@@ -43,8 +43,10 @@ namespace CAPA_NEGOCIO.Security
                 if (security_User == null) ClearSeason();
                 return User();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("-- ==================> :" + ex);
+                throw;
                 return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 };
             }
         }

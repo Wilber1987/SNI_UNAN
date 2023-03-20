@@ -658,6 +658,7 @@ class ProyectoTableTareas extends EntityClass {
         type: 'CALENDAR',
         ModelObject: () => new ProyectoTableCalendario(),
         require: false,
+        hiddenInTable: true,
         CalendarFunction: () => { }
     };
 }

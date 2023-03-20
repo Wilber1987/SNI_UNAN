@@ -5,7 +5,12 @@ using System.Text;
 
 namespace CAPA_DATOS
 {
-
+    /*
+       * @param {KeyColumn} Nombre de la llave primaria de la tabla con cardinalidad uno
+       * esta propiedad hace referencias al identificador primario de la tabla
+       * con cardinalidad 1 y sera el valor que se agregara a la entidad con 
+       * cardinalidad muchos
+       */
     public class PrimaryKey : Attribute
     {
         public bool Identity { get; set; }

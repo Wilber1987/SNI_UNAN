@@ -323,7 +323,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Estado { get; set; }
         public string? Descripcion { get; set; }
         public string? Nombre { get; set; }
-        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador_Crea", ForeignKeyColumn = "Id_Investigador")]
+        [ManyToOne(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Investigador", ForeignKeyColumn = "Id_Investigador_Crea")]
         public Tbl_InvestigatorProfile? Tbl_InvestigatorProfile { get; set; }
         [ManyToOne(TableName = "Cat_TipoGrupo", KeyColumn = "Id_TipoGrupo", ForeignKeyColumn = "Id_TipoGrupo")]
         public Cat_TipoGrupo? Cat_TipoGrupo { get; set; }
@@ -588,13 +588,8 @@ namespace CAPA_NEGOCIO.MAPEO
             try
             {
                 Tbl_Investigaciones Investigacion = GetInvestigaciones()[0];
-                //List<Tbl_Colaboradores> colaboradores = (new Tbl_Colaboradores()
-                //{
-                //    Id_Investigacion = this.Id_Investigacion
-                //}
-                //).Get<Tbl_Colaboradores>();
-                //Investigacion.Tbl_Colaboradores = (new Tbl_InvestigatorProfile()).Get_WhereIN<Tbl_InvestigatorProfile>(
-                //        "Id_Investigador", colaboradores.Select(c => c.Id_Investigador.ToString()).ToArray());
+                Investigacion.Tbl_Colaboradores = (new Tbl_Colaboradores()).Get_WhereIN<Tbl_Colaboradores>(
+                    "Id_Investigacion", new string?[] { Investigacion.Id_Investigacion.ToString() });
                 return Investigacion;
             }
             catch (Exception)
@@ -632,9 +627,6 @@ namespace CAPA_NEGOCIO.MAPEO
                 {
                     inv.Tbl_Investigaciones_Disciplinas = (new Tbl_Investigaciones_Disciplinas()).Get_WhereIN<Tbl_Investigaciones_Disciplinas>(
                         "Id_Investigacion", new string?[] { inv.Id_Investigacion.ToString() });
-                    inv.Tbl_Colaboradores = (new Tbl_Colaboradores()).Get_WhereIN<Tbl_Colaboradores>(
-                        "Id_Investigacion", new string?[] { inv.Id_Investigacion.ToString() });
-
                 }
                 return Investigaciones;
             }
@@ -721,9 +713,9 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Institucion { get; set; }
         public string? Indice_H { get; set; }
         public string? Estado { get; set; }
-        [ManyToOne(TableName = "Security_Users", KeyColumn = "IdUser", ForeignKeyColumn = "Id_User")]
+        [ManyToOne(TableName = "Security_Users", KeyColumn = "Id_User", ForeignKeyColumn = "IdUser")]
         public Security_Users? Security_Users { get; set; }
-        [ManyToOne(TableName = "Cat_Paises", KeyColumn = "Id_Pais_Origen", ForeignKeyColumn = "Id_Pais")]
+        [ManyToOne(TableName = "Cat_Paises", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais_Origen")]
         public Cat_Paises? Cat_Paises { get; set; }
         [ManyToOne(TableName = "Cat_instituciones", KeyColumn = "Id_Institucion", ForeignKeyColumn = "Id_Institucion")]
         public Cat_instituciones? Cat_instituciones { get; set; }

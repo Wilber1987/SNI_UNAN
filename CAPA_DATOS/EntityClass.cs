@@ -27,15 +27,9 @@ namespace CAPA_DATOS
         }
         public T? Find<T>()
         {
-            var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this, true) : default(T);
+            var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this) : default(T);
             return Data;
-        }
-
-        public T? SimpleFind<T>()
-        {
-            var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this, false) : default(T);
-            return Data;
-        }
+        }        
         public List<T> Get<T>(string condition)
         {
             var Data = SqlADOConexion.SQLM?.TakeList<T>(this, true, condition);
