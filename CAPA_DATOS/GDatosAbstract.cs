@@ -86,28 +86,10 @@ namespace CAPA_DATOS
             List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
             List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
             // SELECCIONAR LOS VALORES DE LAS LLAVES PRIMARIAS DE LOS MANYTOONE
-            foreach (var manyToOneProp in manyToOneProps)
-            {
-                string? atributeName = manyToOneProp.Name;
-                var atributeValue = manyToOneProp.GetValue(entity);
-                if (atributeValue != null)
-                {
-                    ManyToOne? manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(manyToOneProp, typeof(ManyToOne));
-                    PropertyInfo? KeyColumn = atributeValue.GetType().GetProperty(manyToOne?.KeyColumn);
-                    PropertyInfo? ForeignKeyColumn = atributeValue.GetType().GetProperty(manyToOne?.ForeignKeyColumn);
-                    if (ForeignKeyColumn != null)
-                    {
-                        var FK = entity.GetType().GetProperty(ForeignKeyColumn.Name);
-                        if (FK?.GetValue(entity) == null)
-                        {
-                            var keyVal = atributeValue?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(atributeValue);
-                            FK?.SetValue(entity, keyVal);
-                        }
-                    }
-                }
-            }
+            SetManyToOnePropiertys(entity, manyToOneProps);
             string strQuery = BuildInsertQueryByObject(entity);
             object idGenerated = ExcuteSqlQuery(strQuery);
+
             if (pimaryKeyPropiertys.Count == 1)
             {
                 PrimaryKey? pkInfo = (PrimaryKey?)Attribute.GetCustomAttribute(pimaryKeyPropiertys[0], typeof(PrimaryKey));
@@ -139,6 +121,31 @@ namespace CAPA_DATOS
             }
             return entity;
         }
+
+        private static void SetManyToOnePropiertys(object entity, List<PropertyInfo> manyToOneProps)
+        {
+            foreach (var manyToOneProp in manyToOneProps)
+            {
+                string? atributeName = manyToOneProp.Name;
+                var atributeValue = manyToOneProp.GetValue(entity);
+                if (atributeValue != null)
+                {
+                    ManyToOne? manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(manyToOneProp, typeof(ManyToOne));
+                    PropertyInfo? KeyColumn = atributeValue.GetType().GetProperty(manyToOne?.KeyColumn);
+                    PropertyInfo? ForeignKeyColumn = atributeValue.GetType().GetProperty(manyToOne?.ForeignKeyColumn);
+                    if (ForeignKeyColumn != null)
+                    {
+                        var FK = entity.GetType().GetProperty(ForeignKeyColumn.Name);
+                        if (FK?.GetValue(entity) == null)
+                        {
+                            var keyVal = atributeValue?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(atributeValue);
+                            FK?.SetValue(entity, keyVal);
+                        }
+                    }
+                }
+            }
+        }
+
         private void InsertRelationatedObject(object foreingKeyValue, object entity, PropertyInfo foreignKeyColumn)
         {
             try
@@ -158,11 +165,63 @@ namespace CAPA_DATOS
             }
         }
 
-        public object UpdateObject(Object Inst, string[] IdObject)
+        public object UpdateObject(Object entity, string[] IdObject)
         {
             Console.WriteLine("-- ==================> UpdateObject(Object Inst, string[] IdObject)");
-            string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
-            return ExcuteSqlQuery(strQuery);
+            List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
+            List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
+            List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
+            // SELECCIONAR LOS VALORES DE LAS LLAVES PRIMARIAS DE LOS MANYTOONE
+            SetManyToOnePropiertys(entity, manyToOneProps);
+            string strQuery = BuildUpdateQueryByObject(entity, IdObject);
+
+            var method = entity.GetType().GetMethods()
+                            .FirstOrDefault(mi => mi.Name == "SimpleFind" && mi.GetParameters().Count() == 0);
+            if (method != null)
+            {
+                List<PropertyInfo> oneToManyPropiertys = entityProps.Where(p =>
+                    Attribute.GetCustomAttribute(p, typeof(OneToMany)) != null).ToList();
+                object? tempEntity = method?.GetGenericMethodDefinition()?.MakeGenericMethod(entity?.GetType())
+                    .Invoke(entity, new object[] { });
+                foreach (var oneToManyProp in oneToManyPropiertys)
+                {
+                    string? atributeName = oneToManyProp.Name;
+                    var atributeValue = oneToManyProp.GetValue(entity);
+                    var tempAtributeValue = oneToManyProp.GetValue(tempEntity);
+                    if (atributeValue != null)
+                    {
+                        OneToMany? oneToMany = (OneToMany?)Attribute.GetCustomAttribute(oneToManyProp, typeof(OneToMany));
+                        foreach (var valueT in ((IEnumerable)tempAtributeValue))
+                        {
+                            bool exists = false;
+                            foreach (var valueE in ((IEnumerable)atributeValue))
+                            { 
+                                if (valueT.Equals(valueE))
+                                {
+                                    exists = true;
+                                }
+                            }
+                            if (!exists)
+                            {
+                                Delete(valueT);
+                            }
+                        }
+                        foreach (var value in ((IEnumerable)atributeValue))
+                        {
+                            PropertyInfo? KeyColumn = value.GetType().GetProperty(oneToMany?.KeyColumn);
+                            PropertyInfo? ForeignKeyColumn = value.GetType().GetProperty(oneToMany?.ForeignKeyColumn);
+                            if (ForeignKeyColumn != null)
+                            {
+                                var primaryKeyValue = entity?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(entity);
+                                InsertRelationatedObject(primaryKeyValue, value, ForeignKeyColumn);
+                            }
+                        }
+                    }
+                }
+            }
+
+            ExcuteSqlQuery(strQuery);
+            return entity;
 
         }
         public object UpdateObject(Object Inst, string IdObject)
@@ -203,7 +262,7 @@ namespace CAPA_DATOS
             }
         }
 
-       
+
 
         public T? TakeObject<T>(Object Inst, string CondSQL = "")
         {
