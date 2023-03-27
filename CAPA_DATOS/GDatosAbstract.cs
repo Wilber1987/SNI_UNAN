@@ -39,18 +39,21 @@ namespace CAPA_DATOS
         }
         public void BeginTransaction()
         {
+            Console.WriteLine("===============> BEGIN TRANSACTION <=================");
             MTConnection = SQLMCon();
             SQLMCon().Open();
             this.MTransaccion = SQLMCon().BeginTransaction();
         }
         public void CommitTransaction()
         {
+            Console.WriteLine("===============> COMMIT TRANSACTION <=================");
             this.MTransaccion?.Commit();
             SQLMCon().Close();
             MTConnection = null;
         }
         public void RollBackTransaction()
         {
+            Console.WriteLine("===============> ROOLBACK TRANSACTION <=================");
             this.MTransaccion?.Rollback();
             SQLMCon().Close();
             MTConnection = null;
@@ -81,33 +84,16 @@ namespace CAPA_DATOS
         //ORM INSERT, DELETE, UPDATES METHODS
         public object InsertObject(Object entity)
         {
+            Console.WriteLine("->");
             Console.WriteLine("===================>  InsertObject(" + entity.GetType().Name + ")");
             List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
             List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
             List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
             // SELECCIONAR LOS VALORES DE LAS LLAVES PRIMARIAS DE LOS MANYTOONE
-            foreach (var manyToOneProp in manyToOneProps)
-            {
-                string? atributeName = manyToOneProp.Name;
-                var atributeValue = manyToOneProp.GetValue(entity);
-                if (atributeValue != null)
-                {
-                    ManyToOne? manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(manyToOneProp, typeof(ManyToOne));
-                    PropertyInfo? KeyColumn = atributeValue.GetType().GetProperty(manyToOne?.KeyColumn);
-                    PropertyInfo? ForeignKeyColumn = atributeValue.GetType().GetProperty(manyToOne?.ForeignKeyColumn);
-                    if (ForeignKeyColumn != null)
-                    {
-                        var FK = entity.GetType().GetProperty(ForeignKeyColumn.Name);
-                        if (FK?.GetValue(entity) == null)
-                        {
-                            var keyVal = atributeValue?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(atributeValue);
-                            FK?.SetValue(entity, keyVal);
-                        }
-                    }
-                }
-            }
+            SetManyToOnePropiertys(entity, manyToOneProps);
             string strQuery = BuildInsertQueryByObject(entity);
             object idGenerated = ExcuteSqlQuery(strQuery);
+
             if (pimaryKeyPropiertys.Count == 1)
             {
                 PrimaryKey? pkInfo = (PrimaryKey?)Attribute.GetCustomAttribute(pimaryKeyPropiertys[0], typeof(PrimaryKey));
@@ -139,34 +125,116 @@ namespace CAPA_DATOS
             }
             return entity;
         }
-        private void InsertRelationatedObject(object foreingKeyValue, object entity, PropertyInfo foreignKeyColumn)
+
+        private static void SetManyToOnePropiertys(object entity, List<PropertyInfo> manyToOneProps)
         {
-            try
+            if (manyToOneProps == null) return;
+            foreach (var manyToOneProp in manyToOneProps)
             {
-                foreignKeyColumn.SetValue(entity, foreingKeyValue);
-                List<PropertyInfo> lst = entity.GetType().GetProperties().ToList();
-                var pkPropiertys = lst.Where(p => (PrimaryKey?)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
-                var values = pkPropiertys.Where(p => p.GetValue(entity) != null).ToList();
-                if (pkPropiertys.Count == values.Count) UpdateObject(entity, pkPropiertys.Select(p => p.Name).ToArray());
-                else this.InsertObject(entity);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("===================> InsertRelationatedObject(...): ");
-                Console.WriteLine("Error al insertar objeto relacionado  " + ex.Message);
-                throw;
+                var atributeValue = manyToOneProp.GetValue(entity);
+                if (atributeValue != null)
+                {
+                    ManyToOne? manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(manyToOneProp, typeof(ManyToOne));
+                    PropertyInfo? KeyColumn = atributeValue.GetType().GetProperty(manyToOne?.KeyColumn);
+                    PropertyInfo? ForeignKeyColumn = atributeValue.GetType().GetProperty(manyToOne?.ForeignKeyColumn);
+                    if (ForeignKeyColumn != null)
+                    {
+                        var FK = entity.GetType().GetProperty(ForeignKeyColumn.Name);
+                        if (FK?.GetValue(entity) == null)
+                        {
+                            var keyVal = atributeValue?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(atributeValue);
+                            FK?.SetValue(entity, keyVal);
+                        }
+                    }
+                }
             }
         }
 
-        public object UpdateObject(Object Inst, string[] IdObject)
+        private void InsertRelationatedObject(object foreingKeyValue, object entity, PropertyInfo foreignKeyColumn)
         {
+            string action = "InsertO";
+            Console.WriteLine("===================> InsertRelationatedObject( -> " + entity.GetType().Name + "): ");
+            foreignKeyColumn.SetValue(entity, foreingKeyValue);
+            List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
+            var pkPropiertys = entityProps.Where(p => (PrimaryKey?)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
+            var values = pkPropiertys.Where(p => p.GetValue(entity) != null).ToList();
+            if (pkPropiertys.Count == values.Count)
+            {
+                action = "Update";
+                UpdateObject(entity, pkPropiertys.Select(p => p.Name).ToArray());
+            }
+            else this.InsertObject(entity);
+
+        }
+
+        public object UpdateObject(Object entity, string[] IdObject)
+        {
+            Console.WriteLine("->");
             Console.WriteLine("-- ==================> UpdateObject(Object Inst, string[] IdObject)");
-            string strQuery = BuildUpdateQueryByObject(Inst, IdObject);
-            return ExcuteSqlQuery(strQuery);
+            List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
+            List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
+            List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
+            // SELECCIONAR LOS VALORES DE LAS LLAVES PRIMARIAS DE LOS MANYTOONE
+            SetManyToOnePropiertys(entity, manyToOneProps);
+            string strQuery = BuildUpdateQueryByObject(entity, IdObject);
+
+            var methods = entity.GetType().GetMethods();
+            var method = methods.FirstOrDefault(mi => mi.Name == "Find" && mi.GetParameters().Count() == 0);
+            if (method != null)
+            {
+                List<PropertyInfo> oneToManyPropiertys = entityProps.Where(p =>
+                    Attribute.GetCustomAttribute(p, typeof(OneToMany)) != null).ToList();
+                object? tempEntity = method?.GetGenericMethodDefinition()?.MakeGenericMethod(entity?.GetType())
+                    .Invoke(entity, new object[] { });
+                foreach (var oneToManyProp in oneToManyPropiertys)
+                {
+                    string? atributeName = oneToManyProp.Name;
+                    var atributeValue = oneToManyProp.GetValue(entity);
+                    if (atributeValue != null)
+                    {
+                        List<PropertyInfo> atributeValueManyToOneProps = atributeValue.GetType().GetProperties().Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
+                        SetManyToOnePropiertys(atributeValue, atributeValueManyToOneProps);
+                        OneToMany? oneToMany = (OneToMany?)Attribute.GetCustomAttribute(oneToManyProp, typeof(OneToMany));
+                        if (tempEntity != null && oneToManyProp.GetValue(tempEntity) != null)
+                        {
+                            var tempAtributeValue = oneToManyProp.GetValue(tempEntity);
+                            foreach (var valueT in ((IEnumerable)tempAtributeValue))
+                            {
+                                bool exists = false;
+                                foreach (var valueE in ((IEnumerable)atributeValue))
+                                {
+                                    if (JsonCompare(valueT, valueE))
+                                    {
+                                        exists = true;
+                                    }
+                                }
+                                if (!exists)
+                                {
+                                    Delete(valueT);
+                                }
+                            }
+                        }
+                        foreach (var value in ((IEnumerable)atributeValue))
+                        {
+                            PropertyInfo? KeyColumn = value.GetType().GetProperty(oneToMany?.KeyColumn);
+                            PropertyInfo? ForeignKeyColumn = value.GetType().GetProperty(oneToMany?.ForeignKeyColumn);
+                            if (ForeignKeyColumn != null)
+                            {
+                                var primaryKeyValue = entity?.GetType()?.GetProperty(KeyColumn?.Name)?.GetValue(entity);
+                                InsertRelationatedObject(primaryKeyValue, value, ForeignKeyColumn);
+                            }
+                        }
+                    }
+                }
+            }
+
+            ExcuteSqlQuery(strQuery);
+            return entity;
 
         }
         public object UpdateObject(Object Inst, string IdObject)
         {
+            Console.WriteLine("->");
             Console.WriteLine("-- ==================> UpdateObject(Object Inst, string IdObject)");
             if (Inst.GetType().GetProperty(IdObject)?.GetValue(Inst) == null)
             {
@@ -179,6 +247,7 @@ namespace CAPA_DATOS
         }
         public object Delete(Object Inst)
         {
+            Console.WriteLine("->");
             Console.WriteLine("-- ==================> Delete(Object Inst)");
             string strQuery = BuildDeleteQuery(Inst);
             return ExcuteSqlQuery(strQuery);
@@ -189,6 +258,7 @@ namespace CAPA_DATOS
         {
             try
             {
+                Console.WriteLine("->");
                 Console.WriteLine("-- ==================> TakeList<T>(" +
                     Inst.GetType().Name + ",fullEntity: " +
                     fullEntity.ToString() + ", condition: " + CondSQL + ")");
@@ -203,10 +273,11 @@ namespace CAPA_DATOS
             }
         }
 
-       
+
 
         public T? TakeObject<T>(Object Inst, string CondSQL = "")
         {
+            Console.WriteLine("->");
             Console.WriteLine("-- ==================> TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = )");
             DataTable Table = BuildTable(Inst, ref CondSQL, true, true);
             if (Table.Rows.Count != 0)
@@ -224,6 +295,7 @@ namespace CAPA_DATOS
         protected private DataTable BuildTable(object Inst, ref string CondSQL, bool fullEntity = true, bool isFind = true)
         {
             string queryString = BuildSelectQuery(Inst, CondSQL, fullEntity, isFind);
+            Console.WriteLine("->");
             Console.WriteLine(queryString);
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
@@ -353,6 +425,17 @@ namespace CAPA_DATOS
         //    var result = method.GetGenericMethodDefinition().MakeGenericMethod(relationatedEntityType).Invoke(relationatedEntityInstance, new object[] { });
         //    oProperty.SetValue(item, result, null);
         //}
+        public static bool JsonCompare(object obj, object another)
+        {
+            if (ReferenceEquals(obj, another)) return true;
+            if ((obj == null) || (another == null)) return false;
+            if (obj.GetType() != another.GetType()) return false;
+
+            var objJson = JsonConvert.SerializeObject(obj);
+            var anotherJson = JsonConvert.SerializeObject(another);
+
+            return objJson == anotherJson;
+        }
 
     }
 }

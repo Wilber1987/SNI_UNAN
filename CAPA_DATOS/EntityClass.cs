@@ -29,7 +29,7 @@ namespace CAPA_DATOS
         {
             var Data = SqlADOConexion.SQLM != null ? SqlADOConexion.SQLM.TakeObject<T>(this) : default(T);
             return Data;
-        }        
+        }
         public List<T> Get<T>(string condition)
         {
             var Data = SqlADOConexion.SQLM?.TakeList<T>(this, true, condition);
@@ -70,26 +70,28 @@ namespace CAPA_DATOS
                 SqlADOConexion.SQLM?.CommitTransaction();
                 return result;
             }
-            catch (Exception E)
+            catch (Exception e)
             {
                 SqlADOConexion.SQLM?.RollBackTransaction();
-                throw E;
+                throw e;
             }
         }
         public object? Update()
         {
             try
-            {
+            {              
                 PropertyInfo[] lst = this.GetType().GetProperties();
                 var pkPropiertys = lst.Where(p => (PrimaryKey?)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
                 var values = pkPropiertys.Where(p => p.GetValue(this) != null).ToList();
-                if (pkPropiertys.Count == values.Count) this.Update(pkPropiertys.Select(p => p.Name).ToArray());
+                if (pkPropiertys.Count == values.Count) { 
+                    this.Update(pkPropiertys.Select(p => p.Name).ToArray());
+                    return this;
+                }
                 else return false;
-                return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
         public bool Update(string Id)
@@ -101,10 +103,10 @@ namespace CAPA_DATOS
                 SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 SqlADOConexion.SQLM?.RollBackTransaction();
-                return false;
+                throw e;
             }
         }
         public bool Update(string[] Id)
@@ -116,10 +118,10 @@ namespace CAPA_DATOS
                 SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 SqlADOConexion.SQLM?.RollBackTransaction();
-                return false;
+                throw e;
             }
         }
         public bool Delete()
@@ -131,10 +133,10 @@ namespace CAPA_DATOS
                 SqlADOConexion.SQLM?.CommitTransaction();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 SqlADOConexion.SQLM?.RollBackTransaction();
-                return false;
+                throw e;
             }
         }
     }

@@ -1,3 +1,4 @@
+
 import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableCalendario, ProyectoTableEvidencias, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
 import { ViewCalendarioByDependencia } from '../../../Model/DBOViewModel.js';
 import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
@@ -11,6 +12,7 @@ import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.j
 import { ComponentsManager, WArrayF, WRender } from '../../../WDevCore/WModules/WComponentsTools.js';
 import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
 import { WCssClass, WStyledRender, css } from '../../../WDevCore/WModules/WStyledRender.js';
+import { TaskManagers } from './TaskManager.js';
 
 const OnLoad = async () => {
     Aside.append(WRender.Create({ tagName: "h3", innerText: "Administración de perfiles" }));
@@ -37,23 +39,35 @@ class MainProyect extends HTMLElement {
         Direction: "column",
         Inicialize: true,
         DarkMode: true,
-        Elements: [
-            {
-                name: "Datos Generales",
-                action: async (ev) => {
-                    this.TabManager.NavigateFunction("Tab-Generales",
-                        new MainProyects());
-                }
-            }, {
-                name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
+        Elements: [{
+            name: "Tareas", action: async (ev) => { this.NavChargeTasks(); }
+        },
+        {
+            name: "Datos Generales",
+            action: async (ev) => {
+                this.TabManager.NavigateFunction("Tab-Generales",
+                    new MainProyects());
             }
+        }, {
+            name: "Tareas", action: async (ev) => { this.NavChargeTasks(); }
+        }, {
+            name: "Mis Tareas", action: async (ev) => { this.NavChargeOWTasks(); }
+        }, {
+            name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
+        }
         ]
     });
     connectedCallback() { }
     DrawComponent = async () => {
         this.append(this.OptionContainer, this.TabContainer);
     }
+    NavChargeTasks = async () => {
+        const tasks = await new ProyectoTableTareas().Get();
+        this.TabManager.NavigateFunction("Tab-Tasks-Manager", new TaskManagers(tasks));
+    }
+    NavChargeOWTasks = async () => {
 
+    }
     WStyle = new WStyledRender({
         ClassList: [
             new WCssClass(`.MainProyect`, {

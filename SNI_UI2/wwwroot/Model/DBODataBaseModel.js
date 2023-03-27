@@ -650,8 +650,8 @@ class ProyectoTableTareas extends EntityClass {
     IdActividad = { type: 'number', hidden: true, value: undefined };
     Descripcion = { type: 'text', hiddenInTable: true };
     ProyectoTableTarea = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
-    ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
-    Estado = { type: "Select", Dataset: ["Finalizada", "Activo", "Inactivo"] };
+    //ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
+    Estado = { type: "Select", Dataset: [ "Activo", "En Proceso", "En Espera","Finalizada", "Inactivo"] };
     ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
     //ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
     ProyectoTableCalendario = {
