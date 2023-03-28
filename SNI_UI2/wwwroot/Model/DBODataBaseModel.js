@@ -650,8 +650,8 @@ class ProyectoTableTareas extends EntityClass {
     IdActividad = { type: 'number', hidden: true, value: undefined };
     Descripcion = { type: 'text', hiddenInTable: true };
     ProyectoTableTarea = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
-    ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
-    Estado = { type: "Select", Dataset: [ "Activo", "En Proceso", "En Espera","Finalizada", "Inactivo"] };
+    //ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
+    Estado = { type: "Select", Dataset: ["Activo", "En Proceso", "En Espera", "Finalizada", "Inactivo"] };
     ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
     //ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
     ProyectoTableCalendario = {
@@ -661,6 +661,9 @@ class ProyectoTableTareas extends EntityClass {
         hiddenInTable: true,
         CalendarFunction: () => { }
     };
+    GetOwParticipations = async () => {
+        return await this.GetData("Proyect/GetOwParticipations");
+    }
 }
 export { ProyectoTableTareas }
 class ProyectoTableParticipantes extends EntityClass {
@@ -671,7 +674,7 @@ class ProyectoTableParticipantes extends EntityClass {
         }
     }
     Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
-    ProyectoCatTipoParticipaciones = { type: 'WSelect', ModelObject: () => new ProyectoCatTipoParticipaciones() }
+    ProyectoCatTipoParticipaciones = { type: 'WSelect', ModelObject: () => new ProyectoCatTipoParticipaciones() }    
 }
 export { ProyectoTableParticipantes }
 class ProyectoCatCargosDependencias extends EntityClass {

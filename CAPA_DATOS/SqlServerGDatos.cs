@@ -217,7 +217,7 @@ namespace CAPA_DATOS
                         + BuildSelectQuery(manyToOneInstance, condition, false)
                         + "),'$.object[0]'),";
                 }
-                else if (oneToMany != null && fullEntity && isFind)
+                else if (oneToMany != null && fullEntity)
                 {
                     var oneToManyInstance = Activator.CreateInstance(oProperty.PropertyType.GetGenericArguments()[0]);
                     string condition = " " + oneToMany.ForeignKeyColumn + " = " + tableAlias + "." + oneToMany.KeyColumn + " FOR JSON PATH";

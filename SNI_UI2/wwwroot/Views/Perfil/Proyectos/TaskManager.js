@@ -36,11 +36,11 @@ class TaskManagers extends HTMLElement {
     }
     connectedCallback() { }
     DrawTaskManagers = async () => {
-        this.OptionContainer.append(WRender.Create({
-            tagName: 'input', type: 'button', className: 'Block-Basic',
-            value: 'Tareas', onclick: this.tareasManager
-        }))
-        this.shadowRoot.append(this.OptionContainer, this.TabContainer);
+        // this.OptionContainer.append(WRender.Create({
+        //     tagName: 'input', type: 'button', className: 'Block-Basic',
+        //     value: 'Tareas', onclick: this.tareasManager
+        // }))
+        this.shadowRoot.append(this.TabContainer);
         this.tareasManager();
     }
     tareasManager = () => {
@@ -80,8 +80,14 @@ class TaskManagers extends HTMLElement {
                 ev.dataTransfer.setData("text", ev.target.id);
             }, children: [
                 { tagName: "label", class: "task-title", innerText: task.Titulo },
+                { tagName: "label", class: "task-detail", innerText: task.ProyectoTableActividades?.Titulo },
                 { tagName: "p", class: "p-title", innerText: task.Descripcion },
                 {
+                    class: "p-participantes", children: task.ProyectoTableParticipantes?.map(I => ({
+                        tagName: 'img', className: "img-participantes",
+                        src: I.Tbl_InvestigatorProfile?.Foto
+                    }))
+                }, {
                     class: "card-options", children: [{
                         tagName: "buttom", class: "Btn-Mini", innerText: "Editar",
                         onclick: () => this.taskEdit(task)
@@ -89,8 +95,7 @@ class TaskManagers extends HTMLElement {
                         tagName: "buttom", class: "Btn-Mini-Success", innerText: "Detalles",
                         onclick: () => this.taskDetail(task)
                     }]
-                }
-
+                }                
             ]
         })
     }
@@ -106,8 +111,12 @@ class TaskManagers extends HTMLElement {
             require: false,
             CalendarFunction: async () => {
                 return {
-                    Agenda: await new ProyectoTableAgenda({ Id_Dependencia: task.Id_Dependencia }).Get(),
-                    Calendario: await new ProyectoTableCalendario({ Id_Dependencia: task.Id_Dependencia }).Get()
+                    Agenda: await new ProyectoTableAgenda({
+                        Id_Dependencia: task?.ProyectoTableActividades?.Id_Dependencia
+                    }).Get(),
+                    Calendario: await new ProyectoTableCalendario({
+                        Id_Dependencia: task?.ProyectoTableActividades?.Id_Dependencia
+                    }).Get()
                 }
             }
         }
@@ -192,8 +201,25 @@ class TaskManagers extends HTMLElement {
         }
         .p-title {
             height: 100%;
-            padding: 15px;
+            padding: 5px 15px;
             margin: 0px;
+        }
+        .task-detail{
+            padding: 5px 15px; 
+            font-weight: bold;
+        }
+        .p-participantes{
+            display: flex;
+            padding: 5px 15px;
+        }
+        .img-participantes {
+            padding: 0;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
         }
     `
 }
