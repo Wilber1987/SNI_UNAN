@@ -75,7 +75,7 @@ class HomeView extends HTMLElement {
                 Search: true, UrlSearch: 'api_route',
                 Add: true, UrlAdd: 'api_route',
                 UserActions: [{
-                    name: 'Ver Detalle', Function: async (TableElement) => {
+                    name: 'Ver Detalle', action: async (TableElement) => {
                         this.append(new WModalForm({
                             ObjectModal: new ViewActivityComponent(TableElement),
                             ShadowRoot: false,

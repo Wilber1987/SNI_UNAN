@@ -24,7 +24,7 @@ class ReservarComponent extends HTMLElement {
     DrawComponent = async () => {
         const calendar = new WCalendar({
             id: "Calendar",
-            Function: async (DateParam) => {
+            action: async (DateParam) => {
                 if (this.ObjectActividad.IdDependencia == undefined) {
                     this.append(new WModalForm({
                         title: "Alert",

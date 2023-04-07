@@ -112,7 +112,7 @@ class ViewProyectsTab extends HTMLElement {
                 Search: true,
                 ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                 UserActions: [{
-                    name: "Detalles", Function: async (Article) => {
+                    name: "Detalles", action: async (Article) => {
                         this.LoadProyect(Article.Id_Proyecto);
                     }
                 }]

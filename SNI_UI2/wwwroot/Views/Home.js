@@ -33,7 +33,7 @@ class HomeClass extends HTMLElement {
                 Search: true,
                 ApiUrlSearch: "api/Investigaciones/TakeInvestigaciones",
                 UserActions: [{
-                    name: "Leer...", Function: async (Investigacion) => {
+                    name: "Leer...", action: async (Investigacion) => {
                         await ChargeInvestigacion(Investigacion, this.DOMManager);
                     }
                 }]

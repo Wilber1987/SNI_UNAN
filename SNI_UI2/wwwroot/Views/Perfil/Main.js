@@ -4,12 +4,15 @@ import { WCssClass } from '../../WDevCore/WModules/WStyledRender.js';
 import { StyleScrolls } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WAppNavigator } from "../../WDevCore/WComponents/WAppNavigator.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
-Header.append(WRender.createElement({
+Aside.append(WRender.Create({ tagName: "h3", innerText: "Navegación General" }));
+Aside.append(WRender.createElement({
     type: "w-app-navigator",
     props: {
         Inicialize: false,
         alignItems: "flex-end",
         DisplayMode: "right",
+        DarkMode: true,
+        Direction: "column",
         Elements: [
             {
                 name: "Home", url: "#",
@@ -17,11 +20,16 @@ Header.append(WRender.createElement({
                     window.location = location.origin + "/";
                 }
             }, {
-                name: "Proyectos", url: "#",
+                name: "Gestión de Actividades", url: "#",
                 action: async (ev) => {
                     window.location = location.origin + "/Perfil/Proyectos";
                 }
-            }, {
+            },{
+                name: "Gestión de Perfil", url: "#",
+                action: async (ev) => {
+                    window.location = location.origin + "/Perfil/PerfilView";
+                }
+            },  {
                 name: "Opciones", url: "#",
                 action: (ev) => {
                     const ModalPerfil = new WModalForm({

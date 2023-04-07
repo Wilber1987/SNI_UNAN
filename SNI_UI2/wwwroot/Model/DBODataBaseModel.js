@@ -34,7 +34,7 @@ class Cat_Tipo_Proceso_Editorial extends EntityClass {
         }
     }
     Id_Tipo_Proceso_Editorial = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     TblProcesosEditoriales = { type: 'MasterDetail', ModelObject: () => new TblProcesosEditoriales() };
 }
@@ -47,7 +47,7 @@ class Cat_Idiomas extends EntityClass {
         }
     }
     Id_Idioma = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     Tbl_IdiomasInv = { type: 'MasterDetail', ModelObject: () => new Tbl_IdiomasInv() };
 }
@@ -284,7 +284,7 @@ class TblProcesosEditoriales extends EntityClass {
         }
     }
     Id_Proceso_Editorial = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Fecha = { type: 'date' };
     Cat_Tipo_Proceso_Editorial = { type: 'WSelect', ModelObject: () => new Cat_Tipo_Proceso_Editorial() };
 }
@@ -651,7 +651,7 @@ class ProyectoTableTareas extends EntityClass {
     Descripcion = { type: 'text', hiddenInTable: true };
     ProyectoTableTarea = { type: 'WSelect', ModelObject: () => new ProyectoTableTareas() };
     //ProyectoTableTareasHijas = { type: 'MULTISELECT', ModelObject: () => new ProyectoTableTareas() };
-    Estado = { type: "Select", Dataset: [ "Activo", "En Proceso", "En Espera","Finalizada", "Inactivo"] };
+    Estado = { type: "Select", Dataset: ["Activo", "En Proceso", "En Espera", "Finalizada", "Inactivo"] };
     ProyectoTableParticipantes = { type: 'MasterDetail', ModelObject: () => new ProyectoTableParticipantes() };
     //ProyectoTableEvidencias = { type: 'MasterDetail', require: false, ModelObject: () => new ProyectoTableEvidencias() };
     ProyectoTableCalendario = {
@@ -661,6 +661,9 @@ class ProyectoTableTareas extends EntityClass {
         hiddenInTable: true,
         CalendarFunction: () => { }
     };
+    GetOwParticipations = async () => {
+        return await this.GetData("Proyect/GetOwParticipations");
+    }
 }
 export { ProyectoTableTareas }
 class ProyectoTableParticipantes extends EntityClass {
@@ -671,7 +674,7 @@ class ProyectoTableParticipantes extends EntityClass {
         }
     }
     Tbl_InvestigatorProfile = { type: 'WSelect', ModelObject: () => new Tbl_InvestigatorProfile() }
-    ProyectoCatTipoParticipaciones = { type: 'WSelect', ModelObject: () => new ProyectoCatTipoParticipaciones() }
+    ProyectoCatTipoParticipaciones = { type: 'WSelect', ModelObject: () => new ProyectoCatTipoParticipaciones() }    
 }
 export { ProyectoTableParticipantes }
 class ProyectoCatCargosDependencias extends EntityClass {
