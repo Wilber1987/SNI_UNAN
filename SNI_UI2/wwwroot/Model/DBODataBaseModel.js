@@ -34,7 +34,7 @@ class Cat_Tipo_Proceso_Editorial extends EntityClass {
         }
     }
     Id_Tipo_Proceso_Editorial = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     TblProcesosEditoriales = { type: 'MasterDetail', ModelObject: () => new TblProcesosEditoriales() };
 }
@@ -47,7 +47,7 @@ class Cat_Idiomas extends EntityClass {
         }
     }
     Id_Idioma = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
     Tbl_IdiomasInv = { type: 'MasterDetail', ModelObject: () => new Tbl_IdiomasInv() };
 }
@@ -284,7 +284,7 @@ class TblProcesosEditoriales extends EntityClass {
         }
     }
     Id_Proceso_Editorial = { type: 'number', primary: true };
-    Descripcion = { type: 'text', hiddenInTable: true };
+    Descripcion = { type: 'text' };
     Fecha = { type: 'date' };
     Cat_Tipo_Proceso_Editorial = { type: 'WSelect', ModelObject: () => new Cat_Tipo_Proceso_Editorial() };
 }
@@ -622,6 +622,9 @@ class ProyectoTableActividades extends EntityClass {
     Fecha_Final = { type: 'date' };
     ProyectoCatDependencias = { type: 'WSelect', ModelObject: () => new ProyectoCatDependencias() };
     ProyectoTableTareas = { type: 'MasterDetail', ModelObject: () => new ProyectoTableTareas() };
+    GetOwActivities = async () => {
+        return await this.GetData("Proyect/GetOwActivities");
+    }
 }
 export { ProyectoTableActividades }
 class ProyectoTableCalendario extends EntityClass {

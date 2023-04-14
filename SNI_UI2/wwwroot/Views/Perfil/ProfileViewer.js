@@ -226,7 +226,7 @@ class ProfileTab extends HTMLElement {
             };
             if (action) {
                 TableConfigG.Options.UserActions.push({
-                    name: "Leer..", Function: (element) => {                        
+                    name: "Leer..", action: (element) => {                        
                         switch (idAction) {
                             case "Id_Investigacion":
                                 ChargeInvestigacion(element, DOMManager)

@@ -81,7 +81,7 @@ class TaskManagers extends HTMLElement {
             }, children: [
                 { tagName: "label", class: "task-title", innerText: task.Titulo },
                 { tagName: "label", class: "task-detail", innerText: task.ProyectoTableActividades?.Titulo },
-                { tagName: "p", class: "p-title", innerText: task.Descripcion },
+                //{ tagName: "p", class: "p-title", innerText: task.Descripcion },
                 {
                     class: "p-participantes", children: task.ProyectoTableParticipantes?.map(I => ({
                         tagName: 'img', className: "img-participantes",
@@ -123,7 +123,7 @@ class TaskManagers extends HTMLElement {
         this.TaskModel.ProyectoTableCalendario = CalendarModel;
         this.shadowRoot.append(new WModalForm({
             EditObject: task,
-            Autosave: true,
+            AutoSave: true,
             ModelObject: this.TaskModel
         }))
     }
@@ -157,65 +157,65 @@ class TaskManagers extends HTMLElement {
             overflow-y: hidden;
             padding: 20px;
             gap: 20px;
-            height: 700px;
+            height: 540px;
         } 
         .panel {
             padding: 15px;
             border-radius: 10px;
             background-color: #eee;
-            overflow-y: auto;
+            overflow-y: auto;            
+            border: 1px solid #e2e2e2;
         }
         .task-card {
             background-color: #fff;
-            height: 200px;
+            height: 130px;
             border-radius: 10px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             margin-bottom: 15px;
             min-width: calc(100% );
-            justify-content: space-between;
             box-shadow: 0 0 5px 0 #adacac;
         }
         .task-title{
-            padding: 10px;
-            font-size: 18px;
+            padding: 10px 10px;
+            font-size: 14px;
             font-weight: bold;
             background-color: #eee;
             cursor: pointer;
         }
         .card-options {
-            padding: 10px;
+            padding: 0px;
             width:  calc(100% - 20px);
-            height: 30px;
+            height: 25px;
             justify-content: flex-end;
             display: flex;
         }
         .title-panel {
-            font-size: 20px; 
+            font-size: 16px; 
             text-transform: uppercase;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: block;
             color: #0a1338;
         }
         .p-title {
             height: 100%;
-            padding: 5px 15px;
+            padding: 5px 10px;
             margin: 0px;
         }
         .task-detail{
-            padding: 5px 15px; 
-            font-weight: bold;
+            padding: 5px 10px; 
+            font-size: 11px
         }
         .p-participantes{
             display: flex;
-            padding: 5px 15px;
+            padding: 5px 10px;
         }
         .img-participantes {
             padding: 0;
-            height: 40px;
-            width: 40px;
+            height: 25px;
+            width: 25px;
             border-radius: 50%;
             margin-right: 5px;
             overflow: hidden;

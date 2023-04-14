@@ -144,7 +144,7 @@ class PerfilClass extends HTMLElement {
                         Search: true, UrlSearch: '../../api/Group/GetGruposInvestigador',
                         Add: true, UrlAdd: '../../api/Group/SaveGroup',
                         UserActions: [{
-                            name: 'Ver Detalle', Function: async (TableElement) => {
+                            name: 'Ver Detalle', action: async (TableElement) => {
 
                             }
                         }]
@@ -204,7 +204,7 @@ class PerfilClass extends HTMLElement {
             Eventos, Model,
             ["Id_Tipo_Evento", "nombre", "Modalidad", "Link"], [{
                 name: "Invitar",
-                Function: (Evento) => {
+                action: (Evento) => {
                     const table = new WTableComponent({
                         Dataset: Id_Investigador,
                         maxElementByPage: 5,

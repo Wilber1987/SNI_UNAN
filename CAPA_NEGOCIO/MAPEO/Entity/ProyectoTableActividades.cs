@@ -78,6 +78,13 @@ namespace CAPA_NEGOCIO.MAPEO
             }
             return this;
         }
+        public List<ProyectoTableActividades> GetOwActivities()
+        {
+            return new ProyectoTableActividades()
+            {
+                Id_Investigador = AuthNetCore.User().UserId
+            }.Get<ProyectoTableActividades>();
+        }
     }
 
     public class ProyectoCatCargosDependencias : EntityClass
@@ -195,6 +202,15 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<ProyectoTableParticipantes>? ProyectoTableParticipantes { get; set; }
         [OneToMany(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTareaPadre")]
         public List<ProyectoTableTareas>? ProyectoTableTareasHijas { get; set; }
+        public List<ProyectoTableTareas> GetOwParticipations()
+        {
+            ProyectoTableParticipantes Inst = new ProyectoTableParticipantes();
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return new ProyectoTableTareas().Get_WhereIN<ProyectoTableTareas>(
+                "IdTarea", Inst.Get<ProyectoTableParticipantes>().Select(p => p.IdTarea.ToString()).ToArray()
+            );
+        }
+
     }
     public class ProyectoTableParticipantes : EntityClass
     {

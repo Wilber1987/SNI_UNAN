@@ -30,7 +30,7 @@ function Investigacion(TabName = "Investigaciones", DOMManager) {
                     Search: true, UrlSearch: "../api/Admin/TakeInvestigaciones",
                     UserActions: [
                         {
-                            name: "Ver detalles", Function: async (Inv) => {
+                            name: "Ver detalles", action: async (Inv) => {
                                 const Id_Investigacion = Inv.Id_Investigacion;
                                 const response = await WAjaxTools.PostRequest("../api/Investigaciones/TakeInvestigacion",
                                     { Id_Investigacion: Id_Investigacion });

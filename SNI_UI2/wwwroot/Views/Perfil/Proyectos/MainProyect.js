@@ -42,12 +42,15 @@ class MainProyect extends HTMLElement {
             {
                 name: "Datos Generales",
                 action: async (ev) => {
+                    const dataset = await new ProyectoTableActividades().Get();
                     this.TabManager.NavigateFunction("Tab-Generales",
-                        new MainProyects());
+                        new MainProyects(dataset));
                 }
             }, {
-                name: "Tareas", action: async (ev) => { this.NavChargeTasks(); }
+                name: "Mis Actividades", action: async (ev) => { this.NavChargeActividades(); }
             }, {
+                name: "Tareas", action: async (ev) => { this.NavChargeTasks(); }
+            },{
                 name: "Mis Tareas", action: async (ev) => { this.NavChargeOWTasks(); }
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
@@ -57,14 +60,23 @@ class MainProyect extends HTMLElement {
     DrawComponent = async () => {
         this.append(this.OptionContainer, this.TabContainer);
     }
+    NavChargeActividades = async () => {
+        const dataset = await new ProyectoTableActividades().GetOwActivities();
+        this.TabManager.NavigateFunction("Tab-OwActividades",
+            new MainProyects(dataset));
+    }
     NavChargeTasks = async () => {
         const tasks = await new ProyectoTableTareas().Get();
         this.TabManager.NavigateFunction("Tab-Tasks-Manager", new TaskManagers(tasks));
     }
     NavChargeOWTasks = async () => {
         const tasks = await new ProyectoTableTareas().GetOwParticipations();
-        this.TabManager.NavigateFunction("Tab-OWTasks-Manager", new TaskManagers(tasks));
+        this.TabManager.NavigateFunction("Tab-OWTasks-Manager", this.ChargeTasks(tasks));
     }
+    ChargeTasks(tasks){
+        return new TaskManagers(tasks)
+    }
+    
     WStyle = new WStyledRender({
         ClassList: [
             new WCssClass(`.MainProyect`, {
@@ -96,8 +108,9 @@ class MainProyect extends HTMLElement {
 
 customElements.define('w-proyect-class', MainProyect);
 class MainProyects extends HTMLElement {
-    constructor() {
+    constructor(Dataset) {
         super();
+        this.Dataset = Dataset;
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(this.WStyle, StylesControlsV2.cloneNode(true), StylesControlsV3.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
@@ -109,7 +122,7 @@ class MainProyects extends HTMLElement {
     DrawMainProyects = async () => {
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Basic', value: 'Estadística', onclick: this.dashBoardView }))
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Alert', value: 'Actividades', onclick: this.actividadesManager }))
-        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Secundary', value: 'Dependencias', onclick: this.dependenciasViewer }))
+        //this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Secundary', value: 'Dependencias', onclick: this.dependenciasViewer }))
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Success', value: 'Nueva Actividad', onclick: this.nuevaActividad }))
         this.shadowRoot.append(this.OptionContainer, this.TabContainer);
         //this.dashBoardView();
@@ -141,9 +154,8 @@ class MainProyects extends HTMLElement {
         this.TabManager.NavigateFunction("Tab-Generales",
             WRender.Create({ className: "dashBoardView", children: [radialChartDependencias, radialChart, columChart] }));
     }
-    actividadesManager = async () => {
-        const dataset = await new ProyectoTableActividades().Get();
-        const datasetMap = dataset.map(actividad => {
+    actividadesManager = async () => {       
+        const datasetMap = this.Dataset.map(actividad => {
             actividad.Dependencia = actividad.ProyectoCatDependencias.Descripcion;
             actividad.Progreso = actividad.ProyectoTableTareas?.filter(tarea => tarea.Estado?.includes("Finalizada")).length;
             return this.actividadElement(actividad);
@@ -151,7 +163,8 @@ class MainProyects extends HTMLElement {
         this.TabManager.NavigateFunction("Tab-Actividades-Manager",
             WRender.Create({ className: "actividadesView", children: [new WPaginatorViewer({ Dataset: datasetMap, userStyles: [StylesControlsV2] })] }));
     }
-    actividadElement = (actividad, nameAction = "Detalles") => {
+    
+    actividadElement = (actividad) => {
         return WRender.Create({
             className: "actividad", object: actividad, children: [
                 { tagName: 'h4', innerText: actividad.Descripcion },
@@ -167,16 +180,22 @@ class MainProyects extends HTMLElement {
                 ControlBuilder.BuildProgressBar(actividad.Progreso, actividad.ProyectoTableTareas?.length),
                 {
                     className: "options", children: [
-                        { tagName: 'button', className: 'Btn-Mini', innerText: nameAction, onclick: async () => await this.actividadDetail(actividad, nameAction) },
+                        { tagName: 'button', className: 'Btn-Mini', innerText: "Detalle", onclick: async () => await this.actividadDetail(actividad) },
                         { tagName: 'button', className: 'Btn-Mini', innerText: 'Informe', onclick: this.action }
                     ]
                 },
             ]
         })
     }
-    actividadDetail = async (actividad = (new ProyectoTableActividades()), nameAction = "Detalle") => {
-        if (nameAction == "Regresar") { this.actividadesManager(); return }
-        const actividadDetailView = WRender.Create({ className: "", children: [this.actividadElement(actividad, "Regresar")] });
+    actividadElementDetail = (actividad) => {
+        return WRender.Create({
+            className: "actividadDetail", object: actividad, children: [
+                this.actividadElement(actividad)
+            ]
+        })
+    }
+    actividadDetail = async (actividad = (new ProyectoTableActividades())) => {
+        const actividadDetailView = WRender.Create({ className: "", children: [this.actividadElementDetail(actividad)] });
         const tareasActividad = await new ProyectoTableTareas({ IdActividad: actividad.IdActividad }).Get();
         const taskModel = new ProyectoTableTareas({
             IdActividad: { type: 'number', hidden: true, value: actividad.IdActividad },
@@ -197,14 +216,14 @@ class MainProyects extends HTMLElement {
                 Edit: true, UrlUpdate: "../api/ApiEntityDBO/updateProyectoTableTareas",
                 Search: true, UrlSearch: "../api/ApiEntityDBO/getProyectoTableTareas",
                 UserActions: [{
-                    name: "Nueva Evidencia", Function: (Tarea) => {
+                    name: "Nueva Evidencia", action: (Tarea) => {
                         actividadDetailView.append(new WModalForm({
                             ModelObject: new ProyectoTableEvidencias({ IdTarea: Tarea.IdTarea }),
                             StyleForm: "columnX1"
                         }))
                     }
                 }, {
-                    name: "Ver Evidencias", Function: async (Tarea) => {
+                    name: "Ver Evidencias", action: async (Tarea) => {
                         const response = await new ProyectoTableEvidencias({ IdTarea: Tarea.IdTarea }).Get();
                         actividadDetailView.append(new WModalForm({
                             ObjectModal: new DocumentViewer({
@@ -222,11 +241,12 @@ class MainProyects extends HTMLElement {
         const taskContainer = WRender.Create({ className: "" });
         const tabManager = new ComponentsManager({ MainContainer: taskContainer });
         const taskNav = new WAppNavigator({
-            NavStyle: "tab",
+            //NavStyle: "tab",
             Inicialize: true,
             Elements: [
                 { name: "Vista de panel", action: async (ev) => { tabManager.NavigateFunction("taskPanel", new TaskManagers(tareasActividad, taskModel)) } },
-                { name: "Vista de detalles", action: async (ev) => {  tabManager.NavigateFunction("taskTable", tasktable) } }
+                { name: "Vista de detalles", action: async (ev) => {  tabManager.NavigateFunction("taskTable", tasktable) } },
+                { name: "Nueva Tarea", action: async (ev) => {  this.shadowRoot.append(new WModalForm({ModelObject: taskModel, title: "Nueva Tarea"})) } }
             ]
         });
         actividadDetailView.append(taskNav, taskContainer)

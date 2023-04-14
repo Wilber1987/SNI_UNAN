@@ -375,56 +375,7 @@ namespace CAPA_DATOS
             var ListInstanceType = JsonConvert.DeserializeObject(Literal, type);
             return ListInstanceType;
         }
-        //DEPRECATE
-        //private void FindRelationatedsEntitys<T>(T item, bool fullEntity = true)
-        //{
-        //    Type _type = item.GetType();
-        //    PropertyInfo[] lst = _type.GetProperties();
-        //    foreach (PropertyInfo oProperty in lst)
-        //    {
-        //        string atributeName = oProperty.Name;
-        //        var atributeValue = oProperty.GetValue(item);
-        //        Type relationatedEntityType = oProperty.PropertyType;
-        //        var oneToOne = (OneToOne?)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
-        //        var manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
-        //        var oneToMany = (OneToMany?)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
-        //        if (oneToOne != null || manyToOne != null)
-        //        {
-        //            var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType);
-        //            PropertyInfo ForeingKeyPropMain = _type.GetProperty(oneToOne?.KeyColumn ?? manyToOne?.KeyColumn);
-        //            PropertyInfo ForeingKeyPropRelationated = relationatedEntityType.GetProperty(oneToOne?.ForeignKeyColumn ?? manyToOne?.ForeignKeyColumn);
-        //            if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
-        //            {
-        //                ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
-        //                var method = relationatedEntityType.GetMethods()
-        //                    .FirstOrDefault(mi => mi.Name == "SimpleFind" && mi.GetParameters().Count() == 0);
-        //                if (method != null)
-        //                    TakeRelationatedObject(item, oProperty, relationatedEntityType, method, relationatedEntityInstance);
-        //            }
-        //        }
-        //        else if (oneToMany != null && fullEntity)
-        //        {
-        //            var relationatedEntityInstance = Activator.CreateInstance(relationatedEntityType.GetGenericArguments()[0]);
-        //            PropertyInfo ForeingKeyPropMain = _type?.GetProperty(oneToMany.KeyColumn);
-        //            PropertyInfo ForeingKeyPropRelationated = relationatedEntityInstance?.GetType().GetProperty(oneToMany?.ForeignKeyColumn);
-        //            if (ForeingKeyPropMain != null && ForeingKeyPropRelationated != null)
-        //            {
-
-        //                ForeingKeyPropRelationated.SetValue(relationatedEntityInstance, ForeingKeyPropMain.GetValue(item, null), null);
-        //                string methodName = item.GetType() == relationatedEntityInstance?.GetType() ? "SimpleGet" : "SimpleGet";
-        //                MethodInfo method = relationatedEntityInstance?.GetType()?.GetMethods()?
-        //                    .FirstOrDefault(mi => mi.Name == methodName && mi.GetParameters().Count() == 0);
-        //                if (method != null) TakeRelationatedObject(item, oProperty, relationatedEntityInstance.GetType(), method, relationatedEntityInstance);
-
-        //            }
-        //        }
-        //    }
-        //}
-        //static void TakeRelationatedObject<T>(T item, PropertyInfo oProperty, Type relationatedEntityType, MethodInfo method, object relationatedEntityInstance)
-        //{
-        //    var result = method.GetGenericMethodDefinition().MakeGenericMethod(relationatedEntityType).Invoke(relationatedEntityInstance, new object[] { });
-        //    oProperty.SetValue(item, result, null);
-        //}
+        //DEPRECATE        
         public static bool JsonCompare(object obj, object another)
         {
             if (ReferenceEquals(obj, another)) return true;

@@ -125,7 +125,7 @@
     smtp.Port = 587; //Puerto de salida
     //spnqaxxmdyddavep
     //smtp.Credentials = new System.Net.NetworkCredential("iris@softcode.es", "^43dyRk6kn6VjXkog");//Cuenta de correo
-    smtp.Credentials = new System.Net.NetworkCredential("wilberj1987@gmail.com", "spnqaxxmdyddavep");//Cuenta de correo
+    smtp.Credentials = new System.Net.NetworkCredential("w1987@gmail.com", "spnqaxxmdyddavep");//Cuenta de correo
     ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
     smtp.EnableSsl = true;//True si el servidor de correo permite ssl
     smtp.Send(correo);
