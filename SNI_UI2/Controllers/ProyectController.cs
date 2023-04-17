@@ -37,13 +37,17 @@ namespace SNI_UI.Controllers
         {
             return Inst.Get<Cat_Tipo_Proyecto>();
         }
-        public object GetOwParticipations()
-        {
-            ProyectoTableParticipantes Inst = new ProyectoTableParticipantes();
-            Inst.Id_Investigador = AuthNetCore.User().UserId;
-            return new ProyectoTableTareas().Get_WhereIN<ProyectoTableTareas>(
-                "IdTarea", Inst.Get<ProyectoTableParticipantes>().Select(p => p.IdTarea.ToString()).ToArray()
-            );
+        public List<ProyectoTableTareas> GetOwParticipations()
+        {           
+            return new ProyectoTableTareas().GetOwParticipations();
+        }     
+        public List<ProyectoTableActividades> GetOwActivities()
+        {            
+            return new ProyectoTableActividades().GetOwActivities();
+        }
+        public List<ProyectoCatDependencias> GetOwDependencies()
+        {            
+            return new ProyectoCatDependencias().GetOwDependencies();
         }
 
     }

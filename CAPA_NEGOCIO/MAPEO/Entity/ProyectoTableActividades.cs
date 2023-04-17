@@ -78,6 +78,13 @@ namespace CAPA_NEGOCIO.MAPEO
             }
             return this;
         }
+        public List<ProyectoTableActividades> GetOwActivities()
+        {
+            return new ProyectoTableActividades()
+            {
+                Id_Investigador = AuthNetCore.User().UserId
+            }.Get<ProyectoTableActividades>();
+        }
     }
 
     public class ProyectoCatCargosDependencias : EntityClass
@@ -107,6 +114,16 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<ProyectoTableAgenda>? ProyectoTableAgenda { get; set; }
         [OneToMany(TableName = "ProyectoTableDependencias_Usuarios", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
         public List<ProyectoTableDependencias_Usuarios>? ProyectoTableDependencias_Usuarios { get; set; }
+        public List<ProyectoCatDependencias> GetOwDependencies()
+        {
+            ProyectoTableDependencias_Usuarios Inst = new ProyectoTableDependencias_Usuarios() {
+                Id_Investigador = AuthNetCore.User().UserId,
+                Id_Cargo = 2
+            };
+            return new ProyectoCatDependencias().Get_WhereIN<ProyectoCatDependencias>(
+                "Id_Dependencia", Inst.Get<ProyectoTableDependencias_Usuarios>().Select(p => p.Id_Dependencia.ToString()).ToArray()
+            );
+        }
     }
     public class ProyectoCatTipoParticipaciones : EntityClass
     {
@@ -195,6 +212,15 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<ProyectoTableParticipantes>? ProyectoTableParticipantes { get; set; }
         [OneToMany(TableName = "ProyectoTableTareas", KeyColumn = "IdTarea", ForeignKeyColumn = "IdTareaPadre")]
         public List<ProyectoTableTareas>? ProyectoTableTareasHijas { get; set; }
+        public List<ProyectoTableTareas> GetOwParticipations()
+        {
+            ProyectoTableParticipantes Inst = new ProyectoTableParticipantes();
+            Inst.Id_Investigador = AuthNetCore.User().UserId;
+            return new ProyectoTableTareas().Get_WhereIN<ProyectoTableTareas>(
+                "IdTarea", Inst.Get<ProyectoTableParticipantes>().Select(p => p.IdTarea.ToString()).ToArray()
+            );
+        }
+
     }
     public class ProyectoTableParticipantes : EntityClass
     {

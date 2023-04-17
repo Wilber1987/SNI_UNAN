@@ -622,6 +622,9 @@ class ProyectoTableActividades extends EntityClass {
     Fecha_Final = { type: 'date' };
     ProyectoCatDependencias = { type: 'WSelect', ModelObject: () => new ProyectoCatDependencias() };
     ProyectoTableTareas = { type: 'MasterDetail', ModelObject: () => new ProyectoTableTareas() };
+    GetOwActivities = async () => {
+        return await this.GetData("Proyect/GetOwActivities");
+    }
 }
 export { ProyectoTableActividades }
 class ProyectoTableCalendario extends EntityClass {
@@ -703,6 +706,9 @@ class ProyectoCatDependencias extends EntityClass {
     ProyectoCatDependencias_Hijas = { type: 'Multiselect', ModelObject: () => new ProyectoCatDependencias(), require: false };
     ProyectoTableAgenda = { type: 'MasterDetail', ModelObject: () => new ProyectoTableAgenda(), require: false };
     ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios(), require: false };
+    GetOwDependencies = async () => {
+        return await this.GetData("Proyect/GetOwDependencies");
+    }
 }
 export { ProyectoCatDependencias }
 class ProyectoCatTipoParticipaciones extends EntityClass {
