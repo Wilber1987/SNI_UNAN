@@ -5,6 +5,7 @@ import { StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModul
 import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
 import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
 import { DocumentViewer } from '../../../WDevCore/WComponents/WDocumentViewer.js';
+import { WFilterOptions } from '../../../WDevCore/WComponents/WFilterControls.js';
 import { WForm } from "../../../WDevCore/WComponents/WForm.js";
 import { WModalForm } from '../../../WDevCore/WComponents/WModalForm.js';
 import { WPaginatorViewer } from '../../../WDevCore/WComponents/WPaginatorViewer.js';
@@ -43,14 +44,15 @@ class MainProyect extends HTMLElement {
                 name: "Datos Generales",
                 action: async (ev) => {
                     const dataset = await new ProyectoTableActividades().Get();
+                    const dependencias = await new ProyectoCatDependencias().Get();
                     this.TabManager.NavigateFunction("Tab-Generales",
-                        new MainProyects(dataset));
+                        new MainProyects(dataset, dependencias));
                 }
             }, {
                 name: "Mis Actividades", action: async (ev) => { this.NavChargeActividades(); }
             }, {
                 name: "Tareas", action: async (ev) => { this.NavChargeTasks(); }
-            },{
+            }, {
                 name: "Mis Tareas", action: async (ev) => { this.NavChargeOWTasks(); }
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
@@ -62,21 +64,30 @@ class MainProyect extends HTMLElement {
     }
     NavChargeActividades = async () => {
         const dataset = await new ProyectoTableActividades().GetOwActivities();
+        const dependencias = await new ProyectoCatDependencias().GetOwDependencies();
         this.TabManager.NavigateFunction("Tab-OwActividades",
-            new MainProyects(dataset));
+            new MainProyects(dataset, dependencias));
     }
     NavChargeTasks = async () => {
         const tasks = await new ProyectoTableTareas().Get();
-        this.TabManager.NavigateFunction("Tab-Tasks-Manager", new TaskManagers(tasks));
+        this.TabManager.NavigateFunction("Tab-Tasks-Manager", this.ChargeTasks(tasks));
     }
     NavChargeOWTasks = async () => {
         const tasks = await new ProyectoTableTareas().GetOwParticipations();
         this.TabManager.NavigateFunction("Tab-OWTasks-Manager", this.ChargeTasks(tasks));
     }
-    ChargeTasks(tasks){
-        return new TaskManagers(tasks)
+    ChargeTasks(tasks) {
+        const tasksManager = new TaskManagers(tasks);
+        const filterOptions = new WFilterOptions({
+            Dataset: tasks,
+            //DisplayFilts: [],
+            FilterFunction: (DFilt) => {
+                tasksManager.DrawTaskManagers(DFilt);
+            }
+        })
+        return WRender.Create({ className: "task-container", children: [filterOptions, tasksManager] })
     }
-    
+
     WStyle = new WStyledRender({
         ClassList: [
             new WCssClass(`.MainProyect`, {
@@ -108,9 +119,15 @@ class MainProyect extends HTMLElement {
 
 customElements.define('w-proyect-class', MainProyect);
 class MainProyects extends HTMLElement {
-    constructor(Dataset) {
+    /**
+     * 
+     * @param {Array<ProyectoTableActividades>} Dataset 
+     * @param {Array<ProyectoCatDependencias>} Dependencias 
+     */
+    constructor(Dataset, Dependencias) {
         super();
         this.Dataset = Dataset;
+        this.Dependencias = Dependencias;
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.append(this.WStyle, StylesControlsV2.cloneNode(true), StylesControlsV3.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
@@ -123,14 +140,16 @@ class MainProyects extends HTMLElement {
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Basic', value: 'Estadística', onclick: this.dashBoardView }))
         this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Alert', value: 'Actividades', onclick: this.actividadesManager }))
         //this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Secundary', value: 'Dependencias', onclick: this.dependenciasViewer }))
-        this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Success', value: 'Nueva Actividad', onclick: this.nuevaActividad }))
+        if (this.Dependencias.length != 0) {
+            this.OptionContainer.append(WRender.Create({ tagName: 'input', type: 'button', className: 'Block-Success', value: 'Nueva Actividad', onclick: this.nuevaActividad }))
+        }
         this.shadowRoot.append(this.OptionContainer, this.TabContainer);
         //this.dashBoardView();
         this.actividadesManager();
     }
     dashBoardView = async () => {
-        const dataset = await new ProyectoTableActividades().Get();
-        const datasetMap = dataset.map(x => {
+
+        const datasetMap = this.Dataset.map(x => {
             x.Dependencia = x.ProyectoCatDependencias.Descripcion;
             x.val = 1;
             return x;
@@ -148,13 +167,13 @@ class MainProyects extends HTMLElement {
         });
         const radialChart = new RadialChart({
             Title: "Estado de las actividades",
-            Dataset: WArrayF.GroupBy(dataset, "Estado"), EvalValue: "count", AttNameEval: "Estado"
+            Dataset: WArrayF.GroupBy(this.Dataset, "Estado"), EvalValue: "count", AttNameEval: "Estado"
         });
         //new WTableDynamicComp({Dataset: dataset})
         this.TabManager.NavigateFunction("Tab-Generales",
             WRender.Create({ className: "dashBoardView", children: [radialChartDependencias, radialChart, columChart] }));
     }
-    actividadesManager = async () => {       
+    actividadesManager = async () => {
         const datasetMap = this.Dataset.map(actividad => {
             actividad.Dependencia = actividad.ProyectoCatDependencias.Descripcion;
             actividad.Progreso = actividad.ProyectoTableTareas?.filter(tarea => tarea.Estado?.includes("Finalizada")).length;
@@ -163,7 +182,7 @@ class MainProyects extends HTMLElement {
         this.TabManager.NavigateFunction("Tab-Actividades-Manager",
             WRender.Create({ className: "actividadesView", children: [new WPaginatorViewer({ Dataset: datasetMap, userStyles: [StylesControlsV2] })] }));
     }
-    
+
     actividadElement = (actividad) => {
         return WRender.Create({
             className: "actividad", object: actividad, children: [
@@ -245,8 +264,8 @@ class MainProyects extends HTMLElement {
             Inicialize: true,
             Elements: [
                 { name: "Vista de panel", action: async (ev) => { tabManager.NavigateFunction("taskPanel", new TaskManagers(tareasActividad, taskModel)) } },
-                { name: "Vista de detalles", action: async (ev) => {  tabManager.NavigateFunction("taskTable", tasktable) } },
-                { name: "Nueva Tarea", action: async (ev) => {  this.shadowRoot.append(new WModalForm({ModelObject: taskModel, title: "Nueva Tarea"})) } }
+                { name: "Vista de detalles", action: async (ev) => { tabManager.NavigateFunction("taskTable", tasktable) } },
+                { name: "Nueva Tarea", action: async (ev) => { this.shadowRoot.append(new WModalForm({ ModelObject: taskModel, title: "Nueva Tarea" })) } }
             ]
         });
         actividadDetailView.append(taskNav, taskContainer)
@@ -283,6 +302,10 @@ class MainProyects extends HTMLElement {
                 ProyectoTableTareas: {
                     type: 'MasterDetail',
                     ModelObject: () => new ProyectoTableTareas({ ProyectoTableCalendario: ModelCalendar })
+                },
+                ProyectoCatDependencias: {
+                    type: "WSELECT", ModelObject: new ProyectoCatDependencias(),
+                    Dataset: this.Dependencias
                 }
             })
         })

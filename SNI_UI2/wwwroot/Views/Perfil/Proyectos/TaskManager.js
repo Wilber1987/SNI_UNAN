@@ -14,7 +14,6 @@ import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
 import { WCssClass, WStyledRender, css } from '../../../WDevCore/WModules/WStyledRender.js';
 
 class TaskManagers extends HTMLElement {
-
     /**
      * 
      * @param {Array<ProyectoTableTareas>} Task 
@@ -32,18 +31,19 @@ class TaskManagers extends HTMLElement {
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({ className: "OptionContainer" });
+        this.shadowRoot.append(this.TabContainer);
         this.DrawTaskManagers();
     }
     connectedCallback() { }
-    DrawTaskManagers = async () => {
-        // this.OptionContainer.append(WRender.Create({
-        //     tagName: 'input', type: 'button', className: 'Block-Basic',
-        //     value: 'Tareas', onclick: this.tareasManager
-        // }))
-        this.shadowRoot.append(this.TabContainer);
-        this.tareasManager();
+    DrawTaskManagers = async (TasksData) => {
+        this.TabContainer.innerHTML = "";
+        this.TaskManager(TasksData);
     }
-    tareasManager = () => {
+    /**
+     * 
+     * @param {Array<ProyectoTableTareas>} Tasks 
+     */
+    TaskManager = (TasksData = this.Tasks) => {
         const StatePanelContainer = WRender.Create({
             className: "panelContainer",
             style: " grid-template-columns: repeat(" + this.TaskModel.Estado.Dataset.length + ", 380px);"
@@ -62,13 +62,13 @@ class TaskManagers extends HTMLElement {
                     { tagName: "label", class: "title-panel", innerText: state }
                 ]
             })
-            const Tasks = this.Tasks.filter(t => t.Estado == state);
+            const Tasks = TasksData.filter(t => t.Estado == state);
             Tasks.forEach(task => {
                 Panel.append(this.taskCard(task));
             });
             StatePanelContainer.appendChild(Panel);
         });
-        this.shadowRoot.append(StatePanelContainer);
+        this.TabContainer.append(StatePanelContainer);
     }
     taskCard = (task) => {
         return WRender.Create({

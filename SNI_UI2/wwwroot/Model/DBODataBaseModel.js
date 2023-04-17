@@ -706,6 +706,9 @@ class ProyectoCatDependencias extends EntityClass {
     ProyectoCatDependencias_Hijas = { type: 'Multiselect', ModelObject: () => new ProyectoCatDependencias(), require: false };
     ProyectoTableAgenda = { type: 'MasterDetail', ModelObject: () => new ProyectoTableAgenda(), require: false };
     ProyectoTableDependencias_Usuarios = { type: 'MasterDetail', ModelObject: () => new ProyectoTableDependencias_Usuarios(), require: false };
+    GetOwDependencies = async () => {
+        return await this.GetData("Proyect/GetOwDependencies");
+    }
 }
 export { ProyectoCatDependencias }
 class ProyectoCatTipoParticipaciones extends EntityClass {

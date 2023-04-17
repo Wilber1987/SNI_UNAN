@@ -114,6 +114,16 @@ namespace CAPA_NEGOCIO.MAPEO
         public List<ProyectoTableAgenda>? ProyectoTableAgenda { get; set; }
         [OneToMany(TableName = "ProyectoTableDependencias_Usuarios", KeyColumn = "Id_Dependencia", ForeignKeyColumn = "Id_Dependencia")]
         public List<ProyectoTableDependencias_Usuarios>? ProyectoTableDependencias_Usuarios { get; set; }
+        public List<ProyectoCatDependencias> GetOwDependencies()
+        {
+            ProyectoTableDependencias_Usuarios Inst = new ProyectoTableDependencias_Usuarios() {
+                Id_Investigador = AuthNetCore.User().UserId,
+                Id_Cargo = 2
+            };
+            return new ProyectoCatDependencias().Get_WhereIN<ProyectoCatDependencias>(
+                "Id_Dependencia", Inst.Get<ProyectoTableDependencias_Usuarios>().Select(p => p.Id_Dependencia.ToString()).ToArray()
+            );
+        }
     }
     public class ProyectoCatTipoParticipaciones : EntityClass
     {

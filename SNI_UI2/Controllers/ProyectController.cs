@@ -45,7 +45,10 @@ namespace SNI_UI.Controllers
         {            
             return new ProyectoTableActividades().GetOwActivities();
         }
-
+        public List<ProyectoCatDependencias> GetOwDependencies()
+        {            
+            return new ProyectoCatDependencias().GetOwDependencies();
+        }
 
     }
 }
