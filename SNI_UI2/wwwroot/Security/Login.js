@@ -5,8 +5,8 @@ import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
 
 const OnLoad = async () => {
     const UserData = {
-        mail: null,
-        password: null
+        mail: "wmatus@unan.edu.ni",
+        password: "zaxscd"
     }
     const LoginForm = WRender.Create({
         className: "LoginForm", children: [
