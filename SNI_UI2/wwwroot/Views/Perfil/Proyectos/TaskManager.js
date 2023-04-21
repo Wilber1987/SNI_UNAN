@@ -1,22 +1,14 @@
-////@ts-check
-import { ProyectoCatDependencias, ProyectoTableActividades, ProyectoTableAgenda, ProyectoTableCalendario, ProyectoTableEvidencias, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
-import { ViewCalendarioByDependencia } from '../../../Model/DBOViewModel.js';
-import { StylesControlsV2, StylesControlsV3, StyleScrolls } from "../../../WDevCore/StyleModules/WStyleComponents.js";
-import { WAppNavigator } from '../../../WDevCore/WComponents/WAppNavigator.js';
-import { ColumChart, RadialChart } from '../../../WDevCore/WComponents/WChartJSComponents.js';
-import { DocumentViewer } from '../../../WDevCore/WComponents/WDocumentViewer.js';
-import { WForm } from "../../../WDevCore/WComponents/WForm.js";
+//@ts-check
+import { ProyectoTableAgenda, ProyectoTableCalendario, ProyectoTableTareas } from '../../../Model/DBODataBaseModel.js';
+import { StyleScrolls, StylesControlsV2, StylesControlsV3 } from "../../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from '../../../WDevCore/WComponents/WModalForm.js';
-import { WPaginatorViewer } from '../../../WDevCore/WComponents/WPaginatorViewer.js';
-import { WTableComponent } from "../../../WDevCore/WComponents/WTableComponent.js";
-import { ComponentsManager, WArrayF, WRender } from '../../../WDevCore/WModules/WComponentsTools.js';
-import { ControlBuilder } from '../../../WDevCore/WModules/WControlBuilder.js';
-import { WCssClass, WStyledRender, css } from '../../../WDevCore/WModules/WStyledRender.js';
+import { ComponentsManager, WRender } from '../../../WDevCore/WModules/WComponentsTools.js';
+import { css } from '../../../WDevCore/WModules/WStyledRender.js';
 
 class TaskManagers extends HTMLElement {
     /**
      * 
-     * @param {Array<ProyectoTableTareas>} Task 
+     * @param {Array<ProyectoTableTareas>} Tasks 
      * @param {ProyectoTableTareas} Model 
      */
     constructor(Tasks, Model) {
@@ -28,10 +20,10 @@ class TaskManagers extends HTMLElement {
             StyleScrolls.cloneNode(true),
             StylesControlsV2.cloneNode(true),
             StylesControlsV3.cloneNode(true));
-        this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
+        this.TabContainer = WRender.Create({ class: 'TabContainer', id: "TabContainer" });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({ className: "OptionContainer" });
-        this.shadowRoot.append(this.TabContainer);
+        this.shadowRoot?.append(this.TabContainer);
         this.DrawTaskManagers();
     }
     connectedCallback() { }
@@ -41,39 +33,62 @@ class TaskManagers extends HTMLElement {
     }
     /**
      * 
-     * @param {Array<ProyectoTableTareas>} Tasks 
+     * @param {Array<Object>} TasksData 
      */
     TaskManager = (TasksData = this.Tasks) => {
         const StatePanelContainer = WRender.Create({
             className: "panelContainer",
-            style: " grid-template-columns: repeat(" + this.TaskModel.Estado.Dataset.length + ", 380px);"
+            style: " grid-template-columns: repeat(" + this.TaskModel.Estado.Dataset.length + ", auto);"
         })
         this.TaskModel.Estado.Dataset.forEach(state => {
+            const Tasks = TasksData.filter(t => t.Estado == state);
             const Panel = WRender.Create({
-                className: "panel", id: "Panel-" + state,
+                className: Tasks.length > 0 ? "panel" : "panel-inact", id: "Panel-" + state,
                 ondrop: (ev) => {
                     var data = ev.dataTransfer.getData("text");
-                    const taskCard = this.shadowRoot.getElementById(data);
-                    ev.target.appendChild(taskCard);
-                    this.cardDrop(taskCard.task, state);
+                    const taskCard = this.shadowRoot?.getElementById(data);
+                    if (ev.target.className.includes("panel")) {
+                        ev.target.appendChild(taskCard);
+                        // @ts-ignore
+                        this.cardDrop(taskCard?.task, state);
+                    }
                 }, ondragover: (ev) => {
                     ev.preventDefault();
                 }, children: [
                     { tagName: "label", class: "title-panel", innerText: state }
                 ]
-            })
-            const Tasks = TasksData.filter(t => t.Estado == state);
+            });
             Tasks.forEach(task => {
                 Panel.append(this.taskCard(task));
             });
-            StatePanelContainer.appendChild(Panel);
+            const panelOptions = WRender.Create({
+                className: "panel-options", children: [
+                    {//display
+                        tagName: 'input', style: 'transform: rotate(90deg)', class: 'BtnDinamictT', value: '>', onclick: async (ev) => {
+                            if (Panel.className == "panel") {
+                                ev.target.style["transform"] = "inherit";
+                                Panel.className = "panel-inact";
+                            } else {
+                                ev.target.style["transform"] = "rotate(90deg)";
+                                Panel.className = "panel";
+                            }
+                        }
+
+                    }]
+            });
+            StatePanelContainer.appendChild(WRender.Create({
+                className: "panel-container",
+                children: [panelOptions, Panel]
+            }));
         });
         this.TabContainer.append(StatePanelContainer);
     }
     taskCard = (task) => {
+
         return WRender.Create({
             className: "task-card",
             draggable: true,
+            // @ts-ignore
             task: task,
             id: "task" + task.IdTarea,
             ondragstart: (ev) => {
@@ -95,14 +110,13 @@ class TaskManagers extends HTMLElement {
                         tagName: "buttom", class: "Btn-Mini-Success", innerText: "Detalles",
                         onclick: () => this.taskDetail(task)
                     }]
-                }                
+                }
             ]
         })
     }
     /**
     * 
     * @param {ProyectoTableTareas} task 
-    * @param {String} state 
     */
     taskEdit = async (task) => {
         const CalendarModel = {
@@ -112,16 +126,19 @@ class TaskManagers extends HTMLElement {
             CalendarFunction: async () => {
                 return {
                     Agenda: await new ProyectoTableAgenda({
+                        // @ts-ignore
                         Id_Dependencia: task?.ProyectoTableActividades?.Id_Dependencia
                     }).Get(),
                     Calendario: await new ProyectoTableCalendario({
+                        // @ts-ignore
                         Id_Dependencia: task?.ProyectoTableActividades?.Id_Dependencia
                     }).Get()
                 }
             }
         }
+        // @ts-ignore
         this.TaskModel.ProyectoTableCalendario = CalendarModel;
-        this.shadowRoot.append(new WModalForm({
+        this.shadowRoot?.append(new WModalForm({
             EditObject: task,
             AutoSave: true,
             ModelObject: this.TaskModel
@@ -130,7 +147,6 @@ class TaskManagers extends HTMLElement {
     /**
     * 
     * @param {ProyectoTableTareas} task 
-    * @param {String} state 
     */
     taskDetail = async (task) => { }
     /**
@@ -139,6 +155,7 @@ class TaskManagers extends HTMLElement {
      * @param {String} state 
      */
     cardDrop = (task, state) => {
+        // @ts-ignore
         task.Estado = state;
         task.Update();
     }
@@ -158,13 +175,55 @@ class TaskManagers extends HTMLElement {
             padding: 20px;
             gap: 20px;
             height: 540px;
+            width: fit-content;
+            max-width: calc(100% - 50px);
         } 
-        .panel {
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #eee;
-            overflow-y: auto;            
-            border: 1px solid #e2e2e2;
+        .panel-options {
+            background-color: #e4e4e4;              
+            border: 1px solid #d6d3d3;
+            border-radius: 0px 10px 10px 0px;
+        }
+        .panel-container {
+            padding: 0px;            
+            border-radius: 0px 10px 10px 0px;
+            background-color: #eee;        
+            border: 1px solid #d6d3d3;
+            height: 540px;
+            display: grid;
+            grid-template-columns: 40px fit-content(340px);
+            
+        }
+        .BtnDinamictT {
+            font-weight: bold;
+            border: none;
+            padding: 5px;
+            margin: 5px;
+            outline: none;
+            text-align: center;
+            display: inline-block;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #4894aa;
+            color: #fff;
+            border-radius: 0.2cm;
+            width: 15px;
+            height: 15px;
+            background-color:#4894aa;
+            font-family: monospace;
+        }
+        .panel {          
+            padding: 15px;  
+            overflow-y: auto;    
+            height: calc(100% - 40px);
+            transition: all 0.4s;   
+            width: 310px;           
+        }
+        .panel-inact {          
+            padding: 15px;  
+            overflow: hidden;    
+            width: calc(100px); 
+            font-size: 14px;
+            transition: all 0.4s; 
         }
         .task-card {
             background-color: #fff;
@@ -173,9 +232,9 @@ class TaskManagers extends HTMLElement {
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            margin-bottom: 15px;
-            min-width: calc(100% );
+            margin-bottom: 15px;        
             box-shadow: 0 0 5px 0 #adacac;
+            container-type: inline-size;
         }
         .task-title{
             padding: 10px 10px;
@@ -192,7 +251,7 @@ class TaskManagers extends HTMLElement {
             display: flex;
         }
         .title-panel {
-            font-size: 16px; 
+            font-size: 14px; 
             text-transform: uppercase;
             font-weight: bold;
             margin-bottom: 10px;
@@ -221,7 +280,18 @@ class TaskManagers extends HTMLElement {
             overflow: hidden;
             box-shadow: 0 0 3px 0 rgba(0,0,0,0.5);
         }
+        @container (max-width: 200px){
+            .p-participantes {
+                display: none;
+            }
+            .card-options {
+                flex-direction: column;
+                height: auto;
+                justify-content: flex-start;
+            }
+        }
     `
 }
 customElements.define('w-main-task', TaskManagers);
 export { TaskManagers };
+
