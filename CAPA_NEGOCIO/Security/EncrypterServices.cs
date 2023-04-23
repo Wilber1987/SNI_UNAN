@@ -83,7 +83,7 @@ namespace CAPA_NEGOCIO.Security
 
             // Declare the string used to hold
             // the decrypted text.
-            string plaintext = null;
+            string? plaintext = null;
 
             // Create an Aes object
             // with the specified key and IV.

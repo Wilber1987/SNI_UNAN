@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 
@@ -98,7 +93,7 @@ namespace CAPA_DATOS
             }
             ColumnNames = ColumnNames.TrimEnd(',');
             Values = Values.TrimEnd(',');
-            string QUERY = "INSERT INTO "  + entityProps[0].TABLE_SCHEMA + "."  + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+            string QUERY = "INSERT INTO " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
             LoggerServices.AddMessageInfo(QUERY);
             return QUERY;
         }
@@ -127,7 +122,7 @@ namespace CAPA_DATOS
                 else continue;
             }
             Values = Values.TrimEnd(',');
-            string strQuery = "UPDATE  "  + entityProps[0].TABLE_SCHEMA + "."  + TableName + " SET " + Values + Conditions;
+            string strQuery = "UPDATE  " + entityProps[0].TABLE_SCHEMA + "." + TableName + " SET " + Values + Conditions;
             LoggerServices.AddMessageInfo(strQuery);
             return strQuery;
         }
@@ -156,7 +151,7 @@ namespace CAPA_DATOS
                 else continue;
             }
             Values = Values.TrimEnd(',');
-            string strQuery = "UPDATE  "  + entityProps[0].TABLE_SCHEMA + "." + TableName + " SET " + Values + Conditions;
+            string strQuery = "UPDATE  " + entityProps[0].TABLE_SCHEMA + "." + TableName + " SET " + Values + Conditions;
             LoggerServices.AddMessageInfo(strQuery);
             return strQuery;
         }
@@ -179,7 +174,7 @@ namespace CAPA_DATOS
 
             }
             CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-            string strQuery = "DELETE FROM  "  + entityProps[0].TABLE_SCHEMA + "."  + TableName + CondicionString;
+            string strQuery = "DELETE FROM  " + entityProps[0].TABLE_SCHEMA + "." + TableName + CondicionString;
             LoggerServices.AddMessageInfo(strQuery);
             return strQuery;
         }
@@ -277,8 +272,8 @@ namespace CAPA_DATOS
             char ta2 = (char)(((int)'A') + new Random().Next(26));
             char ta3 = (char)(((int)'A') + new Random().Next(26));
             char ta4 = (char)(((int)'A') + new Random().Next(26));
-             char ta5 = (char)(((int)'A') + new Random().Next(26));
-            return ta.ToString() + ta2 + ta3 + "_" + ta4 + "_" + ta5 ;
+            char ta5 = (char)(((int)'A') + new Random().Next(26));
+            return ta.ToString() + ta2 + ta3 + "_" + ta4 + "_" + ta5;
         }
         private static void WhereConstruction(ref string CondicionString, ref int index, string AtributeName, object AtributeValue)
         {
@@ -342,7 +337,7 @@ namespace CAPA_DATOS
             var es = ConvertDataTable<EntitySchema>(Table, new EntitySchema());
             return es;
         }
-        public EntityColumn describePrimaryKey(string table, string column)
+        public EntityColumn? describePrimaryKey(string table, string column)
         {
             string DescribeQuery = @"exec sp_columns'" + table + "'";
             DataTable Table = TraerDatosSQL(DescribeQuery);
@@ -410,8 +405,5 @@ namespace CAPA_DATOS
             DataTable Table = TraerDatosSQL(DescribeQuery);
             return ConvertDataTable<OneToManySchema>(Table, new OneToManySchema());
         }
-
-
     }
-
 }
