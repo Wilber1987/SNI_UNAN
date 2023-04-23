@@ -21,7 +21,7 @@ namespace SNI_UI2.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!AuthNetCore.HaveRole(RoleEnum.ADMIN.ToString()))
+            if (!AuthNetCore.HavePermission(PermissionsEnum.ADMIN_ACCESS.ToString()))
             {
                 Authenticate Aut = new Authenticate();
                 Aut.AuthVal = false;

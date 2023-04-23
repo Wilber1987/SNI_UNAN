@@ -22,7 +22,7 @@ namespace SNI_UI2.Controllers
         }
         public static bool IsAdmin()
         {
-            return AuthNetCore.Authenticate();
+            return AuthNetCore.HavePermission(PermissionsEnum.ADMIN_ACCESS.ToString());
         }
         public static bool Auth()
         {

@@ -1,0 +1,63 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#AdminTemplate {
+    display: grid;
+    grid-template-rows: 50px calc(100vh - 50px);
+    grid-template-columns: 240px calc(100% - 240px);
+    padding: 0px;
+    margin: 0px;
+    font-family: "Poppins", sans-serif;
+}
+
+#Header {
+    background-color: var(--tertiary-color);
+    color: var(--font-tertiary-color);
+    display: flex;
+    justify-content: center;
+    padding-right: 20px;
+    align-items: center;
+    grid-column: span 2;
+}
+
+#Header a {
+    padding: 20px;
+    color: var(--font-tertiary-color);
+    cursor: pointer;
+}
+
+#Aside {
+    background-color: var(--primary-color);
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+#Aside h3 {
+    color: var(--font-primary-color);
+    padding: 10px;
+    margin: 0px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#MainContainer {
+    background-color: var(--fourth-color);
+    color: var(--font-fourth-color);
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#Main {
+    background-color: var(--fourth-color);
+    color: var(--font-fourth-color);
+    border-radius: 0.3cm;
+    min-height: 500px;
+    box-shadow: 0 0 5px 0 #b3b3b3;
+    margin: 0px;
+    padding: 20px;
+}

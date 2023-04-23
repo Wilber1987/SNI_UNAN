@@ -110,19 +110,6 @@ namespace SNI_UI2.Controllers
         public Object UpdateCat_TipoMiembro(Cat_TipoMiembro inv) { return inv.Update("Id_TipoMiembro"); }
         public Object UpdateCat_Tipo_Proceso_Editorial(Cat_Tipo_Proceso_Editorial inv) { return inv.Update("Id_Tipo_Proceso_Editorial"); }
         #endregion
-
-        #region SECURITY
-        public Object TakeSecurity_Permissions(Security_Permissions inv) { return inv.Get<Security_Permissions>(); }
-        public Object? TakeSecurity_Roles(Security_Roles inv) { return inv.GetRoles(); }
-        public Object TakeSecurity_Users(Security_Users inv) { return inv.GetUsers(); }
-
-        public Object? SaveSecurity_Permissions(Security_Permissions inv) { return inv.Save(); }
-        public Object SaveSecurity_Roles(Security_Roles inv) { return inv.SaveRole(); }
-        public Object SaveSecurity_Users(Security_Users inv) { return inv.SaveUser(); }
-
-        public Object UpdateSecurity_Permissions(Security_Permissions inv) { return inv.Update("Id_Permission"); }
-
-
-        #endregion
+       
     }
 }
