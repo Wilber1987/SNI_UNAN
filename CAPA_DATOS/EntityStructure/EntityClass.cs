@@ -15,6 +15,11 @@ namespace CAPA_DATOS
             var Data = SqlADOConexion.SQLM?.TakeList<T>(this, true);
             return Data ?? new List<T>();
         }
+        public Boolean Exists<T>()
+        {
+            var Data = SqlADOConexion.SQLM?.TakeList<T>(this, true);
+            return Data?.Count > 0;
+        }
         public List<T> SimpleGet<T>()
         {
             var Data = SqlADOConexion.SQLM?.TakeList<T>(this, false);

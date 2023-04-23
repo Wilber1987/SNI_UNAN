@@ -1,5 +1,4 @@
 ﻿using CAPA_NEGOCIO.MAPEO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SNI_UI2.Controllers
@@ -9,7 +8,7 @@ namespace SNI_UI2.Controllers
     public class PublicCatController : ControllerBase
     {
         [HttpPost]
-        [AuthAnonymous]
+        [AnonymousAuth]
         //Get
         public object GetTipoEstudio()
         {

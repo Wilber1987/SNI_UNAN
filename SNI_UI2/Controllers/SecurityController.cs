@@ -1,14 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CAPA_NEGOCIO;
+﻿using Microsoft.AspNetCore.Mvc;
 using CAPA_NEGOCIO.Security;
-using Newtonsoft.Json;
-using CAPA_NEGOCIO.MAPEO;
-using CAPA_DATOS;
 
 namespace SNI_UI2.Controllers
 {
@@ -26,6 +17,10 @@ namespace SNI_UI2.Controllers
             return AuthNetCore.ClearSeason();
         }
         public bool Verification()
+        {
+            return AuthNetCore.Authenticate();
+        }
+        public static bool IsAdmin()
         {
             return AuthNetCore.Authenticate();
         }

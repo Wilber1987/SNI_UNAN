@@ -28,7 +28,18 @@ function ElementTab(TabName = "Tab", DOMManager, Model) {
     return {
         name: TabName, url: "#",
         action: async (ev) => {
-            const response = await WAjaxTools.PostRequest("../api/Admin/Take" + Model.constructor.name, {});
+            let response = await WAjaxTools.PostRequest("../api/Admin/Take" + Model.constructor.name, {});
+            if (TabName == "Usuarios") {
+                response = response.map(u => {
+                    u.Security_Users_Roles = u.Security_Users_Roles.map(r => r.Security_Role);
+                    return u;
+                })
+            } else if (TabName == "Roles") {
+                response = response.map(r => {
+                    r.Security_Permissions_Roles = r.Security_Permissions_Roles.map(p => p.Security_Permissions);
+                    return r;
+                })
+            }
             DOMManager.NavigateFunction(Model.constructor.name, new WTableComponent({
                 Dataset: response,
                 ModelObject: Model,

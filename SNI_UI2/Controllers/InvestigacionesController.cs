@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using CAPA_NEGOCIO;
 using CAPA_NEGOCIO.Security;
-using Newtonsoft.Json;
 using CAPA_NEGOCIO.MAPEO;
-using CAPA_DATOS;
 using SNI_UI2.Controllers;
 
 namespace SNI_UI.Controllers

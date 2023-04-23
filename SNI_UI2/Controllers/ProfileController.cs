@@ -1,7 +1,5 @@
-﻿using CAPA_NEGOCIO;
-using CAPA_NEGOCIO.MAPEO;
+﻿using CAPA_NEGOCIO.MAPEO;
 using CAPA_NEGOCIO.Security;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SNI_UI2.Controllers

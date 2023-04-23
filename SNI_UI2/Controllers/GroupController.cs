@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using CAPA_NEGOCIO;
+﻿using Microsoft.AspNetCore.Mvc;
 using CAPA_NEGOCIO.MAPEO;
 using CAPA_NEGOCIO.Security;
-using System;
 
 namespace SNI_UI2.Controllers
 {

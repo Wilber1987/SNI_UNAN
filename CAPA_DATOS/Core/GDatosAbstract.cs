@@ -39,21 +39,21 @@ namespace CAPA_DATOS
         }
         public void BeginTransaction()
         {
-            Console.WriteLine("===============> BEGIN TRANSACTION <=================");
+            LoggerServices.AddMessageInfo("=====> BEGIN TRANSACTION <=================");
             MTConnection = SQLMCon();
             SQLMCon().Open();
             this.MTransaccion = SQLMCon().BeginTransaction();
         }
         public void CommitTransaction()
         {
-            Console.WriteLine("===============> COMMIT TRANSACTION <=================");
+            LoggerServices.AddMessageInfo("=====> COMMIT TRANSACTION <=================");
             this.MTransaccion?.Commit();
             SQLMCon().Close();
             MTConnection = null;
         }
         public void RollBackTransaction()
         {
-            Console.WriteLine("===============> ROOLBACK TRANSACTION <=================");
+            LoggerServices.AddMessageInfo("=====> ROOLBACK TRANSACTION <=================");
             this.MTransaccion?.Rollback();
             SQLMCon().Close();
             MTConnection = null;
@@ -84,8 +84,7 @@ namespace CAPA_DATOS
         //ORM INSERT, DELETE, UPDATES METHODS
         public object InsertObject(Object entity)
         {
-            Console.WriteLine("->");
-            Console.WriteLine("===================>  InsertObject(" + entity.GetType().Name + ")");
+            LoggerServices.AddMessageInfo("=========>  InsertObject(" + entity.GetType().Name + ")");
             List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
             List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
             List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
@@ -152,15 +151,13 @@ namespace CAPA_DATOS
 
         private void InsertRelationatedObject(object foreingKeyValue, object entity, PropertyInfo foreignKeyColumn)
         {
-            string action = "InsertO";
-            Console.WriteLine("===================> InsertRelationatedObject( -> " + entity.GetType().Name + "): ");
+            LoggerServices.AddMessageInfo("=========> InsertRelationatedObject( -> " + entity.GetType().Name + "): ");
             foreignKeyColumn.SetValue(entity, foreingKeyValue);
             List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
             var pkPropiertys = entityProps.Where(p => (PrimaryKey?)Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
             var values = pkPropiertys.Where(p => p.GetValue(entity) != null).ToList();
             if (pkPropiertys.Count == values.Count)
             {
-                action = "Update";
                 UpdateObject(entity, pkPropiertys.Select(p => p.Name).ToArray());
             }
             else this.InsertObject(entity);
@@ -169,8 +166,7 @@ namespace CAPA_DATOS
 
         public object UpdateObject(Object entity, string[] IdObject)
         {
-            Console.WriteLine("->");
-            Console.WriteLine("-- ==================> UpdateObject(Object Inst, string[] IdObject)");
+            LoggerServices.AddMessageInfo("===> UpdateObject(Object Inst, string[] IdObject)");
             List<PropertyInfo> entityProps = entity.GetType().GetProperties().ToList();
             List<PropertyInfo> pimaryKeyPropiertys = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(PrimaryKey)) != null).ToList();
             List<PropertyInfo> manyToOneProps = entityProps.Where(p => Attribute.GetCustomAttribute(p, typeof(ManyToOne)) != null).ToList();
@@ -198,19 +194,22 @@ namespace CAPA_DATOS
                         if (tempEntity != null && oneToManyProp.GetValue(tempEntity) != null)
                         {
                             var tempAtributeValue = oneToManyProp.GetValue(tempEntity);
-                            foreach (var valueT in ((IEnumerable)tempAtributeValue))
+                            if (tempAtributeValue != null)
                             {
-                                bool exists = false;
-                                foreach (var valueE in ((IEnumerable)atributeValue))
+                                foreach (var valueT in ((IEnumerable)tempAtributeValue))
                                 {
-                                    if (JsonCompare(valueT, valueE))
+                                    bool exists = false;
+                                    foreach (var valueE in ((IEnumerable)atributeValue))
                                     {
-                                        exists = true;
+                                        if (JsonCompare(valueT, valueE))
+                                        {
+                                            exists = true;
+                                        }
                                     }
-                                }
-                                if (!exists)
-                                {
-                                    Delete(valueT);
+                                    if (!exists)
+                                    {
+                                        Delete(valueT);
+                                    }
                                 }
                             }
                         }
@@ -234,8 +233,7 @@ namespace CAPA_DATOS
         }
         public object UpdateObject(Object Inst, string IdObject)
         {
-            Console.WriteLine("->");
-            Console.WriteLine("-- ==================> UpdateObject(Object Inst, string IdObject)");
+            LoggerServices.AddMessageInfo("===> UpdateObject(Object Inst, string IdObject)");
             if (Inst.GetType().GetProperty(IdObject)?.GetValue(Inst) == null)
             {
                 throw new Exception("Valor de la propiedad "
@@ -247,8 +245,7 @@ namespace CAPA_DATOS
         }
         public object Delete(Object Inst)
         {
-            Console.WriteLine("->");
-            Console.WriteLine("-- ==================> Delete(Object Inst)");
+            LoggerServices.AddMessageInfo("===> Delete(Object Inst)");
             string strQuery = BuildDeleteQuery(Inst);
             return ExcuteSqlQuery(strQuery);
         }
@@ -258,10 +255,9 @@ namespace CAPA_DATOS
         {
             try
             {
-                Console.WriteLine("->");
-                Console.WriteLine("-- ==================> TakeList<T>(" +
-                    Inst.GetType().Name + ",fullEntity: " +
-                    fullEntity.ToString() + ", condition: " + CondSQL + ")");
+                LoggerServices.AddMessageInfo("===> TakeList<T>(" +
+                Inst.GetType().Name + ",fullEntity: " +
+                fullEntity.ToString() + ", condition: " + CondSQL + ")");
                 DataTable Table = BuildTable(Inst, ref CondSQL, fullEntity, false);
                 List<T> ListD = ConvertDataTable<T>(Table, Inst);
                 return ListD;
@@ -277,8 +273,7 @@ namespace CAPA_DATOS
 
         public T? TakeObject<T>(Object Inst, string CondSQL = "")
         {
-            Console.WriteLine("->");
-            Console.WriteLine("-- ==================> TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = )");
+            LoggerServices.AddMessageInfo("===> TakeObject<T>(Object Inst, bool fullEntity, string CondSQL = )");
             DataTable Table = BuildTable(Inst, ref CondSQL, true, true);
             if (Table.Rows.Count != 0)
             {
@@ -295,8 +290,7 @@ namespace CAPA_DATOS
         protected private DataTable BuildTable(object Inst, ref string CondSQL, bool fullEntity = true, bool isFind = true)
         {
             string queryString = BuildSelectQuery(Inst, CondSQL, fullEntity, isFind);
-            Console.WriteLine("->");
-            Console.WriteLine(queryString);
+            LoggerServices.AddMessageInfo(queryString);
             DataTable Table = TraerDatosSQL(queryString);
             return Table;
         }

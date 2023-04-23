@@ -38,15 +38,14 @@ namespace CAPA_NEGOCIO.Security
                 security_User = new Security_Users()
                 {
                     Mail = mail,
-                    Password = password
+                    //Password = EncrypterServices.Encrypt(password)
                 }.GetUserData();
                 if (security_User == null) ClearSeason();
                 return User();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("-- ==================> :" + ex);
-                throw;
+                Console.WriteLine("===> :" + ex);
                 return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 };
             }
         }
@@ -84,8 +83,22 @@ namespace CAPA_NEGOCIO.Security
                 };
             }
         }
+        public static bool HaveRole(string role)
+        {
+            if (Authenticate())
+            {
+                var AdminRole = security_User?.Security_Users_Roles?.Where(r => r?.Security_Role?.Descripcion == role).ToList();
+                if (AdminRole?.Count != 0) return true;
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static bool HavePermission(string permission)
         {
+            if (HaveRole(RoleEnum.ADMIN.ToString())) return true;
             if (Authenticate())
             {
                 var roleHavePermision = security_User?.Security_Users_Roles?.Where(r => RoleHavePermission(permission, r)?.Count != 0).ToList();
