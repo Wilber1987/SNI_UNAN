@@ -60,7 +60,7 @@ class Security_Users {
 	Descripcion = { type: "text" , require: false};
 	Mail = { type: "email" };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-	Password = { type: "password" };    
+	Password = { type: "password", hiddenInTable: true };    
     Security_Users_Roles = {
         type: "MULTISELECT", Dataset: [{ Descripcion: "Role 1" }]
     };
