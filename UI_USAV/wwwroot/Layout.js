@@ -24,7 +24,7 @@ class headerClass extends HTMLElement {
         this.className = "AppHeader";
         this.append(WRender.createElement(this.Style), WRender.createElement({
             type: 'div', props: { style: 'display:flex', class: "logDv" }, children: [
-                { type: 'img', props: { src: Icons.SNI, class: 'imgLogo' } },
+                //{ type: 'img', props: { src: Icons.SNI, class: 'imgLogo' } },
             ]
         }));
         this.append(WRender.createElement({
@@ -35,19 +35,9 @@ class headerClass extends HTMLElement {
                 DisplayMode: "right",
                 Elements: [
                     {
-                        name: "Investigaciones", url: "#",
+                        name: "Home", url: "#",
                         action: (ev) => {
                             window.location = location.origin + "/";
-                        }
-                    }, {
-                        name: "Proyectos", url: "#",
-                        action: (ev) => {
-
-                        }
-                    }, {
-                        name: "Eventos", url: "#",
-                        action: (ev) => {
-
                         }
                     }, {
                         name: "Perfil", url: "#",

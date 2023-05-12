@@ -17,7 +17,7 @@ class HomeMosaicVideos extends HTMLElement {
     }
     connectedCallback() { }
     DrawHomeMosaicVideos = async () => {
-        const response = await WAjaxTools.PostRequest("./api/Videos/TakeVideos");
+        const response = []// await WAjaxTools.PostRequest("./api/Videos/TakeVideos");
         const HomeMosaicVideos = WRender.createElement({ type: 'div', props: { class: 'HomeMosaicVideos', id: "DivHomeServicios" } });
         HomeMosaicVideos.append(WRender.createElement(this.style));
         HomeMosaicVideos.append(WRender.CreateStringNode(`<div class="cardServices card-wide">
