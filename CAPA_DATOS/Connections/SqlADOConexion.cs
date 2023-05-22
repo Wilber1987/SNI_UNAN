@@ -15,14 +15,16 @@ namespace CAPA_DATOS
         //static string SQLServer = ".";
         //static string SQLServer = "localhost\\SQLEXPRESS";
         static string SQLServer = "localhost";
-        static public bool IniciarConexionSNIBD(string user, string password)
+        static private string SGBD_USER = "sa";
+        static private string SWGBD_PASSWORD = "zaxscd";
+        static public bool IniciarConexionSNIBD()
         {
             try
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
                     "; Initial Catalog=" + DataBaseName + "; User ID="
-                    + user + ";Password=" + password + ";MultipleActiveResultSets=true";
+                    + SGBD_USER + ";Password=" + SWGBD_PASSWORD + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 if (SQLM.TestConnection()) return true;
                 else
@@ -39,14 +41,14 @@ namespace CAPA_DATOS
                 throw;
             }
         }
-        static public bool IniciarConexion(string user, string password)
+        static public bool IniciarConexion(string SGBD_USER, string SWGBD_PASSWORD)
         {
             try
             {
                 Anonimo = false;
                 UserSQLConexion = "Data Source=" + SQLServer +
                     "; Initial Catalog=" + DataBaseName + "; User ID="
-                    + user + ";Password=" + password + ";MultipleActiveResultSets=true";
+                    + SGBD_USER + ";Password=" + SWGBD_PASSWORD + ";MultipleActiveResultSets=true";
                 SQLM = new SqlServerGDatos(UserSQLConexion);
                 return true;
             }

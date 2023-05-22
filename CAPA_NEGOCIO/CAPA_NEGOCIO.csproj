@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapping\Entity\" />
     <Folder Include="Mapping\Views\" />
+    <Folder Include="RECORRIDO_VIRTUAL\" />
   </ItemGroup>
 
 </Project>

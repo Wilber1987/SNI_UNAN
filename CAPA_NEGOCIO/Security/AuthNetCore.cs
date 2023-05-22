@@ -7,9 +7,7 @@ using CAPA_DATOS;
 namespace CAPA_NEGOCIO.Security
 {
     public class AuthNetCore
-    {
-        static private string SGBD_USER = "sa";
-        static private string SWGBD_PASSWORD = "zaxscd";
+    {      
         static public bool AuthAttribute = false;
         static private Security_Users? security_User;
         static public bool Authenticate()
@@ -34,7 +32,7 @@ namespace CAPA_NEGOCIO.Security
                 return new UserModel() { success= false, message= "Usuario y contraseña son requeridos.",  status = 500 };
             try
             {
-                SqlADOConexion.IniciarConexionSNIBD(SGBD_USER, SWGBD_PASSWORD);
+                SqlADOConexion.IniciarConexionSNIBD();
                 security_User = new Security_Users()
                 {
                     Mail = mail,
