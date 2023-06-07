@@ -4,12 +4,8 @@ import { WCssClass, WStyledRender } from '../../WDevCore/WModules/WStyledRender.
 import { WTableComponent } from "../../WDevCore/WComponents/WTableComponent.js";
 import { StylesControlsV2 } from "../../WDevCore/StyleModules/WStyleComponents.js";
 import { WModalForm } from "../../WDevCore/WComponents/WModalForm.js";
-import { ViewActivityComponent } from "./ViewComponents/ViewActivityComponent.js";
-import { WProfileInvestigador } from "./ProfileViewer.js";
 import { ModalVericateAction, WForm } from "../../WDevCore/WComponents/WForm.js";
-import { InvestigadorProfile } from "../../Model/InvestigadorProfile.js";
 import {
-    ProyectoTableActividades,
     TblProcesosEditoriales,
     Tbl_Distinciones,
     Tbl_Grupos
@@ -91,8 +87,6 @@ class PerfilClass extends HTMLElement {
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
             }, {
-                name: "Proyectos", action: async (ev) => { this.NavProyectos("Tab-TareasProyectos"); }
-            }, {
                 name: "Grupos", action: async (ev) => { this.NavGrupos("Tab-Grupos"); }
             }, {
                 name: "Eventos",
@@ -110,26 +104,7 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         const DataPost = { Id_Investigador: this.Id_Investigador };
         const Dataset = await WAjaxTools.PostRequest("../../api/Investigaciones/GetInvestigaciones", DataPost);
-        //const tipoInvestigacion = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoInvestigaciones", {});
-       // const tipoLocalidad = await WAjaxTools.PostRequest("../../api/PublicCat/GetLocalidades", {});
-       // const disciplinas = await WAjaxTools.PostRequest("../../api/PublicCat/GetDisciplinas", {});
-        const ModelInvestigacion = new Tbl_Investigaciones(/* {
-            Id_Tipo_Investigacion: { type: "SELECT", Dataset: tipoInvestigacion.map(x => ({ id: x.Id_Tipo_Investigacion, desc: x.Descripcion })) },
-            Id_Localidad: { type: "SELECT", Dataset: tipoLocalidad.map(x => ({ id: x.Id_Localidad, desc: x.Nombre_Localidad })) },
-            Disciplinas: {
-                type: "MultiSelect", Dataset: disciplinas.map(x => {
-                    x.Descripcion = x.DescripcionDisciplina
-                    return x;
-                })
-            }
-        } */);
-        // console.log(ModelInvestigacion);
-        // ModelInvestigacion.Abstract.hidden = true;
-        // ModelInvestigacion.Resumen.hidden = true;
-        // ModelInvestigacion.Repositorio.hidden = true;
-        // ModelInvestigacion.Referencias.hidden = true;
-        // ModelInvestigacion.Photo.hidden = true;
-        // ModelInvestigacion.Estado.hidden = true;
+        const ModelInvestigacion = new Tbl_Investigaciones();
         Tab.append(WRender.Create({
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Investigaciones" },
@@ -148,41 +123,8 @@ class PerfilClass extends HTMLElement {
         }));
         this.TabManager.NavigateFunction(TabId, Tab);
     }
-    NavProyectos = async (TabId) => {
-        const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        const DataPost = { Id_Investigador: this.Id_Investigador };
-        const Dataset = await WAjaxTools.PostRequest("../../api/Calendar/TakeActividades", DataPost);
-        this.response.Tbl_Proyectos?.forEach(proy => {
-            Tab.append(WRender.Create({
-                className: "DivProy", children: [
-                    { tagName: "h3", innerText: proy.Nombre_Proyecto },
-                    new WTableComponent({
-                        Dataset: Dataset.filter(x => x.Id_Proyecto == proy.Id_Proyecto),
-                        ModelObject: new ProyectoTableActividades(),
-                        //DisplayData: ['Titulo', 'Estado'],
-                        Options: {
-                            Search: true, UrlSearch: 'api_route',
-                            Add: true, UrlAdd: 'api_route',
-                            UserActions: [{
-                                name: 'Ver Detalle', Function: async (TableElement) => {
-                                    this.append(new WModalForm({
-                                        ObjectModal: new ViewActivityComponent(TableElement),
-                                        ShadowRoot: false,
-                                        title: TableElement.titulo,
-                                        StyleForm: "FullScreen"
-                                    }))
-                                }
-                            }]
-                        }
-                    })
-                ]
-            }))
-        });
-        this.TabManager.NavigateFunction(TabId, Tab);
-    }
     NavGrupos = async (TabId) => {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
-        //const Dataset = await WAjaxTools.PostRequest("../../api/Group/GetGruposInvestigador");
         const Id_TipoGrupo = await WAjaxTools.PostRequest("../../api/PublicCat/GetTipoGrupo");
         const Tbl_Instituciones_Asociadas = await WAjaxTools.PostRequest("../../api/PublicCat/GetInstitucion");
         Tab.append(WRender.Create({
@@ -202,7 +144,7 @@ class PerfilClass extends HTMLElement {
                         Search: true, UrlSearch: '../../api/Group/GetGruposInvestigador',
                         Add: true, UrlAdd: '../../api/Group/SaveGroup',
                         UserActions: [{
-                            name: 'Ver Detalle', Function: async (TableElement) => {
+                            name: 'Ver Detalle', action: async (TableElement) => {
 
                             }
                         }]
@@ -216,7 +158,6 @@ class PerfilClass extends HTMLElement {
         const Tab = WRender.Create({ className: "Tab-TareasProyectos" });
         Tab.append(WRender.Create({
             className: "DivProy", children: [
-                //{ tagName: "h3", innerText:  },
                 new WTableComponent({
                     Dataset: Dataset,
                     ModelObject: Model,
@@ -237,9 +178,6 @@ class PerfilClass extends HTMLElement {
         const Id_Paises = await WAjaxTools.PostRequest("../../api/PublicCat/GetPaises");
         const Idiomas = await WAjaxTools.PostRequest("../../api/PublicCat/GetIdiomas");
         const InvestigadorModel = new Tbl_InvestigatorProfile({
-            //Id_Institucion: Id_Institucion.map(x => ({ id: x.Id_Institucion, desc: x.Nombre })),
-            //Id_Pais_Origen: Id_Paises.map(x => ({ id: x.Id_Pais, desc: x.Descripcion })),
-            //Id_Idiomas: { type: "MULTISELECT", Dataset: Idiomas }
         });
         const EditForm = WRender.Create({
             className: "FormContainer", style: {
@@ -266,7 +204,7 @@ class PerfilClass extends HTMLElement {
             Eventos, Model,
             ["Id_Tipo_Evento", "nombre", "Modalidad", "Link"], [{
                 name: "Invitar",
-                Function: (Evento) => {
+                action: (Evento) => {
                     const table = new WTableComponent({
                         Dataset: Id_Investigador,
                         maxElementByPage: 5,

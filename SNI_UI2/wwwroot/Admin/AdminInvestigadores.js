@@ -102,7 +102,7 @@ function ElementTab(TabName = "Tab", DOMManager, Options) {
                 Options: {
                     Search: true, UserActions: [
                         {
-                            name: "Revizar", Function: async (Postulante) => {
+                            name: "Revizar", action: async (Postulante) => {
                                 const response = await WAjaxTools.PostRequest("../../api/Investigaciones/TakeInvestigadorProfile",
                                     Postulante
                                 );

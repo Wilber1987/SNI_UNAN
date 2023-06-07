@@ -9,15 +9,15 @@ namespace CAPA_NEGOCIO.Security
     public class Security_Roles : EntityClass
     {
         public int? Id_Role { get; set; }
-        public string Descripcion { get; set; }
-        public string Estado { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Estado { get; set; }
         [OneToMany(TableName = "Security_Permissions_Roles", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
         public List<Security_Permissions_Roles>? Security_Permissions_Roles { get; set; }
-        public Object SaveRole()
+        public object SaveRole()
         {
             if (this.Id_Role == null)
             {
-                this.Id_Role = (Int32)this.Save();
+                this.Id_Role = (Int32?)this.Save();
             }
             else
             {
@@ -36,18 +36,12 @@ namespace CAPA_NEGOCIO.Security
             }
             return this;
         }
-        public Object GetRolData()
+        public object GetRolData()
         {
             this.Security_Permissions_Roles = new Security_Permissions_Roles()
             {
                 Id_Role = this.Id_Role
             }.Get<Security_Permissions_Roles>();
-            //foreach (Security_Roles role in Security_Roles_List)
-            //{
-            //    role.Security_Permissions_Roles =
-            //        (new Security_Permissions_Roles()).Get_WhereIN<Security_Permissions_Roles>(
-            //             "Id_Role", new string[] { role.Id_Role.ToString() });
-            //}
             return this.Security_Permissions_Roles;
 
         }
@@ -65,37 +59,37 @@ namespace CAPA_NEGOCIO.Security
     {
         [PrimaryKey(Identity = true)]
         public int? Id_User { get; set; }
-        public string Nombres { get; set; }
-        public string Estado { get; set; }
-        public string Descripcion { get; set; }
-        public string Password { get; set; }
-        public string Mail { get; set; }
-        public string Token { get; set; }
+        public string? Nombres { get; set; }
+        public string? Estado { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Password { get; set; }
+        public string? Mail { get; set; }
+        public string? Token { get; set; }
         public DateTime? Token_Date { get; set; }
         public DateTime? Token_Expiration_Date { get; set; }
         [OneToMany(TableName = "Security_Users_Roles", KeyColumn = "Id_User", ForeignKeyColumn = "Id_User")]
         public List<Security_Users_Roles>? Security_Users_Roles { get; set; }
-        public Security_Users GetUserData()
+        public Security_Users? GetUserData()
         {
-            Security_Users user = this.Find<Security_Users>();
+            Security_Users? user = this.Find<Security_Users>();
             if (user != null)
             {
                 user.Security_Users_Roles = new Security_Users_Roles()
                 {
                     Id_User = this.Id_User
                 }.Get<Security_Users_Roles>();
-                foreach (Security_Users_Roles role in user.Security_Users_Roles)
+                foreach (Security_Users_Roles role in user.Security_Users_Roles ?? new List<Security_Users_Roles>())
                 {
-                    role.Security_Role.GetRolData();
+                    role.Security_Role?.GetRolData();
                 }
             }   
             return user;
         }
-        public Object SaveUser()
+        public object SaveUser()
         {
             if (this.Id_User == null)
             {
-                this.Id_User = (Int32)this.Save();
+                this.Id_User = (Int32?)this.Save();
             }
             else
             {
@@ -114,14 +108,14 @@ namespace CAPA_NEGOCIO.Security
             }
             return this;
         }
-        public Object GetUsers()
+        public object GetUsers()
         {
             var Security_Users_List = this.Get<Security_Users>();
             foreach (Security_Users User in Security_Users_List)
             {
                 User.Security_Users_Roles =
                     (new Security_Users_Roles()).Get_WhereIN<Security_Users_Roles>(
-                         "Id_User", new string[] { User.Id_User.ToString() });
+                         "Id_User", new string?[] { User.Id_User.ToString() });
             }
             return Security_Users_List;
         }
@@ -130,8 +124,8 @@ namespace CAPA_NEGOCIO.Security
     {
         [PrimaryKey(Identity = true)]
         public int? Id_Permission { get; set; }
-        public string Descripcion { get; set; }
-        public string Estado { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Estado { get; set; }
     }
     public class Security_Permissions_Roles : EntityClass
     {
@@ -139,7 +133,7 @@ namespace CAPA_NEGOCIO.Security
         public int? Id_Role { get; set; }
         [PrimaryKey(Identity = false)]
         public int? Id_Permission { get; set; }
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
         [ManyToOne(TableName = "Security_Permissions", KeyColumn = "Id_Permission", ForeignKeyColumn = "Id_Permission")]
         public Security_Permissions? Security_Permissions { get; set; }
     }
@@ -149,7 +143,7 @@ namespace CAPA_NEGOCIO.Security
         public int? Id_Role { get; set; }
         [PrimaryKey(Identity = false)]
         public int? Id_User { get; set; }
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
         [ManyToOne(TableName = "Security_Role", KeyColumn = "Id_Role", ForeignKeyColumn = "Id_Role")]
         public Security_Roles? Security_Role { get; set; }
 

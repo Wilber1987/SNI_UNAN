@@ -94,10 +94,13 @@ namespace CAPA_DATOS
                     }
                 }
                 else continue;
+
             }
             ColumnNames = ColumnNames.TrimEnd(',');
             Values = Values.TrimEnd(',');
-            return "INSERT INTO " + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+            string QUERY = "INSERT INTO " + Inst.GetType().Name + "(" + ColumnNames + ") VALUES(" + Values + ") SELECT SCOPE_IDENTITY()";
+            Console.WriteLine(QUERY);
+            return QUERY;
         }
         protected override string BuildUpdateQueryByObject(object Inst, string IdObject)
         {
@@ -125,6 +128,7 @@ namespace CAPA_DATOS
             }
             Values = Values.TrimEnd(',');
             string strQuery = "UPDATE  " + TableName + " SET " + Values + Conditions;
+            Console.WriteLine(strQuery);
             return strQuery;
         }
         protected override string BuildUpdateQueryByObject(object Inst, string[] WhereProps)
@@ -153,9 +157,91 @@ namespace CAPA_DATOS
             }
             Values = Values.TrimEnd(',');
             string strQuery = "UPDATE  " + TableName + " SET " + Values + Conditions;
+            Console.WriteLine(strQuery);
             return strQuery;
         }
+        protected override string BuildDeleteQuery(object Inst)
+        {
+            string TableName = Inst.GetType().Name;
+            string CondicionString = "";
+            Type _type = Inst.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            int index = 0;
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var AtributeValue = oProperty.GetValue(Inst);
+                if (AtributeValue != null)
+                {
+                    WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
+                }
 
+            }
+            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
+            string strQuery = "DELETE FROM  " + TableName + CondicionString;
+            Console.WriteLine(strQuery);
+            return strQuery;
+        }
+        protected override string BuildSelectQuery(object Inst, string CondSQL, bool fullEntity = true, bool isFind = false)
+        {
+            string CondicionString = "";
+            string Columns = "";
+            Type _type = Inst.GetType();
+            PropertyInfo[] lst = _type.GetProperties();
+            List<EntityProps> entityProps = DescribeEntity(Inst.GetType().Name);
+            int index = 0;
+            string tableAlias = tableAliaGenerator();
+            foreach (PropertyInfo oProperty in lst)
+            {
+                string AtributeName = oProperty.Name;
+                var EntityProp = entityProps.Find(e => e.COLUMN_NAME == AtributeName);
+                var oneToOne = (OneToOne?)Attribute.GetCustomAttribute(oProperty, typeof(OneToOne));
+                var manyToOne = (ManyToOne?)Attribute.GetCustomAttribute(oProperty, typeof(ManyToOne));
+                var oneToMany = (OneToMany?)Attribute.GetCustomAttribute(oProperty, typeof(OneToMany));
+                if (EntityProp != null)
+                {
+                    var AtributeValue = oProperty.GetValue(Inst);
+                    Columns = Columns + AtributeName + ",";
+                    if (AtributeValue != null)
+                    {
+                        WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
+                    }
+                }
+                else if (manyToOne != null && fullEntity)
+                {
+                    var manyToOneInstance = Activator.CreateInstance(oProperty.PropertyType);
+                    string condition = " " + manyToOne.KeyColumn + " = " + tableAlias + "." + manyToOne.ForeignKeyColumn
+                        + " FOR JSON PATH,  ROOT('object') ";
+                    Columns = Columns + AtributeName
+                        + " = JSON_QUERY(("
+                        + BuildSelectQuery(manyToOneInstance, condition, false)
+                        + "),'$.object[0]'),";
+                }
+                else if (oneToMany != null && fullEntity)
+                {
+                    var oneToManyInstance = Activator.CreateInstance(oProperty.PropertyType.GetGenericArguments()[0]);
+                    string condition = " " + oneToMany.ForeignKeyColumn + " = " + tableAlias + "." + oneToMany.KeyColumn + " FOR JSON PATH";
+                    Columns = Columns + AtributeName
+                        + " = ("
+                        + BuildSelectQuery(oneToManyInstance, condition, oneToMany.TableName != Inst.GetType().Name)
+                        + "),";
+                }
+            }
+            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
+            if (CondicionString == "" && CondSQL != "")
+            {
+                CondicionString = " WHERE ";
+            }
+            else if (CondicionString != "" && CondSQL != "")
+            {
+                CondicionString = CondicionString + " AND ";
+            }
+            Columns = Columns.TrimEnd(',');
+            string queryString = "SELECT " + Columns
+                + " FROM " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + " as " + tableAlias
+                + CondicionString + CondSQL;
+            return queryString;
+        }
         private static string BuildSetsForUpdate(string Values, string AtributeName, object AtributeValue, EntityProps EntityProp)
         {
             switch (EntityProp.DATA_TYPE)
@@ -184,66 +270,13 @@ namespace CAPA_DATOS
 
             return Values;
         }
-
-        protected override string BuildDeleteQuery(object Inst)
-        {
-            string TableName = Inst.GetType().Name;
-            string CondicionString = "";
-            Type _type = Inst.GetType();
-            PropertyInfo[] lst = _type.GetProperties();
-            int index = 0;
-            foreach (PropertyInfo oProperty in lst)
-            {
-                string AtributeName = oProperty.Name;
-                var AtributeValue = oProperty.GetValue(Inst);
-                if (AtributeValue != null)
-                {
-                    WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
-                }
-
-            }
-            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-            string strQuery = "DELETE FROM  " + TableName + CondicionString;
-            return strQuery;
-        }
-
-        protected override private DataTable BuildTable(object Inst, ref string CondSQL)
-        {
-
-            string CondicionString = "";
-            string Columns = "";
-            Type _type = Inst.GetType();
-            PropertyInfo[] lst = _type.GetProperties();
-            int index = 0;
-            List<EntityProps> entityProps = DescribeEntity(Inst.GetType().Name);
-            if (entityProps.Count == 0) return new DataTable();
-            foreach (PropertyInfo oProperty in lst)
-            {
-                string AtributeName = oProperty.Name;
-                var EntityProp = entityProps.Find(e => e.COLUMN_NAME == AtributeName);
-                if (EntityProp != null)
-                {
-                    var AtributeValue = oProperty.GetValue(Inst);
-                    Columns = Columns + AtributeName + ",";
-                    if (AtributeValue != null)
-                    {
-                        WhereConstruction(ref CondicionString, ref index, AtributeName, AtributeValue);
-                    }
-                }
-            }
-            CondicionString = CondicionString.TrimEnd(new char[] { '0', 'R' });
-            if (CondicionString == "" && CondSQL != "")
-            {
-                CondicionString = " WHERE ";
-            }
-            else if (CondicionString != "" && CondSQL != "")
-            {
-                CondicionString = CondicionString + " AND ";
-            }
-            Columns = Columns.TrimEnd(',');
-            string queryString = "SELECT " + Columns + " FROM " + entityProps[0].TABLE_SCHEMA + "." + Inst.GetType().Name + CondicionString + CondSQL;
-            DataTable Table = TraerDatosSQL(queryString);
-            return Table;
+        private static string tableAliaGenerator()
+        {           
+            char ta = (char)(((int)'A') + new Random().Next(26));
+            char ta2 = (char)(((int)'A') + new Random().Next(26));
+            char ta3 = (char)(((int)'A') + new Random().Next(26));
+            char ta4 = (char)(((int)'A') + new Random().Next(26));
+            return ta.ToString() + ta2 + ta3 + ta4; 
         }
         private static void WhereConstruction(ref string CondicionString, ref int index, string AtributeName, object AtributeValue)
         {
@@ -280,8 +313,6 @@ namespace CAPA_DATOS
                 CondicionString = CondicionString + " AND ";
             }
         }
-
-
         //DATA SQUEMA
         public List<EntitySchema> databaseSchemas()
         {

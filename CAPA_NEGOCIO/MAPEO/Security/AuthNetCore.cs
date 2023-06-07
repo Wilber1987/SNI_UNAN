@@ -11,7 +11,7 @@ namespace CAPA_NEGOCIO.Security
         static private string SGBD_USER = "sa";
         static private string SWGBD_PASSWORD = "zaxscd";
         static public bool AuthAttribute = false;
-        static private Security_Users security_User;
+        static private Security_Users? security_User;
         static public bool Authenticate()
         {
             if (SqlADOConexion.SQLM == null || SqlADOConexion.Anonimo || security_User == null)
@@ -28,7 +28,7 @@ namespace CAPA_NEGOCIO.Security
             SqlADOConexion.IniciarConexionAnonima();
             return true;
         }
-        static public object loginIN(string mail, string password)
+        static public object loginIN(string? mail, string? password)
         {
             if (mail == null ||  mail.Equals("") || password == null || password.Equals("")) 
                 return new UserModel() { success= false, message= "Usuario y contraseña son requeridos.",  status = 500 };
@@ -43,8 +43,10 @@ namespace CAPA_NEGOCIO.Security
                 if (security_User == null) ClearSeason();
                 return User();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("-- ==================> :" + ex);
+                throw;
                 return new UserModel() { success = false, message = "Error al intentar iniciar sesión, favor intentarlo mas tarde, o contactese con nosotros.", status = 500 };
             }
         }
@@ -86,8 +88,8 @@ namespace CAPA_NEGOCIO.Security
         {
             if (Authenticate())
             {
-                var roleHavePermision = security_User.Security_Users_Roles.Where(r => RoleHavePermission(permission, r).Count != 0).ToList();
-                if (roleHavePermision.Count != 0) return true;
+                var roleHavePermision = security_User?.Security_Users_Roles?.Where(r => RoleHavePermission(permission, r)?.Count != 0).ToList();
+                if (roleHavePermision?.Count != 0) return true;
                 return false;
             }
             else
@@ -95,17 +97,17 @@ namespace CAPA_NEGOCIO.Security
                 return false;
             }
         }
-        private static List<Security_Permissions_Roles> RoleHavePermission(string permission, Security_Users_Roles r)
+        private static List<Security_Permissions_Roles>? RoleHavePermission(string permission, Security_Users_Roles? r)
         {
-            return r.Security_Role.Security_Permissions_Roles.Where(p => p.Security_Permissions.Descripcion == permission).ToList();
+            return r?.Security_Role?.Security_Permissions_Roles?.Where(p => p.Security_Permissions?.Descripcion == permission).ToList();
         }
     }
     public class UserModel
     {
         public int? UserId { get; set; }
         public int? status { get; set; }
-        public string mail { get; set; }
-        public string password { get; set; }
+        public string? mail { get; set; }
+        public string? password { get; set; }
         public string? message { get; set; }
         public bool? success { get; set; }
     }

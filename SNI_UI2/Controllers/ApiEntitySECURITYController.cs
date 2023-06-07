@@ -16,12 +16,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveSecurity_Permissions(Security_Permissions inst) {
+       public object? saveSecurity_Permissions(Security_Permissions inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateSecurity_Permissions(Security_Permissions inst) {
+       public object? updateSecurity_Permissions(Security_Permissions inst) {
            return inst.Update();
        }
        //Security_Permissions_Roles
@@ -32,12 +32,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
+       public object? saveSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
+       public object? updateSecurity_Permissions_Roles(Security_Permissions_Roles inst) {
            return inst.Update();
        }
        //Security_Roles
@@ -48,12 +48,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveSecurity_Roles(Security_Roles inst) {
+       public object? saveSecurity_Roles(Security_Roles inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateSecurity_Roles(Security_Roles inst) {
+       public object? updateSecurity_Roles(Security_Roles inst) {
            return inst.Update();
        }
        //Security_Users
@@ -64,12 +64,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveSecurity_Users(Security_Users inst) {
+       public object? saveSecurity_Users(Security_Users inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateSecurity_Users(Security_Users inst) {
+       public object? updateSecurity_Users(Security_Users inst) {
            return inst.Update();
        }
        //Security_Users_Roles
@@ -80,12 +80,12 @@ namespace API.Controllers {
        }
        [HttpPost]
        [AuthController]
-       public object saveSecurity_Users_Roles(Security_Users_Roles inst) {
+       public object? saveSecurity_Users_Roles(Security_Users_Roles inst) {
            return inst.Save();
        }
        [HttpPost]
        [AuthController]
-       public object updateSecurity_Users_Roles(Security_Users_Roles inst) {
+       public object? updateSecurity_Users_Roles(Security_Users_Roles inst) {
            return inst.Update();
        }
    }

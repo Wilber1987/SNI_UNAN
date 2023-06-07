@@ -37,5 +37,18 @@ namespace SNI_UI.Controllers
         {
             return Inst.Get<Cat_Tipo_Proyecto>();
         }
+        public List<ProyectoTableTareas> GetOwParticipations()
+        {           
+            return new ProyectoTableTareas().GetOwParticipations();
+        }     
+        public List<ProyectoTableActividades> GetOwActivities()
+        {            
+            return new ProyectoTableActividades().GetOwActivities();
+        }
+        public List<ProyectoCatDependencias> GetOwDependencies()
+        {            
+            return new ProyectoCatDependencias().GetOwDependencies();
+        }
+
     }
 }

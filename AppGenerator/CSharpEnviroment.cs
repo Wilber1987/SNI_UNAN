@@ -207,8 +207,8 @@ namespace Security
             controllerString.AppendLine("       //" + table.TABLE_NAME);
             controllerString.AppendLine("       [HttpPost]");
             controllerString.AppendLine("       [AuthController]");
-            controllerString.AppendLine("       public List<" + table.TABLE_NAME + "> get" + table.TABLE_NAME + "() {");
-            controllerString.AppendLine("           return new " + table.TABLE_NAME + "().Get<" + table.TABLE_NAME + ">();");
+            controllerString.AppendLine("       public List<" + table.TABLE_NAME + "> get" + table.TABLE_NAME + "(" + table.TABLE_NAME + " Inst) {");
+            controllerString.AppendLine("           return Inst.Get<" + table.TABLE_NAME + ">();");
             controllerString.AppendLine("       }");
             if (schemaType.TABLE_TYPE == "BASE TABLE")
             {
@@ -313,6 +313,7 @@ namespace Security
             controllerString.AppendLine("using Security;");
             controllerString.AppendLine("using Microsoft.AspNetCore.Http;");
             controllerString.AppendLine("using Microsoft.AspNetCore.Mvc;");
+            controllerString.AppendLine("using System.Collections.Generic;");
 
 
             controllerString.AppendLine("namespace API.Controllers {");
