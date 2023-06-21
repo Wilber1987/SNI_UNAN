@@ -23,16 +23,15 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./App.js" type="module"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/AdminTemplate.css" />
 </head>
 
 <body id="App">
     @if (SecurityController.IsAdmin())
     {
-        <header id="Header" class="admin-header">
-            <a href="~/Admin/Index">Admin Panel</a>
+        <header id="Header" class="admin-header" >
+            <a href="~/Admin/Index" style="color: #000;">Admin Panel</a>
         </header>
     }
 </body>
-
 </html>

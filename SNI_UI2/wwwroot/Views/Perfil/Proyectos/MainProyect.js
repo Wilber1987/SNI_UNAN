@@ -38,7 +38,7 @@ class MainProyect extends HTMLElement {
         //NavStyle: "tab",
         Direction: "column",
         Inicialize: true,
-        DarkMode: true,
+       
         Elements: [
             {
                 name: "Datos Generales",

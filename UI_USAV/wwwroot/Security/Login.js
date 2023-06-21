@@ -12,7 +12,7 @@ const OnLoad = async () => {
     const LoginForm = WRender.Create({
         className: "LoginForm", children: [
             WRender.Create({ tagName: "style", innerHTML: '@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");' }),
-            WRender.createElement(StylesControlsV2),
+           StylesControlsV2.cloneNode(true),
             WRender.Create(MasterStyle),
             { tagName: 'img', src: Icons.SNI, class: 'className'  },
             {

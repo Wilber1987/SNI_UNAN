@@ -13,7 +13,7 @@ class EventViewer extends HTMLElement {
         this.shadowRoot.append(
             this.Style,
             this.BtnReturn,
-            WRender.createElement(StylesControlsV2),
+           StylesControlsV2.cloneNode(true),
             this.TabContainer
         );
         this.actionReturn = actionReturn;

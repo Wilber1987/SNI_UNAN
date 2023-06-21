@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });
     Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de Investigaciones"}));
     Aside.append(new WAppNavigator({
-        DarkMode: true,
+       
         Direction: "column",
         Elements: [
             Investigacion("Investigaciones", DOMManager)

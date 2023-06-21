@@ -1,0 +1,43 @@
+.collapse {
+    max-height: 0px;
+    overflow: hidden;
+    transition: all .5s;
+}
+
+.active-title+.collapse {
+    max-height: inherit;
+}
+
+.title-collapse::after {
+    content: ">";
+    margin-left: 8px;
+    transition: all .2s;
+    font-weight: 900;
+    height: 8px;
+    width: 10px;
+    min-width: 10px;
+    background-color: var(--font-tertiary-color);
+    clip-path: polygon(50% 50%, 100% 0%, 100% 50%, 50% 100%, 0% 50%, 0% 0%);
+}
+
+.active-title::after {
+    transform: rotate(-180deg);
+}
+
+#Aside a.title-collapse {
+    color: var(--font-tertiary-color);
+    padding: 10px;
+    margin: 0px;    
+    font-size: 10px;
+
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Open Sans", sans-serif;
+    padding-right: 16px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    line-height: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}

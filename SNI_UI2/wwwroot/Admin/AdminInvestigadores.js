@@ -11,7 +11,7 @@ window.onload = () => {
     Main.append(WRender.createElement(StylesControlsV2));
     Aside.append(WRender.Create({tagName: "h3", innerText: "Administración de Investigadores"}))
     Aside.append(new WAppNavigator({
-        DarkMode: true,
+       
         Direction: "column",
         Elements: [
             ElementTab("Postulantes", DOMManager),

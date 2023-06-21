@@ -694,8 +694,8 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Investigacion { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Investigaciones", KeyColumn = "Id_Tipo_Investigacion", ForeignKeyColumn = "Id_Tipo_Investigacion")]
-        public List<Tbl_Investigaciones>? Tbl_Investigaciones { get; set; }
+        // [OneToMany(TableName = "Tbl_Investigaciones", KeyColumn = "Id_Tipo_Investigacion", ForeignKeyColumn = "Id_Tipo_Investigacion")]
+        // public List<Tbl_Investigaciones>? Tbl_Investigaciones { get; set; }
     }
     public class Tbl_InvestigatorProfile : EntityClass
     {
