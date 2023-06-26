@@ -304,7 +304,7 @@ class Tbl_Investigaciones {
 	url_publicacion = { type: "text" };
 	Fecha_ejecucion = { type: "date" };
 	Id_Investigador = { type: "number", hidden: true };
-	Photo = { type: "IMG" };
+	//Photo = { type: "IMG" };
 	Visibilidad = { type: "Select", Dataset: ["Pública", "Privada"] };
 	Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "Finalizada", "En Proceso"] };
 	Id_Localidad = { type: "number" };

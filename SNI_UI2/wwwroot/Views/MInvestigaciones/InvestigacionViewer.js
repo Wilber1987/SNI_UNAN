@@ -14,7 +14,7 @@ class InvestigacionViewer extends HTMLElement {
         this.appendChild(WRender.createElement(StylesControlsV1));
         this.profileCard = new WCard({
             titulo: `${response.Tbl_InvestigatorProfile?.Nombres}`,
-            picture: response.Tbl_InvestigatorProfile?.Foto,
+            picture: "/Media/Image/" + response.Tbl_InvestigatorProfile?.Foto,
             subtitulo: "Autor",
             descripcion: response.Tbl_InvestigatorProfile?.NombreInstitucion,
             id_Investigador: response.Tbl_InvestigatorProfile?.Id_Investigador
@@ -36,7 +36,7 @@ class InvestigacionViewer extends HTMLElement {
         }
         this.DrawComponent();
     }
-    DrawComponent = async () => {       
+    DrawComponent = async () => {
         const Card = WRender.Create({
             class: 'InvestigacionCard', children: [
                 this.profileCard,
@@ -51,7 +51,7 @@ class InvestigacionViewer extends HTMLElement {
                             tagName: 'input',
                             tagName: 'button', class: 'BtnPrimary', innerHTML: 'Leer...', onclick: async () => {
                                 //window.location = this.response.url_publicacion;
-                                window.open(this.response.url_publicacion, "_blank");  
+                                window.open(this.response.url_publicacion, "_blank");
                             }
                         }], WRender.CreateStringNode("<div class='DetailsHeader'>Disciplinas</div>"), {
                             class: 'InvestigationDisciplineContainer',
@@ -84,24 +84,19 @@ class InvestigacionViewer extends HTMLElement {
             ]
         });
         this.response.Tbl_Colaboradores?.forEach(element => {
-            element.titulo = `${element.Nombres} ${element.Apellidos}`;
-            element.picture = element.Foto;
-            element.subtitulo = element.TipoColaboracion;
-            element.descripcion = element.NombreInstitucion;
+            console.log(element);
+            element.titulo = `${element.Tbl_InvestigatorProfile.Nombres} ${element.Tbl_InvestigatorProfile.Apellidos}`;
+            element.picture = "/Media/Image/" + element.Tbl_InvestigatorProfile.Foto;
+            element.subtitulo = element.Cat_Tipo_Colaborador.Descripcion;
+            element.descripcion = element.Tbl_InvestigatorProfile.NombreInstitucion;
         });
         if (this.response.Photo == null) {
             this.response.Photo = ""
         }
-        if (this.response.Photo) {
-            this.InvestigacionContainer.append(WRender.createElement({
-                type: 'img',
-                props: { src: "data:image/png;base64," + this.response.Photo, class: 'photoBaner' }
-            }));
-        }
         this.InvestigacionContainer.append(WRender.createElement(Card));
         this.InvestigacionContainer.append(WRender.createElement(Detaills));
         if (this.response.Tbl_Colaboradores?.length > 0) {
-            const Colaboradores = new WCardCarousel(this.response.Colaboradores);
+            const Colaboradores = new WCardCarousel(this.response.Tbl_Colaboradores);
             Colaboradores.ActionFunction = (Object) => {
                 ActionFunction(Object.Id_Investigador, this.DomManager)
             }

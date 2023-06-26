@@ -98,6 +98,7 @@ function ElementTab(TabName = "Tab", DOMManager, Options) {
             DOMManager.NavigateFunction(TabName, new WTableComponent({
                 Dataset: response,
                 ModelObject: Model,
+                ImageUrlPath: "/Media/Image",
                 DisplayData: ["Nombres", "Apellidos", "Id_Institucion", "Foto", "DNI"],
                 Options: {
                     Search: true, UserActions: [

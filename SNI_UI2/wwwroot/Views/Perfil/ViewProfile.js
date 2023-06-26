@@ -82,7 +82,7 @@ class PerfilClass extends HTMLElement {
                     );
                     this.response.Id_Idiomas = this.response.Tbl_IdiomasInv?.map(i => i.Idioma)
                     this.TabManager.NavigateFunction("Tab-Generales",
-                        new WDetailObject({ ObjectDetail: this.response, ModelObject: new Tbl_InvestigatorProfile() }));
+                        new WDetailObject({ ObjectDetail: this.response, ModelObject: new Tbl_InvestigatorProfile(),  ImageUrlPath: "/Media/Image" }));
                 }
             }, {
                 name: "Investigaciones", action: async (ev) => { this.NavInvestigaciones("Tab-Investigaciones"); }
@@ -109,6 +109,7 @@ class PerfilClass extends HTMLElement {
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Investigaciones" },
                 new WTableComponent({
+                    ImageUrlPath: "/Media/Image/",
                     Dataset: Dataset,
                     ModelObject: ModelInvestigacion,
                     //DisplayData: ['Titulo', 'Estado'],
@@ -131,6 +132,7 @@ class PerfilClass extends HTMLElement {
             className: "DivProy", children: [
                 { tagName: "h3", innerText: "Grupos" },
                 new WTableComponent({
+                    ImageUrlPath: "/Media/Image/",
                     Dataset: [],
                     ModelObject: new Tbl_Grupos({
                         Id_TipoGrupo: { type: "Select", Dataset: Id_TipoGrupo.map(x => ({ id: x.Id_TipoGrupo, desc: x.Descripcion })) },
@@ -159,6 +161,7 @@ class PerfilClass extends HTMLElement {
         Tab.append(WRender.Create({
             className: "DivProy", children: [
                 new WTableComponent({
+                    ImageUrlPath: "/Media/Image/",
                     Dataset: Dataset,
                     ModelObject: Model,
                     DisplayData: DisplayData,
@@ -189,6 +192,7 @@ class PerfilClass extends HTMLElement {
                 new WForm({
                     ModelObject: InvestigadorModel,
                     EditObject: this.response,
+                    ImageUrlPath: "/Media/Image",
                     ObjectOptions: { Url: "../../api/Profile/SaveProfile" },
                 })
             ]
@@ -206,6 +210,7 @@ class PerfilClass extends HTMLElement {
                 name: "Invitar",
                 action: (Evento) => {
                     const table = new WTableComponent({
+                        ImageUrlPath: "/Media/Image/",
                         Dataset: Id_Investigador,
                         maxElementByPage: 5,
                         ModelObject: new Tbl_InvestigatorProfile({

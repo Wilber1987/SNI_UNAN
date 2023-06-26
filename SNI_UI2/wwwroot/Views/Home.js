@@ -6,6 +6,8 @@ import { InvestigacionViewer } from "./MInvestigaciones/InvestigacionViewer.js";
 import { WModalForm } from "../WDevCore/WComponents/WModalForm.js";
 import { WProfileInvestigador } from "./Perfil/ProfileViewer.js";
 import { InvestigacionesViewer } from "./MInvestigaciones/InvestigacionesViewer.js";
+import { WDetailObject } from "../WDevCore/WComponents/WDetailObject.js";
+import { Tbl_InvestigatorProfile } from "../Model/DBODataBaseModel.js";
 
 class HomeClass extends HTMLElement {
     constructor(response) {
@@ -57,7 +59,14 @@ class HomeClass extends HTMLElement {
                     "border-radius": "0.2cm",
                     "background-color": "#fff",
                     "box-shadow": "0 0px 3px 0 rgba(0,0,0,0.4)"
-                }),
+                }), new WCssClass("w-view-detail", {
+                    overflow: "auto",
+                    padding: "20px",
+                    background: "#fff",
+                    display: "block",
+                    "border-radius": 20,
+                    "box-shadow": "0 0 4px 0 rgb(0, 0, 0, 40%)"
+                })
             ], MediaQuery: [{
                 condicion: "(max-width: 1200px)",
                 ClassList: [
@@ -101,7 +110,12 @@ const ActionFunction = async (Id_Investigador, DOMManager) => {
             divRedes
         ]
     });
-    const BodyComponents = new WProfileInvestigador(response, { DOMManager: DOMManager });
+    const BodyComponents = new WDetailObject({
+        ObjectDetail: response,
+        ModelObject: new Tbl_InvestigatorProfile(),
+        ImageUrlPath: "/Media/Image",
+        DOMManager: DOMManager
+    }); // new WProfileInvestigador(response, { DOMManager: DOMManager });
     DOMManager.NavigateFunction("Investigador" + Id_Investigador, BodyComponents);
 }
 
@@ -125,7 +139,7 @@ async function ChargeInvestigacion(Investigacion, DOMManager) {
         { Id_Investigacion: Id_Investigacion }
     );
     const Reader = new InvestigacionViewer(response, DOMManager);
-    DOMManager.NavigateFunction("Investigacion"+Id_Investigacion, Reader);
+    DOMManager.NavigateFunction("Investigacion" + Id_Investigacion, Reader);
 }
 
 export { HomeClass, ActionFunction, ModalComp, ChargeInvestigacion }

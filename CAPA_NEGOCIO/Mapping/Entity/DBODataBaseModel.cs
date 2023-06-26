@@ -15,7 +15,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Evento { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Evento", KeyColumn = "Id_Tipo_Evento", ForeignKeyColumn = "Id_Tipo_Evento")]
+        //[OneToMany(TableName = "Tbl_Evento", KeyColumn = "Id_Tipo_Evento", ForeignKeyColumn = "Id_Tipo_Evento")]
         public List<Tbl_Evento>? Tbl_Evento { get; set; }
     }
     public class Cat_Idiomas : EntityClass
@@ -24,7 +24,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Idioma { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_IdiomasInv", KeyColumn = "Id_Idioma", ForeignKeyColumn = "Id_Idioma")]
+        //[OneToMany(TableName = "Tbl_IdiomasInv", KeyColumn = "Id_Idioma", ForeignKeyColumn = "Id_Idioma")]
         public List<Tbl_IdiomasInv>? Tbl_IdiomasInv { get; set; }
     }
     public class Cat_TipoEstudio : EntityClass
@@ -33,7 +33,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_TipoEstudio { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Formacion_Academica", KeyColumn = "Id_TipoEstudio", ForeignKeyColumn = "Id_TipoEstudio")]
+        //[OneToMany(TableName = "Tbl_Formacion_Academica", KeyColumn = "Id_TipoEstudio", ForeignKeyColumn = "Id_TipoEstudio")]
         public List<Tbl_Formacion_Academica>? Tbl_Formacion_Academica { get; set; }
     }
     public class Cat_TipoGrupo : EntityClass
@@ -42,7 +42,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_TipoGrupo { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Grupos", KeyColumn = "Id_TipoGrupo", ForeignKeyColumn = "Id_TipoGrupo")]
+        // [OneToMany(TableName = "Tbl_Grupos", KeyColumn = "Id_TipoGrupo", ForeignKeyColumn = "Id_TipoGrupo")]
         public List<Tbl_Grupos>? Tbl_Grupos { get; set; }
     }
     public class Cat_TipoMiembro : EntityClass
@@ -51,7 +51,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_TipoMiembro { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_InvestigadoresAsociados", KeyColumn = "Id_TipoMiembro", ForeignKeyColumn = "Id_TipoMiembro")]
+        //[OneToMany(TableName = "Tbl_InvestigadoresAsociados", KeyColumn = "Id_TipoMiembro", ForeignKeyColumn = "Id_TipoMiembro")]
         public List<Tbl_InvestigadoresAsociados>? Tbl_InvestigadoresAsociados { get; set; }
     }
     public class CatTipoDistincion : EntityClass
@@ -60,17 +60,17 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Distincion { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Distinciones", KeyColumn = "Id_Tipo_Distincion", ForeignKeyColumn = "Id_Tipo_Distincion")]
+        //[OneToMany(TableName = "Tbl_Distinciones", KeyColumn = "Id_Tipo_Distincion", ForeignKeyColumn = "Id_Tipo_Distincion")]
         public List<Tbl_Distinciones>? Tbl_Distinciones { get; set; }
     }
-    
+
     public class CatalogoTipoEvidencia : EntityClass
     {
         [PrimaryKey(Identity = true)]
         public int? IdTipo { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-       
+
     }
     public class Tbl_Datos_Laborales : EntityClass
     {
@@ -530,7 +530,7 @@ namespace CAPA_NEGOCIO.MAPEO
         [PrimaryKey(Identity = true)]
         public int? Id_Tipo_Participacion { get; set; }
         public string? Descripcion { get; set; }
-        [OneToMany(TableName = "Tbl_Participantes_Eventos", KeyColumn = "Id_Tipo_Participacion", ForeignKeyColumn = "Id_Tipo_Participacion")]
+        //[OneToMany(TableName = "Tbl_Participantes_Eventos", KeyColumn = "Id_Tipo_Participacion", ForeignKeyColumn = "Id_Tipo_Participacion")]
         public List<Tbl_Participantes_Eventos>? Tbl_Participantes_Eventos { get; set; }
     }
     public class Tbl_Investigaciones_Disciplinas : EntityClass
@@ -552,7 +552,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Color { get; set; }
         public string? Icono { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Investigaciones_Disciplinas", KeyColumn = "Id_Disciplina", ForeignKeyColumn = "Id_Disciplina")]
+        //[OneToMany(TableName = "Tbl_Investigaciones_Disciplinas", KeyColumn = "Id_Disciplina", ForeignKeyColumn = "Id_Disciplina")]
         public List<Tbl_Investigaciones_Disciplinas>? Tbl_Investigaciones_Disciplinas { get; set; }
     }
     public class Tbl_Investigaciones : EntityClass
@@ -634,7 +634,7 @@ namespace CAPA_NEGOCIO.MAPEO
             {
                 throw;
             }
-        }       
+        }
     }
     public class Cat_Paises : EntityClass
     {
@@ -642,7 +642,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Pais { get; set; }
         public string? Estado { get; set; }
         public string? Descripcion { get; set; }
-        [OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
+        //[OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
         public List<Cat_Localidad>? Cat_Localidad { get; set; }
         // [OneToMany(TableName = "Tbl_Evento", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
         // public List<Tbl_Evento>? Tbl_Evento { get; set; }
@@ -668,13 +668,13 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Latitud { get; set; }
         public string? Longitud { get; set; }
         public string? Estado { get; set; }
-        [ManyToOne(TableName = "Cat_TipoLocalidad", KeyColumn = "Id_Tipo_Localidad", ForeignKeyColumn = "Id_Tipo_Localidad")]
+        //[ManyToOne(TableName = "Cat_TipoLocalidad", KeyColumn = "Id_Tipo_Localidad", ForeignKeyColumn = "Id_Tipo_Localidad")]
         public Cat_TipoLocalidad? Cat_TipoLocalidad { get; set; }
-        [ManyToOne(TableName = "Cat_Localidad", KeyColumn = "Id_LocalidadPadre", ForeignKeyColumn = "Id_Localidad")]
+       //[ManyToOne(TableName = "Cat_Localidad", KeyColumn = "Id_LocalidadPadre", ForeignKeyColumn = "Id_Localidad")]
         public Cat_Localidad? Cat_Localidad_Padre { get; set; }
-        [ManyToOne(TableName = "Cat_Paises", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
+        //[ManyToOne(TableName = "Cat_Paises", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
         public Cat_Paises? Cat_Paises { get; set; }
-        [OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_LocalidadPadre")]
+        //[OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_LocalidadPadre")]
         public List<Cat_Localidad>? Cat_Localidades { get; set; }
         // [OneToMany(TableName = "Tbl_Investigaciones", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_Localidad")]
         // public List<Tbl_Investigaciones>? Tbl_Investigaciones { get; set; }
@@ -686,7 +686,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Nombre { get; set; }
         public string? Direccion { get; set; }
         public string? Estado { get; set; }
-        public string? Logo { get; set; }    
+        public string? Logo { get; set; }
     }
     public class Cat_Tipo_Investigacion : EntityClass
     {
@@ -829,7 +829,7 @@ namespace CAPA_NEGOCIO.MAPEO
                 foreach (Tbl_Datos_Laborales obj in this.Tbl_Datos_Laborales)
                 {
                     obj.Id_Investigador = this.Id_Investigador;
-                     if (obj.Id_DatoL == null)
+                    if (obj.Id_DatoL == null)
                     {
                         obj.Save();
                     }
@@ -843,7 +843,7 @@ namespace CAPA_NEGOCIO.MAPEO
             {
                 foreach (Tbl_Investigaciones obj in this.Tbl_Investigaciones)
                 {
-                    obj.Id_Investigador = this.Id_Investigador;                   
+                    obj.Id_Investigador = this.Id_Investigador;
                     if (obj.Id_Investigacion == null)
                     {
                         obj.Save();
@@ -888,7 +888,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Asociacion { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Instituciones_Asociadas", KeyColumn = "Id_Tipo_Asociacion", ForeignKeyColumn = "Id_Tipo_Asociacion")]
+        //[OneToMany(TableName = "Tbl_Instituciones_Asociadas", KeyColumn = "Id_Tipo_Asociacion", ForeignKeyColumn = "Id_Tipo_Asociacion")]
         public List<Tbl_Instituciones_Asociadas>? Tbl_Instituciones_Asociadas { get; set; }
     }
     public class Tbl_Instituciones_Asociadas : EntityClass
@@ -913,7 +913,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Colaboracion { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Colaboradores", KeyColumn = "Id_Tipo_Colaboracion", ForeignKeyColumn = "Id_Tipo_Colaboracion")]
+        //[OneToMany(TableName = "Tbl_Colaboradores", KeyColumn = "Id_Tipo_Colaboracion", ForeignKeyColumn = "Id_Tipo_Colaboracion")]
         public List<Tbl_Colaboradores>? Tbl_Colaboradores { get; set; }
     }
     public class Tbl_Colaboradores : EntityClass
@@ -939,7 +939,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Descripcion_Tipo_Proyecto { get; set; }
         public string? Estado_Tipo_Proyecto { get; set; }
         public string? Icon { get; set; }
-        [OneToMany(TableName = "Tbl_Proyectos", KeyColumn = "Id_Tipo_Proyecto", ForeignKeyColumn = "Id_Tipo_Proyecto")]
+        //[OneToMany(TableName = "Tbl_Proyectos", KeyColumn = "Id_Tipo_Proyecto", ForeignKeyColumn = "Id_Tipo_Proyecto")]
         public List<Tbl_Proyectos>? Tbl_Proyectos { get; set; }
     }
     public class Tbl_Proyectos : EntityClass
@@ -968,7 +968,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Cargo_Proyecto { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Participantes_Proyectos", KeyColumn = "Id_Cargo_Proyecto", ForeignKeyColumn = "Id_Cargo_Proyecto")]
+        //[OneToMany(TableName = "Tbl_Participantes_Proyectos", KeyColumn = "Id_Cargo_Proyecto", ForeignKeyColumn = "Id_Cargo_Proyecto")]
         public List<Tbl_Participantes_Proyectos>? Tbl_Participantes_Proyectos { get; set; }
     }
     public class Tbl_Participantes_Proyectos : EntityClass
@@ -995,7 +995,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? url { get; set; }
         public string? Icon { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Invest_RedS", KeyColumn = "Id_RedSocial", ForeignKeyColumn = "Id_RedSocial")]
+        //[OneToMany(TableName = "Tbl_Invest_RedS", KeyColumn = "Id_RedSocial", ForeignKeyColumn = "Id_RedSocial")]
         public List<Tbl_Invest_RedS>? Tbl_Invest_RedS { get; set; }
     }
     public class Tbl_Invest_RedS : EntityClass
@@ -1029,7 +1029,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Cargo { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "Tbl_Datos_Laborales", KeyColumn = "Id_Cargo", ForeignKeyColumn = "Id_Cargo")]
+        //[OneToMany(TableName = "Tbl_Datos_Laborales", KeyColumn = "Id_Cargo", ForeignKeyColumn = "Id_Cargo")]
         public List<Tbl_Datos_Laborales>? Tbl_Datos_Laborales { get; set; }
     }
     public class Cat_Tipo_Proceso_Editorial : EntityClass
@@ -1038,7 +1038,7 @@ namespace CAPA_NEGOCIO.MAPEO
         public int? Id_Tipo_Proceso_Editorial { get; set; }
         public string? Descripcion { get; set; }
         public string? Estado { get; set; }
-        [OneToMany(TableName = "TblProcesosEditoriales", KeyColumn = "Id_Tipo_Proceso_Editorial", ForeignKeyColumn = "Id_Tipo_Proceso_Editorial")]
+        //[OneToMany(TableName = "TblProcesosEditoriales", KeyColumn = "Id_Tipo_Proceso_Editorial", ForeignKeyColumn = "Id_Tipo_Proceso_Editorial")]
         public List<TblProcesosEditoriales>? TblProcesosEditoriales { get; set; }
     }
 }

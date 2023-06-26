@@ -60,9 +60,9 @@ class EventsView extends HTMLElement {
                 WRender.Create({ tagName: "p", innerText: "Datos adicionales: " + Evento.Datos_Adicionales }),
                 WRender.Create({ tagName: "h5", innerText: "Participantes" }),
                 WRender.Create({
-                    tagName: "InvestigadoresACont", children: Evento.Tbl_Participantes_Proyectos?.map(I => ({
+                    tagName: "InvestigadoresACont", children: Evento.Tbl_Participantes_Eventos?.map(I => ({
                         tagName: 'img',
-                        src: "data:image/png;base64," + I.Tbl_InvestigatorProfile?.Foto
+                        src: "/Media/Image/" + I.Tbl_InvestigatorProfile?.Foto
                     }))
                 }),
             ]

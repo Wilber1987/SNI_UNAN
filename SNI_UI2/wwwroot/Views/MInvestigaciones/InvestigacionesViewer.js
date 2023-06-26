@@ -221,7 +221,7 @@ class InvestigacionesViewer extends HTMLElement {
             const Card = WRender.Create({
                 className: "InvestigadorCard",
                 children: [
-                    { tagName: 'img', src: "data:image/png;base64," + element.Tbl_InvestigatorProfile?.Foto },
+                    { tagName: 'img', src: "/Media/Image/" + element.Tbl_InvestigatorProfile?.Foto },
                     "Autor: ",
                     element.Tbl_InvestigatorProfile?.Nombres + ' ' + element.Tbl_InvestigatorProfile?.Apellidos
                 ]

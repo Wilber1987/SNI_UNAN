@@ -342,7 +342,7 @@ class Tbl_Investigaciones extends EntityClass {
     Referencias = { type: 'text', hiddenInTable: true };
     url_publicacion = { type: 'text', hiddenInTable: true };
     Fecha_ejecucion = { type: 'date' };
-    Photo = { type: 'IMG' };
+    //Photo = { type: 'IMG' };
     Estado = { type: "Select", Dataset: ["Activo", "Inactivo", "Finalizada", "En Proceso"] };
     Fecha_publicacion = { type: 'date' };
     Tbl_Colaboradores = { type: 'MasterDetail', ModelObject: () => new Tbl_Colaboradores() };

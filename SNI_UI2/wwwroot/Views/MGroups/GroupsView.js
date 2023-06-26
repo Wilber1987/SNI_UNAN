@@ -33,12 +33,12 @@ class GroupView extends HTMLElement {
                 WRender.Create({ tagName: "label", innerText: "Tipo: " + group.Cat_TipoGrupo?.Descripcion }),
                 WRender.Create({ tagName: "h5", innerText: "Instituciones" }),
                 WRender.Create({ tagName: "InstitucionesACont", children: group.Tbl_InstitucionesAsociadasGrupos?.map(I => ({ tagName: 'img',
-                 src: I.Cat_instituciones?.Logo })) }),
+                 src: "/Media/Instituciones/"+I.Cat_instituciones?.Logo })) }),
                 WRender.Create({ tagName: "h5", innerText: "Miembros" }),
                 WRender.Create({
                     tagName: "InvestigadoresACont", children: group.Tbl_InvestigadoresAsociados?.map(I => ({
                         tagName: 'img',
-                        src: "data:image/png;base64," + I.Tbl_InvestigatorProfile?.Foto
+                        src: "/Media/Image/" + I.Tbl_InvestigatorProfile?.Foto
                     }))
                 }),
             ]

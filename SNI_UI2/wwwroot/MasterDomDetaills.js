@@ -42,11 +42,11 @@ class MasterDomDetaills extends ComponentsManager {
                     "font-family": '"Poppins", sans-serif' //"system-ui !important"
                 }),new WCssClass(".App", {
                     display: "grid",
-                    "grid-template-columns": "800px 400px",
+                    "grid-template-columns": "1000px 400px",
                     "grid-template-rows": "70px auto ",
                     "grid-gap": 10,
                     "grid-column-gap": 0,
-                    width: 1200,
+                    width: 1400,
                     height: "100vh",
                     "background-color": "#eee",
                     margin: "auto",
@@ -69,7 +69,7 @@ class MasterDomDetaills extends ComponentsManager {
                     "justify-self": "center",
                     padding: "0px 10px",
                     "margin-right": 20,
-                    "margin-bottom": 20,
+                    "margin-bottom":70,
                     width: "calc(100% - 60px)",
                     // "border-radius": "0.3cm",
                     // "box-shadow": "0 2px 2px 0 rgba(0,0,0,0.4)",

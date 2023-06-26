@@ -100,7 +100,7 @@ class TaskManagers extends HTMLElement {
                 {
                     class: "p-participantes", children: task.ProyectoTableParticipantes?.map(I => ({
                         tagName: 'img', className: "img-participantes",
-                        src: I.Tbl_InvestigatorProfile?.Foto
+                        src: "/Media/Image/" + I.Tbl_InvestigatorProfile?.Foto
                     }))
                 }, {
                     class: "card-options", children: [{

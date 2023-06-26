@@ -125,7 +125,7 @@ class ViewProyectsTab extends HTMLElement {
         const response = await WAjaxTools.PostRequest("../../api/Proyect/TakeProyect",
             { Id_Proyecto: Id_Proyecto }
         );
-        const ProyectMap = WRender.Create({}); 
+        const ProyectMap = WRender.Create({});
         const BodyComponents = new ProyectDetailViewer(response, DOMManager);
         //this.appendChild(WRender.createElement(ModalComp(BodyComponents, ProyectMap)));
         DOMManager.NavigateFunction("proyecto"+Id_Proyecto, BodyComponents)

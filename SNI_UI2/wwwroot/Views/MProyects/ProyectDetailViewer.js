@@ -7,9 +7,9 @@ import { ActionFunction } from '../Home.js';
 
 class ProyectDetailViewer extends HTMLElement {
     constructor(response, DOMManager) {
-        super();
+        super();        
         this.DOMManager = DOMManager;
-        this.response = response;
+        this.response = response[0];
         this.ProyectContainer = WRender.createElement({ type: 'div', props: { class: 'ProyectContainer' }, children: [] });
         this.appendChild(WRender.createElement(StylesControlsV1));
         const BtnReturn = WRender.Create({
@@ -41,11 +41,11 @@ class ProyectDetailViewer extends HTMLElement {
                         WRender.CreateStringNode(`<label class="labelDetail">Fecha de Inicio: ${this.response.Fecha_Inicio}</label>`),
                         WRender.CreateStringNode("<h4>Instituciones<hr></h4>"),
                         WRender.CreateStringNode(`<div class="InstitucionesContainer">${
-                            this.response.Cat_Instituciones?.map(x=>{
+                            this.response.Tbl_Instituciones_Asociadas?.map(x=>{
                                 return `<div class="InstitucionDiv">
-                                    <img src="${x.Cat_instituciones?.Logo}"/>
+                                    <img src="/Media/Instituciones/${x.Cat_instituciones?.Logo}"/>
                                     <label>${x.Cat_instituciones?.Nombre}</label>
-                                    <label>${x.Asociacion.Descripcion}</label>
+                                    <label>${x.Cat_Tipo_Asociacion.Descripcion}</label>
                                 </div>`;
                             }).join('')
                         }</div>`)
@@ -55,13 +55,14 @@ class ProyectDetailViewer extends HTMLElement {
         });
         this.ProyectContainer.append(WRender.createElement(Detaills));
         this.ProyectContainer.append(WRender.CreateStringNode("<h4>Participantes<hr></h4>"));
+        console.log(this.response.Tbl_Participantes_Proyectos);
         this.response.Tbl_Participantes_Proyectos?.forEach(element => {
-            element.titulo = `${element.Perfil.Nombres} ${element.Perfil.Apellidos}`;
-            element.picture = element.Perfil.Foto;
-            element.subtitulo = element.Cargo.Descripcion;
+            element.titulo = `${element.Tbl_InvestigatorProfile.Nombres} ${element.Tbl_InvestigatorProfile.Apellidos}`;
+            element.picture = "/Media/Image/" + element.Tbl_InvestigatorProfile.Foto;
+            element.subtitulo = element.Cat_Cargo_Proyecto.Descripcion;
             element.descripcion = "";
         });
-        const Colaboradores = new WCardCarousel(this.response.Participantes);
+        const Colaboradores = new WCardCarousel(this.response.Tbl_Participantes_Proyectos);
         Colaboradores.ActionFunction = (Object) => {
             ActionFunction(Object.Id_Investigador, this.DOMManager);
         }
