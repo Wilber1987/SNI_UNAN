@@ -56,10 +56,11 @@ class Security_Users {
 		}
 	}
 	Id_User = { type: "number", primary: true };
-    Nombres = { type: "text" };
-    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
-    Descripcion = { type: "text" };
+    Nombres = { type: "text" };	
+	Descripcion = { type: "text" , require: false};
 	Mail = { type: "email" };
+    Estado = { type: "Select", Dataset: ["Activo", "Inactivo"] };
+	Password = { type: "password", hiddenInTable: true };    
     Security_Users_Roles = {
         type: "MULTISELECT", Dataset: [{ Descripcion: "Role 1" }]
     };

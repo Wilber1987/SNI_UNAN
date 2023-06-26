@@ -17,7 +17,7 @@ namespace CAPA_NEGOCIO.Security
         {
             if (this.Id_Role == null)
             {
-                this.Id_Role = (Int32?)this.Save();
+                this.Save();
             }
             else
             {
@@ -82,14 +82,19 @@ namespace CAPA_NEGOCIO.Security
                 {
                     role.Security_Role?.GetRolData();
                 }
-            }   
+            }
             return user;
         }
         public object SaveUser()
         {
+            this.Password = EncrypterServices.Encrypt(this.Password);
             if (this.Id_User == null)
             {
-                this.Id_User = (Int32?)this.Save();
+                if (new Security_Users() { Mail = this.Mail }.Exists<Security_Users>())
+                {
+                    throw new Exception("Correo en uso");
+                }
+                this.Save();
             }
             else
             {

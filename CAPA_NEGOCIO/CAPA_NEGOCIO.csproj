@@ -14,4 +14,9 @@
     <ProjectReference Include="..\CAPA_DATOS\CAPA_DATOS.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\Entity\" />
+    <Folder Include="Mapping\Views\" />
+  </ItemGroup>
+
 </Project>

@@ -644,10 +644,10 @@ namespace CAPA_NEGOCIO.MAPEO
         public string? Descripcion { get; set; }
         [OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
         public List<Cat_Localidad>? Cat_Localidad { get; set; }
-        [OneToMany(TableName = "Tbl_Evento", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
-        public List<Tbl_Evento>? Tbl_Evento { get; set; }
-        [OneToMany(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais_Origen")]
-        public List<Tbl_InvestigatorProfile>? Tbl_InvestigatorProfile { get; set; }
+        // [OneToMany(TableName = "Tbl_Evento", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais")]
+        // public List<Tbl_Evento>? Tbl_Evento { get; set; }
+        // [OneToMany(TableName = "Tbl_InvestigatorProfile", KeyColumn = "Id_Pais", ForeignKeyColumn = "Id_Pais_Origen")]
+        // public List<Tbl_InvestigatorProfile>? Tbl_InvestigatorProfile { get; set; }
     }
     public class Cat_TipoLocalidad : EntityClass
     {
@@ -676,8 +676,8 @@ namespace CAPA_NEGOCIO.MAPEO
         public Cat_Paises? Cat_Paises { get; set; }
         [OneToMany(TableName = "Cat_Localidad", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_LocalidadPadre")]
         public List<Cat_Localidad>? Cat_Localidades { get; set; }
-        [OneToMany(TableName = "Tbl_Investigaciones", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_Localidad")]
-        public List<Tbl_Investigaciones>? Tbl_Investigaciones { get; set; }
+        // [OneToMany(TableName = "Tbl_Investigaciones", KeyColumn = "Id_Localidad", ForeignKeyColumn = "Id_Localidad")]
+        // public List<Tbl_Investigaciones>? Tbl_Investigaciones { get; set; }
     }
     public class Cat_instituciones : EntityClass
     {

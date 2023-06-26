@@ -80,6 +80,7 @@ class MainProyect extends HTMLElement {
         const tasksManager = new TaskManagers(tasks);
         const filterOptions = new WFilterOptions({
             Dataset: tasks,
+            ModelObject: new ProyectoTableTareas(),
             //DisplayFilts: [],
             FilterFunction: (DFilt) => {
                 tasksManager.DrawTaskManagers(DFilt);

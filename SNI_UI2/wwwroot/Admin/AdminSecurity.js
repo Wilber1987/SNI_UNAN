@@ -6,8 +6,8 @@ import { StylesControlsV2 } from "../WDevCore/StyleModules/WStyleComponents.js";
 import { Security_Permissions, Security_Roles, Security_Users } from "../Model/SecurityModel.js";
 window.addEventListener("load", async () => {
     const DOMManager = new ComponentsManager({ MainContainer: Main });
-    const Roles = await WAjaxTools.PostRequest("../api/Admin/TakeSecurity_Roles", {});
-    const Permisos = await WAjaxTools.PostRequest("../api/Admin/TakeSecurity_Permissions", {});
+    const Roles = await WAjaxTools.PostRequest("../api/ApiEntitySECURITY/getSecurity_Roles", {});
+    const Permisos = await WAjaxTools.PostRequest("../api/ApiEntitySECURITY/getSecurity_Permissions", {});
     Main.append(WRender.createElement(StylesControlsV2));
     Aside.append(WRender.Create({tagName: "h3", innerText: "Mantenimiento de Usuarios"}));
     Aside.append(new WAppNavigator({
@@ -28,14 +28,25 @@ function ElementTab(TabName = "Tab", DOMManager, Model) {
     return {
         name: TabName, url: "#",
         action: async (ev) => {
-            const response = await WAjaxTools.PostRequest("../api/Admin/Take" + Model.constructor.name, {});
+            let response = await WAjaxTools.PostRequest("../api/ApiEntitySECURITY/get" + Model.constructor.name, {});
+            if (TabName == "Usuarios") {
+                response = response.map(u => {
+                    u.Security_Users_Roles = u.Security_Users_Roles?.map(r => r.Security_Role);
+                    return u;
+                })
+            } else if (TabName == "Roles") {
+                response = response.map(r => {
+                    r.Security_Permissions_Roles = r.Security_Permissions_Roles?.map(p => p.Security_Permissions);
+                    return r;
+                })
+            }
             DOMManager.NavigateFunction(Model.constructor.name, new WTableComponent({
                 Dataset: response,
                 ModelObject: Model,
                 Options: {
-                    Add: true, UrlAdd: "../api/Admin/Save" + Model.constructor.name,
-                    Edit: true, UrlUpdate: "../api/Admin/Save" + Model.constructor.name,
-                    Search: true, UrlSearch: "../api/Admin/Take" + Model.constructor.name,
+                    Add: TabName != "Permisos", UrlAdd: "../api/ApiEntitySECURITY/save" + Model.constructor.name,
+                    Edit: TabName != "Permisos", UrlUpdate: "../api/ApiEntitySECURITY/save" + Model.constructor.name,
+                    Search: true, UrlSearch: "../api/ApiEntitySECURITY/get" + Model.constructor.name,
                 }
             }));
         }

@@ -35,11 +35,10 @@ class HomeView extends HTMLElement {
         this.append(     
             WRender.CreateStringNode("<h2>Videos</h2>"),
             new HomeMosaicVideos(),      
-            //WRender.CreateStringNode("<h2>Categorias</h2>"),
-            //CarroselDivHomeLastAd,            
+            WRender.CreateStringNode("<h2>Categorias</h2>"),
+            CarroselDivHomeLastAd,            
             WRender.CreateStringNode("<h2>Servicios</h2>"),
-            DivHomeServicios,
-            
+            DivHomeServicios,            
             WRender.CreateStringNode("<h2>Equipo</h2>"),
             this.CarruselEquipo,
             DivFooter

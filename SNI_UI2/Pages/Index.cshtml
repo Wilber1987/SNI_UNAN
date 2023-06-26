@@ -1,5 +1,6 @@
 ﻿@page
-@using SNI_UI2.Controllers
+@using SNI_UI2.Controllers;
+@using CAPA_NEGOCIO.Security;
 @{
     Layout = null;
     if (!SecurityController.Auth())
@@ -7,7 +8,7 @@
         Response.Redirect("./Security/Login");
         return;
     }
-    if (!SecurityController.HavePermission("HOME_ACCESS"))
+    if (!SecurityController.HavePermission(PermissionsEnum.HOME_ACCESS.ToString()))
     {
         Response.Redirect("./Security/permission_error");
         return;
@@ -16,12 +17,22 @@
 }
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./App.js" type="module"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body id="App">
+    @if (SecurityController.IsAdmin())
+    {
+        <header id="Header" class="admin-header">
+            <a href="~/Admin/Index">Admin Panel</a>
+        </header>
+    }
 </body>
+
 </html>
