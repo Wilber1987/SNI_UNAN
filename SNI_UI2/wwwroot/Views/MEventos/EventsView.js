@@ -13,7 +13,7 @@ class EventsView extends HTMLElement {
         this.DOMManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.shadowRoot.append(
             this.Style,
-            WRender.createElement(StylesControlsV2),
+           StylesControlsV2.cloneNode(true),
             this.EventsNav,
             this.TabContainer
         );

@@ -1,11 +1,11 @@
 :root {
-    --primary-color: rgb(1, 19, 63);
-    --secundary-color: rgb(57, 28, 77);
-    --tertiary-color: rgb(195, 195, 195);
-    --fourth-color: rgb(255, 255, 255);
-    --font: arial;
+    --primary-color: rgb(9, 68, 108);
+    --secundary-color: rgb(255, 255, 255);
+    --tertiary-color: rgba(0, 0, 0, 0);
+    --fourth-color: rgba(255, 255, 255, 0.9);;
+    --font: "Open Sans", sans-serif;
     --font-primary-color: #ffffff;
     --font-secundary-color: #ffffff;
-    --font-tertiary-color: #3d3b3b;
-    --font-fourth-color: #2c2c2c;
+    --font-tertiary-color: rgb(0, 191, 165);
+    --font-fourth-color: #595959;
 }

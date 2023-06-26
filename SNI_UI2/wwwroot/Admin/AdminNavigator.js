@@ -17,7 +17,7 @@ window.addEventListener("load", async () => {
         });
         Aside.append(WRender.Create({ tagName: "h3", innerText: "Mantenimiento de Catalogos" }));
         Aside.append(new WAppNavigator({
-            DarkMode: true,
+           
             Direction: "column",
             Elements: [{
                 name: "Mantenimiento General", SubNav: {

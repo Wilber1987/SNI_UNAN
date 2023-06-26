@@ -6,19 +6,91 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] SNI ADMIN</title>
-    <link rel="stylesheet" href="~/css/AdminTemplate.css" /> 
+    <link rel="stylesheet" href="~/css/AdminTemplate.css" />
+    <script type="module">
+        import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
+        const logout = () => {
+            WSecurity.LogOut();
+        }
+        window.addEventListener("load", () => {
+            //active nav
+            if (location.href.includes("Datos_ConfiguracionView")) {
+                Datos_ConfiguracionView.className = "active";
+            } else if (location.href.includes("Transaction_Valoraciones_View")) {
+                Transaction_Valoraciones_View.className = "active";
+            } else if (location.href.includes("Transaction_Contratos_InversionistasView")) {
+                Transaction_Contratos_InversionistasView.className = "active";
+            } else if (location.href.includes("Transaction_ContratosView")) {
+                Transaction_ContratosView.className = "active";
+            } else if (location.href.includes("Transaction_FacturasView")) {
+                Transaction_FacturasView.className = "active";
+            } else if (location.href.includes("Transaction_Ingresos_EgresosView")) {
+                Transaction_Ingresos_EgresosView.className = "active";
+            } else if (location.href.includes("Gestion_Clientes")) {
+                Gestion_Clientes.className = "active";
+            } else if (location.href.includes("Gestion_Inversionistas")) {
+                Gestion_Inversionistas.className = "active";
+            } else {
+                Home.className = "active";
+            }
+            //logOut
+            btnLogOut.onclick = logout;
+        })
+    </script>
 </head>
-<body id="AdminTemplate">    
-    <header id="Header">
-    </header> 
+
+<body id="AdminTemplate">
     <aside id="Aside">
+        <nav>
+            <div class="logo-container">
+                <img src="">
+            </div>
+            <h3>TRANSACCIONES</h3>
+            <a class="" id="Home" asp-area="" asp-page="/">HOME</a>
+        </nav>
     </aside>
+
+    <header id="Header" class="admin-header">
+        <div class="title-container">
+            <label for="" class="title">SNI</label>
+            <label for="" class="sub-title">Sistema Nacional de Investigadores</label>
+        </div>
+
+        @if (SecurityController.IsAdmin())
+        {
+            <a href="~/Admin/Index">Admin Panel</a>
+        }
+        <a href="~/Perfil/PerfilView">Perfil</a>
+        <a href="#" id="btnLogOut">Cerrar Sesión</a>
+    </header>
+    <div class="background"></div>
+
     <div id="MainContainer">
         <main role="main" id="Main">
             @RenderBody()
         </main>
     </div>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        if (sessionStorage.getItem("menu_active") == null) {
+            sessionStorage.setItem("menu_active", "PrestamosClientesMenu")
+        }
+        const changeActive = (target) => {
+            if (target.className.includes("active-title")) {
+                target.className = target.className.replace("active-title", "")
+                sessionStorage.removeItem("menu_active")
+            }
+            else {
+                target.className = target.className + ' active-title';
+                sessionStorage.setItem("menu_active", target.id);
+            }
+        }
+        const menuActive = document.querySelector("#" + sessionStorage.getItem("menu_active"));
+        if (menuActive) {
+            changeActive(menuActive)
+        }
+
+    </script>
 </body>
 
 </html>

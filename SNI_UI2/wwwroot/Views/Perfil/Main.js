@@ -11,7 +11,7 @@ Aside.append(WRender.createElement({
         Inicialize: false,
         alignItems: "flex-end",
         DisplayMode: "right",
-        DarkMode: true,
+       
         Direction: "column",
         Elements: [
             {

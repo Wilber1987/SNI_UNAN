@@ -12,7 +12,7 @@ class AgendaView extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.className = "HomeView DivContainer";
-        this.shadowRoot.append(this.WStyle, WRender.createElement(StylesControlsV2));
+        this.shadowRoot.append(this.WStyle,StylesControlsV2.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.DrawAgendaView(); 

@@ -12,7 +12,7 @@ class HomeView extends HTMLElement {
         super();
         this.id = "HomeView";
         this.className = "HomeView DivContainer";
-        this.append(this.WStyle, WRender.createElement(StylesControlsV2));
+        this.append(this.WStyle,StylesControlsV2.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({

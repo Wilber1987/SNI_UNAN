@@ -14,29 +14,7 @@
     import { WCssClass } from '../WDevCore/WModules/WStyledRender.js';
     import { WSecurity } from "../WDevCore/WModules/WSecurity.js";
     import { StyleScrolls } from "../WDevCore/StyleModules/WStyleComponents.js";
-    import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";
-    Header.append(new WAppNavigator({
-        Inicialize: false,
-        DisplayMode: "right",
-        Elements: [
-            {
-                name: "Home", url: "#",
-                action: async (ev) => {
-                    window.location = location.origin + "/";
-                }
-            }, {
-                name: "Perfil", url: "#",
-                action: (ev) => {
-                    window.location = location.origin + "/Perfil/PerfilView";
-                }
-            }, {
-                name: "Cerrar Sesión", url: "#",
-                action: (ev) => {
-                    WSecurity.LogOut();
-                }
-            }
-        ]
-    }));
+    import { WAppNavigator } from "../WDevCore/WComponents/WAppNavigator.js";  
     AdminTemplate.append(WRender.createElement(StyleScrolls));
 </script>
 @if (SecurityController.HavePermission(PermissionsEnum.ADMINISTRAR_POSTULANTES.ToString()))

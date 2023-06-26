@@ -15,7 +15,7 @@ class HomeView extends HTMLElement {
     constructor() {
         super();
         this.className = "HomeView DivContainer";
-        this.append(this.WStyle, WRender.createElement(StylesControlsV2));
+        this.append(this.WStyle,StylesControlsV2.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.Divs = WRender.CreateStringNode(`<div>
             <div class="FormContainer">

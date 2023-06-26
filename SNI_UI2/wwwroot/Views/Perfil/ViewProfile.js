@@ -27,7 +27,7 @@ class PerfilClass extends HTMLElement {
         this.Id_Investigador = 1;
         this.id = "PerfilClass";
         this.className = "PerfilClass DivContainer";
-        this.append(this.WStyle, WRender.createElement(StylesControlsV2));
+        this.append(this.WStyle,StylesControlsV2.cloneNode(true));
         this.TabContainer = WRender.createElement({ type: 'div', props: { class: 'TabContainer', id: "TabContainer" } });
         this.TabManager = new ComponentsManager({ MainContainer: this.TabContainer });
         this.OptionContainer = WRender.Create({ className: "OptionContainer" });
@@ -72,7 +72,7 @@ class PerfilClass extends HTMLElement {
         //NavStyle: "tab",
         Direction: "column",
         Inicialize: true,
-        DarkMode: true,
+       
         Elements: [
             {
                 name: "Datos Generales",

@@ -11,7 +11,7 @@ window.addEventListener("load", async () => {
     Main.append(WRender.createElement(StylesControlsV2));
     Aside.append(WRender.Create({tagName: "h3", innerText: "Mantenimiento de Usuarios"}));
     Aside.append(new WAppNavigator({
-        DarkMode: true,
+       
         Direction: "column",
         Elements: [
             ElementTab("Roles", DOMManager, new Security_Roles({
